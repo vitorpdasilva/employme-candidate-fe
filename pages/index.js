@@ -1,8 +1,18 @@
+import { useEffect, useState } from 'react';
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import Card from '../components/Card';
 
 export default function Home() {
+  const [jobList, setJobList] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetch('/api/jobs').then(data => data.json());
+      console.log(data);
+      setJobList(data);
+    }
+    fetchData();
+  }, []);
   return (
     <div className={styles.container}>
       <Head>
@@ -17,21 +27,22 @@ export default function Home() {
         </h1>
 
         <div className={styles.grid}>
-          <Card href="https://nextjs.org/docs">
-            <h2>Software Engineer (Remote only) &rarr;</h2>
-            <ul style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <li>Vancouver - Canada</li>
-              <li>Relocation Only (Sponsored Visa)</li>
-              <li>$80,000 up to $100,000 CAD/Annual</li>
-            </ul>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-              Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-              when an unknown printer took a galley
-            </p>
-            <div>
-              <span>Javascript 3 yrs</span>
-            </div>
-          </Card>
+          {jobList.map(({ description, location, locationType, createdAt, recent, salary, title, tags, id }) => (
+            <Card key={id} href={`/job/${id}`}>
+              <h2>{title} &rarr;</h2>
+              <ul style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <li>{location}</li>
+                <li>{locationType}</li>
+                <li>${salary.from} up to ${salary.to} {salary.currency}/{salary.period}</li>
+              </ul>
+              <p>
+                {description}
+              </p>
+              <div>
+                {tags.map(tag => <span>{tag}</span>)}
+              </div>
+            </Card>
+          ))}
         </div>
       </main>
 

@@ -10,7 +10,6 @@ const OAUTH_CLIENT_ID = '492476132258-0q398eovgf4m37gal1t3vgm6ohnf49q4.apps.goog
 const SignIn = () => {
   const { dispatch } = useContext(Context);
   const onSuccess = async googleUser => {
-    console.log('here?');
     try {
       const { id_token } = googleUser.getAuthResponse();
       const client = new GraphQLClient(BASE_URL, {
