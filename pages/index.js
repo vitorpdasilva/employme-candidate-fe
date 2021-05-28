@@ -8,8 +8,6 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetch('/api/jobs').then(data => data.json());
-      const test = await fetch('/api/job/0').then(data => data.json());
-      console.log({ test });
       setJobList(data);
     }
     fetchData();

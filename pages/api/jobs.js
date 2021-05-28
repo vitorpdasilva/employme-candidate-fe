@@ -1,6 +1,6 @@
 export const jobList = [
   {
-    id: 1,
+    id: 0,
     recent: true,
     createdAt: new Date().getTime() / 1000, // epoch
     title: 'Software Developer',
@@ -16,7 +16,7 @@ export const jobList = [
     tags: ['java', 'react', 'javascript'],
   },
   {
-    id: 2,
+    id: 1,
     recent: false,
     createdAt: new Date().getTime() / 1000, // epoch
     title: 'Software Engineer',
