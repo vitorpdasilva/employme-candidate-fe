@@ -13,6 +13,7 @@ const JobPostPage = () => {
     fetchData();
   }, []);
   console.log({ jobInfo });
+  if (!jobInfo) return <span>Loading...</span>;
   return (
     <div>
       <h1>{jobInfo.title}</h1>
@@ -22,6 +23,7 @@ const JobPostPage = () => {
         <li>{jobInfo.salary.from} up to {jobInfo.salary.to} {jobInfo.salary.currency}/{jobInfo.salary.period}</li>
       </ul>
       <p>{jobInfo.description}</p>
+      <button>Apply for this position</button>
     </div>
 
   )
