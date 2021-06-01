@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import Card from '../components/Card';
+import Tag from '../components/TagNew';
 
 export default function Home() {
   const [jobList, setJobList] = useState([]);
@@ -28,6 +29,7 @@ export default function Home() {
         <div className={styles.grid}>
           {jobList.map(({ description, location, locationType, createdAt, recent, salary, title, tags, id }) => (
             <Card key={id} href={`/job/${id}`}>
+              <Tag />
               <h2>{title} &rarr;</h2>
               <ul style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <li>{location}</li>
