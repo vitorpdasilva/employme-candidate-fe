@@ -4,7 +4,7 @@ import distanceFromNow from '../../helpers/distanceFromNow';
 
 const JobCardHeadline = ({ recent, createdAt }) => (
   <Headline>
-    {recent && <Tag />}
+    {recent && <span><Tag /></span>}
     <small>{distanceFromNow(createdAt)}</small>
   </Headline>
 );
