@@ -2,9 +2,13 @@ export const jobList = [
   {
     id: 0,
     recent: true,
-    createdAt: new Date().getTime() / 1000, // epoch
+    createdAt: 1624303160 * 1000, // epoch
     title: 'Software Developer',
-    location: 'Vancouver - Canada',
+    location: {
+      city: 'Vancouver',
+      country: 'Canada',
+      province: 'BC',
+    },
     locationType: 'Relocation Only (Sponsored Visa)',
     salary: {
       from: '80000',
@@ -18,9 +22,13 @@ export const jobList = [
   {
     id: 1,
     recent: false,
-    createdAt: new Date().getTime() / 1000, // epoch
+    createdAt: 1624303160 * 1000, // epoch
     title: 'Software Engineer',
-    location: 'Vancouver - Canada',
+    location: {
+      city: 'Vancouver',
+      country: 'Canada',
+      province: 'BC',
+    },
     locationType: 'Relocation Only (Sponsored Visa)',
     salary: {
       from: '60000',
