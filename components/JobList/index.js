@@ -1,9 +1,9 @@
 import ReactCountryFlag from "react-country-flag";
-import { formatDistanceToNow } from 'date-fns';
 import { FaPlaneDeparture, FaDollarSign } from 'react-icons/fa';
 import JobListGrid from './style';
 import Card from '../Card';
 import Tag from '../TagNew';
+import distanceFromNow from '../../helpers/distanceFromNow';
 
 import { countriesList } from '../../countriesList';
 
@@ -11,7 +11,7 @@ const JobList = ({ jobList }) => (
   <JobListGrid>
     {jobList.map(({ description, location, locationType, createdAt, recent, salary, title, tags, id }) => (
       <Card key={id} href={`/job/${id}`}>
-        <small>Posted {formatDistanceToNow(new Date(createdAt))} ago</small>
+        <small>{distanceFromNow(createdAt)}</small>
         {recent && <Tag />}
         <h2>{title} &rarr;</h2>
         <ul style={{ display: 'flex', justifyContent: 'space-between' }}>
