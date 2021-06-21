@@ -7,11 +7,6 @@ const JobListGrid = styled.div`
   flex-wrap: wrap;
   max-width: 800px;
   margin-top: 3rem;
-  ul {
-    list-style:none;
-    padding: 0;
-    margin: 0;
-  }
 `;
 
 export default JobListGrid;

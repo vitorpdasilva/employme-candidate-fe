@@ -1,9 +1,15 @@
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
+import ReactCountryFlag from "react-country-flag";
+import { FaPlaneDeparture, FaDollarSign } from 'react-icons/fa';
 import distanceFromNow from '../../helpers/distanceFromNow';
 import { useRouter } from 'next/router';
 import Tag from '../../components/TagNew';
-import JobCardMain, { HeadLine } from './style';
+import JobPoints from '../../components/jobPoints';
+import JobCardHeadline from '../../components/JobCardHeadline';
+import { JobPageWrapper, JobCardMain } from './style';
+
+import { countriesList } from '../../countriesList';
 
 const JobPostPage = () => {
   const router = useRouter();
@@ -34,21 +40,28 @@ const JobPostPage = () => {
         <meta name="description" content={title} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <JobCardMain>
-        <HeadLine>
-          {recent && <Tag />}
-          <small>{distanceFromNow(createdAt)}</small>
-        </HeadLine>
-        <h1>{title}</h1>
-        <ul>
-          <li>{location.city} - {location.country}</li>
-          <li>{locationType}</li>
-          <li>{salary.from} up to {salary.to} {salary.currency}/{salary.period}</li>
-        </ul>
-        <p>{description}</p>
-        <button>Apply for this position</button>
-      </JobCardMain>
+      <JobPageWrapper>
+        <JobCardMain>
+          <JobCardHeadline recent={recent} createdAt={createdAt} />
+          <h1>{title}</h1>
+          <JobPoints style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <li>
+              <ReactCountryFlag 
+                countryCode={countriesList.find(country => country.name === location.country).code}
+                aria-label={countriesList.find(country => country.name === location.country).code}
+                svg
+                style={{ marginRight: 10 }}
+              />
+              {location.city} - {location.country}
+            </li>
+            <li><FaPlaneDeparture /> {locationType}</li>
+            <li><FaDollarSign /> ${salary.from} up to ${salary.to} {salary.currency}/{salary.period}</li>
+          </JobPoints>
+          <p>{description}</p>
+          <button>Apply for this position</button>
+        </JobCardMain>
+        <div>Right Column</div>
+      </JobPageWrapper>
     </>
   )
 }
