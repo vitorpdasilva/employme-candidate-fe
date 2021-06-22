@@ -5,8 +5,7 @@ import JobListGrid from './style';
 import Card from '../Card';
 import JobPoints from '../../components/jobPoints';
 import JobCardHeadline from '../../components/JobCardHeadline';
-
-import { countriesList } from '../../countriesList';
+import { countriesList } from '../../constants';
 
 const JobList = ({ jobList }) => (
   <JobListGrid>

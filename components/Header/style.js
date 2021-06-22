@@ -12,7 +12,8 @@ const StyledHeader = styled.header`
     display: flex;
     align-items: center;
     height: 100%;
-    max-width: 1024px;
+    max-width: 1280px;
+    padding: 0 20px;
     ul {
       list-style: none;
       display: flex;

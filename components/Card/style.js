@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { colors } from '../../styles/theme';
 
 const StyledCard = styled.div`
-  margin: 1rem;
   padding: 1.5rem;
   text-align: left;
   color: inherit;
@@ -12,6 +11,7 @@ const StyledCard = styled.div`
   transition: color 0.15s ease, border-color 0.15s ease;
   width: 100%;
   cursor: pointer;
+  margin-bottom: 20px;
   &:hover,
   &:focus,
   &:active {

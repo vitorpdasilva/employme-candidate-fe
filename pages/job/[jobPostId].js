@@ -8,8 +8,7 @@ import JobPoints from '../../components/jobPoints';
 import JobCardHeadline from '../../components/JobCardHeadline';
 import Button from '../../components/Button';
 import { JobPageWrapper, JobCardMain } from './style';
-
-import { countriesList } from '../../countriesList';
+import { countriesList } from '../../constants';
 
 const JobPostPage = () => {
   const router = useRouter();
