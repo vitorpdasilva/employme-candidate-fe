@@ -2,11 +2,10 @@ import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import ReactCountryFlag from "react-country-flag";
 import { FaPlaneDeparture, FaDollarSign } from 'react-icons/fa';
-import distanceFromNow from '../../helpers/distanceFromNow';
 import { useRouter } from 'next/router';
-import Tag from '../../components/TagNew';
 import JobPoints from '../../components/jobPoints';
 import JobCardHeadline from '../../components/JobCardHeadline';
+import Button from '../../components/Button';
 import { JobPageWrapper, JobCardMain } from './style';
 
 import { countriesList } from '../../countriesList';
@@ -58,7 +57,7 @@ const JobPostPage = () => {
             <li><FaDollarSign /> ${salary.from} up to ${salary.to} {salary.currency}/{salary.period}</li>
           </JobPoints>
           <p>{description}</p>
-          <button>Apply for this position</button>
+          <Button>Apply for this position</Button>
         </JobCardMain>
         <div>Right Column</div>
       </JobPageWrapper>
