@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import parse from 'html-react-parser';
 import Head from 'next/head';
 import ReactCountryFlag from "react-country-flag";
 import { FaPlaneDeparture, FaDollarSign } from 'react-icons/fa';
@@ -33,7 +34,6 @@ const JobPostPage = () => {
   const { title, location, locationType, salary, recent, tags, id, description, createdAt } = jobInfo;
   return (
     <>
-      {console.log({ jobInfo })}
       <Head>
         <title>Employ Me - {title}</title>
         <meta name="description" content={title} />
@@ -56,7 +56,7 @@ const JobPostPage = () => {
             <li><FaPlaneDeparture /> {locationType}</li>
             <li><FaDollarSign /> ${salary.from} up to ${salary.to} {salary.currency}/{salary.period}</li>
           </JobPoints>
-          <p>{description}</p>
+          {parse(description)}
           <Button>Apply for this position</Button>
         </JobCardMain>
         <div>Right Column</div>

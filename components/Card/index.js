@@ -1,12 +1,12 @@
 import Link from 'next/link';
-import styles from '../styles/layout.module.css'
+import StyledCard from './style';
 
 const Card = ({ href, children }) => {
   return (
     <Link href={href}>
-      <a className={styles.card}>
+      <StyledCard>
         {children}
-      </a>
+      </StyledCard>
     </Link>
   );
 }

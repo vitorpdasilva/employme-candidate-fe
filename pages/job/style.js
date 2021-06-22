@@ -18,9 +18,11 @@ const HeadLine = styled.div`
 
 const JobPageWrapper = styled.div`
   display: flex;
-  max-width: 1024px;
+  width: 100%;
+  max-width: 1280px;
   margin: 30px auto;
   justify-content: space-between;
+  padding: 0 20px;
   > div {
     max-width: 750px;
     min-width: 250px;

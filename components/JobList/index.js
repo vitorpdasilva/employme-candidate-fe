@@ -1,4 +1,5 @@
 import ReactCountryFlag from "react-country-flag";
+import parse from 'html-react-parser';
 import { FaPlaneDeparture, FaDollarSign } from 'react-icons/fa';
 import JobListGrid from './style';
 import Card from '../Card';
@@ -26,9 +27,7 @@ const JobList = ({ jobList }) => (
           <li><FaPlaneDeparture /> {locationType}</li>
           <li><FaDollarSign /> ${salary.from} up to ${salary.to} {salary.currency}/{salary.period}</li>
         </JobPoints>
-        <p>
-          {description}
-        </p>
+        {parse(description)}
         <div>
           {tags.map(tag => <span key={tag}>{tag}</span>)}
         </div>
