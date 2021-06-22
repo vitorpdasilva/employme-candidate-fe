@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
-import Head from 'next/head'
+import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import JobList from '../components/JobList';
 
 export default function Home() {
+  
   const [jobList, setJobList] = useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetch('/api/jobs').then(data => data.json());
@@ -22,7 +24,7 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Employ Me!</a>
+          Welcome to <a href="#">Employ Me!</a>
         </h1>
         <JobList jobList={jobList} />
       </main>

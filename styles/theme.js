@@ -5,5 +5,8 @@ export const colors = {
   },
   white: {
     default: '#fff',
+  },
+  gray: {
+    default: '#ccc',
   }
 }
