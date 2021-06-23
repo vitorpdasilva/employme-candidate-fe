@@ -12,6 +12,7 @@ const StyledCard = styled.div`
   width: 100%;
   cursor: pointer;
   margin-bottom: 20px;
+  background: ${colors.white.default};
   &:hover,
   &:focus,
   &:active {

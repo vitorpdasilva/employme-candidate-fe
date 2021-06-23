@@ -8,6 +8,7 @@ const SearchJobBarStyled = styled.section`
   padding: 15px;
   border-radius: 10px;
   box-shadow: rgb(0 0 0 / 10%) 0px 2px 21px 0px;
+  background: ${colors.white.default};
   form {
     display: flex;
     align-items: center;

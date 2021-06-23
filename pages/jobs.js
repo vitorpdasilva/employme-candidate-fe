@@ -14,7 +14,7 @@ const Dashboard = () => {
   }, []);
   
   return (
-    <div style={{ width: '100%', maxWidth: 1280, padding: '0 20px' }}>
+    <div style={{ width: '100%' }}>
       <SearchJobBar />
       <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', maxWidth: 1280 }}>
         <JobList jobList={jobList} />

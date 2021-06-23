@@ -1,15 +1,23 @@
 import '../styles/globals.css'
 import Header from '../components/Header';
-import styles from '../styles/layout.module.css';
 import 'semantic-ui-css/semantic.min.css'
 
 function MyApp({ Component, pageProps }) {
   return (
     <>
       <Header />
-      <main className={styles.main}>
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        width: '100%',
+        maxWidth: 1280,
+        flexDirection: 'column',
+        alignItems: 'center',
+        margin: '0 auto',
+        padding: '0 20px',
+      }}>
         <Component {...pageProps} />
-      </main>
+      </div>
       <footer>footer</footer>
     </>
   )
