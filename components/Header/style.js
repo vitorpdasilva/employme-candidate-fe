@@ -18,6 +18,7 @@ const StyledHeader = styled.header`
       list-style: none;
       display: flex;
       height: 100%;
+      margin-right: auto;
       li:not(:last-of-type) {
         margin-right: 25px;
       }
@@ -33,6 +34,9 @@ const StyledHeader = styled.header`
         }
       }
       li:hover, li.active {
+        a {
+          font-weight: 600;
+        }
         &:after {
           width: 100%;
           height: 4px;
@@ -45,6 +49,9 @@ const StyledHeader = styled.header`
         border-color: ${colors.blue.default}
       }
     }
+  }
+  a {
+    color: black;
   }
 `;
 
