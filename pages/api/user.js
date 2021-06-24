@@ -1,7 +1,7 @@
 const userData = {
   general: {
     citizenship_code: 'BR',
-    gender: 'male',
+    gender: 'female',
     currentLocation: 'BR',
     phone: '123 456 7890',
   },

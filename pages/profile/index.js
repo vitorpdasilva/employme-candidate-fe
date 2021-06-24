@@ -16,7 +16,11 @@ const Profile = () => {
     fetchUserData();
   }, []);
   
-  if (!userData) <>Loading...</>;
+  if (!userData) {
+    console.log('no data yet');
+    return <>loading...</>
+  };
+  
   return (
     <>
       <div style={{ position: 'relative' }}>
