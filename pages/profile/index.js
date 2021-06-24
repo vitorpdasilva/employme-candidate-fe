@@ -2,6 +2,7 @@ import { Image, Icon } from 'semantic-ui-react';
 
 import GeneralProfileSection from './GeneralProfileSection';
 import ProfessionalProfileSection from './ProfessionalProfileSection';
+import RelocationProfileSection from './RelocationProfileSection';
 
 const Profile = () => {
   return (
@@ -12,6 +13,7 @@ const Profile = () => {
       </div>
       <GeneralProfileSection />
       <ProfessionalProfileSection />
+      <RelocationProfileSection />
     </>
   );
 };

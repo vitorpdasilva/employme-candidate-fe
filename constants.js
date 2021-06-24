@@ -242,7 +242,7 @@ export const countriesList = [
   { name: "Yemen", code: "YE"},
   { name: "Zambia", code: "ZM"},
   { name: "Zimbabwe", code: "ZW"}
-]
+];
 
 export const professionList = [
   { text: "Backend Engineer", value: 1 },
@@ -283,4 +283,21 @@ export const professionList = [
   { text: "Chief Technology Officer (CTO)", value: 36 },
   { text: "Other", value: 37 },
   { text: "Solutions Architect", value: 38 },
-]
+];
+
+export const skillList = [
+  { text: "javascript", value: 132 },
+  { text: "html", value: 195 },
+  { text: "sql", value: 103 },
+  { text: "java", value: 5096 },
+  { text: "css", value: 260 },
+  { text: "python", value: 133 },
+  { text: "git", value: 5099 },
+  { text: "react.js", value: 976 },
+  { text: "node.js", value: 344 },
+  { text: "c#", value: 5025 },
+  { text: "ruby", value: 5395 },
+  { text: "angular", value: 5195 },
+  { text: "webpack", value: 5495 },
+  { text: "GoLang", value: 5095 },
+];
