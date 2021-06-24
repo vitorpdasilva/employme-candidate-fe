@@ -26,25 +26,25 @@ const RelocationProfileSection = () => (
           <aside>
             <label>Annual salary expectation CAD</label>
             <select>
-              <option>70k - 80k</option>
-              <option>81k - 90k</option>
-              <option>91k - 100k</option>
-              <option>101k - 110k</option>
-              <option>111k - 120k</option>
-              <option>120k+</option>
+            <option value="0">70k - 80k</option>
+              <option value="1">81k - 90k</option>
+              <option value="2">91k - 100k</option>
+              <option value="3">101k - 110k</option>
+              <option value="4">111k - 120k</option>
+              <option value="5">120k+</option>
             </select>
           </aside>
           <aside>
             <label>Canadian visa status</label>
             <select>
-              <option>No visa</option>
-              <option>Visitor</option>
-              <option>Study Permit</option>
-              <option>ETA</option>
-              <option>Open Work Permit</option>
-              <option>Closed Work Permit</option>
-              <option>Permanent Resident</option>
-              <option>Citizen</option>
+              <option value="0">No visa</option>
+              <option value="1">Visitor</option>
+              <option value="2">Study Permit</option>
+              <option value="3">ETA</option>
+              <option value="4">Open Work Permit</option>
+              <option value="5">Closed Work Permit</option>
+              <option value="6">Permanent Resident</option>
+              <option value="7">Citizen</option>
             </select>
           </aside>
         </section>
@@ -52,12 +52,12 @@ const RelocationProfileSection = () => (
           <aside>
             <label>Annual remote salary expectation (USD)</label>
             <select>
-              <option>70k - 80k</option>
-              <option>81k - 90k</option>
-              <option>91k - 100k</option>
-              <option>101k - 110k</option>
-              <option>111k - 120k</option>
-              <option>120k+</option>
+              <option value="0">70k - 80k</option>
+              <option value="1">81k - 90k</option>
+              <option value="2">91k - 100k</option>
+              <option value="3">101k - 110k</option>
+              <option value="4">111k - 120k</option>
+              <option value="5">120k+</option>
             </select>
           </aside>
         </section>
