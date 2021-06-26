@@ -4,6 +4,7 @@ import { Image, Icon } from 'semantic-ui-react';
 import GeneralProfileSection from './GeneralProfileSection';
 import ProfessionalProfileSection from './ProfessionalProfileSection';
 import RelocationProfileSection from './RelocationProfileSection';
+import SocialSection from './SocialSection';
 
 const Profile = () => {
   const [userData, setUserData] = useState(null);
@@ -30,6 +31,7 @@ const Profile = () => {
       <GeneralProfileSection data={userData} />
       <ProfessionalProfileSection data={userData} />
       <RelocationProfileSection data={userData} />
+      <SocialSection />
     </>
   );
 };
