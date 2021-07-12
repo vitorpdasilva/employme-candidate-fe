@@ -31,7 +31,7 @@ const Profile = () => {
       <GeneralProfileSection data={userData} />
       <ProfessionalProfileSection data={userData} />
       <RelocationProfileSection data={userData} />
-      <SocialSection />
+      <SocialSection data={userData} />
     </>
   );
 };
