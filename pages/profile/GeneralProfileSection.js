@@ -10,14 +10,13 @@ const GeneralProfileSection = ({ data }) => {
         <ul>
           <li>
             <label>Citizenship</label>
-            <select>
-              <option value="" disabled selected>Country</option>
+            <select
+              defaultValue={citizenship_code}
+              onChange={() => console.log('change')}
+            >
+              <option value="" disabled>Country</option>
               {countriesList.map(({ name, code }) => (
-                <option
-                  selected={citizenship_code === code}
-                  key={code}
-                  value={code}
-                >
+                <option key={code} value={code}>
                   {name}
                 </option>
               ))}
@@ -25,14 +24,13 @@ const GeneralProfileSection = ({ data }) => {
           </li>
           <li>
             <label>Current Location</label>
-            <select>
-              <option value="" disabled selected>Country</option>
+            <select
+              defaultValue={currentLocation}
+              onChange={() => console.log('change')}
+            >
+              <option value="" disabled>Country</option>
               {countriesList.map(({ name, code }) => (
-                <option
-                  selected={currentLocation === code}
-                  key={code}
-                  value={code}
-                >
+                <option key={code} value={code}>
                   {name}
                 </option>
               ))}
@@ -40,14 +38,17 @@ const GeneralProfileSection = ({ data }) => {
           </li>
           <li>
             <label>Gender</label>
-            <select>
-              <option selected={gender === 'male'} value="male">Male</option>
-              <option selected={gender === 'female'} value="female">Female</option>
+            <select
+              defaultValue={gender}
+              onChange={() => console.log('change')}
+            >
+              <option value="male">Male</option>
+              <option value="female">Female</option>
             </select>
           </li>
           <li>
             <label>Phone</label>
-              <input placeholder="Phone" defaultValue={phone} />
+            <input placeholder="Phone" defaultValue={phone} />
           </li>
         </ul>
       </form>

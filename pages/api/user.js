@@ -11,9 +11,9 @@ const userData = {
     openToDiffRole: true,
     preferenceToWork: [2, 5, 9],
     skillRank: [
-      { skill: 132, yearsOfExp: 3},
-      { skill: 976, yearsOfExp: 2},
-      { skill: 5395, yearsOfExp: 4},
+      { skill: 132, yearsOfExp: 3 },
+      { skill: 976, yearsOfExp: 2 },
+      { skill: 5395, yearsOfExp: 4 },
     ],
   },
   relocation: {
@@ -23,10 +23,16 @@ const userData = {
     canadianVisa: 2,
     usdSalaryExpect: 2,
     validPassport: true,
-    companySize: ['startup', 'midsize', 'corporate'],
+    companySize: ['startup', 'midsize'],
     activelyLooking: false,
-    noticePeriod: 2,
+    noticePeriod: 1,
   },
+  social: [
+    { name: 'linkedin', url: 'linkedin.com/in/vitorboccio' },
+    { name: 'github', url: 'github.com/vitorboccio' },
+    { name: 'facebook', url: 'facebook.com/vitorboccio' },
+    { name: 'twitter', url: 'twitter.com/vitorboccio' },
+  ]
 }
 
 export default function(req, res) {

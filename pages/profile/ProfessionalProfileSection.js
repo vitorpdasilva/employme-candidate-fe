@@ -12,17 +12,17 @@ const ProfessionalProfileSection = ({ data }) => {
         <ul>
           <li>
             <label>I am a/an</label>
-            <select>
+            <select defaultValue={profession} onChange={() => console.log('change')}>
               {professionList.map(({ text, value }) => (
-                <option selected={profession === value} key={value} value={value}>{text}</option>
+                <option key={value} value={value}>{text}</option>
               ))}
             </select>
           </li>
           <li>
             <label>With...</label>
-            <select>
+            <select defaultValue={yearsOfExp} onChange={() => console.log('change')}>
               {[...Array(10).keys()].map(val => (
-                <option selected={yearsOfExp === val} key={val} value={val}>{val} years</option>
+                <option key={val} value={val}>{val} years</option>
               ))}
               <option value="10">10+ years</option>
             </select>
@@ -49,18 +49,18 @@ const ProfessionalProfileSection = ({ data }) => {
           <h3>Rank your top 3 skills</h3>
           <article>
             {[...Array(3).keys()].map(index => (
-              <section>
+              <section key={index}>
                 <aside>
-                  <select>
+                  <select defaultValue={skillRank[index].skill} onChange={() => console.log('change')}>
                     {skillList.map(({ text, value }) => (
-                      <option selected={value === skillRank[index].skill} key={value} value={value}>{text}</option>
+                      <option key={value} value={value}>{text}</option>
                     ))}
                   </select>
                 </aside>
                 <aside>
-                  <select>
+                  <select defaultValue={skillRank[index].yearsOfExp} onChange={() => console.log('change')}>
                     {[...Array(10).keys()].map(val => (
-                      <option selected={skillRank[index].yearsOfExp === val} key={val} value={val}>{val} years</option>
+                      <option key={val} value={val}>{val} years</option>
                     ))}
                   </select>
                 </aside>
