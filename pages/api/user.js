@@ -11,9 +11,9 @@ const userData = {
     openToDiffRole: true,
     preferenceToWork: [2, 5, 9],
     skillRank: [
-      { skill: 132, yearsOfExp: 3 },
-      { skill: 976, yearsOfExp: 2 },
-      { skill: 5395, yearsOfExp: 4 },
+      { skillId: 1529, yearsOfExp: 3 },
+      { skillId: 1530, yearsOfExp: 2 },
+      { skillId: 939, yearsOfExp: 4 },
     ],
   },
   relocation: {

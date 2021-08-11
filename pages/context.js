@@ -1,4 +1,5 @@
 import { useState, createContext, useEffect, useMemo, useCallback } from "react";
+import { fetchApi } from './client';
 
 const Context = createContext();
 
@@ -7,6 +8,11 @@ export const AppContextProvider = ({ children }) => {
   
   useEffect(() => {
     console.log('context.js -> load initial data');
+    const fetchData = async () => {
+      const { skillList } = await fetchApi({ url: 'skill-list' });
+      setSkillList(skillList);
+    }
+    fetchData();
   }, []);
 
   const fetchSkillList = useCallback(value => console.log(value),  []);

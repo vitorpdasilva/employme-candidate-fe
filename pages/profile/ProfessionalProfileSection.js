@@ -1,9 +1,11 @@
-import { Checkbox, Dropdown, Divider } from 'semantic-ui-react'
-
-import { professionList, skillList } from '../../constants';
+import { useContext } from 'react';
+import { Checkbox, Dropdown, Divider } from 'semantic-ui-react';
+import { professionList } from '../../constants';
+import AppContext from "../context";
 import { ProfileSectionWrapper } from './style';
 
 const ProfessionalProfileSection = ({ data }) => {
+  const { skillList } = useContext(AppContext);
   const { professionalOverview: { openToDiffRole, profession, yearsOfExp, skillRank, preferenceToWork } } = data;
   return (
     <ProfileSectionWrapper>
@@ -51,9 +53,9 @@ const ProfessionalProfileSection = ({ data }) => {
             {[...Array(3).keys()].map(index => (
               <section key={index}>
                 <aside>
-                  <select defaultValue={skillRank[index].skill} onChange={() => console.log('change')}>
-                    {skillList.map(({ text, value }) => (
-                      <option key={value} value={value}>{text}</option>
+                  <select defaultValue={skillRank[index].skillId} onChange={() => console.log('change')}>
+                    {skillList?.map(({ name, id }) => (
+                      <option key={name} value={id}>{name}</option>
                     ))}
                   </select>
                 </aside>
