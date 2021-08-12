@@ -11,7 +11,8 @@
         "transpileTemplateLiterals": true,
         "pure": true,
         "displayName": true,
-        "preprocess": false
+        "preprocess": false,
+        "namespace": "employmeFE"
       }
     ]
   ]

@@ -5,6 +5,8 @@ import JobListGrid from './style';
 import Card from '../Card';
 import JobPoints from '../../components/jobPoints';
 import JobCardHeadline from '../../components/JobCardHeadline';
+import SkillLabel from '../../components/SkillLabel';
+import JobDescription from '../JobDescription';
 import { countriesList } from '../../constants';
 
 const JobList = ({ jobList }) => (
@@ -26,9 +28,9 @@ const JobList = ({ jobList }) => (
           <li><FaPlaneDeparture /> {locationType}</li>
           <li><FaDollarSign /> ${salary.from} up to ${salary.to} {salary.currency}/{salary.period}</li>
         </JobPoints>
-        {parse(description)}
+        <JobDescription>{parse(description)}</JobDescription>
         <div>
-          {tags.map(tag => <span key={tag}>{tag}</span>)}
+          {tags.map(tag => <SkillLabel key={tag}>{tag}</SkillLabel>)}
         </div>
       </Card>
     ))}

@@ -17,8 +17,8 @@ const SearchJobBar = () => {
             </div>
             <div>
               <p>Where</p>
-              <select>
-                <option value="" disabled selected>Country or city name</option>
+              <select defaultValue="nop">
+                <option value="nop" disabled>Country or city name</option>
                 {countriesList.map(({ name, code }) => (
                   <option key={code} value={code}>{name}</option>
                 ))}
