@@ -1,10 +1,11 @@
-import React from 'react';
+import { useContext } from 'react';
 import { Icon } from 'semantic-ui-react';
 import { ProfileSectionWrapper } from './style';
+import AppContext from "../context";
 
-const SocialSection = ({ data }) => {
-  console.log({ data });
-  const { social } = data;
+const SocialSection = () => {
+  const { userData } = useContext(AppContext);
+  const { social } = userData;
   return (
     <ProfileSectionWrapper>
       <h1>Social Profile</h1>

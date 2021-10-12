@@ -1,6 +1,8 @@
-import { Checkbox, Radio, Divider } from 'semantic-ui-react';
+import { useContext } from 'react';
+import { Checkbox, Radio } from 'semantic-ui-react';
 import { ProfileSectionWrapper } from './style';
 import { countriesList } from '../../constants';
+import AppContext from "../context";
 
 const salaryRange = [
   { text: '70k - 80k', value: 0 },
@@ -11,7 +13,8 @@ const salaryRange = [
   { text: '120k+', value: 5 },
 ];
 
-const RelocationProfileSection = ({ data }) => {
+const RelocationProfileSection = () => {
+  const { userData } = useContext(AppContext);
   const { 
     relocation: {
       activelyLooking, 
@@ -24,7 +27,7 @@ const RelocationProfileSection = ({ data }) => {
       usdSalaryExpect,
       validPassport,
     }
-  } = data;
+  } = userData;
   return (
     <ProfileSectionWrapper>
       <h1>Relocation</h1>

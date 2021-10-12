@@ -1,8 +1,12 @@
+import { useContext } from 'react';
 import { ProfileSectionWrapper } from './style';
 import { countriesList } from '../../constants';
+import AppContext from "../context";
 
-const GeneralProfileSection = ({ data }) => {
-  const { general: { citizenship_code, currentLocation, gender, phone } } = data;
+const GeneralProfileSection = () => {
+  const { userData } = useContext(AppContext);
+  const { general: { citizenship_code, currentLocation, gender, phone } } = userData;
+  
   return (
     <ProfileSectionWrapper>
       <h1>General</h1>

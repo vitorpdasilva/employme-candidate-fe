@@ -4,9 +4,9 @@ import { professionList } from '../../constants';
 import AppContext from "../context";
 import { ProfileSectionWrapper } from './style';
 
-const ProfessionalProfileSection = ({ data }) => {
-  const { skillList } = useContext(AppContext);
-  const { professionalOverview: { openToDiffRole, profession, yearsOfExp, skillRank, preferenceToWork } } = data;
+const ProfessionalProfileSection = () => {
+  const { skillList, userData } = useContext(AppContext);
+  const { professionalOverview: { openToDiffRole, profession, yearsOfExp, skillRank, preferenceToWork } } = userData;
   return (
     <ProfileSectionWrapper>
       <h1>Professional Overview</h1>
