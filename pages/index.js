@@ -1,22 +1,7 @@
-import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import styles from '../styles/layout.module.css';
-import { fetchApi } from './client';
-import JobList from '../components/JobList';
 
 export default function Home() {
-  
-  const [jobList, setJobList] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      // const data = await fetch('/api/jobs').then(data => data.json());
-      // const data = await 
-      // console.log('index pages');
-      // setJobList(data);
-    }
-    fetchData();
-  }, []);
   return (
     <div className={styles.container}>
       <Head>

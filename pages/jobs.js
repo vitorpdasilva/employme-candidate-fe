@@ -7,9 +7,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      // const data = await fetch('/api/jobs').then(data => data.json());
       const { jobs } = await fetchApi({ url: 'jobs' });
-      console.log({ jobs });
       setJobList(jobs);
     }
     fetchData();
