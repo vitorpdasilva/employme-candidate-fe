@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
 import JobList from '../components/JobList';
 import SearchJobBar from '../components/SearchJobBar';
-
+import { fetchApi } from './client';
 const Dashboard = () => {
   const [jobList, setJobList] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetch('/api/jobs').then(data => data.json());
-      setJobList(data);
+      // const data = await fetch('/api/jobs').then(data => data.json());
+      const { jobs } = await fetchApi({ url: 'jobs' });
+      console.log({ jobs });
+      setJobList(jobs);
     }
     fetchData();
   }, []);

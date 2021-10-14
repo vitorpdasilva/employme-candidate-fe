@@ -19,9 +19,9 @@ export const AppContextProvider = ({ children }) => {
   const fetchSkillList = useCallback(value => console.log(value),  []);
 
   const fetchUserData = useCallback(async () => {
-    // const test = await fetchApi({ url: 'user' }); // needs to create in DB;
-    // console.log({ test });
-    const data = await fetch('/api/user').then(data => data.json());
+    const data = await fetchApi({ url: 'user' }); // needs to create in DB;
+    console.log({ data });
+    // const data = await fetch('/api/user').then(data => data.json());
     setUserData(data)
   }, []); 
 

@@ -3,7 +3,7 @@ const userData = {
     citizenship_code: 'BR',
     gender: 'female',
     currentLocation: 'BR',
-    phone: '123 456 7890',
+    phone: '1234567890',
   },
   professionalOverview: {
     profession: 3,
