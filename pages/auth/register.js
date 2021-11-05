@@ -1,3 +1,4 @@
+import { StyledFormHolder } from "./style";
 const body = {
   username: `-test-0.8187198489084304@test.com`,
   password: 'test123', //$2b$10$lWELf94CfOxyWsfe2e350eDOWFprt0F5Jscd8GXoQPWO7nK6sm1TG
@@ -10,7 +11,15 @@ const Register = () => {
     console.log({ res });
   }
   return (
-    <>Register</>
+    <div style={{ width: 500 }}>
+      <StyledFormHolder>
+        <form>
+          <input placeholder="name" />
+          <input placeholder="username" />
+          <input placeholder="password" />
+        </form>
+      </StyledFormHolder>
+    </div>
   );
 }
 
