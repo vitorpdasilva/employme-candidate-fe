@@ -10,7 +10,7 @@ export const AppContextProvider = ({ children }) => {
   useEffect(() => {
     console.log('context.js -> load initial data');
     const fetchData = async () => {
-      const { skillList } = await fetchApi({ url: 'skill-list' });
+      const { skillList } = await fetchApi({ url: '/skill-list' });
       setSkillList(skillList);
     }
     fetchData();
@@ -19,8 +19,10 @@ export const AppContextProvider = ({ children }) => {
   const fetchSkillList = useCallback(value => console.log(value),  []);
 
   const fetchUserData = useCallback(async () => {
-    const data = await fetchApi({ url: 'user' });
-    setUserData(data)
+    const body = { username: "vitorboccio@gmail.com" };
+    const data = await fetchApi({ url: '/user', body });
+    console.log({ data });
+    setUserData(data.user);
   }, []); 
 
   const providerValue = useMemo(

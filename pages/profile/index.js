@@ -9,7 +9,7 @@ import SocialSection from './SocialSection';
 
 const Profile = () => {
   const { userData, actions: { fetchUserData } } = useContext(AppContext);
-
+  console.log({ userData });
   useEffect(() => {
     fetchUserData();
   }, []);

@@ -1,7 +1,7 @@
 const BASE_URL = process.env.NODE_ENV === "production" ? "prod-url/graphql" : "http://localhost:3001/api";
 
 const fetchApi = async({ url, method = 'POST', mode = 'cors', cache = 'no-cache', credentials = 'same-origin', body = {} }) => {
-  const data = await fetch(`${BASE_URL}/${url}`, {
+  const data = await fetch(`${BASE_URL}${url}`, {
     method,
     mode,
     cache,
