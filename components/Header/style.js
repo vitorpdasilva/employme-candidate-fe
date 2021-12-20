@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Dropdown } from 'semantic-ui-react';
 import { colors } from '../../styles/theme';
 
 const StyledHeader = styled.header`
@@ -55,4 +56,30 @@ const StyledHeader = styled.header`
   }
 `;
 
+const StyledDropdown = styled(Dropdown)`
+  .menu {
+    .header {
+      display: flex;
+      align-items: center;
+      > svg {
+        margin-right: 10px;
+      }
+    }
+    &&&.item {
+      height: 36px;
+      > a {
+        border:1px solid red;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding-left: 15px;
+      }
+    }
+  }
+`;
+export { StyledDropdown }
 export default StyledHeader;
