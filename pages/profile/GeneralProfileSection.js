@@ -6,8 +6,7 @@ import AppContext from "../context";
 const GeneralProfileSection = () => {
   const { userData } = useContext(AppContext);
   const { general: { citizenship_code, currentLocation, gender, phone } } = userData;
-  console.log('general', { userData });
-  
+  console.log({ userData });
   if (!userData) return <>Loading...</>;
 
   return (

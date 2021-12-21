@@ -19,7 +19,7 @@ export const AppContextProvider = ({ children }) => {
   const fetchSkillList = useCallback(value => console.log(value),  []);
 
   const fetchUserData = useCallback(async () => {
-    const body = { username: "vitorboccio@gmail.com" };
+    const body = { email: "vitorboccio@gmail.com" };
     const data = await fetchApi({ url: '/user', body });
     setUserData(data.user);
   }, []); 
