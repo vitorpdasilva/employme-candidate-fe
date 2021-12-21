@@ -1,36 +1,57 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import parse from 'html-react-parser';
 import Head from 'next/head';
 import ReactCountryFlag from "react-country-flag";
 import { FaPlaneDeparture, FaDollarSign } from 'react-icons/fa';
 import { useRouter } from 'next/router';
 import JobPoints from '../../components/jobPoints';
+import { fetchApi } from '../client';
 import JobCardHeadline from '../../components/JobCardHeadline';
 import Button from '../../components/Button';
 import { JobPageWrapper, JobCardMain } from './style';
 import { countriesList } from '../../constants';
+import AppContext from "../context";
 
 const JobPostPage = () => {
   const router = useRouter();
   const [jobPostId, setJobPostId] = useState("");
   const [jobInfo, setJobInfo] = useState(null);
+  const { userData, actions: { fetchUserData } } = useContext(AppContext);
   
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(`/api/job/${jobPostId}`).then(data => data.json());
-      setJobInfo(response);
+    if (jobPostId) {
+      const fetchData = async () => {
+        const response = await fetchApi({ url: `/job/${jobPostId}`});
+        console.log({ response });
+        setJobInfo(response);
+      }
+      fetchData();
     }
-    fetchData();
   }, [jobPostId]);
 
   useEffect(() => {
-    if (router && router.query) {
+    if (router?.query) {
       setJobPostId(router.query.jobPostId)
     }
   }, [router]);
 
+  const applyToJob = async () => {
+    if (userData) {
+      console.log('applyTojob', userData);
+      const body = {
+        applicantId: userData.id
+      }
+      const res = await fetchApi({ url: `/job/${jobPostId}/apply`, body });
+      console.log({ res });
+    } else {
+      console.error('no user data');
+    }
+  }
+
   if (!jobInfo) return <span>Loading...</span>;
+
   const { title, location, locationType, salary, recent, tags, id, description, createdAt } = jobInfo;
+  console.log({ jobInfo });
   return (
     <>
       <Head>
@@ -56,7 +77,7 @@ const JobPostPage = () => {
             <li><FaDollarSign /> ${salary.from} up to ${salary.to} {salary.currency}/{salary.period}</li>
           </JobPoints>
           {parse(description)}
-          <Button>Apply for this position</Button>
+          <Button onClick={() => applyToJob()}>Apply for this position</Button>
         </JobCardMain>
         <div>Right Column</div>
       </JobPageWrapper>

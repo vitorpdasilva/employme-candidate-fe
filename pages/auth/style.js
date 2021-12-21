@@ -9,6 +9,7 @@ const StyledFormHolder = styled.div`
   width: 100%;
   max-width: 750px;
   border-radius: 5px;
+  
   &:hover {
     box-shadow: rgb(0 0 0 / 10%) 0px 2px 21px 0px;
   }
@@ -17,12 +18,11 @@ const StyledFormHolder = styled.div`
     width: 100%;
     border: 1px solid ${colors.gray.default};
     border-radius: 5px;
+    margin-bottom: 20px;
     &:focus {
       outline: none;
     }
-    &:nth-of-type(odd) {
-      margin-bottom: 20px;
-    }
+    
   }
 `;
 

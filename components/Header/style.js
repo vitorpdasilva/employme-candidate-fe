@@ -65,10 +65,9 @@ const StyledDropdown = styled(Dropdown)`
         margin-right: 10px;
       }
     }
-    &&&.item {
+    .item.item {
       height: 36px;
       > a {
-        border:1px solid red;
         position: absolute;
         top: 0;
         left: 0;

@@ -21,7 +21,6 @@ export const AppContextProvider = ({ children }) => {
   const fetchUserData = useCallback(async () => {
     const body = { username: "vitorboccio@gmail.com" };
     const data = await fetchApi({ url: '/user', body });
-    console.log({ data });
     setUserData(data.user);
   }, []); 
 

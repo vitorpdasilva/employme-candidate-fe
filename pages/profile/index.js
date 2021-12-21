@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import { Image, Icon } from 'semantic-ui-react';
 
 import AppContext from "../context";
