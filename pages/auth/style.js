@@ -13,16 +13,19 @@ const StyledFormHolder = styled.div`
   &:hover {
     box-shadow: rgb(0 0 0 / 10%) 0px 2px 21px 0px;
   }
-  select, input {
-    height: 50px;
-    width: 100%;
-    border: 1px solid ${colors.gray.default};
-    border-radius: 5px;
-    margin-bottom: 20px;
-    &:focus {
-      outline: none;
+  form {
+    margin-top: 50px;
+    select, input {
+      height: 50px;
+      width: 100%;
+      border: 1px solid ${colors.gray.default};
+      border-radius: 5px;
+      margin-bottom: 20px;
+      &:focus {
+        outline: none;
+      }
+      
     }
-    
   }
 `;
 
