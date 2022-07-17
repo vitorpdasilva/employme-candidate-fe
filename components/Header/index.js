@@ -1,13 +1,13 @@
-import Link from 'next/link';
-import { Dropdown } from 'semantic-ui-react';
-import { useRouter } from 'next/router'
-import { FaUserCircle } from 'react-icons/fa';
-import StyledHeader, { StyledDropdown } from './style';
-import Logo from '../Logo/index';
+import Link from "next/link";
+import { Dropdown } from "semantic-ui-react";
+import { useRouter } from "next/router";
+import { FaUserCircle } from "react-icons/fa";
+import StyledHeader, { StyledDropdown } from "./style";
+import Logo from "../Logo/index";
 
 const headerItems = [
-  { href: '/jobs', text: 'Find a job' },
-  { href: '/my-jobs', text: 'My jobs' },
+  { href: "/jobs", text: "Find a job" },
+  { href: "/my-jobs", text: "My jobs" },
 ];
 
 const Header = () => {
@@ -19,17 +19,17 @@ const Header = () => {
         <Logo />
         <ul>
           {headerItems.map(({ href, text }) => (
-            <li key={href} className={router.pathname === href ? 'active' : undefined}><Link href={href}><a>{text}</a></Link></li>
+            <li key={href} className={router.pathname === href ? "active" : undefined}><Link href={href}><a>{text}</a></Link></li>
           ))}
         </ul>
         <StyledDropdown
           floating
           direction="left"
-          icon={<FaUserCircle style={{ fontSize: 24, marginLeft: 'auto' }} />}
+          icon={<FaUserCircle style={{ fontSize: 24, marginLeft: "auto" }} />}
         >
           <Dropdown.Menu>
             <Dropdown.Header>
-              <FaUserCircle style={{ fontSize: 24, marginLeft: 'auto' }} /> Vitor Boccio
+              <FaUserCircle style={{ fontSize: 24, marginLeft: "auto" }} /> Vitor Boccio
             </Dropdown.Header>
             <Dropdown.Item>
               <Link href="/profile"><a>Profile</a></Link>

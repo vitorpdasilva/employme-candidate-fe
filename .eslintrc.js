@@ -21,5 +21,7 @@ module.exports = {
     "rules": {
         "semi": ["error", "always"],
         "quotes": ["error", "double"],
+        "react/jsx-uses-react": "off",
+        "react/react-in-jsx-scope": "off"
     }
 };

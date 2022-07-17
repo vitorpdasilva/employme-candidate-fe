@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import StyledCard from './style';
+import Link from "next/link";
+import StyledCard from "./style";
 
 const Card = ({ href, children }) => {
   return (
@@ -9,6 +9,6 @@ const Card = ({ href, children }) => {
       </StyledCard>
     </Link>
   );
-}
+};
 
 export default Card;

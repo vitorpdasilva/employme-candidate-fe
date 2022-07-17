@@ -1,6 +1,6 @@
-import { useContext } from 'react';
-import { Icon } from 'semantic-ui-react';
-import { ProfileSectionWrapper } from './style';
+import { useContext } from "react";
+import { Icon } from "semantic-ui-react";
+import { ProfileSectionWrapper } from "./style";
 import AppContext from "../context";
 
 const SocialSection = () => {

@@ -1,9 +1,9 @@
 const userData = {
   general: {
-    citizenship_code: 'BR',
-    gender: 'female',
-    currentLocation: 'BR',
-    phone: '1234567890',
+    citizenship_code: "BR",
+    gender: "female",
+    currentLocation: "BR",
+    phone: "1234567890",
   },
   professionalOverview: {
     profession: 3,
@@ -18,22 +18,22 @@ const userData = {
   },
   relocation: {
     openToRemote: true,
-    relocateOptions: 'CA',
+    relocateOptions: "CA",
     cadSalaryExpect: 3,
     canadianVisa: 2,
     usdSalaryExpect: 2,
     validPassport: true,
-    companySize: ['startup', 'midsize'],
+    companySize: ["startup", "midsize"],
     activelyLooking: false,
     noticePeriod: 1,
   },
   social: [
-    { name: 'linkedin', url: 'linkedin.com/in/vitorboccio' },
-    { name: 'github', url: 'github.com/vitorboccio' },
-    { name: 'facebook', url: 'facebook.com/vitorboccio' },
-    { name: 'twitter', url: 'twitter.com/vitorboccio' },
+    { name: "linkedin", url: "linkedin.com/in/vitorboccio" },
+    { name: "github", url: "github.com/vitorboccio" },
+    { name: "facebook", url: "facebook.com/vitorboccio" },
+    { name: "twitter", url: "twitter.com/vitorboccio" },
   ]
-}
+};
 
 export default function(req, res) {
   res.status(200).json(userData);

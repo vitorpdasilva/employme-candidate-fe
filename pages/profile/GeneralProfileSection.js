@@ -1,6 +1,6 @@
-import { useContext } from 'react';
-import { ProfileSectionWrapper } from './style';
-import { countriesList } from '../../constants';
+import { useContext } from "react";
+import { ProfileSectionWrapper } from "./style";
+import { countriesList } from "../../constants";
 import AppContext from "../context";
 
 const GeneralProfileSection = () => {
@@ -18,7 +18,7 @@ const GeneralProfileSection = () => {
             <label>Citizenship</label>
             <select
               defaultValue={citizenship_code}
-              onChange={() => console.log('change')}
+              onChange={() => console.log("change")}
             >
               <option value="" disabled>Country</option>
               {countriesList.map(({ name, code }) => (
@@ -32,7 +32,7 @@ const GeneralProfileSection = () => {
             <label>Current Location</label>
             <select
               defaultValue={currentLocation}
-              onChange={() => console.log('change')}
+              onChange={() => console.log("change")}
             >
               <option value="" disabled>Country</option>
               {countriesList.map(({ name, code }) => (
@@ -46,7 +46,7 @@ const GeneralProfileSection = () => {
             <label>Gender</label>
             <select
               defaultValue={gender}
-              onChange={() => console.log('change')}
+              onChange={() => console.log("change")}
             >
               <option value="male">Male</option>
               <option value="female">Female</option>
@@ -60,6 +60,6 @@ const GeneralProfileSection = () => {
       </form>
     </ProfileSectionWrapper>
   );
-}
+};
 
 export default GeneralProfileSection;

@@ -1,4 +1,4 @@
-import JobPointsStyle from './style';
+import JobPointsStyle from "./style";
 
 const JobPoints = ({ children }) => (
   <JobPointsStyle>

@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { colors } from '../../styles/theme';
+import styled from "styled-components";
+import { colors } from "../../styles/theme";
 
 const StyledFormHolder = styled.div`
   border: 1px solid ${colors.gray.default};
@@ -31,4 +31,4 @@ const StyledFormHolder = styled.div`
 
 export {
   StyledFormHolder,
-}
+};

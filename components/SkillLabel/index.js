@@ -1,6 +1,6 @@
-import { Label } from 'semantic-ui-react';
+import { Label } from "semantic-ui-react";
 
-const SkillLabel = ({ size = 'small', color = 'blue', children }) => (
+const SkillLabel = ({ size = "small", color = "blue", children }) => (
   <Label size={size} color={color}>{children}</Label>
 );
 

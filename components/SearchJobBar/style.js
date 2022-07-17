@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { colors } from '../../styles/theme';
+import styled from "styled-components";
+import { colors } from "../../styles/theme";
 
 const SearchJobBarStyled = styled.section`
   width: 100%;

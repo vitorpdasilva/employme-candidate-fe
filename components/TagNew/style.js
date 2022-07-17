@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { colors } from '../../styles/theme';
+import styled from "styled-components";
+import { colors } from "../../styles/theme";
 
 const Tag = styled.div`
     width: 65px;

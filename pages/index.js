@@ -1,5 +1,5 @@
-import Head from 'next/head';
-import styles from '../styles/layout.module.css';
+import Head from "next/head";
+import styles from "../styles/layout.module.css";
 
 export default function Home() {
   return (
@@ -14,5 +14,5 @@ export default function Home() {
         footer
       </footer>
     </div>
-  )
+  );
 }

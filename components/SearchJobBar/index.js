@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import SearchJobBarStyled from './style';
-import { FaSearch } from 'react-icons/fa';
-import { countriesList } from '../../constants';
+import { useState } from "react";
+import SearchJobBarStyled from "./style";
+import { FaSearch } from "react-icons/fa";
+import { countriesList } from "../../constants";
 
 const SearchJobBar = () => {
   const [searchTitle, setSearchTitle] = useState(null);
   return (
     <>
-      <h1>{searchTitle || 'Find your dream job abroad or remote'}</h1>
+      <h1>{searchTitle || "Find your dream job abroad or remote"}</h1>
       <SearchJobBarStyled>
         <form>
           <article>
@@ -40,7 +40,7 @@ const SearchJobBar = () => {
         </form>
       </SearchJobBarStyled>
     </>
-  )
+  );
 };
 
 export default SearchJobBar;

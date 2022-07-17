@@ -1,4 +1,4 @@
-import StyledJobDescription from './style';
+import StyledJobDescription from "./style";
 
 const JobDescription = ({ children }) => {
   return (

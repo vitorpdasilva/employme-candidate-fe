@@ -1,11 +1,11 @@
-import { fetchApi } from '../client';
+import { fetchApi } from "../client";
 
 const Login = () => {
   
   const submitLogin = async () => {
-    const log = await fetchApi({ url: '/login', body });
+    const log = await fetchApi({ url: "/login", body });
     console.log({ log });
-  }
+  };
 
   return (
     <div>
@@ -14,6 +14,6 @@ const Login = () => {
       <button onClick={() => submitLogin()}>Submit login</button>  
     </div>
   );
-}
+};
 
 export default Login;

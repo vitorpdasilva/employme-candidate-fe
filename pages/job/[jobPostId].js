@@ -1,15 +1,15 @@
-import { useState, useEffect, useContext } from 'react';
-import parse from 'html-react-parser';
-import Head from 'next/head';
+import { useState, useEffect, useContext } from "react";
+import parse from "html-react-parser";
+import Head from "next/head";
 import ReactCountryFlag from "react-country-flag";
-import { FaPlaneDeparture, FaDollarSign } from 'react-icons/fa';
-import { useRouter } from 'next/router';
-import JobPoints from '../../components/jobPoints';
-import { fetchApi } from '../client';
-import JobCardHeadline from '../../components/JobCardHeadline';
-import Button from '../../components/Button';
-import { JobPageWrapper, JobCardMain } from './style';
-import { countriesList } from '../../constants';
+import { FaPlaneDeparture, FaDollarSign } from "react-icons/fa";
+import { useRouter } from "next/router";
+import JobPoints from "../../components/jobPoints";
+import { fetchApi } from "../client";
+import JobCardHeadline from "../../components/JobCardHeadline";
+import Button from "../../components/Button";
+import { JobPageWrapper, JobCardMain } from "./style";
+import { countriesList } from "../../constants";
 import AppContext from "../context";
 
 const JobPostPage = () => {
@@ -24,29 +24,29 @@ const JobPostPage = () => {
         const response = await fetchApi({ url: `/job/${jobPostId}`});
         console.log({ response });
         setJobInfo(response);
-      }
+      };
       fetchData();
     }
   }, [jobPostId]);
 
   useEffect(() => {
     if (router?.query) {
-      setJobPostId(router.query.jobPostId)
+      setJobPostId(router.query.jobPostId);
     }
   }, [router]);
 
   const applyToJob = async () => {
     if (userData) {
-      console.log('applyTojob', userData);
+      console.log("applyTojob", userData);
       const body = {
         applicantId: userData.id
-      }
+      };
       const res = await fetchApi({ url: `/job/${jobPostId}/apply`, body });
       console.log({ res });
     } else {
-      console.error('no user data');
+      console.error("no user data");
     }
-  }
+  };
 
   if (!jobInfo) return <span>Loading...</span>;
 
@@ -63,7 +63,7 @@ const JobPostPage = () => {
         <JobCardMain>
           <JobCardHeadline recent={recent} createdAt={createdAt} />
           <h1>{title}</h1>
-          <JobPoints style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <JobPoints style={{ display: "flex", justifyContent: "space-between" }}>
             <li>
               <ReactCountryFlag 
                 countryCode={countriesList.find(country => country.name === location.country).code}
@@ -82,7 +82,7 @@ const JobPostPage = () => {
         <div>Right Column</div>
       </JobPageWrapper>
     </>
-  )
-}
+  );
+};
 
 export default JobPostPage;

@@ -1,26 +1,27 @@
 import { StyledFormHolder } from "./auth/style";
 import { useForm } from "react-hook-form";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 import { Button } from "../components";
 import { fetchApi } from "./client"; 
 
 const SignIn = () => {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
-  const router = useRouter()
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const router = useRouter();
   const submit = async ({ email, username, password }) => {
     const body = {
       email,
       username,
       password
-    }
+    };
     try {
-      const res = await fetchApi({ url: '/register', body });
-      router.push('/jobs');
+      const res = await fetchApi({ url: "/register", body });
+      console.log({ res });
+      router.push("/jobs");
 
     } catch (err) {
       console.error(err);
     }
-  }
+  };
   return (
     <div style={{ width: 500 }}>
       <StyledFormHolder>
@@ -39,6 +40,6 @@ const SignIn = () => {
       </StyledFormHolder>
     </div>
   );
-}
+};
 
 export default SignIn;

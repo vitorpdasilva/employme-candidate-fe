@@ -1,8 +1,8 @@
-import { useContext } from 'react';
-import { Checkbox, Dropdown, Divider } from 'semantic-ui-react';
-import { professionList } from '../../constants';
+import { useContext } from "react";
+import { Checkbox, Dropdown, Divider } from "semantic-ui-react";
+import { professionList } from "../../constants";
 import AppContext from "../context";
-import { ProfileSectionWrapper } from './style';
+import { ProfileSectionWrapper } from "./style";
 
 const ProfessionalProfileSection = () => {
   const { skillList, userData } = useContext(AppContext);
@@ -14,7 +14,7 @@ const ProfessionalProfileSection = () => {
         <ul>
           <li>
             <label>I am a/an</label>
-            <select defaultValue={profession} onChange={() => console.log('change')}>
+            <select defaultValue={profession} onChange={() => console.log("change")}>
               {professionList.map(({ text, value }) => (
                 <option key={value} value={value}>{text}</option>
               ))}
@@ -22,7 +22,7 @@ const ProfessionalProfileSection = () => {
           </li>
           <li>
             <label>With...</label>
-            <select defaultValue={yearsOfExp} onChange={() => console.log('change')}>
+            <select defaultValue={yearsOfExp} onChange={() => console.log("change")}>
               {[...Array(10).keys()].map(val => (
                 <option key={val} value={val}>{val} years</option>
               ))}
@@ -31,13 +31,13 @@ const ProfessionalProfileSection = () => {
           </li>
         </ul>
         <div>
-          <Checkbox label='I am open to working in a different role' checked={openToDiffRole} />
+          <Checkbox label="I am open to working in a different role" checked={openToDiffRole} />
         </div>
         <Divider hidden />
         <div>
           <label>I would like to work as...</label>
           <Dropdown
-            placeholder='Profession list'
+            placeholder="Profession list"
             fluid
             multiple
             selection
@@ -53,14 +53,14 @@ const ProfessionalProfileSection = () => {
             {[...Array(3).keys()].map(index => (
               <section key={index}>
                 <aside>
-                  <select defaultValue={skillRank[index].skillId} onChange={() => console.log('change')}>
+                  <select defaultValue={skillRank[index].skillId} onChange={() => console.log("change")}>
                     {skillList?.map(({ name, id }) => (
                       <option key={name} value={id}>{name}</option>
                     ))}
                   </select>
                 </aside>
                 <aside>
-                  <select defaultValue={skillRank[index].yearsOfExp} onChange={() => console.log('change')}>
+                  <select defaultValue={skillRank[index].yearsOfExp} onChange={() => console.log("change")}>
                     {[...Array(10).keys()].map(val => (
                       <option key={val} value={val}>{val} years</option>
                     ))}

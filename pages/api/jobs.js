@@ -3,18 +3,18 @@ export const jobList = [
     id: 0,
     recent: true,
     createdAt: 1624303160 * 1000, // epoch
-    title: 'Software Developer',
+    title: "Software Developer",
     location: {
-      city: 'Vancouver',
-      country: 'Canada',
-      province: 'BC',
+      city: "Vancouver",
+      country: "Canada",
+      province: "BC",
     },
-    locationType: 'Relocation Only (Sponsored Visa)',
+    locationType: "Relocation Only (Sponsored Visa)",
     salary: {
-      from: '80000',
-      to: '100000',
-      currency: 'CAD',
-      period: 'Annually',
+      from: "80000",
+      to: "100000",
+      currency: "CAD",
+      period: "Annually",
     },
     description: `
       <p><strong>THIS JOB IS FULL REMOTE!!</strong></p>
@@ -42,24 +42,24 @@ export const jobList = [
         Candidates who have completed a test in Python and scored above 75% will be a plus!
       </p>
     `,
-    tags: ['java', 'react', 'javascript'],
+    tags: ["java", "react", "javascript"],
   },
   {
     id: 1,
     recent: false,
     createdAt: 1624303160 * 1000, // epoch
-    title: 'Software Engineer',
+    title: "Software Engineer",
     location: {
-      city: 'Vancouver',
-      country: 'Canada',
-      province: 'BC',
+      city: "Vancouver",
+      country: "Canada",
+      province: "BC",
     },
-    locationType: 'Relocation Only (Sponsored Visa)',
+    locationType: "Relocation Only (Sponsored Visa)",
     salary: {
-      from: '60000',
-      to: '110000',
-      currency: 'CAD',
-      period: 'Annually',
+      from: "60000",
+      to: "110000",
+      currency: "CAD",
+      period: "Annually",
     },
     description: `
       <p><strong>THIS JOB IS FULL REMOTE!!</strong></p>
@@ -87,7 +87,7 @@ export const jobList = [
         Candidates who have completed a test in Python and scored above 75% will be a plus!
       </p>
     `,
-    tags: ['react', 'javascript', 'redux', 'styled-components'],
+    tags: ["react", "javascript", "redux", "styled-components"],
   }
 ];
 

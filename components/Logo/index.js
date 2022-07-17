@@ -1,4 +1,4 @@
-import { colors } from '../../styles/theme';
+import { colors } from "../../styles/theme";
 
 const Logo = () => (
   <div
@@ -8,9 +8,9 @@ const Logo = () => (
       background: colors.blue.default,
       borderRadius: 5,
       color: colors.white.default,
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
     }}
   >
     EM

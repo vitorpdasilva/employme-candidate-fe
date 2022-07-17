@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { Dropdown } from 'semantic-ui-react';
-import { colors } from '../../styles/theme';
+import styled from "styled-components";
+import { Dropdown } from "semantic-ui-react";
+import { colors } from "../../styles/theme";
 
 const StyledHeader = styled.header`
   height: 60px;
@@ -80,5 +80,5 @@ const StyledDropdown = styled(Dropdown)`
     }
   }
 `;
-export { StyledDropdown }
+export { StyledDropdown };
 export default StyledHeader;

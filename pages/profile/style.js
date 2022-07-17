@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { colors } from '../../styles/theme';
+import styled from "styled-components";
+import { colors } from "../../styles/theme";
 
 const ProfileSectionWrapper = styled.section`
   width: 100%;
@@ -41,4 +41,4 @@ const ProfileSectionWrapper = styled.section`
 
 export {
   ProfileSectionWrapper
-}
+};

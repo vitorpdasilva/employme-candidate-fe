@@ -1,13 +1,13 @@
 import ReactCountryFlag from "react-country-flag";
-import parse from 'html-react-parser';
-import { FaPlaneDeparture, FaDollarSign } from 'react-icons/fa';
-import JobListGrid from './style';
-import Card from '../Card';
-import JobPoints from '../../components/jobPoints';
-import JobCardHeadline from '../../components/JobCardHeadline';
-import SkillLabel from '../../components/SkillLabel';
-import JobDescription from '../JobDescription';
-import { countriesList } from '../../constants';
+import parse from "html-react-parser";
+import { FaPlaneDeparture, FaDollarSign } from "react-icons/fa";
+import JobListGrid from "./style";
+import Card from "../Card";
+import JobPoints from "../../components/jobPoints";
+import JobCardHeadline from "../../components/JobCardHeadline";
+import SkillLabel from "../../components/SkillLabel";
+import JobDescription from "../JobDescription";
+import { countriesList } from "../../constants";
 
 const JobList = ({ jobList }) => (
   <JobListGrid>

@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { colors } from '../../styles/theme';
+import styled from "styled-components";
+import { colors } from "../../styles/theme";
 
 const StyledCard = styled.div`
   padding: 1.5rem;
