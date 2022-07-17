@@ -1,9 +1,13 @@
-import { useState, createContext, useEffect, useMemo, useCallback } from "react";
+import { ReactNode, useState, createContext, useEffect, useMemo, useCallback } from "react";
 import { fetchApi } from "./client";
 
-const Context = createContext();
+const Context = createContext({});
 
-export const AppContextProvider = ({ children }) => {
+type AppContextProviderProps = {
+  children: ReactNode
+}
+
+export const AppContextProvider = ({ children }: AppContextProviderProps) => {
   const [skillList, setSkillList] = useState(null);
   const [userData, setUserData] = useState(null);
 

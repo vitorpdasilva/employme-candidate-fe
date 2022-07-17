@@ -1,9 +1,14 @@
 import "../styles/globals.css";
+import { ReactNode } from 'react'
 import Header from "../components/Header";
 import "semantic-ui-css/semantic.min.css";
 import { AppContextProvider } from "./context";
 
-function MyApp({ Component, pageProps }) {
+type MyAppProps = {
+  Component: ReactNode
+  pageProps: any
+}
+function MyApp({ Component, pageProps }: MyAppProps) {
   return (
     <>
       <AppContextProvider>

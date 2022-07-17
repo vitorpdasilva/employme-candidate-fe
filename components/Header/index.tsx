@@ -5,7 +5,11 @@ import { FaUserCircle } from "react-icons/fa";
 import StyledHeader, { StyledDropdown } from "./style";
 import Logo from "../Logo/index";
 
-const headerItems = [
+type HeaderItemsProps = {
+  href: string
+  text: string
+}
+const headerItems: HeaderItemsProps[] = [
   { href: "/jobs", text: "Find a job" },
   { href: "/my-jobs", text: "My jobs" },
 ];
