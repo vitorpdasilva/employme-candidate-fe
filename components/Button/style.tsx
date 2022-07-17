@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { colors } from "../../styles/theme";
 
-const ButtonStyle = styled.button`
+export const ButtonStyle = styled('button')<{block: boolean, height: 'string'}>`
   background: ${colors.blue.default};
   color: ${colors.white.default};
   border: 0;
@@ -15,5 +15,3 @@ const ButtonStyle = styled.button`
     background: ${colors.blue.hover};
   }
 `;
-
-export default ButtonStyle;

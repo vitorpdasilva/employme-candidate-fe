@@ -11,7 +11,7 @@ import { countriesList } from "../../constants";
 
 const JobList = ({ jobList }) => (
   <JobListGrid>
-    {jobList.map(({ description, location, locationType, createdAt, recent, salary, title, tags, id }) => (
+    {jobList?.map(({ description, location, locationType, createdAt, recent, salary, title, tags, id }) => (
       <Card key={id} href={`/job/${id}`}>
         <JobCardHeadline recent={recent} createdAt={createdAt} />
         <h2>{title} &rarr;</h2>
