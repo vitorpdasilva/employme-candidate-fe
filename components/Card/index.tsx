@@ -1,7 +1,13 @@
 import Link from "next/link";
 import StyledCard from "./style";
+import { ReactNode } from 'react'
 
-const Card = ({ href, children }) => {
+type CardProps = {
+  href: string
+  children: ReactNode
+}
+
+const Card = ({ href, children }: CardProps) => {
   return (
     <Link href={href}>
       <StyledCard>

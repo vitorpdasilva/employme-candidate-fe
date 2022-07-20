@@ -1,16 +1,19 @@
 import "../styles/globals.css";
-import { ReactNode } from 'react'
+import { ElementType } from 'react'
+import { theme } from '../styles/theme'
+import { ThemeProvider } from "styled-components";
 import Header from "../components/Header";
 import "semantic-ui-css/semantic.min.css";
 import { AppContextProvider } from "./context";
 
 type MyAppProps = {
-  Component: ReactNode
+  Component: ElementType
   pageProps: any
 }
 function MyApp({ Component, pageProps }: MyAppProps) {
   return (
     <>
+      <ThemeProvider theme={theme}>
       <AppContextProvider>
         <Header />
         <div style={{
@@ -27,6 +30,7 @@ function MyApp({ Component, pageProps }: MyAppProps) {
         </div>
         <footer>footer</footer>
       </AppContextProvider>
+      </ThemeProvider>
     </>
   );
 }
