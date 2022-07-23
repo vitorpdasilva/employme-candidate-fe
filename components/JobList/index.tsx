@@ -10,6 +10,9 @@ import SkillLabel from "../../components/SkillLabel";
 import JobDescription from "../JobDescription";
 import { countriesList } from "../../constants";
 
+type IProps = {
+  jobList: JobListProps[]
+}
 type JobListProps =  {
   description: string
   location: {
@@ -17,14 +20,14 @@ type JobListProps =  {
     country: string
   }
   locationType: string
-  createdAt: string
+  createdAt: Date
   recent: boolean
   salary: string
   title: string
   tags: string[]
   id: string
 }
-const JobList = ({ jobList }: JobListProps[]) => (
+const JobList = ({ jobList }: IProps) => (
   <JobListGrid>
     {jobList?.map(({ description, location, locationType, createdAt, recent, salary, title, tags, id }) => (
       <Card key={id} href={`/job/${id}`}>
