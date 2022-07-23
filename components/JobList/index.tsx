@@ -41,8 +41,8 @@ const JobList = ({ jobList }: IProps) => (
         <JobPoints>
           <li>
             <ReactCountryFlag 
-              countryCode={countriesList.find((country: {name: string}) => country.name === location.country).code}
-              aria-label={countriesList.find((country: {name: string}) => country.name === location.country).code}
+              countryCode={countriesList?.find((country: any) => country?.name === location?.country)?.code}
+              aria-label={countriesList?.find((country: any) => country?.name === location?.country)?.code}
               svg
               style={{ marginRight: 10 }}
             />

@@ -1,3 +1,4 @@
+// @ts-nocheck
 export const countriesList = [
   { name: "Afghanistan", code: "AF" },
   { name: "Åland Islands", code: "AX" },
