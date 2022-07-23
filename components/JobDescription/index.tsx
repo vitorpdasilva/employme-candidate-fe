@@ -1,6 +1,10 @@
 import StyledJobDescription from "./style";
+import { ReactNode } from 'react'
 
-const JobDescription = ({ children }) => {
+type JobDescriptionProps = {
+  children: ReactNode
+}
+const JobDescription = ({ children }: JobDescriptionProps) => {
   return (
     <StyledJobDescription>
       {children}
