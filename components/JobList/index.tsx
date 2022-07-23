@@ -22,7 +22,12 @@ type JobListProps =  {
   locationType: string
   createdAt: Date
   recent: boolean
-  salary: string
+  salary: {
+    from: string
+    to: string
+    currency: string
+    period: string
+  }
   title: string
   tags: string[]
   id: string
