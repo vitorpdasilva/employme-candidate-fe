@@ -1,7 +1,6 @@
 import styled from "styled-components";
-// import { colors } from "../../styles/theme";
 
-export const ButtonStyle = styled('button')<{block: boolean, height: 'string'}>`
+export const ButtonStyle = styled('button')<{block?: boolean, height?: string}>`
   background: ${props => props.theme.colors.blue.default};
   color: ${props => props.theme.colors.white.default};
   border: 0;

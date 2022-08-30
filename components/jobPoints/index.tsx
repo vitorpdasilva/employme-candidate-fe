@@ -3,10 +3,11 @@ import { ReactNode } from 'react'
 
 type JobPointsProps = {
   children: ReactNode
+  style: {},
 }
 
-const JobPoints = ({ children }: JobPointsProps) => (
-  <JobPointsStyle>
+const JobPoints = ({ children, ...rest }: JobPointsProps) => (
+  <JobPointsStyle {...rest}>
     {children}
   </JobPointsStyle>
 );

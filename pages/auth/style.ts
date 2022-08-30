@@ -1,9 +1,8 @@
 import styled from "styled-components";
-import { colors } from "../../styles/theme";
 
 const StyledFormHolder = styled.div`
-  border: 1px solid ${colors.gray.default};
-  background: ${colors.white.default};
+  border: 1px solid ${props => props.theme.colors.gray.default};
+  background: ${props => props.theme.colors.white.default};
   margin: 30px 0;
   padding: 20px;
   width: 100%;
@@ -18,7 +17,7 @@ const StyledFormHolder = styled.div`
     select, input {
       height: 50px;
       width: 100%;
-      border: 1px solid ${colors.gray.default};
+      border: 1px solid ${props => props.theme.colors.gray.default};
       border-radius: 5px;
       margin-bottom: 20px;
       &:focus {

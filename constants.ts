@@ -1,5 +1,9 @@
+type CountriesList = {
+  name: string
+  code: string
+}
 // @ts-nocheck
-export const countriesList = [
+export const countriesList: CountriesList[] = [
   { name: "Afghanistan", code: "AF" },
   { name: "Åland Islands", code: "AX" },
   { name: "Albania", code: "AL" },

@@ -1,7 +1,8 @@
 import { ReactNode, useState, createContext, useEffect, useMemo, useCallback } from "react";
 import { fetchApi } from "./client";
 
-const Context = createContext({});
+//TODO: add skillList, userData, fetchSkillList, fetchUserData to type context
+const Context: any = createContext({});
 
 type AppContextProviderProps = {
   children: ReactNode
@@ -20,7 +21,7 @@ export const AppContextProvider = ({ children }: AppContextProviderProps) => {
     fetchData();
   }, []);
 
-  const fetchSkillList = useCallback(value => console.log(value),  []);
+  const fetchSkillList = useCallback((value: string) => console.log(value),  []);
 
   const fetchUserData = useCallback(async () => {
     const body = { email: "vitorboccio@gmail.com" };

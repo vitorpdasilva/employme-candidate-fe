@@ -6,11 +6,11 @@ type RequestCredentials = "omit" | "same-origin" | "include"
 
 type FetchApiProps = {
   url: string
-  method: string
+  method?: string
   mode?: RequestMode
   cache?: RequestCache
   credentials?: RequestCredentials
-  body: any
+  body?: any
 }
 const fetchApi = async({ url, method = "POST", mode = "cors", cache = "no-cache", credentials = "same-origin", body = {} }: FetchApiProps) => {
   const data = await fetch(`${BASE_URL}${url}`, {

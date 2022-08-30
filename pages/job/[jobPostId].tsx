@@ -1,6 +1,9 @@
 import { useState, useEffect, useContext } from "react";
 import parse from "html-react-parser";
 import Head from "next/head";
+// react-country-flag doesnt exist in @types npm-registry
+// TODO: replace to a flag library that contain types
+//@ts-ignore
 import ReactCountryFlag from "react-country-flag";
 import { FaPlaneDeparture, FaDollarSign } from "react-icons/fa";
 import { useRouter } from "next/router";
@@ -12,10 +15,32 @@ import { JobPageWrapper, JobCardMain } from "./style";
 import { countriesList } from "../../constants";
 import AppContext from "../context";
 
+type JobInfoType = {
+  id: number,
+  applicants: string[],
+  recent: boolean,
+  createdAt: Date,
+  title: string,
+  location: {
+    city: string,
+    country: string,
+    province: string,
+  },
+  locationType: string,
+  description: string,
+  tags: string[],
+  salary: {
+    from: number,
+    to: number,
+    currency: string,
+    period: string,
+  }
+}
+
 const JobPostPage = () => {
   const router = useRouter();
   const [jobPostId, setJobPostId] = useState("");
-  const [jobInfo, setJobInfo] = useState(null);
+  const [jobInfo, setJobInfo] = useState<JobInfoType | null>(null);
   const { userData, actions: { fetchUserData } } = useContext(AppContext);
   
   useEffect(() => {
@@ -31,7 +56,8 @@ const JobPostPage = () => {
 
   useEffect(() => {
     if (router?.query) {
-      setJobPostId(router.query.jobPostId);
+      console.log({ router: router?.query })
+      setJobPostId(router?.query?.jobPostId?.[0] ?? '');
     }
   }, [router]);
 
@@ -66,8 +92,8 @@ const JobPostPage = () => {
           <JobPoints style={{ display: "flex", justifyContent: "space-between" }}>
             <li>
               <ReactCountryFlag 
-                countryCode={countriesList.find(country => country.name === location.country).code}
-                aria-label={countriesList.find(country => country.name === location.country).code}
+                countryCode={countriesList?.find(country => country?.name === location?.country)?.code}
+                aria-label={countriesList?.find(country => country?.name === location?.country)?.code}
                 svg
                 style={{ marginRight: 10 }}
               />
