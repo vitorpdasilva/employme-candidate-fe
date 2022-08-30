@@ -4,10 +4,10 @@ import { FaSearch } from "react-icons/fa";
 import { countriesList } from "../../constants";
 
 const SearchJobBar = () => {
-  const [searchTitle, setSearchTitle] = useState(null);
+  const [searchTitle, setSearchTitle] = useState<string | null>(null);
   return (
     <>
-      <h1>{searchTitle || "Find your dream job abroad or remote"}</h1>
+      <h1>{searchTitle ?? "Find your dream job abroad or remote"}</h1>
       <SearchJobBarStyled>
         <form>
           <article>

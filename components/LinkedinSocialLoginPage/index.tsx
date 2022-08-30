@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import linkedin, { useLinkedIn } from "react-linkedin-login-oauth2";
 
 function LinkedinSocialLoginPage() {
@@ -17,7 +15,7 @@ function LinkedinSocialLoginPage() {
   return (
     <img
       onClick={linkedInLogin}
-      src={linkedin}
+      src={linkedin as unknown as string}
       alt="Sign in with Linked In"
       style={{ maxWidth: "180px", cursor: "pointer" }}
     />
