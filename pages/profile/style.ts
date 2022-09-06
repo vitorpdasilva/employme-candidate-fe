@@ -1,12 +1,11 @@
 import styled from "styled-components";
-import { colors } from "../../styles/theme";
 
 const ProfileSectionWrapper = styled.section`
   width: 100%;
   max-width: 750px;
-  border: 1px solid ${colors.gray.default};
+  border: 1px solid ${props => props.theme.colors.gray.default};
   border-radius: 5px;
-  background: ${colors.white.default};
+  background: ${props => props.theme.colors.white.default};
   margin: 30px 0;
   padding: 20px;
   &:hover {
@@ -20,7 +19,7 @@ const ProfileSectionWrapper = styled.section`
   select, input {
     height: 50px;
     width: 100%;
-    border: 1px solid ${colors.gray.default};
+    border: 1px solid ${props => props.theme.colors.gray.default};
     border-radius: 5px;
     &:focus {
       outline: none;

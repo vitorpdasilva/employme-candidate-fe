@@ -35,8 +35,8 @@ const RelocationProfileSection = () => {
         <div>
           <label>Are you open to remote jobs?</label>
           <select defaultValue={openToRemote} onChange={() => console.log("change")}>
-            <option value={true}>Yes</option>
-            <option value={false}>no</option>
+            <option value={'true'}>Yes</option>
+            <option value={'false'}>no</option>
           </select>
         </div>
         <div>

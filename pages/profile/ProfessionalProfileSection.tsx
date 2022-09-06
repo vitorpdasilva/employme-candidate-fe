@@ -54,7 +54,7 @@ const ProfessionalProfileSection = () => {
               <section key={index}>
                 <aside>
                   <select defaultValue={skillRank[index].skillId} onChange={() => console.log("change")}>
-                    {skillList?.map(({ name, id }) => (
+                    {skillList?.map(({ name, id }: any) => ( // TODO: fix type any
                       <option key={name} value={id}>{name}</option>
                     ))}
                   </select>

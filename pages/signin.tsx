@@ -1,15 +1,21 @@
 import { StyledFormHolder } from "./auth/style";
-import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
-import { Button, Title, Divider } from "../components";
-import LinkedinSocialLoginPage from "../components/LinkedinSocialLoginPage";
+import { Button } from "../components";
 import { fetchApi } from "./client"; 
 
-const SignUp = () => {
+type SubmitType = {
+  email: string
+  username: string
+  password: string
+}
+
+const fieldIsRequired = 'This field is required'
+
+const SignIn = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const router = useRouter();
-  const submit = async ({ email, username, password }) => {
+  const submit = async ({ email, username, password }: SubmitType) => {
     const body = {
       email,
       username,
@@ -27,28 +33,21 @@ const SignUp = () => {
   return (
     <div style={{ width: 500 }}>
       <StyledFormHolder>
-        <Title>Join EMOverseas -- it's free!</Title>
-        <p>Already on EMO? <Link href="signin"><a>Sign in</a></Link></p>
         <form onSubmit={handleSubmit(submit)}>
-          {errors.email && <small style={{ float: "right" }}>This field is required</small>}
-          <label>Email</label>
+          {errors.email && <small>{fieldIsRequired}</small>}
           <input type="email" {...register("email", { required: true, pattern: /^\S+@\S+$/i })} placeholder="email" />
           
-          {errors.username && <small style={{ float: "right" }}>This field is required</small>}
-          <label>Username</label>
+          {errors.username && <small>{fieldIsRequired}</small>}
           <input {...register("username", { required: true })} placeholder="username" />
           
-          {errors.password && <small style={{ float: "right" }}>This field is required</small>}
-          <label>Password</label>
+          {errors.password && <small>{fieldIsRequired}</small>}
           <input type="password" {...register("password", { required: true })} placeholder="password" />
           
-          <Button block>Register</Button>
-          <Divider />
-          <LinkedinSocialLoginPage />
+          <Button>Register</Button>
         </form>
       </StyledFormHolder>
     </div>
   );
 };
 
-export default SignUp;
+export default SignIn;

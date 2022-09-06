@@ -9,7 +9,7 @@ const SocialSection = () => {
   return (
     <ProfileSectionWrapper>
       <h1>Social Profile</h1>
-      {social.map(({ name, url }) => (
+      {social.map(({ name, url }: any) => ( // TODO: Fix type any
         <div key={name}>
           <Icon name={name} />
           <input defaultValue={url} placeholder={name} />

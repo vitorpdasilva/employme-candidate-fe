@@ -1,5 +1,5 @@
 import { useEffect, useContext } from "react";
-import { Image, Icon } from "semantic-ui-react";
+import { Icon } from "semantic-ui-react";
 
 import AppContext from "../context";
 import GeneralProfileSection from "./GeneralProfileSection";
@@ -23,7 +23,7 @@ const Profile = () => {
   return (
     <>
       <div style={{ position: "relative" }}>
-        <Image src={userData?.picture || placeHolder} size="small" circular />
+        <img src={userData?.picture || placeHolder} />
         <Icon size="big" style={{ position: "absolute", right: 0, bottom: 10 }} name="camera" />
       </div>
       <GeneralProfileSection />

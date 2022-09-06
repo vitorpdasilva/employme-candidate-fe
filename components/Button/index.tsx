@@ -3,6 +3,7 @@ import { ButtonStyle } from "./style";
 
 type ButtonProps = {
   children: ReactNode,
+  block?: boolean
   onClick?: () => unknown
 }
 
