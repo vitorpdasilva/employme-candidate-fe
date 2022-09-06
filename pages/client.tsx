@@ -6,14 +6,17 @@ type RequestCredentials = "omit" | "same-origin" | "include"
 
 type FetchApiProps = {
   url: string
-  method?: string
+  method?: "POST" | "GET" | "DELETE" | "PUT"
   mode?: RequestMode
   cache?: RequestCache
   credentials?: RequestCredentials
   body?: any
+  headers?: {
+    [key: string]: string
+  }
 }
 const fetchApi = async({ url, method = "POST", mode = "cors", cache = "no-cache", credentials = "same-origin", body = {} }: FetchApiProps) => {
-  const data = await fetch(`${BASE_URL}${url}`, {
+  const requestBody: Omit<FetchApiProps, "url"> = {
     method,
     mode,
     cache,
@@ -22,7 +25,13 @@ const fetchApi = async({ url, method = "POST", mode = "cors", cache = "no-cache"
       "Content-Type": "application/json",
     },
     body: JSON.stringify(body),
-  });
+  }
+
+  if (method === 'GET') {
+    delete requestBody.body
+  }
+  
+  const data = await fetch(`${BASE_URL}${url}`, requestBody);
   return data.json();
 };
 
