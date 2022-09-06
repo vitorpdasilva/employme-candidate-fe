@@ -92,7 +92,7 @@ const JobPostPage = () => {
           <JobPoints style={{ display: "flex", justifyContent: "space-between" }}>
             <li>
               <ReactCountryFlag 
-                countryCode={countriesList?.find(country => country?.name === location?.country)?.code}
+                countryCode={countriesList?.find(country => country?.name === location?.country)?.code ?? ''}
                 aria-label={countriesList?.find(country => country?.name === location?.country)?.code}
                 svg
                 style={{ marginRight: 10 }}
