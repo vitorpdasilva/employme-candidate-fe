@@ -1,10 +1,9 @@
 import styled from "styled-components";
 import { Dropdown } from "semantic-ui-react";
-import { colors } from "../../styles/theme";
 
 const StyledHeader = styled.header`
   height: 60px;
-  border-bottom: 1px solid ${colors.gray.default};
+  border-bottom: 1px solid ${props => props.theme.colors.gray.default};
   padding: 0 20px;
   display: flex;
   justify-content: center;
@@ -41,13 +40,13 @@ const StyledHeader = styled.header`
         &:after {
           width: 100%;
           height: 4px;
-          background: ${colors.blue.default};
+          background: ${props => props.theme.colors.blue.default};
           position: absolute;
           bottom: 0;
           left: 0;
           content: "";
         }
-        border-color: ${colors.blue.default}
+        border-color: ${props => props.theme.colors.blue.default}
       }
     }
   }
