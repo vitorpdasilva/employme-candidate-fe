@@ -1,5 +1,6 @@
 import { useContext } from "react";
-import { ProfileSectionWrapper } from "./style";
+import { Input, Select } from 'semantic-ui-react'
+import { ProfileSectionWrapper, InputRow } from "./style";
 import { countriesList } from "../../constants";
 import AppContext from "../context";
 
@@ -8,25 +9,24 @@ const GeneralProfileSection = () => {
   const { general: { citizenship_code, currentLocation, gender, phone } } = userData;
   console.log({ userData });
   if (!userData) return <>Loading...</>;
-
+  console.log({ test: countriesList.map(({ name, code }) => (
+    { key: name, value: code, text: name }
+    )) })
   return (
     <ProfileSectionWrapper>
       <h1>General</h1>
       <form>
         <ul>
           <li>
-            <label>Citizenship</label>
-            <select
-              defaultValue={citizenship_code}
-              onChange={() => console.log("change")}
-            >
+            <Input label="Citizenship" list='citizenship' placeholder='Choose your citizenship' />
+            <datalist id="citizenship">
               <option value="" disabled>Country</option>
               {countriesList.map(({ name, code }) => (
-                <option key={code} value={code}>
+                <option key={code} value={name}>
                   {name}
                 </option>
               ))}
-            </select>
+            </datalist>
           </li>
           <li>
             <label>Current Location</label>
@@ -53,8 +53,9 @@ const GeneralProfileSection = () => {
             </select>
           </li>
           <li>
-            <label>Phone</label>
-            <input placeholder="Phone" defaultValue={phone} />
+            <InputRow>
+              <Input label="Phone" placeholder="Phone" defaultValue={phone} />
+            </InputRow>
           </li>
         </ul>
       </form>

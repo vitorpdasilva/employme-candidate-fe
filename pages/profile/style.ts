@@ -16,18 +16,6 @@ const ProfileSectionWrapper = styled.section`
     padding: 0;
     column-count: 2;
   }
-  select, input {
-    height: 50px;
-    width: 100%;
-    border: 1px solid ${props => props.theme.colors.gray.default};
-    border-radius: 5px;
-    &:focus {
-      outline: none;
-    }
-    &:nth-of-type(odd) {
-      margin-bottom: 20px;
-    }
-  }
   article {
     display: flex;
     flex-wrap: wrap;
@@ -38,6 +26,13 @@ const ProfileSectionWrapper = styled.section`
   }
 `;
 
+const InputRow = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 16px 0;
+`
+
 export {
+  InputRow,
   ProfileSectionWrapper
 };

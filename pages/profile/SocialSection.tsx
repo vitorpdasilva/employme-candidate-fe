@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { Icon } from "semantic-ui-react";
-import { ProfileSectionWrapper } from "./style";
+import { Icon, Input } from "semantic-ui-react";
+import { ProfileSectionWrapper, InputRow } from "./style";
 import AppContext from "../context";
 
 const SocialSection = () => {
@@ -10,10 +10,12 @@ const SocialSection = () => {
     <ProfileSectionWrapper>
       <h1>Social Profile</h1>
       {social.map(({ name, url }: any) => ( // TODO: Fix type any
-        <div key={name}>
-          <Icon name={name} />
-          <input defaultValue={url} placeholder={name} />
-        </div>
+        <InputRow key={name}>
+          <Input iconPosition='left' defaultValue={url} placeholder={name}>
+            <Icon name={name} />
+            <input />
+          </Input>
+        </InputRow>
       ))}
     </ProfileSectionWrapper>
   );

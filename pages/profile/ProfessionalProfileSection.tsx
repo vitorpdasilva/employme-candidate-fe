@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Checkbox, Dropdown, Divider } from "semantic-ui-react";
 import { professionList } from "../../constants";
 import AppContext from "../context";
-import { ProfileSectionWrapper } from "./style";
+import { ProfileSectionWrapper, InputRow } from "./style";
 
 const ProfessionalProfileSection = () => {
   const { skillList, userData } = useContext(AppContext);
