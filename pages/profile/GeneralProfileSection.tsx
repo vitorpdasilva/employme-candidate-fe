@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Input, Grid } from 'semantic-ui-react'
+import { Input, Grid, Form, Select } from 'semantic-ui-react'
 import { ProfileSectionWrapper, InputRow } from "./style";
 import { countriesList } from "../../constants";
 import AppContext from "../context";
@@ -9,7 +9,7 @@ import ReactCountryFlag from "react-country-flag";
 const GeneralProfileSection = () => {
   const { userData } = useContext(AppContext);
   const { general: { citizenship_code, currentLocation, gender, phone } } = userData;
-  
+  console.log({ userData })
   if (!userData) return <>Loading...</>;
   
   return (
@@ -19,38 +19,32 @@ const GeneralProfileSection = () => {
         <Grid>
           <Grid.Row columns={2}>
             <Grid.Column>
-              <InputRow labelWidth="130px">
-                <Input fluid defaultValue={countriesList.find(country => country.code === citizenship_code)?.name} label="Citizenship" list='citizenship' placeholder='Choose your citizenship' />
-                <datalist id="citizenship">
-                  <option value="" disabled>Country</option>
-                  {countriesList.map(({ name, code }) => (
-                    <option key={code} value={name}>
-                      {name}
-                    </option>
-                  ))}
-                </datalist>
-              </InputRow>
-              <InputRow labelWidth="130px">
-                <Input fluid defaultValue={countriesList.find(country => country.code === currentLocation)?.name} label="Current location" list='current_location' placeholder='Current Location' />
-                <datalist id="current_location">
-                  <option value="" disabled>Country</option>
-                  {countriesList.map(({ name, code }) => (
-                    <option key={code} value={name} />
-                  ))}
-                </datalist>
-              </InputRow>
+              <Form.Field
+                control={Select} 
+                fluid
+                label="Citizenship"
+                placeholder="Citizenship"
+                defaultValue={citizenship_code}
+                options={countriesList.map(({ name, code }) => ({key: code, text: name, value: code }))} />                
+              <Form.Field
+                control={Select}
+                fluid
+                label="Current Location"
+                placeholder="Current Location"
+                defaultValue={currentLocation}
+                options={countriesList.map(({ name, code }) => ({ key: code, text: name, value: code }))}
+              />
             </Grid.Column>
             <Grid.Column>
-              <InputRow labelWidth="75px">
-                <Input fluid defaultValue={gender} label="Gender" list="gender" placeholder="Gender" />
-                <datalist id="gender">
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                </datalist>
-              </InputRow>
-              <InputRow labelWidth="75px">
-                <Input label="Phone" placeholder="Phone" defaultValue={phone} />
-              </InputRow>
+              <Form.Field 
+                control={Select}
+                label="Gender"
+                fluid
+                defaultValue={gender}
+                placeholder="Gender"
+                options={[{ key: 'female', text: 'female', value: 'female' }, { key: 'male', text: 'male', value: 'male' }]}
+              />
+              <Form.Field fluid label="Phone" control={Input} defaultValue={phone} />
             </Grid.Column>
           </Grid.Row>
         </Grid> 

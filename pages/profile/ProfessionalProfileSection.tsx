@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Checkbox, Dropdown, Divider } from "semantic-ui-react";
+import { Checkbox, Dropdown, Divider, Grid, Input, Form, Select } from "semantic-ui-react";
 import { professionList } from "../../constants";
 import AppContext from "../context";
 import { ProfileSectionWrapper, InputRow } from "./style";
@@ -11,25 +11,29 @@ const ProfessionalProfileSection = () => {
     <ProfileSectionWrapper>
       <h1>Professional Overview</h1>
       <form>
-        <ul>
-          <li>
-            <label>I am a/an</label>
-            <select defaultValue={profession} onChange={() => console.log("change")}>
-              {professionList.map(({ text, value }) => (
-                <option key={value} value={value}>{text}</option>
-              ))}
-            </select>
-          </li>
-          <li>
-            <label>With...</label>
-            <select defaultValue={yearsOfExp} onChange={() => console.log("change")}>
-              {[...Array(10).keys()].map(val => (
-                <option key={val} value={val}>{val} years</option>
-              ))}
-              <option value="10">10+ years</option>
-            </select>
-          </li>
-        </ul>
+        <Grid>
+          <Grid.Row columns={2}>
+            <Grid.Column>
+            <Form.Field
+                control={Select} 
+                fluid
+                label="I am a/an"
+                placeholder="Profession"
+                defaultValue={profession}
+                options={professionList.map(({ text, value }) => ({ text, key: value, value }))} />    
+            </Grid.Column>
+            <Grid.Column>
+              <Form.Field 
+                fluid
+                control={Select}
+                label="With..."
+                placeholder="years of experience"
+                defaultValue={yearsOfExp}
+                options={[...Array(10).keys()].map(value => ({ text: `${value} ${value !== 1 ? 'years' : 'year'}`, key: value, value, }))}
+              />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid> 
         <div>
           <Checkbox label="I am open to working in a different role" checked={openToDiffRole} />
         </div>
@@ -49,26 +53,20 @@ const ProfessionalProfileSection = () => {
         <Divider hidden />
         <div>
           <h3>Rank your top 3 skills</h3>
-          <article>
-            {[...Array(3).keys()].map(index => (
-              <section key={index}>
-                <aside>
-                  <select defaultValue={skillRank[index].skillId} onChange={() => console.log("change")}>
-                    {skillList?.map(({ name, id }: any) => ( // TODO: fix type any
-                      <option key={name} value={id}>{name}</option>
-                    ))}
-                  </select>
-                </aside>
-                <aside>
-                  <select defaultValue={skillRank[index].yearsOfExp} onChange={() => console.log("change")}>
-                    {[...Array(10).keys()].map(val => (
-                      <option key={val} value={val}>{val} years</option>
-                    ))}
-                  </select>
-                </aside>
-              </section>
-            ))}
-          </article>
+            <Grid>
+              <Grid.Row columns={3}>
+                {[...Array(3).keys()].map(index => (
+                  <Grid.Column>
+                    <Form.Field
+                      fluid
+                      control={Select}
+                      defaultValue={skillRank[index].skillId}
+                      options={skillList?.map(({ name, id }: any) => ({ text: name, key: id, value: id }))}
+                    />
+                  </Grid.Column>
+                ))}
+              </Grid.Row>
+            </Grid>
         </div>
       </form>
     </ProfileSectionWrapper>
