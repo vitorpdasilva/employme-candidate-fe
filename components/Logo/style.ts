@@ -4,12 +4,6 @@ export const StyledLogo = styled.div`
   border: ${props => `1px solid ${props.theme.colors.blue.default}`};
   width: 45;
   height: 45;
-  /* background: colors.blue.default,
-  borderRadius: 5,
-  color: colors.white.default,
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center", */
 `
 
 export const Button = styled.button`

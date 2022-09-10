@@ -26,10 +26,16 @@ const ProfileSectionWrapper = styled.section`
   }
 `;
 
-const InputRow = styled.div`
+const InputRow = styled('div')<{labelWidth?: string}>`
   display: flex;
   align-items: center;
   margin: 16px 0;
+  > div.input {
+    width: 100%;
+    .label {
+      min-width: ${({ labelWidth }) => labelWidth ?? 'auto'};
+    }
+  }
 `
 
 export {
