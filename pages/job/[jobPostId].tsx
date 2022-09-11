@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import parse from "html-react-parser";
+import { Popup, Message } from 'semantic-ui-react'
 import Head from "next/head";
 // react-country-flag doesnt exist in @types npm-registry
 // TODO: replace to a flag library that contain types
@@ -41,6 +42,7 @@ const JobPostPage = () => {
   const router = useRouter();
   const [jobPostId, setJobPostId] = useState("");
   const [jobInfo, setJobInfo] = useState<JobInfoType | null>(null);
+  const [applyJobStatus, setApplyJobStatus] = useState("")
   const { userData, actions: { fetchUserData } } = useContext(AppContext);
   
   useEffect(() => {
@@ -67,17 +69,24 @@ const JobPostPage = () => {
       const body = {
         applicantId: userData.id
       };
-      const res = await fetchApi({ url: `/job/${jobPostId}/apply`, body });
-      console.log({ res });
+      try {
+        const { status, message } = await fetchApi({ url: `/job/${jobPostId}/apply`, body });
+        if (status === 'error') {
+          setApplyJobStatus(message)
+        }
+      } catch (err: any) {
+        console.error(err.error)
+      }
     } else {
       console.error("no user data");
     }
   };
 
   if (!jobInfo) return <span>Loading...</span>;
-
-  const { title, location, locationType, salary, recent, tags, id, description, createdAt } = jobInfo;
+  if (!userData) router.push('/profile')
   
+  const { title, location, locationType, salary, recent, tags, id: jobId, description, createdAt } = jobInfo;
+  console.log({ applied: userData?.jobsApplied?.includes(jobId), userData })
   return (
     <>
       <Head>
@@ -103,7 +112,26 @@ const JobPostPage = () => {
             <li><FaDollarSign /> ${salary.from} up to ${salary.to} {salary.currency}/{salary.period}</li>
           </JobPoints>
           {parse(description)}
-          <Button onClick={() => applyToJob()}>Apply for this position</Button>
+          {console.log({ applyJobStatus })}
+          <Popup 
+            content={
+              <Message negative>
+                <Message.Header>Error</Message.Header>
+                {applyJobStatus}
+              </Message>
+            }
+            closeOnEscape
+            closeOnPortalMouseLeave
+            onClose={() => setApplyJobStatus('')}
+            open={!!applyJobStatus}
+            trigger={
+            <Button 
+              primary 
+              disabled={userData?.jobsApplied?.includes(jobId)} 
+              onClick={() => applyToJob()}>
+                {userData?.jobsApplied?.includes(jobId) ? "Apply for this position" : "Already applied for this position" }
+              </Button>}
+          />
         </JobCardMain>
         <div>Right Column</div>
       </JobPageWrapper>
