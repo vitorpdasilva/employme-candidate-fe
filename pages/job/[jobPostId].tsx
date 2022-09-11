@@ -77,7 +77,7 @@ const JobPostPage = () => {
   if (!jobInfo) return <span>Loading...</span>;
 
   const { title, location, locationType, salary, recent, tags, id, description, createdAt } = jobInfo;
-  console.log({ jobInfo });
+  
   return (
     <>
       <Head>
