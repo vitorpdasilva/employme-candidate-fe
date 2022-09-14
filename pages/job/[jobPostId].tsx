@@ -1,4 +1,5 @@
-import { useState, useEffect, useContext } from "react";
+import 'react-toastify/dist/ReactToastify.css';
+import { useState, useEffect, useContext, useRef } from "react";
 import parse from "html-react-parser";
 import { Popup, Message } from 'semantic-ui-react'
 import Head from "next/head";
@@ -6,6 +7,7 @@ import Head from "next/head";
 // TODO: replace to a flag library that contain types
 //@ts-ignore
 import ReactCountryFlag from "react-country-flag";
+import { Id, toast, ToastContainer } from "react-toastify";
 import { FaPlaneDeparture, FaDollarSign } from "react-icons/fa";
 import { useRouter } from "next/router";
 import JobPoints from "../../components/jobPoints";
@@ -44,13 +46,13 @@ const JobPostPage = () => {
   const [jobInfo, setJobInfo] = useState<JobInfoType | null>(null);
   const [applyJobStatus, setApplyJobStatus] = useState("")
   const { userData, actions: { fetchUserData } } = useContext(AppContext);
-  
+  const toastId = useRef<string | number>('');
+
   useEffect(() => {
     if (jobPostId) {
       const fetchData = async () => {
         const response = await fetchApi({ url: `/job/${jobPostId}`});
-        console.log({ response });
-        setJobInfo(response);
+        setJobInfo(response); 
       };
       fetchData();
     }
@@ -58,7 +60,6 @@ const JobPostPage = () => {
 
   useEffect(() => {
     if (router?.query) {
-      console.log({ router: router?.query })
       setJobPostId(router?.query?.jobPostId?.[0] ?? '');
     }
   }, [router]);
@@ -71,9 +72,16 @@ const JobPostPage = () => {
       };
       try {
         const { status, message } = await fetchApi({ url: `/job/${jobPostId}/apply`, body });
-        if (status === 'error') {
-          setApplyJobStatus(message)
-        }
+        toast(message, {
+          position: 'top-right',
+          autoClose: 5000,
+          type: status,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
       } catch (err: any) {
         console.error(err.error)
       }
@@ -84,9 +92,9 @@ const JobPostPage = () => {
 
   if (!jobInfo) return <span>Loading...</span>;
   if (!userData) router.push('/profile')
-  
+
   const { title, location, locationType, salary, recent, tags, id: jobId, description, createdAt } = jobInfo;
-  console.log({ applied: userData?.jobsApplied?.includes(jobId), userData })
+  
   return (
     <>
       <Head>
@@ -112,7 +120,7 @@ const JobPostPage = () => {
             <li><FaDollarSign /> ${salary.from} up to ${salary.to} {salary.currency}/{salary.period}</li>
           </JobPoints>
           {parse(description)}
-          {console.log({ applyJobStatus })}
+          
           <Popup 
             content={
               <Message negative>
@@ -129,10 +137,11 @@ const JobPostPage = () => {
               primary 
               disabled={userData?.jobsApplied?.includes(jobId)} 
               onClick={() => applyToJob()}>
-                {userData?.jobsApplied?.includes(jobId) ? "Apply for this position" : "Already applied for this position" }
+                {userData?.jobsApplied?.includes(jobId) ? "Already applied for this position" : "Apply for this position" }
               </Button>}
           />
         </JobCardMain>
+        <ToastContainer />
         <div>Right Column</div>
       </JobPageWrapper>
     </>
