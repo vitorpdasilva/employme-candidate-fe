@@ -2,6 +2,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useState, useEffect, useContext, useRef } from "react";
 import parse from "html-react-parser";
 import { Popup, Message } from 'semantic-ui-react'
+import { useApi } from 'hooks';
 import Head from "next/head";
 // react-country-flag doesnt exist in @types npm-registry
 // TODO: replace to a flag library that contain types
@@ -47,7 +48,7 @@ const JobPostPage = () => {
   const [applyJobStatus, setApplyJobStatus] = useState("")
   const { userData, actions: { fetchUserData } } = useContext(AppContext);
   const toastId = useRef<string | number>('');
-
+  useApi(`/job/${jobPostId}`, !jobPostId, {});
   useEffect(() => {
     if (jobPostId) {
       const fetchData = async () => {
@@ -66,22 +67,21 @@ const JobPostPage = () => {
 
   const applyToJob = async () => {
     if (userData) {
-      console.log("applyTojob", userData);
       const body = {
         applicantId: userData.id
       };
       try {
-        const { status, message } = await fetchApi({ url: `/job/${jobPostId}/apply`, body });
-        toast(message, {
-          position: 'top-right',
-          autoClose: 5000,
-          type: status,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        })
+        // const { status, message } = await fetchApi({ url: `/job/${jobPostId}/apply`, body });
+        // toast(message, {
+        //   position: 'top-right',
+        //   autoClose: 5000,
+        //   type: status,
+        //   hideProgressBar: false,
+        //   closeOnClick: true,
+        //   pauseOnHover: true,
+        //   draggable: true,
+        //   progress: undefined,
+        // })
       } catch (err: any) {
         console.error(err.error)
       }
