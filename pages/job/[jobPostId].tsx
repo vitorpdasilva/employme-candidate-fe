@@ -48,7 +48,7 @@ const JobPostPage = () => {
   const [applyJobStatus, setApplyJobStatus] = useState("")
   const { userData, actions: { fetchUserData } } = useContext(AppContext);
   const toastId = useRef<string | number>('');
-  useApi(`/job/${jobPostId}`, !jobPostId, {});
+  
   useEffect(() => {
     if (jobPostId) {
       const fetchData = async () => {
@@ -71,17 +71,18 @@ const JobPostPage = () => {
         applicantId: userData.id
       };
       try {
-        // const { status, message } = await fetchApi({ url: `/job/${jobPostId}/apply`, body });
-        // toast(message, {
-        //   position: 'top-right',
-        //   autoClose: 5000,
-        //   type: status,
-        //   hideProgressBar: false,
-        //   closeOnClick: true,
-        //   pauseOnHover: true,
-        //   draggable: true,
-        //   progress: undefined,
-        // })
+        const { status, message } = await fetchApi({ url: `/job/${jobPostId}/apply`, body });
+        toast(message, {
+          position: 'top-right',
+          autoClose: 5000,
+          type: status,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+        fetchUserData();
       } catch (err: any) {
         console.error(err.error)
       }
@@ -91,8 +92,11 @@ const JobPostPage = () => {
   };
 
   if (!jobInfo) return <span>Loading...</span>;
-  if (!userData) router.push('/profile')
-
+  if (!userData) {
+    fetchUserData();
+    return <span>Loading...</span>;
+  }
+  
   const { title, location, locationType, salary, recent, tags, id: jobId, description, createdAt } = jobInfo;
   
   return (
@@ -141,9 +145,9 @@ const JobPostPage = () => {
               </Button>}
           />
         </JobCardMain>
-        <ToastContainer />
         <div>Right Column</div>
       </JobPageWrapper>
+      <ToastContainer />
     </>
   );
 };

@@ -15,7 +15,9 @@ type FetchApiProps = {
     [key: string]: string
   }
 }
+
 const fetchApi = async({ url, method = "POST", mode = "cors", cache = "no-cache", credentials = "same-origin", body = {} }: FetchApiProps) => {
+  
   const requestBody: Omit<FetchApiProps, "url"> = {
     method,
     mode,

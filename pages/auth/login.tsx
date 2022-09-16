@@ -7,7 +7,6 @@ const Login = () => {
   }
   const submitLogin = async () => {
     const log = await fetchApi({ url: "/login", body });
-    console.log({ log });
   };
 
   const submitRegister = () => {
