@@ -5,7 +5,7 @@ import { ButtonProps } from 'semantic-ui-react'
 type ButtonTypes = {
   children: ReactNode,
   block?: boolean
-  disabled: boolean,
+  disabled?: boolean,
   onClick?: () => unknown
 } & ButtonProps
 

@@ -1,6 +1,9 @@
 import { fetchApi } from "../client";
 import { useAuthStore } from "stores";
-
+import { Background } from './background'
+import { Form } from 'semantic-ui-react'
+import { Button } from 'components'
+import { CustomForm } from './style'
 const Login = () => {
   const setUserToStore = useAuthStore((state: any) => state.setUser);
 
@@ -15,10 +18,15 @@ const Login = () => {
   };
 
   return (
-    <div>
-      Login
-      <button onClick={() => submitLogin()}>Submit login</button>  
-    </div>
+    <>
+      <Background />
+      <CustomForm>
+        <Form.Input label='Email' placeholder='Email' />
+        <Form.Input label='Password' placeholder='Password' />
+        <Button onClick={submitLogin}>Login</Button>
+      </CustomForm>
+    </>
+    
   );
 };
 

@@ -2,7 +2,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useState, useEffect, useContext, useRef } from "react";
 import parse from "html-react-parser";
 import { Popup, Message } from 'semantic-ui-react'
-import { useApi } from 'hooks';
 import Head from "next/head";
 // react-country-flag doesnt exist in @types npm-registry
 // TODO: replace to a flag library that contain types
