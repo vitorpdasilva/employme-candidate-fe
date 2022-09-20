@@ -1,22 +1,22 @@
 import { fetchApi } from "../client";
+import { useAuthStore } from "stores";
 
 const Login = () => {
-  const body = {
-    username: '',
-    pwd: '',
-  }
-  const submitLogin = async () => {
-    const log = await fetchApi({ url: "/login", body });
-  };
+  const setUserToStore = useAuthStore((state: any) => state.setUser);
 
-  const submitRegister = () => {
-    console.log('submitRegister')
+  const body = {
+    email: 'vitorboccio@gmail.com',
+    password: 'vitor123',
   }
+
+  const submitLogin = async () => {
+    const { user } = await fetchApi({ url: "/login", body });
+    setUserToStore(user)
+  };
 
   return (
     <div>
       Login
-      <button onClick={() => submitRegister()}>Submit register</button>
       <button onClick={() => submitLogin()}>Submit login</button>  
     </div>
   );
