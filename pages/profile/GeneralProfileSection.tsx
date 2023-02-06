@@ -3,7 +3,6 @@ import { Input, Grid, Form, Select } from 'semantic-ui-react'
 import { ProfileSectionWrapper, InputRow } from "./style";
 import { countriesList } from "../../constants";
 import AppContext from "../context";
-import ReactCountryFlag from "react-country-flag";
 
 
 const GeneralProfileSection = () => {

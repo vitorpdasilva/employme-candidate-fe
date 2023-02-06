@@ -3,7 +3,7 @@ import { ReactNode } from 'react'
 
 type JobPointsProps = {
   children: ReactNode
-  style: {},
+  style?: {},
 }
 
 const JobPoints = ({ children, ...rest }: JobPointsProps) => (

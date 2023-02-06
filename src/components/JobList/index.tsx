@@ -4,11 +4,11 @@ import parse from "html-react-parser";
 import { FaPlaneDeparture, FaDollarSign } from "react-icons/fa";
 import JobListGrid from "./style";
 import Card from "../Card";
-import JobPoints from "../../components/jobPoints";
-import JobCardHeadline from "../../components/JobCardHeadline";
-import SkillLabel from "../../components/SkillLabel";
+import JobPoints from "../jobPoints";
+import JobCardHeadline from "../JobCardHeadline";
+import SkillLabel from "../SkillLabel";
 import JobDescription from "../JobDescription";
-import { countriesList } from "../../constants";
+import { countriesList } from "../../../constants";
 
 type IProps = {
   jobList: JobListProps[]
@@ -41,8 +41,8 @@ const JobList = ({ jobList }: IProps) => (
         <JobPoints>
           <li>
             <ReactCountryFlag 
-              countryCode={countriesList?.find((country: any) => country?.name === location?.country)?.code}
-              aria-label={countriesList?.find((country: any) => country?.name === location?.country)?.code}
+              countryCode={countriesList?.find((country: any) => country?.name === location?.country)?.code ?? ''}
+              aria-label={countriesList?.find((country: any) => country?.name === location?.country)?.code ?? ''}
               svg
               style={{ marginRight: 10 }}
             />

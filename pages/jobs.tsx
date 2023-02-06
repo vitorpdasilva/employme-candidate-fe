@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import JobList from "../components/JobList";
-import SearchJobBar from "../components/SearchJobBar";
+import JobList from "../src/components/JobList";
+import SearchJobBar from "../public/SearchJobBar";
 import { fetchApi } from "./client";
 const Dashboard = () => {
   const [jobList, setJobList] = useState([]);

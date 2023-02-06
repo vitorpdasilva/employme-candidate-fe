@@ -1,15 +1,29 @@
 import { fetchApi } from "../client";
 import { useAuthStore } from "stores";
-import { Background } from './background'
 import { Form } from 'semantic-ui-react'
-import { Button } from 'components'
-import { CustomForm } from './style'
+import { Box, TextField, Button, styled } from '@mui/material'
+
+// email: 'vitorboccio@gmail.com',
+// password: 'vitor123',
+
+const FormWrapper = styled(Box)({
+  border: '1px solid #c5c5c5', 
+  display: 'flex', 
+  flexDirection: 'column', 
+  padding: '3em',
+  borderRadius: '10px', 
+  justifyContent: 'space-around',
+  background: '#f3f3f3',
+  '& input': {
+    background: '#fff',
+  }
+})
+
 const Login = () => {
   const setUserToStore = useAuthStore((state: any) => state.setUser);
 
   const body = {
-    email: 'vitorboccio@gmail.com',
-    password: 'vitor123',
+    
   }
 
   const submitLogin = async () => {
@@ -18,15 +32,11 @@ const Login = () => {
   };
 
   return (
-    <>
-      <Background />
-      <CustomForm>
-        <Form.Input label='Email' placeholder='Email' />
-        <Form.Input label='Password' placeholder='Password' />
-        <Button onClick={submitLogin}>Login</Button>
-      </CustomForm>
-    </>
-    
+    <FormWrapper component="form">
+      <TextField label="username" variant="outlined" />
+      <TextField type="password" sx={{ my: 2 }} label="password" variant="outlined" />
+      <Button variant="contained" onClick={submitLogin}>Login</Button>
+    </FormWrapper>
   );
 };
 

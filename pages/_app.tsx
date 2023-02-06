@@ -2,33 +2,37 @@ import "../styles/globals.css";
 import { ElementType } from 'react'
 import { theme } from '../styles/theme'
 import { ThemeProvider } from "styled-components";
-import Header from "../components/Header";
+import Header from "../src/components/Header";
 import "semantic-ui-css/semantic.min.css";
 import { AppContextProvider } from "./context";
-
+import { Box, styled } from '@mui/material'
 type MyAppProps = {
   Component: ElementType
   pageProps: any
 }
+
+const MainContentWrapper = styled(Box)({
+  flexGrow: 1,
+  display: "flex",
+  justifyContent: "center",
+  width: "100%",
+  maxWidth: 1280,
+  flexDirection: "column",
+  alignItems: "center",
+  margin: "0 auto",
+  padding: "0 20px",
+})
+
 function MyApp({ Component, pageProps }: MyAppProps) {
   return (
     <>
       <ThemeProvider theme={theme}>
       <AppContextProvider>
         <Header />
-        <div style={{
-          display: "flex",
-          justifyContent: "center",
-          width: "100%",
-          maxWidth: 1280,
-          flexDirection: "column",
-          alignItems: "center",
-          margin: "0 auto",
-          padding: "0 20px",
-        }}>
+        <MainContentWrapper>
           <Component {...pageProps} />
-        </div>
-        <footer>footer</footer>
+        </MainContentWrapper>
+        <Box>footer</Box>
       </AppContextProvider>
       </ThemeProvider>
     </>
