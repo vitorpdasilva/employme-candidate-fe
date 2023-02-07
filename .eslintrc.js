@@ -24,5 +24,7 @@ module.exports = {
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
     "indent": ["error", 2],
+    "max-len": ["error", { code: 80,  ignoreComments: true }],
+    "object-curly-spacing": ["error", "always"],
   }
 };

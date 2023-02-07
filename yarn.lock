@@ -10727,10 +10727,10 @@
     "@types/react" "*"
     "prop-types" "^15.6.0"
 
-"react-hook-form@^7.22.3":
-  "integrity" "sha512-VhWJ531WbyP25C0O0nNTe6GNHmw/zFrJAXJLGKEeseNHitjcQXZ7OsdHbFSiH2KEYmY9tDFkMz9UzWUHdyFswQ=="
-  "resolved" "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.22.3.tgz"
-  "version" "7.22.3"
+"react-hook-form@^7.43.0":
+  "integrity" "sha512-/rVEz7T0gLdSFwPqutJ1kn2e0sQNyb9ci/hmwEYr2YG0KF/LSuRLvNrf9QWJM+gj88CjDpDW5Bh/1AD7B2+z9Q=="
+  "resolved" "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.43.0.tgz"
+  "version" "7.43.0"
 
 "react-icons@^4.2.0":
   "integrity" "sha512-rmzEDFt+AVXRzD7zDE21gcxyBizD/3NqjbX6cmViAgdqfJ2UiLer8927/QhhrXQV7dEj/1EGuOTPp7JnLYVJKQ=="
@@ -10894,7 +10894,7 @@
   "resolved" "https://registry.npmjs.org/react-virtualized-auto-sizer/-/react-virtualized-auto-sizer-1.0.6.tgz"
   "version" "1.0.6"
 
-"react@*", "react@^15.3.0 || ^16.0.0-alpha || ^17.0.0", "react@^16 || ^17", "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17", "react@^16.8.0 || ^17 || ^18", "react@^16.8.0 || ^17.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17.0.0 || ^18.0.0", "react@^17.0.2", "react@>= 16.8.0", "react@>= 16.8.0 || 17.x.x || 18.x.x", "react@>=15", "react@>=16", "react@>=16.3.0", "react@>=16.6.0", "react@>=16.8", "react@>=16.8.0", "react@0.14 || 15 || 16 || 17 || 18", "react@16.x || 17.x", "react@17.0.2":
+"react@*", "react@^15.3.0 || ^16.0.0-alpha || ^17.0.0", "react@^16 || ^17", "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17 || ^18", "react@^16.8.0 || ^17.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17.0.0 || ^18.0.0", "react@^17.0.2", "react@>= 16.8.0", "react@>= 16.8.0 || 17.x.x || 18.x.x", "react@>=15", "react@>=16", "react@>=16.3.0", "react@>=16.6.0", "react@>=16.8", "react@>=16.8.0", "react@0.14 || 15 || 16 || 17 || 18", "react@16.x || 17.x", "react@17.0.2":
   "integrity" "sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA=="
   "resolved" "https://registry.npmjs.org/react/-/react-17.0.2.tgz"
   "version" "17.0.2"

@@ -33,8 +33,13 @@ const fetchApi = async({ url, method = "POST", mode = "cors", cache = "no-cache"
     delete requestBody.body
   }
   
-  const data = await fetch(`${BASE_URL}${url}`, requestBody);
-  return data.json();
+  
+    const data = await fetch(`${BASE_URL}${url}`, requestBody);
+    if (!data.ok) {
+      return Promise.reject(data)
+    }
+    return data.json()
+  
 };
 
 export {
