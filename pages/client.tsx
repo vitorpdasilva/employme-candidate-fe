@@ -3,6 +3,10 @@ const BASE_URL = process.env.NODE_ENV === "production" ? "prod-url/graphql" : "h
 type RequestMode = "navigate" | "same-origin" | "no-cors" | "cors"
 type RequestCache = "default"|  "no-store"|  "reload"|  "no-cache"|  "force-cache"|  "only-if-cached"
 type RequestCredentials = "omit" | "same-origin" | "include"
+export type ErrorResponse = {
+  message: string
+  statusCode: number
+}
 
 type FetchApiProps = {
   url: string
@@ -36,7 +40,8 @@ const fetchApi = async({ url, method = "POST", mode = "cors", cache = "no-cache"
   
     const data = await fetch(`${BASE_URL}${url}`, requestBody);
     if (!data.ok) {
-      return Promise.reject(data)
+      const res: ErrorResponse = await data.clone().json()
+      throw new Error(res.message || 'Something went wrong')
     }
     return data.json()
   
