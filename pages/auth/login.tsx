@@ -1,8 +1,10 @@
+import { useRouter } from "next/router";
 import { fetchApi, ErrorResponse } from "../client";
 import { useAuthStore } from "stores";
 import { Box, TextField, Button, styled, Alert } from '@mui/material'
 import { useForm, Resolver } from 'react-hook-form'
-import { useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
+import { useUserAuth } from "src/hooks";
 
 // email: 'vitorboccio@gmail.com',
 // password: 'vitor123',
@@ -38,8 +40,16 @@ const Login = () => {
   const { register, handleSubmit, formState: { errors }, watch } = useForm<Credentials>({ resolver })
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const setUserToStore = useAuthStore((state: any) => state.setUser);
-  // setUserToStore(user)
+  const isAuthenticated = useUserAuth()
+  const router = useRouter()
   
+  useEffect(() => {
+    console.log({ isAuthenticated })
+    if (isAuthenticated) {
+      router.push('/')
+    }
+  }, [])
+
   const onSubmit = handleSubmit(async (data) => {
     setErrorMessage(null)
     const body = {
@@ -48,8 +58,10 @@ const Login = () => {
     }
     
     try {
-      const { user } = await fetchApi({ url: "/login", body });
-      
+      const { user, token } = await fetchApi({ url: "/login", body });
+      setUserToStore(user)
+      window.localStorage.setItem('token', token)
+      router.push('/')
     } catch (error: any) { 
       setErrorMessage(error?.message as ErrorResponse['message'])
     }

@@ -4,6 +4,7 @@ import { ReactNode } from 'react'
 type JobDescriptionProps = {
   children: ReactNode
 }
+
 const JobDescription = ({ children }: JobDescriptionProps) => {
   return (
     <StyledJobDescription>

@@ -1,5 +1,5 @@
 import create from 'zustand'
-import { persist, StorePersist } from 'zustand/middleware'
+import { persist } from 'zustand/middleware'
 import { UserType } from 'types/user'
 
 export type AuthStoreType = {
@@ -11,7 +11,10 @@ export const useAuthStore = create(
   persist(
     (set) => ({
       user: null,
-      setUser: (user: UserType) => set({ user }),
+      setUser: (user: UserType) => {
+        window.localStorage.setItem('user', JSON.stringify(user))
+        set({ user })
+      },
     }),
     {
       name: 'userAuth',

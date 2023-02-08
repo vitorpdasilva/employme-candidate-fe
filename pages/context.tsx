@@ -1,4 +1,5 @@
 import { ReactNode, useState, createContext, useEffect, useMemo, useCallback } from "react";
+import { useUserAuth } from "src/hooks";
 import { fetchApi } from "./client";
 
 //TODO: add skillList, userData, fetchSkillList, fetchUserData to type context
@@ -11,9 +12,10 @@ type AppContextProviderProps = {
 export const AppContextProvider = ({ children }: AppContextProviderProps) => {
   const [skillList, setSkillList] = useState(null);
   const [userData, setUserData] = useState(null);
-
+  const isAuthenticated = useUserAuth()
   useEffect(() => {
     console.log("context.js -> load initial data");
+    console.log({ isAuthenticated })
     const fetchData = async () => {
       const { skillList } = await fetchApi({ url: "/skill-list" });
       setSkillList(skillList);
