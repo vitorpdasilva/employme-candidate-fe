@@ -11,13 +11,13 @@ export const useAuthStore = create(
   persist(
     (set) => ({
       user: null,
-      setUser: (user: UserType) => {
-        window.localStorage.setItem('user', JSON.stringify(user))
-        set({ user })
+      setUser: (user: UserType, token: string) => {
+        window.localStorage.setItem('token', token)
+        set(user)
       },
     }),
     {
-      name: 'userAuth',
+      name: 'user',
     }
   )
 )

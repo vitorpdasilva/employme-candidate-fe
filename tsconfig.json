@@ -95,7 +95,7 @@
   "exclude": [
     "node_modules",
     "build/**/*",
-    "constants.js"
+    "constants.ts"
   ],
   "include": [
     "next-env.d.ts",

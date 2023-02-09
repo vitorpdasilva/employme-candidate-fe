@@ -1,22 +1,24 @@
 import { useEffect, useContext } from "react";
 import { Icon } from "semantic-ui-react";
 
-import AppContext from "../context";
+import { AppContext } from "src/context";
 import GeneralProfileSection from "./GeneralProfileSection";
 import ProfessionalProfileSection from "./ProfessionalProfileSection";
 import RelocationProfileSection from "./RelocationProfileSection";
 import SocialSection from "./SocialSection";
+import { useUserAuth } from "src/hooks";
 
 const placeHolder = "https://via.placeholder.com/150";
 
 const Profile = () => {
+  const { isAuthenticated } = useUserAuth();
   const { userData, actions: { fetchUserData } } = useContext(AppContext);
   useEffect(() => {
     fetchUserData();
   }, []);
 
   if (!userData) {
-    console.log("userData loading");
+    console.log("userData loading", { isAuthenticated });
     return <>loading...</>;
   }
   

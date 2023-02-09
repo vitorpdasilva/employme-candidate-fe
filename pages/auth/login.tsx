@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
 import { fetchApi, ErrorResponse } from "../client";
 import { useAuthStore } from "stores";
-import { Box, TextField, Button, styled, Alert } from '@mui/material'
+import { Box, TextField, Button, styled, Alert, Typography, Link } from '@mui/material'
 import { useForm, Resolver } from 'react-hook-form'
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useUserAuth } from "src/hooks";
 
 // email: 'vitorboccio@gmail.com',
@@ -40,11 +40,10 @@ const Login = () => {
   const { register, handleSubmit, formState: { errors }, watch } = useForm<Credentials>({ resolver })
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const setUserToStore = useAuthStore((state: any) => state.setUser);
-  const isAuthenticated = useUserAuth()
+  const { isAuthenticated } = useUserAuth()
   const router = useRouter()
   
   useEffect(() => {
-    console.log({ isAuthenticated })
     if (isAuthenticated) {
       router.push('/')
     }
@@ -59,8 +58,7 @@ const Login = () => {
     
     try {
       const { user, token } = await fetchApi({ url: "/login", body });
-      setUserToStore(user)
-      window.localStorage.setItem('token', token)
+      setUserToStore(user, token)
       router.push('/')
     } catch (error: any) { 
       setErrorMessage(error?.message as ErrorResponse['message'])
@@ -74,6 +72,9 @@ const Login = () => {
       <TextField {...register('username')} label="username" variant="outlined" />
       <TextField {...register('password')} type="password" sx={{ my: 2 }} label="password" variant="outlined" />
       <Button type="submit" variant="contained">Login</Button>
+      <Typography sx={{ mt: 2 }} variant="caption" color="text.secondary">
+        Don't have an account? <Link href="/auth/signup">Sign up</Link>
+      </Typography>
     </FormWrapper>
   );
 };

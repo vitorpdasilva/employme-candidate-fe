@@ -2,8 +2,7 @@ import { useContext } from "react";
 import { Input, Grid, Form, Select } from 'semantic-ui-react'
 import { ProfileSectionWrapper, InputRow } from "./style";
 import { countriesList } from "../../constants";
-import AppContext from "../context";
-
+import { AppContext } from "src/context";
 
 const GeneralProfileSection = () => {
   const { userData } = useContext(AppContext);
