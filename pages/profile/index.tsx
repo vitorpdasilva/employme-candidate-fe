@@ -14,7 +14,7 @@ const Profile = () => {
   const { isAuthenticated } = useUserAuth();
   const { userData, actions: { fetchUserData } } = useContext(AppContext);
   useEffect(() => {
-    fetchUserData();
+    console.log({ isAuthenticated })
   }, []);
 
   if (!userData) {

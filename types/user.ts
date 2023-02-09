@@ -13,27 +13,31 @@ export type UserType = {
     currentLocation: string,
     phone: string,
   },
-  professionalOverview: {
-    profession: number,
-    yearsOfExp: number,
-    openToDiffRole: Boolean,
-    preferenceToWork: [number],
-    skillRank: [
-      { skillId: number, yearsOfExp: number },
-    ],
-  },
-  relocation: {
-    openToRemote: Boolean,
-    relocateOptions: string,
-    cadSalaryExpect: number,
-    canadianVisa: number,
-    usdSalaryExpect: number,
-    validPassport: Boolean,
-    companySize: [string],
-    activelyLooking: Boolean,
-    noticePeriod: number,
-  },
-  social: [
-    { name: string, url: string }
-  ]
+  professionalOverview: UserProfessionalOverview,
+  relocation: UserRelocation,
+  social: UserSocial,
 }
+
+export type UserProfessionalOverview = {
+  profession: number,
+  yearsOfExp: number,
+  openToDiffRole: Boolean,
+  preferenceToWork: [number],
+  skillRank: [
+    { skillId: number, yearsOfExp: number },
+  ],
+}
+
+export type UserRelocation = {
+  openToRemote: Boolean,
+  relocateOptions: string,
+  cadSalaryExpect: number,
+  canadianVisa: number,
+  usdSalaryExpect: number,
+  validPassport: Boolean,
+  companySize: [string],
+  activelyLooking: Boolean,
+  noticePeriod: number,
+}
+type SocialKeys = "name" | "url"
+export type UserSocial = [Record<SocialKeys, string>]

@@ -35,6 +35,7 @@ function MyApp({ Component, pageProps } : MyAppProps) {
   const router = useRouter()
   useEffect(() => {
     const test = window.localStorage.getItem('token')
+    console.log({ test })
     if(test) {
       if(routesToBeRedirected.includes(router.pathname)) {
         router.push('/')
