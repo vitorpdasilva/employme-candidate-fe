@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Input, Grid, Form, Select } from 'semantic-ui-react'
-import { ProfileSectionWrapper, InputRow } from "./style";
+import { ProfileSectionWrapper } from "./style";
 import { countriesList } from "../../constants";
 import { AppContext } from "src/context";
 

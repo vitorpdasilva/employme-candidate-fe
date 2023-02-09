@@ -1,7 +1,9 @@
 import Head from "next/head";
-// import styles from "../styles/layout.module.css";
+import { useAuthStore } from "stores";
 
 export default function Home() {
+  const userData = useAuthStore((state: any) => state.user);
+  
   return (
     <div>
       <Head>

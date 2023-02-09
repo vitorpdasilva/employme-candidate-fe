@@ -1,3 +1,6 @@
+
+import { SemanticICONS  } from "semantic-ui-react";
+
 export type UserType = {
   name: string,
   username: string,
@@ -40,4 +43,4 @@ export type UserRelocation = {
   noticePeriod: number,
 }
 type SocialKeys = "name" | "url"
-export type UserSocial = [Record<SocialKeys, string>]
+export type UserSocial = Array<Record<SocialKeys, string | SemanticICONS>>

@@ -7,21 +7,18 @@ import ProfessionalProfileSection from "./ProfessionalProfileSection";
 import RelocationProfileSection from "./RelocationProfileSection";
 import SocialSection from "./SocialSection";
 import { useUserAuth } from "src/hooks";
+import { useAuthStore } from "stores";
 
 const placeHolder = "https://via.placeholder.com/150";
 
 const Profile = () => {
-  const { isAuthenticated } = useUserAuth();
-  const { userData, actions: { fetchUserData } } = useContext(AppContext);
-  useEffect(() => {
-    console.log({ isAuthenticated })
-  }, []);
-
+  const userData = useAuthStore((state: any) => state.user);
+  
   if (!userData) {
-    console.log("userData loading", { isAuthenticated });
     return <>loading...</>;
   }
   
+
   return (
     <>
       <div style={{ position: "relative" }}>

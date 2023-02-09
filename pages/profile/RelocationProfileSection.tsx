@@ -24,7 +24,6 @@ const RelocationProfileSection = () => {
       noticePeriod,
       openToRemote,
       relocateOptions,
-      usdSalaryExpect,
       validPassport,
     }
   } = userData;

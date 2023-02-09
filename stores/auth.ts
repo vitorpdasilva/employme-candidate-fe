@@ -12,8 +12,9 @@ export const useAuthStore = create(
     (set) => ({
       user: null,
       setUser: (user: UserType, token: string) => {
+        console.log('auth store')
         window.localStorage.setItem('token', token)
-        set(user)
+        set({ user })
       },
     }),
     {

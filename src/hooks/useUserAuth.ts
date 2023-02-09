@@ -1,13 +1,13 @@
-import { useState, useLayoutEffect } from "react";
+import { useState, useEffect } from "react";
 
 export const useUserAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [authToken, setAuthToken] = useState<string | null>(null);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const token = localStorage.getItem("token")
-    setIsAuthenticated(!!token)
-    setAuthToken(token)
+    setIsAuthenticated(() => !!token)
+    setAuthToken(() => token)
   }, []);
 
   return { isAuthenticated, authToken };

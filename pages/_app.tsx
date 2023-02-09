@@ -30,18 +30,18 @@ const MainContentWrapper = styled(Box)({
 
 
 function MyApp({ Component, pageProps } : MyAppProps) {
-  const { isAuthenticated } = useUserAuth()
+  const { isAuthenticated, authToken } = useUserAuth()
   const { userData } = useContext(AppContext);
   const router = useRouter()
   useEffect(() => {
-    const test = window.localStorage.getItem('token')
-    console.log({ test })
-    if(test) {
+    const token = window.localStorage.getItem('token')
+    
+    if(token) {
       if(routesToBeRedirected.includes(router.pathname)) {
         router.push('/')
       }
     } 
-    if (!test && !routesToBeRedirected.includes(router.pathname)) {
+    if (!token && !routesToBeRedirected.includes(router.pathname)) {
       router.push('/auth/login')
     }
   }, [])
