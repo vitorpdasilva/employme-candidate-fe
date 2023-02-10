@@ -17,7 +17,7 @@ export const canadianVisaTypes: CanadianVisaTypes[] = [
   { value: 5, text: 'Closed Work Permit' }, 
   { value: 6, text: 'Permanent Resident' },
 ]
-// @ts-nocheck
+
 export const countriesList: CountriesList[] = [
   { name: "Afghanistan", code: "AF" },
   { name: "Åland Islands", code: "AX" },
