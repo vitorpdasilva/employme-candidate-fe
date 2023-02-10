@@ -9,7 +9,7 @@ export type UserType = {
   passwordHash: string,
   id: string,
   accessCount: number,
-  jobsApplied: [number],
+  jobsApplied: number[],
   general: {
     citizenship_code: string,
     gender: string,
@@ -25,7 +25,7 @@ export type UserProfessionalOverview = {
   profession: number,
   yearsOfExp: number,
   openToDiffRole: Boolean,
-  preferenceToWork: [number],
+  preferenceToWork: number[],
   skillRank: [
     { skillId: number, yearsOfExp: number },
   ],
@@ -38,7 +38,7 @@ export type UserRelocation = {
   canadianVisa: number,
   usdSalaryExpect: number,
   validPassport: Boolean,
-  companySize: [string],
+  companySize: string[],
   activelyLooking: Boolean,
   noticePeriod: number,
 }
