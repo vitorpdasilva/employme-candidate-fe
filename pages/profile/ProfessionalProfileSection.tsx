@@ -1,12 +1,15 @@
 import { useContext } from "react";
-import { Checkbox, Dropdown, Divider, Grid, Input, Form, Select } from "semantic-ui-react";
+import { Checkbox, Dropdown, Divider, Grid, Form, Select } from "semantic-ui-react";
 import { professionList } from "../../constants";
 import { AppContext } from "src/context";
 import { ProfileSectionWrapper } from "./style";
+import { useAuthStore } from "stores";
 
 const ProfessionalProfileSection = () => {
-  const { skillList, userData } = useContext(AppContext);
+  const { skillList } = useContext(AppContext);
+  const userData = useAuthStore((state: any) => state.user);
   const { professionalOverview: { openToDiffRole, profession, yearsOfExp, skillRank, preferenceToWork } } = userData;
+  
   return (
     <ProfileSectionWrapper>
       <h1>Professional Overview</h1>

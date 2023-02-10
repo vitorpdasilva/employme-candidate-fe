@@ -1,8 +1,7 @@
-import { useContext } from "react";
-import { Checkbox, Radio, Grid, Form, Select, Dropdown } from "semantic-ui-react";
+import { Grid, Form, Select, Dropdown } from "semantic-ui-react";
 import { ProfileSectionWrapper } from "./style";
 import { countriesList, canadianVisaTypes } from "../../constants";
-import { AppContext } from "src/context";
+import { useAuthStore } from "stores";
 
 const salaryRange = [
   { text: "70k - 80k", value: 0 },
@@ -14,7 +13,8 @@ const salaryRange = [
 ];
 
 const RelocationProfileSection = () => {
-  const { userData } = useContext(AppContext);
+  const userData = useAuthStore((state: any) => state.user);
+  
   const { 
     relocation: {
       activelyLooking, 

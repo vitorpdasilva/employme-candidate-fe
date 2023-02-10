@@ -4,15 +4,16 @@ import parse from "html-react-parser";
 import { FaPlaneDeparture, FaDollarSign } from "react-icons/fa";
 import JobListGrid from "./style";
 import Card from "../Card";
-import JobPoints from "../jobPoints";
-import JobCardHeadline from "../JobCardHeadline";
-import SkillLabel from "../SkillLabel";
-import JobDescription from "../JobDescription";
+import { JobPoints } from "../jobPoints";
+import { JobCardHeadline } from "../JobCardHeadline";
+import { SkillLabel } from "../SkillLabel";
+import { JobDescription } from "../JobDescription";
 import { countriesList } from "../../../constants";
 
 type IProps = {
   jobList: JobListProps[]
 }
+
 type JobListProps =  {
   description: string
   location: {
@@ -32,7 +33,7 @@ type JobListProps =  {
   tags: string[]
   id: string
 }
-const JobList = ({ jobList }: IProps) => (
+export const JobList = ({ jobList }: IProps) => (
   <JobListGrid>
     {jobList?.map(({ description, location, locationType, createdAt, recent, salary, title, tags, id }) => (
       <Card key={id} href={`/job/${id}`}>
@@ -59,5 +60,3 @@ const JobList = ({ jobList }: IProps) => (
     ))}
   </JobListGrid>
 );
-
-export default JobList;

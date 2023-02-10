@@ -6,10 +6,8 @@ type JobPointsProps = {
   style?: {},
 }
 
-const JobPoints = ({ children, ...rest }: JobPointsProps) => (
+export const JobPoints = ({ children, ...rest }: JobPointsProps) => (
   <JobPointsStyle {...rest}>
     {children}
   </JobPointsStyle>
 );
-
-export default JobPoints;

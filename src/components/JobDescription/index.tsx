@@ -5,7 +5,7 @@ type JobDescriptionProps = {
   children: ReactNode
 }
 
-const JobDescription = ({ children }: JobDescriptionProps) => {
+export const JobDescription = ({ children }: JobDescriptionProps) => {
   return (
     <StyledJobDescription>
       {children}
@@ -13,5 +13,3 @@ const JobDescription = ({ children }: JobDescriptionProps) => {
     </StyledJobDescription>
   );
 };
-
-export default JobDescription;

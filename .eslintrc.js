@@ -16,7 +16,8 @@ module.exports = {
     "sourceType": "module"
   },
   "plugins": [
-    "react"
+    "react",
+    "unused-imports",
   ],
   "rules": {
     "semi": ["error", "always"],
@@ -26,5 +27,13 @@ module.exports = {
     "indent": ["error", 2],
     "max-len": ["error", { code: 80,  ignoreComments: true }],
     "object-curly-spacing": ["error", "always"],
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      { 
+        "vars": "all", "varsIgnorePattern": "^_", 
+        "args": "after-used", "argsIgnorePattern": "^_" 
+      },
+    ]
   }
 };

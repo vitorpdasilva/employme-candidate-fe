@@ -7,8 +7,6 @@ type SkillLabelProps = {
   children?: ReactNode
 }
 
-const SkillLabel = ({ size = "small", color = "blue", children }: SkillLabelProps) => (
+export const SkillLabel = ({ size = "small", color = "blue", children }: SkillLabelProps) => (
   <Label size={size} color={color}>{children}</Label>
 );
-
-export default SkillLabel;

@@ -3,7 +3,7 @@ import { Dropdown } from "semantic-ui-react";
 import { useRouter } from "next/router";
 import { FaUserCircle } from "react-icons/fa";
 import StyledHeader, { StyledDropdown } from "./style";
-import Logo from "../Logo/index";
+import { Logo } from "../Logo/index";
 
 type HeaderItemsProps = {
   href: string
@@ -14,7 +14,7 @@ const headerItems: HeaderItemsProps[] = [
   { href: "/my-jobs", text: "My jobs" },
 ];
 
-const Header = () => {
+export const Header = () => {
   const router = useRouter();
 
   return (
@@ -47,5 +47,3 @@ const Header = () => {
     </StyledHeader>
   );
 };
-
-export default Header;

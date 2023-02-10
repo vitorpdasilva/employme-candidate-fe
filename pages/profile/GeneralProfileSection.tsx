@@ -1,13 +1,13 @@
-import { useContext } from "react";
 import { Input, Grid, Form, Select } from 'semantic-ui-react'
 import { ProfileSectionWrapper } from "./style";
 import { countriesList } from "../../constants";
-import { AppContext } from "src/context";
+import { useAuthStore } from "stores";
 
 const GeneralProfileSection = () => {
-  const { userData } = useContext(AppContext);
+  const userData = useAuthStore((state: any) => state.user);
+  console.log({ userData })  
   const { general: { citizenship_code, currentLocation, gender, phone } } = userData;
-  console.log({ userData })
+  
   if (!userData) return <>Loading...</>;
   
   return (

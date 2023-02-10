@@ -2,13 +2,14 @@ import { useContext } from "react";
 import { Icon, Input, SemanticICONS  } from "semantic-ui-react";
 import { ProfileSectionWrapper, InputRow } from "./style";
 import { AppContext } from "src/context";
+import { useAuthStore } from "stores";
 
 type Social = {
   name: SemanticICONS,
   url: string
 }
 const SocialSection = () => {
-  const { userData } = useContext(AppContext);
+  const userData = useAuthStore((state: any) => state.user);
   const { social } = userData;
   return (
     <ProfileSectionWrapper>

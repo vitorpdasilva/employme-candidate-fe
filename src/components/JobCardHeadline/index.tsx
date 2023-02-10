@@ -1,5 +1,5 @@
 import Headline from "./style";
-import Tag from "../TagNew";
+import { TagNew } from "../TagNew";
 import distanceFromNow from "../../helpers/distanceFromNow";
 
 type JobCardHeadlineProps = {
@@ -7,11 +7,9 @@ type JobCardHeadlineProps = {
   createdAt: Date
 }
 
-const JobCardHeadline = ({ recent, createdAt }: JobCardHeadlineProps) => (
+export const JobCardHeadline = ({ recent, createdAt }: JobCardHeadlineProps) => (
   <Headline>
-    {recent && <span><Tag /></span>}
+    {recent && <span><TagNew /></span>}
     <small>{distanceFromNow(createdAt)}</small>
   </Headline>
 );
-
-export default JobCardHeadline;

@@ -4,6 +4,4 @@ type TypeProps =  {
   children: ReactElement
   level?: number,
 }
-const Title = ({ level = 1, children  }: TypeProps) => <StyledTitle level={level}>{children}</StyledTitle>;
-
-export default Title;
+export const Title = ({ level = 1, children  }: TypeProps) => <StyledTitle level={level}>{children}</StyledTitle>;

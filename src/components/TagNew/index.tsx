@@ -1,9 +1,7 @@
 import Tag from "./style";
 
-const TagNew = () => {
+export const TagNew = () => {
   return (
     <Tag>New</Tag>
   );
 };
-
-export default TagNew;
