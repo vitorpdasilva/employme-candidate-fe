@@ -42,7 +42,7 @@ const Login = () => {
   const setUserToStore = useAuthStore((state: any) => state.setUser);
   const { isAuthenticated } = useUserAuth()
   const router = useRouter()
-  
+
   useEffect(() => {
     if (isAuthenticated) {
       router.push('/')
@@ -59,6 +59,7 @@ const Login = () => {
     try {
       const { user, token } = await fetchApi({ url: "/login", body });
       setUserToStore(user, token)
+      localStorage.setItem('isAuthenticated', `${!!token}`)
       router.push('/')
     } catch (error: any) { 
       setErrorMessage(error?.message as ErrorResponse['message'])

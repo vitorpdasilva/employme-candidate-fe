@@ -18,7 +18,6 @@ const Profile = () => {
     return <>loading...</>;
   }
   
-
   return (
     <>
       <div style={{ position: "relative" }}>

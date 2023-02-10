@@ -1,13 +1,13 @@
 import "../styles/globals.css";
-import { ElementType, useContext, useEffect } from 'react'
+import { ElementType, useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { theme } from '../styles/theme'
 import { ThemeProvider } from "styled-components";
-import Header from "../src/components/Header";
 import "semantic-ui-css/semantic.min.css";
-import { useUserAuth } from 'src/hooks'
-import { AppContext, AppContextProvider } from "src/context";
+import { AppContextProvider } from "src/context";
 import { Box, styled } from '@mui/material'
+import { Header } from 'src/components'
+import { useAuthStore } from "stores";
 
 const routesToBeRedirected = ['/auth/login', '/auth/signup']
 
@@ -30,12 +30,11 @@ const MainContentWrapper = styled(Box)({
 
 
 function MyApp({ Component, pageProps } : MyAppProps) {
-  const { isAuthenticated, authToken } = useUserAuth()
-  const { userData } = useContext(AppContext);
   const router = useRouter()
+  const isAuth = useAuthStore((state: any) => !!state.user);
+  
   useEffect(() => {
-    const token = window.localStorage.getItem('token')
-    
+    const token = localStorage.getItem('token')
     if(token) {
       if(routesToBeRedirected.includes(router.pathname)) {
         router.push('/')
@@ -50,11 +49,11 @@ function MyApp({ Component, pageProps } : MyAppProps) {
     <>
       <ThemeProvider theme={theme}>
       <AppContextProvider>
-        {/* {test && <Header />} */}
+        {isAuth && <Header />}
         <MainContentWrapper>
           <Component {...pageProps} />
         </MainContentWrapper>
-        <Box>footer</Box>
+        {isAuth && <Box>Footer</Box>}
       </AppContextProvider>
       </ThemeProvider>
     </>
