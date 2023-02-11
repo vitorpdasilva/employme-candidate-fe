@@ -2,8 +2,13 @@ import styled from 'styled-components'
 
 export const StyledLogo = styled.div`
   border: ${props => `1px solid ${props.theme.colors.blue.default}`};
-  width: 45;
-  height: 45;
+  width: 45px;
+  height: 45px;
+  background-color: ${props => props.theme.colors.blue.default};
+  color: white;
+  line-height: 45px;
+  text-align: center;
+  border-radius: 5px;
 `
 
 export const Button = styled.button`

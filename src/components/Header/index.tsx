@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from '@mui/material'
 import { Dropdown } from "semantic-ui-react";
 import { useRouter } from "next/router";
 import { FaUserCircle } from "react-icons/fa";
@@ -20,7 +20,7 @@ export const Header = () => {
   return (
     <StyledHeader>
       <section>
-        <Logo />
+        <Link sx={{ textDecoration: 'none' }} href="/"><Logo /></Link>
         <ul>
           {headerItems.map(({ href, text }) => (
             <li key={href} className={router.pathname === href ? "active" : undefined}><Link href={href}><a>{text}</a></Link></li>
