@@ -5,7 +5,8 @@ import { useAuthStore } from "stores";
 
 const GeneralProfileSection = () => {
   const userData = useAuthStore((state: any) => state.user);
-  console.log({ userData })  
+  if (!userData) return <>Loading</>;
+  
   const { general: { citizenship_code, currentLocation, gender, phone } } = userData;
   
   if (!userData) return <>Loading...</>;

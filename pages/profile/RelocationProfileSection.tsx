@@ -14,6 +14,7 @@ const salaryRange = [
 
 const RelocationProfileSection = () => {
   const userData = useAuthStore((state: any) => state.user);
+  if (!userData) return <>Loading</>;
   
   const { 
     relocation: {

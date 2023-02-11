@@ -6,8 +6,9 @@ import { ThemeProvider } from "styled-components";
 import "semantic-ui-css/semantic.min.css";
 import { AppContextProvider } from "src/context";
 import { Box, styled } from '@mui/material'
-import { Header } from 'src/components'
+import { Header, NavSidebar } from 'src/components'
 import { useAuthStore } from "stores";
+import Grid from '@mui/material/Unstable_Grid2'
 
 const routesToBeRedirected = ['/auth/login', '/auth/signup']
 
@@ -51,7 +52,16 @@ function MyApp({ Component, pageProps } : MyAppProps) {
       <AppContextProvider>
         {isAuth && <Header />}
         <MainContentWrapper>
-          <Component {...pageProps} />
+          <Box sx={{ flexGrow: 1, width: '100%' }}>
+            <Grid container >
+              <Grid xs={2}>
+                <NavSidebar />
+              </Grid>
+              <Grid xs={10}>
+                <Component {...pageProps} />
+              </Grid>
+            </Grid>
+          </Box>
         </MainContentWrapper>
         {isAuth && <Box>Footer</Box>}
       </AppContextProvider>

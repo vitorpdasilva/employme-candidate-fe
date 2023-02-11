@@ -7,16 +7,16 @@ import Head from "next/head";
 // TODO: replace to a flag library that contain types
 //@ts-ignore
 import ReactCountryFlag from "react-country-flag";
-import { Id, toast, ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { FaPlaneDeparture, FaDollarSign } from "react-icons/fa";
 import { useRouter } from "next/router";
-import JobPoints from "../../src/components/jobPoints";
-import { fetchApi } from "../client";
-import JobCardHeadline from "../../src/components/JobCardHeadline";
-import Button from "../../src/components/Button";
+import { JobPoints } from "src/components/jobPoints";
+import { fetchApi } from "client";
+import { JobCardHeadline } from "src/components/JobCardHeadline";
+import Button from "src/components/Button";
 import { JobPageWrapper, JobCardMain } from "./style";
 import { countriesList } from "../../constants";
-import AppContext from "../context";
+import { AppContext } from "src/context";
 
 type JobInfoType = {
   id: number,

@@ -10,6 +10,8 @@ type Social = {
 }
 const SocialSection = () => {
   const userData = useAuthStore((state: any) => state.user);
+  if (!userData) return <>Loading</>;
+  
   const { social } = userData;
   return (
     <ProfileSectionWrapper>

@@ -1,6 +1,6 @@
 import { ReactNode, useState, createContext, useEffect, useMemo, useCallback } from "react";
 import { useUserAuth } from "src/hooks";
-import { fetchApi } from 'pages/client';
+import { fetchApi } from 'client';
 
 //TODO: add skillList, userData, fetchSkillList, fetchUserData to type context
 const AppContext: any = createContext({});

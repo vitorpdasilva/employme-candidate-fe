@@ -28,5 +28,5 @@ const JobPageWrapper = styled.div`
     min-width: 250px;
   }
 `;
-
+export default JobCardMain
 export { JobCardMain, HeadLine, JobPageWrapper };

@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { fetchApi, ErrorResponse } from "../client";
+import { fetchApi, ErrorResponse } from "client";
 import { useAuthStore, AuthStoreType } from "stores";
 import { Box, TextField, Button, styled, Alert, Typography, Link } from '@mui/material'
 import { useForm, Resolver } from 'react-hook-form'

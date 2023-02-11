@@ -37,7 +37,7 @@ const InputRow = styled('div')<{labelWidth?: string}>`
     }
   }
 `
-
+export default ProfileSectionWrapper;
 export {
   InputRow,
   ProfileSectionWrapper

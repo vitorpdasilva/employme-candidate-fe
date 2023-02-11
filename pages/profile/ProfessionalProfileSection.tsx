@@ -8,6 +8,8 @@ import { useAuthStore } from "stores";
 const ProfessionalProfileSection = () => {
   const { skillList } = useContext(AppContext);
   const userData = useAuthStore((state: any) => state.user);
+  if (!userData) return <>Loading</>;
+  
   const { professionalOverview: { openToDiffRole, profession, yearsOfExp, skillRank, preferenceToWork } } = userData;
   
   return (

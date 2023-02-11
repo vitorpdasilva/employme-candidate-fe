@@ -6,3 +6,4 @@ export * from "./Title";
 export * from "./Divider";
 export * from './ProfileOverview'
 export * from './NavSidebar'
+export * from './JobList'
