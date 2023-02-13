@@ -5,7 +5,7 @@ import { professionList } from "../../constants";
 import { AppContext } from "../../src/context";
 import { ProfileSectionWrapper } from "./style";
 import { useAuthStore } from "../../stores";
-import { Checkbox, Select, MenuItem } from '@mui/material'
+import { Checkbox, Select, MenuItem, InputLabel } from '@mui/material'
 
 const ProfessionalProfileSection = () => {
   const { skillList } = useContext<any>(AppContext);
@@ -21,31 +21,27 @@ const ProfessionalProfileSection = () => {
         <Grid>
           <Grid.Row columns={2}>
             <Grid.Column>
-            <Form.Field
-                control={Select} 
-                fluid
-                label="I am a/an"
-                placeholder="Profession"
-                defaultValue={profession}
-                options={professionList.map(({ text, value }) => ({ text, key: value, value }))} />    
+              <InputLabel>I am a/an</InputLabel>
+              <Select placeholder='profession' defaultValue={profession}>
+                {professionList.map(({ text, value }) => (
+                  <MenuItem key={value} value={value}>{text}</MenuItem>
+                ))}
+              </Select>
             </Grid.Column>
             <Grid.Column>
-              <Form.Field 
-                fluid
-                control={Select}
-                label="With..."
-                placeholder="years of experience"
-                defaultValue={yearsOfExp}
-                options={[...Array(10).keys()].map(value => ({ text: `${value} ${value !== 1 ? 'years' : 'year'}`, key: value, value, }))}
-              />
+              <InputLabel>With...</InputLabel>
+              <Select defaultValue={yearsOfExp}>
+                {[...Array(10).keys()].map(value => (
+                  <MenuItem key={value} value={value}>{`${value} ${value !== 1 ? 'years' : 'year'}`}</MenuItem>
+                ))}
+              </Select>
             </Grid.Column>
           </Grid.Row>
         </Grid> 
         <div>
+          <InputLabel>I am open to working in a different role</InputLabel>
           <Checkbox
-            inputProps={{
-              'aria-label': 'I am open to working in a different role',
-            }}
+            aria-label=''
             checked={openToDiffRole} 
           />
         </div>
