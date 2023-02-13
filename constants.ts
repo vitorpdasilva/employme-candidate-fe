@@ -1,9 +1,7 @@
-type CountriesList = {
-  name: string
-  code: string
-}
+type CountryKeys = 'name' | 'code'
+export type CountriesList = Record<CountryKeys, string>
 
-type CanadianVisaTypes = {
+export type CanadianVisaTypes = {
   value: number,
   text: string,
 }

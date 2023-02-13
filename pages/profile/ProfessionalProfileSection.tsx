@@ -1,12 +1,14 @@
+import React from 'react'
 import { useContext } from "react";
-import { Checkbox, Dropdown, Divider, Grid, Form, Select } from "semantic-ui-react";
+import { Divider, Grid, Form } from "semantic-ui-react";
 import { professionList } from "../../constants";
-import { AppContext } from "src/context";
+import { AppContext } from "../../src/context";
 import { ProfileSectionWrapper } from "./style";
-import { useAuthStore } from "stores";
+import { useAuthStore } from "../../stores";
+import { Checkbox, Select, MenuItem } from '@mui/material'
 
 const ProfessionalProfileSection = () => {
-  const { skillList } = useContext(AppContext);
+  const { skillList } = useContext<any>(AppContext);
   const userData = useAuthStore((state: any) => state.user);
   if (!userData) return <>Loading</>;
   
@@ -40,20 +42,25 @@ const ProfessionalProfileSection = () => {
           </Grid.Row>
         </Grid> 
         <div>
-          <Checkbox label="I am open to working in a different role" checked={openToDiffRole} />
+          <Checkbox
+            inputProps={{
+              'aria-label': 'I am open to working in a different role',
+            }}
+            checked={openToDiffRole} 
+          />
         </div>
         <Divider hidden />
         <div>
           <label>I would like to work as...</label>
-          <Dropdown
+          <Select
             placeholder="Profession list"
-            fluid
-            multiple
-            selection
-            options={professionList}
-            onChange={(e, { value }) => console.log(value)}
+            onChange={(e) => console.log({ e })}
             defaultValue={preferenceToWork}
-          />
+          >
+            {professionList.map(({ text, value }) => (
+              <MenuItem key={value} value={value}>{text}</MenuItem>
+            ))}
+          </Select>
         </div>
         <Divider hidden />
         <div>

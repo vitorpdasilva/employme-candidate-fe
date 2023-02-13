@@ -1,7 +1,6 @@
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, FC } from "react";
 import { Icon } from "semantic-ui-react";
 
-import { AppContext } from "src/context";
 import GeneralProfileSection from "./GeneralProfileSection";
 import ProfessionalProfileSection from "./ProfessionalProfileSection";
 import RelocationProfileSection from "./RelocationProfileSection";
@@ -11,7 +10,7 @@ import { useAuthStore } from "stores";
 
 const placeHolder = "https://via.placeholder.com/150";
 
-const Profile = () => {
+const Profile: FC = () => {
   const userData = useAuthStore((state: any) => state.user);
   
   if (!userData) {
