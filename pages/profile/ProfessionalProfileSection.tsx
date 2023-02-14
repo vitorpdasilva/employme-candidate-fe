@@ -1,20 +1,27 @@
-import React from 'react'
+import React, { ReactNode, useState } from 'react'
 import { useContext } from "react";
 import { Divider, Grid, Form } from "semantic-ui-react";
 import { professionList } from "../../constants";
 import { AppContext } from "../../src/context";
 import { ProfileSectionWrapper } from "./style";
 import { useAuthStore } from "../../stores";
-import { Checkbox, Select, MenuItem, InputLabel } from '@mui/material'
+import { Checkbox, Select, MenuItem, InputLabel, Tab, Tabs, Box } from '@mui/material'
+
+
 
 const ProfessionalProfileSection = () => {
   const { skillList } = useContext<any>(AppContext);
+  const [tabValue, setTabValue] = useState(0);
   const userData = useAuthStore((state: any) => state.user);
   if (!userData) return <>Loading</>;
   
   const { professionalOverview: { openToDiffRole, profession, yearsOfExp, skillRank, preferenceToWork } } = userData;
   
+  
+
   return (
+    <>
+    
     <ProfileSectionWrapper>
       <h1>Professional Overview</h1>
       <form>
@@ -78,6 +85,7 @@ const ProfessionalProfileSection = () => {
         </div>
       </form>
     </ProfileSectionWrapper>
+    </>
   );
 };
 
