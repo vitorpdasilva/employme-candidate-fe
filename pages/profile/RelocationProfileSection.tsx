@@ -1,7 +1,8 @@
+import React from 'react'
 import { Grid, Form, Select, Dropdown } from "semantic-ui-react";
 import { ProfileSectionWrapper } from "./style";
 import { countriesList, canadianVisaTypes } from "../../constants";
-import { useAuthStore } from "stores";
+import { useAuthStore } from "src/stores";
 
 const salaryRange = [
   { text: "70k - 80k", value: 0 },

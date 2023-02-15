@@ -7,7 +7,7 @@ import BusinessCenterOutlinedIcon from '@mui/icons-material/BusinessCenterOutlin
 import DoneAllOutlinedIcon from '@mui/icons-material/DoneAllOutlined';
 import ExploreOutlinedIcon from '@mui/icons-material/ExploreOutlined';
 import { useRouter } from 'next/router';
-import { useAuthStore } from 'stores';
+import { useAuthStore } from 'src/stores';
 
 type MenuItems = Record<string, string | ReactNode>
 
@@ -41,7 +41,7 @@ export const NavSidebar: FC = () => {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
       {menuItems.map((item) => (
-        <MenuItem selected={item.href === router.pathname} href={item.href as string}>
+        <MenuItem key={item.href as string} selected={item.href === router.pathname} href={item.href as string}>
           {item.icon}
           {item.name}
         </MenuItem>

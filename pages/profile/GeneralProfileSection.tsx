@@ -2,7 +2,7 @@ import React from 'react'
 import { Input, Grid, Form, Select } from 'semantic-ui-react'
 import { ProfileSectionWrapper } from "./style";
 import { countriesList } from "../../constants";
-import { useAuthStore } from "../../stores";
+import { useAuthStore } from "../../src/stores";
 
 const GeneralProfileSection = () => {
   const userData = useAuthStore((state: any) => state.user);

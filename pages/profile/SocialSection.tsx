@@ -1,8 +1,7 @@
-import { useContext } from "react";
+import React from "react";
 import { Icon, Input, SemanticICONS  } from "semantic-ui-react";
 import { ProfileSectionWrapper, InputRow } from "./style";
-import { AppContext } from "src/context";
-import { useAuthStore } from "stores";
+import { useAuthStore } from "src/stores";
 
 type Social = {
   name: SemanticICONS,

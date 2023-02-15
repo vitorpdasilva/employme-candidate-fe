@@ -5,7 +5,7 @@ import GeneralProfileSection from "./GeneralProfileSection";
 import ProfessionalProfileSection from "./ProfessionalProfileSection";
 import RelocationProfileSection from "./RelocationProfileSection";
 import SocialSection from "./SocialSection";
-import { useAuthStore } from "stores";
+import { useAuthStore } from "src/stores";
 import { Box, Tab, Tabs, Typography } from "@mui/material";
 const placeHolder = "https://via.placeholder.com/150";
 

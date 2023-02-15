@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Paper, Box, Avatar, Typography, Divider, MenuItem} from '@mui/material'
-import { useAuthStore } from 'stores';
+import { useAuthStore } from 'src/stores';
 import { countriesList } from '../../../constants';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { FC } from 'react'

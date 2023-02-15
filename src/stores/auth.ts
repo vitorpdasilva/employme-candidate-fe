@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { UserType } from 'types/user'
+import { UserType } from 'src/types'
 
 export type AuthStoreType = {
   user: UserType | null

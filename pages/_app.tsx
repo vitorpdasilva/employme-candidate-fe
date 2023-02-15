@@ -7,7 +7,7 @@ import "semantic-ui-css/semantic.min.css";
 import { AppContextProvider } from "src/context";
 import { Box, styled } from '@mui/material'
 import { Header, NavSidebar } from 'src/components'
-import { useAuthStore } from "stores";
+import { useAuthStore } from "src/stores";
 import Grid from '@mui/material/Unstable_Grid2'
 
 const routesToBeRedirected = ['/auth/login', '/auth/signup']
