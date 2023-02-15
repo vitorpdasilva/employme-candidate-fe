@@ -1,5 +1,5 @@
 import "../styles/globals.css";
-import { ElementType, useState, useEffect } from 'react'
+import React, { ElementType, useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { theme } from '../styles/theme'
 import { ThemeProvider } from "styled-components";

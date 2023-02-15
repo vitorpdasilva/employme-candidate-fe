@@ -111,5 +111,8 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
+    "src**/*",
+    ".eslintrc.js",
+    "next-env.d.ts"
   ]
 }
