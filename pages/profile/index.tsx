@@ -1,17 +1,21 @@
-import React, { useEffect, useContext, FC, ReactNode, useState } from "react";
-import { Icon } from "semantic-ui-react";
-
+import { FC, ReactNode, useState } from "react";
 import GeneralProfileSection from "./GeneralProfileSection";
 import ProfessionalProfileSection from "./ProfessionalProfileSection";
 import RelocationProfileSection from "./RelocationProfileSection";
 import SocialSection from "./SocialSection";
 import { useAuthStore } from "src/stores";
 import { Box, Tab, Tabs, Typography } from "@mui/material";
-const placeHolder = "https://via.placeholder.com/150";
+import { Overview, Profile as TabProfile } from './tabs'
 
-const TabItems: any = [
-  { label: 'Overview', index: 0, component: <>overview</> }, 
-  { label: 'Profile', index: 1, component: <>profile</> },
+const placeHolder = "https://via.placeholder.com/150";
+type TabItemsProps = {
+  label: string,
+  index: number,
+  component: ReactNode
+}
+const tabItems: TabItemsProps[] = [
+  { label: 'Overview', index: 0, component: <Overview /> }, 
+  { label: 'Profile', index: 1, component: <TabProfile /> },
   { label: 'Resume/CV', index: 2, component: <>resume</> },
   { label: 'Preferences', index: 3, component: <>preferences</> },
   { label: 'Culture', index: 4, component: <>culture</> },
@@ -60,12 +64,12 @@ const Profile: FC = () => {
         <Typography variant="h3">Edit your profile</Typography>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs value={tabValue} onChange={handleTabChange}>
-            {TabItems.map(({ label, index }) => (
+            {tabItems.map(({ label, index }) => (
               <Tab key={index} label={label} />
             ))}
           </Tabs>
         </Box>
-        {TabItems.map(({ index, component }) => (
+        {tabItems.map(({ index, component }) => (
           <TabPanel key={index} value={tabValue} index={index}>
             {component}
           </TabPanel>
