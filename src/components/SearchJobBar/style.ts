@@ -1,13 +1,13 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 const SearchJobBarStyled = styled.section`
   width: 100%;
   margin: 15px 0;
-  border: 1px solid ${props => props.theme.colors.gray.default};
+  border: 1px solid ${(props) => props.theme.colors.gray.default};
   padding: 15px;
   border-radius: 10px;
   box-shadow: rgb(0 0 0 / 10%) 0px 2px 21px 0px;
-  background: ${props => props.theme.colors.white.default};
+  background: ${(props) => props.theme.colors.white.default};
   form {
     display: flex;
     align-items: center;
@@ -18,13 +18,14 @@ const SearchJobBarStyled = styled.section`
       div {
         width: 100%;
         &:not(:last-of-type) {
-          border-right: 1px solid ${props => props.theme.colors.gray.default}; 
+          border-right: 1px solid ${(props) => props.theme.colors.gray.default};
           margin-right: 20px;
         }
         p {
           margin: 0;
         }
-        input, select {
+        input,
+        select {
           height: 50px;
           border: 0;
           width: 100%;
@@ -37,7 +38,6 @@ const SearchJobBarStyled = styled.section`
       }
     }
     aside {
-      
     }
     button {
       background: transparent;
@@ -45,6 +45,6 @@ const SearchJobBarStyled = styled.section`
       cursor: pointer;
     }
   }
-`;
+`
 
-export default SearchJobBarStyled;
+export default SearchJobBarStyled

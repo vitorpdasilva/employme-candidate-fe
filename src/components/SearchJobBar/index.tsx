@@ -1,13 +1,13 @@
-import { useState } from "react";
-import SearchJobBarStyled from "./style";
-import { FaSearch } from "react-icons/fa";
-import { countriesList } from "../../constants";
+import React, { useState } from 'react'
+import SearchJobBarStyled from './style'
+import { FaSearch } from 'react-icons/fa'
+import { countriesList } from '../../../constants'
 
-const SearchJobBar = () => {
-  const [searchTitle, setSearchTitle] = useState<string | null>(null);
+export const SearchJobBar = () => {
+  const [searchTitle, setSearchTitle] = useState<string | null>(null)
   return (
     <>
-      <h1>{searchTitle ?? "Find your dream job abroad or remote"}</h1>
+      <h1>{searchTitle ?? 'Find your dream job abroad or remote'}</h1>
       <SearchJobBarStyled>
         <form>
           <article>
@@ -18,9 +18,13 @@ const SearchJobBar = () => {
             <div>
               <p>Where</p>
               <select defaultValue="nop">
-                <option value="nop" disabled>Country or city name</option>
+                <option value="nop" disabled>
+                  Country or city name
+                </option>
                 {countriesList.map(({ name, code }) => (
-                  <option key={code} value={code}>{name}</option>
+                  <option key={code} value={code}>
+                    {name}
+                  </option>
                 ))}
               </select>
             </div>
@@ -40,7 +44,5 @@ const SearchJobBar = () => {
         </form>
       </SearchJobBarStyled>
     </>
-  );
-};
-
-export default SearchJobBar;
+  )
+}
