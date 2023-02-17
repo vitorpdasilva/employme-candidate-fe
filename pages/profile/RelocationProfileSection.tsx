@@ -1,8 +1,7 @@
-import React from 'react'
-import { Grid, Form, Select, Dropdown } from "semantic-ui-react";
-import { ProfileSectionWrapper } from "./style";
-import { countriesList, canadianVisaTypes } from "../../src/constants";
-import { useAuthStore } from "src/stores";
+import { Dropdown, Form, Grid, Select } from "semantic-ui-react"
+import { useAuthStore } from "src/stores"
+import { canadianVisaTypes, countriesList } from "../../src/constants"
+import { ProfileSectionWrapper } from "./style"
 
 const salaryRange = [
   { text: "70k - 80k", value: 0 },
@@ -11,15 +10,15 @@ const salaryRange = [
   { text: "101k - 110k", value: 3 },
   { text: "111k - 120k", value: 4 },
   { text: "120k+", value: 5 },
-];
+]
 
 const RelocationProfileSection = () => {
-  const userData = useAuthStore((state: any) => state.user);
-  if (!userData) return <>Loading</>;
-  
-  const { 
+  const userData = useAuthStore((state: any) => state.user)
+  if (!userData) return <>Loading</>
+
+  const {
     relocation: {
-      activelyLooking, 
+      activelyLooking,
       cadSalaryExpect,
       canadianVisa,
       companySize,
@@ -27,8 +26,8 @@ const RelocationProfileSection = () => {
       openToRemote,
       relocateOptions,
       validPassport,
-    }
-  } = userData;
+    },
+  } = userData
 
   console.log({ userData })
   return (
@@ -38,12 +37,15 @@ const RelocationProfileSection = () => {
         <Grid>
           <Grid.Row columns={4}>
             <Grid.Column>
-              <Form.Field 
+              <Form.Field
                 control={Select}
                 fluid
                 label="Are you open to remote jobs?"
                 defaultValue={openToRemote}
-                options={[{ key: 'yes', value: true, text: 'yes'}, { key: 'no', value: false, text: 'no' }]}
+                options={[
+                  { key: "yes", value: true, text: "yes" },
+                  { key: "no", value: false, text: "no" },
+                ]}
               />
             </Grid.Column>
             <Grid.Column>
@@ -52,7 +54,11 @@ const RelocationProfileSection = () => {
                 fluid
                 label="Where would you like to work?"
                 defaultValue={relocateOptions}
-                options={countriesList.map(({ name, code }) => ({ key: code, text: name, value: code }))}
+                options={countriesList.map(({ name, code }) => ({
+                  key: code,
+                  text: name,
+                  value: code,
+                }))}
               />
             </Grid.Column>
             <Grid.Column>
@@ -61,7 +67,11 @@ const RelocationProfileSection = () => {
                 control={Select}
                 label="Annual salary expectation CAD"
                 defaultValue={cadSalaryExpect}
-                options={salaryRange.map(({ value, text }) => ({ key: value, text, value }))}
+                options={salaryRange.map(({ value, text }) => ({
+                  key: value,
+                  text,
+                  value,
+                }))}
               />
             </Grid.Column>
             <Grid.Column>
@@ -70,7 +80,10 @@ const RelocationProfileSection = () => {
                 fluid
                 label="Do you have a valid passport?"
                 defaultValue={validPassport}
-                options={[{ key: 'yes', value: true, text: 'Yes' }, { key: 'no', value: false, text: 'No' }]}
+                options={[
+                  { key: "yes", value: true, text: "Yes" },
+                  { key: "no", value: false, text: "No" },
+                ]}
               />
             </Grid.Column>
           </Grid.Row>
@@ -81,11 +94,15 @@ const RelocationProfileSection = () => {
                 fluid
                 label="What Canadian visa do you have?"
                 defaultValue={canadianVisa}
-                options={canadianVisaTypes.map(({ value, text }) => ({ value, text, key: value }))}
+                options={canadianVisaTypes.map(({ value, text }) => ({
+                  value,
+                  text,
+                  key: value,
+                }))}
               />
             </Grid.Column>
             <Grid.Column>
-              <Form.Field 
+              <Form.Field
                 control={Dropdown}
                 fluid
                 multiple
@@ -93,9 +110,9 @@ const RelocationProfileSection = () => {
                 label="What size company do you prefer?"
                 defaultValue={companySize}
                 options={[
-                  { value: 'startup', text: 'Startup' }, 
-                  { value: 'midsize', text: 'Midsize' },
-                  { value: 'corporate', text: 'Corporate' },
+                  { value: "startup", text: "Startup" },
+                  { value: "midsize", text: "Midsize" },
+                  { value: "corporate", text: "Corporate" },
                 ]}
               />
             </Grid.Column>
@@ -107,7 +124,10 @@ const RelocationProfileSection = () => {
                 fluid
                 label="Are you actively looking for a job?"
                 defaultValue={activelyLooking}
-                options={[{ key: 'yes', value: true, text: 'Yes' }, { key: 'no', value: false, text: 'No' }]}
+                options={[
+                  { key: "yes", value: true, text: "Yes" },
+                  { key: "no", value: false, text: "No" },
+                ]}
               />
             </Grid.Column>
             <Grid.Column>
@@ -117,10 +137,10 @@ const RelocationProfileSection = () => {
                 label="What is your notice period?"
                 defaultValue={noticePeriod}
                 options={[
-                  { key: 0, value: 0, text: '2 weeks' }, 
-                  { key: 2, value: 1, text: '1 month' }, 
-                  { key: 3, value: 2, text: '2 months' }, 
-                  { key: 4, value: 3, text: '2 months +' },
+                  { key: 0, value: 0, text: "2 weeks" },
+                  { key: 2, value: 1, text: "1 month" },
+                  { key: 3, value: 2, text: "2 months" },
+                  { key: 4, value: 3, text: "2 months +" },
                 ]}
               />
             </Grid.Column>
@@ -128,7 +148,7 @@ const RelocationProfileSection = () => {
         </Grid>
       </form>
     </ProfileSectionWrapper>
-  );
-};
+  )
+}
 
-export default RelocationProfileSection;
+export default RelocationProfileSection

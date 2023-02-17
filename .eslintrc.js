@@ -4,7 +4,6 @@ module.exports = {
     es2021: true,
     node: true,
   },
-  extends: ["eslint:recommended", "plugin:react/recommended"],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaFeatures: {
@@ -13,12 +12,14 @@ module.exports = {
     ecmaVersion: 13,
     sourceType: "module",
   },
-  plugins: ["react"],
   rules: {
     semi: ["error", "never"],
     quotes: ["error", "double"],
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
     indent: ["error", 2],
+    "max-len": ["error", { code: 80, ignoreUrls: true, ignoreComments: true }],
   },
+  extends: ["eslint:recommended", "plugin:react/recommended", "prettier"],
+  plugins: ["react", "@typescript-eslint", "prettier"],
 }

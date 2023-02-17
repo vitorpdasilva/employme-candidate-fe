@@ -1,9 +1,24 @@
 {
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "prettier.printWidth": 80,
+  "typescript.format.enable": false,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": true,
+    "source.organizeImports": true,
+    "source.fixAll.stylelint": true,
+    "source.fixAll": true,
+    "source.fixAll.tslint": true,
   },
   "eslint.validate": [
-    "typescript"
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
   ],
-  "typescript.tsdk": "node_modules\\typescript\\lib"
- }
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+  }
+}

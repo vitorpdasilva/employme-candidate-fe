@@ -1,20 +1,22 @@
-import { FC, ReactNode, useState } from "react"
-import GeneralProfileSection from "./GeneralProfileSection"
-import ProfessionalProfileSection from "./ProfessionalProfileSection"
-import RelocationProfileSection from "./RelocationProfileSection"
-import SocialSection from "./SocialSection"
-import { useAuthStore } from "src/stores"
 import { Box, Tab, Tabs, Typography } from "@mui/material"
-import { Overview, Profile as TabProfile, Resume, Preferences, Culture } from "./tabs"
+import React, { FC, ReactNode, useState } from "react"
+import { useAuthStore } from "src/stores"
+import {
+  Culture,
+  Overview,
+  Preferences,
+  Profile as TabProfile,
+  Resume,
+} from "./tabs"
 
 const placeHolder = "https://via.placeholder.com/150"
 type TabItemsProps = {
-  label: string,
-  index: number,
+  label: string
+  index: number
   component: ReactNode
 }
 const tabItems: TabItemsProps[] = [
-  { label: "Overview", index: 0, component: <Overview /> }, 
+  { label: "Overview", index: 0, component: <Overview /> },
   { label: "Profile", index: 1, component: <TabProfile /> },
   { label: "Resume/CV", index: 2, component: <Resume /> },
   { label: "Preferences", index: 3, component: <Preferences /> },
@@ -31,16 +33,8 @@ function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props
 
   return (
-    <Box
-      role="tabpanel"
-      hidden={value !== index}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          {children}
-        </Box>
-      )}
+    <Box role="tabpanel" hidden={value !== index} {...other}>
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
     </Box>
   )
 }
@@ -48,16 +42,16 @@ function TabPanel(props: TabPanelProps) {
 const Profile: FC = () => {
   const userData = useAuthStore((state: any) => state.user)
   const [tabValue, setTabValue] = useState(0)
-  
+
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     console.log({ newValue })
     setTabValue(newValue)
   }
-  
+
   if (!userData) {
     return <>loading...</>
   }
-  
+
   return (
     <>
       <Box sx={{ width: "100%" }}>
