@@ -1,7 +1,7 @@
 import React from 'react'
 import { Input, Grid, Form, Select } from 'semantic-ui-react'
 import { ProfileSectionWrapper } from "./style";
-import { countriesList } from "../../constants";
+import { countriesList } from "../../src/constants";
 import { useAuthStore } from "../../src/stores";
 
 const GeneralProfileSection = () => {

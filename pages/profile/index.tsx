@@ -1,24 +1,24 @@
-import { FC, ReactNode, useState } from "react";
-import GeneralProfileSection from "./GeneralProfileSection";
-import ProfessionalProfileSection from "./ProfessionalProfileSection";
-import RelocationProfileSection from "./RelocationProfileSection";
-import SocialSection from "./SocialSection";
-import { useAuthStore } from "src/stores";
-import { Box, Tab, Tabs, Typography } from "@mui/material";
-import { Overview, Profile as TabProfile } from './tabs'
+import { FC, ReactNode, useState } from "react"
+import GeneralProfileSection from "./GeneralProfileSection"
+import ProfessionalProfileSection from "./ProfessionalProfileSection"
+import RelocationProfileSection from "./RelocationProfileSection"
+import SocialSection from "./SocialSection"
+import { useAuthStore } from "src/stores"
+import { Box, Tab, Tabs, Typography } from "@mui/material"
+import { Overview, Profile as TabProfile, Resume, Preferences, Culture } from "./tabs"
 
-const placeHolder = "https://via.placeholder.com/150";
+const placeHolder = "https://via.placeholder.com/150"
 type TabItemsProps = {
   label: string,
   index: number,
   component: ReactNode
 }
 const tabItems: TabItemsProps[] = [
-  { label: 'Overview', index: 0, component: <Overview /> }, 
-  { label: 'Profile', index: 1, component: <TabProfile /> },
-  { label: 'Resume/CV', index: 2, component: <>resume</> },
-  { label: 'Preferences', index: 3, component: <>preferences</> },
-  { label: 'Culture', index: 4, component: <>culture</> },
+  { label: "Overview", index: 0, component: <Overview /> }, 
+  { label: "Profile", index: 1, component: <TabProfile /> },
+  { label: "Resume/CV", index: 2, component: <Resume /> },
+  { label: "Preferences", index: 3, component: <Preferences /> },
+  { label: "Culture", index: 4, component: <Culture /> },
 ]
 
 type TabPanelProps = {
@@ -28,7 +28,7 @@ type TabPanelProps = {
 }
 
 function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
+  const { children, value, index, ...other } = props
 
   return (
     <Box
@@ -42,12 +42,12 @@ function TabPanel(props: TabPanelProps) {
         </Box>
       )}
     </Box>
-  );
+  )
 }
 
 const Profile: FC = () => {
-  const userData = useAuthStore((state: any) => state.user);
-  const [tabValue, setTabValue] = useState(0);
+  const userData = useAuthStore((state: any) => state.user)
+  const [tabValue, setTabValue] = useState(0)
   
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     console.log({ newValue })
@@ -55,14 +55,14 @@ const Profile: FC = () => {
   }
   
   if (!userData) {
-    return <>loading...</>;
+    return <>loading...</>
   }
   
   return (
     <>
-      <Box sx={{ width: '100%' }}>
+      <Box sx={{ width: "100%" }}>
         <Typography variant="h3">Edit your profile</Typography>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs value={tabValue} onChange={handleTabChange}>
             {tabItems.map(({ label, index }) => (
               <Tab key={index} label={label} />
@@ -79,12 +79,12 @@ const Profile: FC = () => {
         <img src={userData?.picture || placeHolder} />
         {/* <Icon size="big" style={{ position: "absolute", right: 0, bottom: 10 }} name="camera" /> */}
       </div>
-      <GeneralProfileSection />
+      {/* <GeneralProfileSection />
       <ProfessionalProfileSection />
       <RelocationProfileSection />
-      <SocialSection />
+      <SocialSection /> */}
     </>
-  );
-};
+  )
+}
 
-export default Profile;
+export default Profile

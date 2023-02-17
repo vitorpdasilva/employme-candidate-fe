@@ -1,7 +1,7 @@
 import React, { ReactNode, useState } from 'react'
 import { useContext } from "react";
 import { Divider, Grid, Form } from "semantic-ui-react";
-import { professionList } from "../../constants";
+import { professionList } from "../../src/constants";
 import { AppContext } from "../../src/context";
 import { ProfileSectionWrapper } from "./style";
 import { useAuthStore } from "../../src/stores";
@@ -11,7 +11,6 @@ import { Checkbox, Select, MenuItem, InputLabel, Tab, Tabs, Box } from '@mui/mat
 
 const ProfessionalProfileSection = () => {
   const { skillList } = useContext<any>(AppContext);
-  const [tabValue, setTabValue] = useState(0);
   const userData = useAuthStore((state: any) => state.user);
   if (!userData) return <>Loading</>;
   

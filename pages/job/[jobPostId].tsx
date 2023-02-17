@@ -15,7 +15,7 @@ import { fetchApi } from "client";
 import { JobCardHeadline } from "src/components/JobCardHeadline";
 import Button from "src/components/Button";
 import { JobPageWrapper, JobCardMain } from "./style";
-import { countriesList } from "../../constants";
+import { countriesList } from "../../src/constants";
 import { AppContext } from "src/context";
 
 type JobInfoType = {

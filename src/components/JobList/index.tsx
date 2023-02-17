@@ -8,7 +8,7 @@ import { JobPoints } from "../jobPoints";
 import { JobCardHeadline } from "../JobCardHeadline";
 import { SkillLabel } from "../SkillLabel";
 import { JobDescription } from "../JobDescription";
-import { countriesList } from "../../../constants";
+import { countriesList } from "../../constants";
 
 type IProps = {
   jobList: JobListProps[]
