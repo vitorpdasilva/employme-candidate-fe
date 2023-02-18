@@ -6,7 +6,7 @@ import {
   Overview,
   Preferences,
   Profile as TabProfile,
-  Resume,
+  Resume
 } from "./tabs"
 
 const placeHolder = "https://via.placeholder.com/150"
