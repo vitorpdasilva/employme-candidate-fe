@@ -16,7 +16,7 @@ import { countriesList, professionList } from "src/constants"
 import { useAuthStore } from "src/stores"
 
 export const Profile = () => {
-  const userData = useAuthStore((state: any) => state.user)
+  const userData = useAuthStore((state: any) => state.user) ?? []
   const { professionalOverview, general } = userData
   if (!userData) return <>Loading...</>
   const selectedRoles = professionList
@@ -112,7 +112,7 @@ export const Profile = () => {
               }}
             >
               {professionList.map((profession) => (
-                <MenuItem key={profession.text} value={profession?.value}>
+                <MenuItem key={profession?.text} value={profession?.value}>
                   {profession?.text}
                 </MenuItem>
               ))}
@@ -132,14 +132,14 @@ export const Profile = () => {
         </Grid>
         <Grid item xs={6}>
           <TextField
-            defaultValue={general.currentLocation}
+            defaultValue={general?.currentLocation}
             select
             fullWidth
             label="Where are you currently located?"
           >
             {countriesList.map((country) => (
-              <MenuItem key={country.name} value={country.code}>
-                {country.name}
+              <MenuItem key={country?.name} value={country?.code}>
+                {country?.name}
               </MenuItem>
             ))}
           </TextField>

@@ -21,7 +21,8 @@ module.exports = {
     "max-len": ["error", { code: 80, ignoreUrls: true, ignoreComments: true }],
     "no-extra-semi": ["error"],
     "eol-last": ["error", "always"],
-    "object-curly-spacing": ["error", "always"]
+    "object-curly-spacing": ["error", "always"],
+    "react/no-unescaped-entities": 0
   },
   extends: ["eslint:recommended", "plugin:react/recommended", "prettier"],
   plugins: ["react", "@typescript-eslint", "prettier"],
