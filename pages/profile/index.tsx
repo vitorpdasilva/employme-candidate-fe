@@ -9,7 +9,6 @@ import {
   Resume,
 } from "./tabs"
 
-const placeHolder = "https://via.placeholder.com/150"
 type TabItemsProps = {
   label: string
   index: number
@@ -72,7 +71,6 @@ const Profile: FC = () => {
         ))}
       </Box>
       <div style={{ position: "relative" }}>
-        <img src={userData?.picture || placeHolder} />
         {/* <Icon size="big" style={{ position: "absolute", right: 0, bottom: 10 }} name="camera" /> */}
       </div>
       {/* <GeneralProfileSection />

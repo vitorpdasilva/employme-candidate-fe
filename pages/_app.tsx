@@ -52,7 +52,7 @@ function MyApp({ Component, pageProps }: MyAppProps) {
           {isAuth && <Header />}
           <MainContentWrapper>
             <Box sx={{ flexGrow: 1, width: "100%" }}>
-              <Grid container>
+              <Grid container spacing={6} sx={{ pt: 6 }}>
                 <Grid xs={2}>{isAuth && <NavSidebar />}</Grid>
                 <Grid xs={10}>
                   <Component {...pageProps} />

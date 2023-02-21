@@ -225,7 +225,60 @@ export const Profile = () => {
                   </Box>
                 </Box>
               </Paper>
-              + Add work experience
+              <Button variant="text">+ Add work experience</Button>
+            </Stack>
+          </Box>
+        </Grid>
+      </Grid>
+
+      <Divider />
+
+      <Grid sx={{ my: 3 }} container spacing={0}>
+        <Grid item xs={3}>
+          Education
+        </Grid>
+        <Grid item xs={9}>
+          <Box sx={{ width: "100%" }}>
+            <Stack spacing={2}>
+              <Paper sx={{ p: 2 }}>
+                <Box sx={{ display: "flex" }}>
+                  <Avatar
+                    variant="square"
+                    src="https://photos.angel.co/startups/i/4634051-16164880183cfb651e472aafce896328-medium_jpg.jpg?buster=1589648733"
+                    sx={{ mr: 1 }}
+                  >
+                    Senac
+                  </Avatar>
+                  <Box>
+                    <Typography>Centro Universitario Senac</Typography>
+                    <Link target="_blank" href="https://senac.com.br">
+                      Multimedia Designer (2011)
+                    </Link>
+                    <Box sx={{ textAlign: "justify" }}>
+                      Some of the key topics that are covered in a multimedia
+                      design course may include:
+                      <ol>
+                        <li>Graphic design principles and tools</li>
+                        <li>Video and audio production and editing</li>
+                        <li> Animation and motion graphics</li>
+                        <li>
+                          User experience design (UX) and user interface design
+                          (UI)
+                        </li>
+                        <li>
+                          Web design and development 3D modeling and
+                          visualization
+                        </li>
+                        <li>
+                          Game design and development Digital marketing and
+                          advertising
+                        </li>
+                      </ol>
+                    </Box>
+                  </Box>
+                </Box>
+              </Paper>
+              <Button variant="text">+ Add Education</Button>
             </Stack>
           </Box>
         </Grid>
