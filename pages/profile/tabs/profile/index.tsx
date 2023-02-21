@@ -6,25 +6,36 @@ import {
   Divider,
   FormControl,
   Grid,
+  InputAdornment,
   InputLabel,
+  Link,
   MenuItem,
+  Paper,
   Select,
+  Stack,
   TextField,
   Typography,
 } from "@mui/material"
+import { Icon, SemanticICONS } from "semantic-ui-react"
 import { countriesList, professionList } from "src/constants"
 import { useAuthStore } from "src/stores"
 
+type Social = {
+  name: SemanticICONS
+  url: string
+}
+
 export const Profile = () => {
-  const userData = useAuthStore((state: any) => state.user) ?? []
-  const { professionalOverview, general } = userData
+  const userData = useAuthStore((state: any) => state.user)
+
   if (!userData) return <>Loading...</>
+
+  const { professionalOverview, general, social } = userData
   const selectedRoles = professionList
     .filter((profession) => {
       return professionalOverview?.preferenceToWork?.includes(profession.value)
     })
     .map((role) => role.text)
-  console.log({ userData })
 
   return (
     <Box sx={{ flexGrow: 1, width: "100%" }}>
@@ -126,7 +137,7 @@ export const Profile = () => {
 
       <Divider />
 
-      <Grid sx={{ mt: 3 }} container spacing={0}>
+      <Grid sx={{ my: 3 }} container spacing={0}>
         <Grid item xs={3}>
           Locations
         </Grid>
@@ -143,6 +154,80 @@ export const Profile = () => {
               </MenuItem>
             ))}
           </TextField>
+        </Grid>
+      </Grid>
+
+      <Divider />
+
+      <Grid sx={{ my: 3 }} container spacing={0}>
+        <Grid item xs={3}>
+          Social
+        </Grid>
+        <Grid item xs={6}>
+          {social.map(({ name, url }: Social) => (
+            <TextField
+              margin="normal"
+              key={name}
+              label={name}
+              fullWidth
+              value={url}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Icon name={name} />
+                  </InputAdornment>
+                ),
+              }}
+            />
+          ))}
+        </Grid>
+      </Grid>
+
+      <Divider />
+
+      <Grid sx={{ my: 3 }} container spacing={0}>
+        <Grid item xs={3}>
+          Your work experience
+        </Grid>
+        <Grid item xs={9}>
+          <Box sx={{ width: "100%" }}>
+            <Stack spacing={2}>
+              <Paper sx={{ p: 2 }}>
+                <Box sx={{ display: "flex" }}>
+                  <Avatar
+                    variant="square"
+                    src="https://photos.angel.co/startups/i/4634051-16164880183cfb651e472aafce896328-medium_jpg.jpg?buster=1589648733"
+                    sx={{ mr: 1 }}
+                  >
+                    Rivian
+                  </Avatar>
+                  <Box>
+                    <Typography>Senior Front End Developer</Typography>
+                    <Link target="_blank" href="https://rivian.com">
+                      Rivian
+                    </Link>
+                    <Box sx={{ textAlign: "justify" }}>
+                      responsible for designing and developing the user
+                      interface of a website or web application. This involves
+                      using a combination of programming languages, such as
+                      HTML, CSS, and JavaScript, to create visually appealing
+                      and functional layouts that are responsive to different
+                      devices and screen sizes. The front-end developer works
+                      closely with the design team to ensure that the final
+                      product matches the intended look and feel, and may also
+                      collaborate with back-end developers to integrate the
+                      front-end components with server-side technologies. In
+                      addition to technical skills, a front-end developer must
+                      have an eye for design, be able to work under tight
+                      deadlines, and be comfortable with continuous learning and
+                      adaptation to new tools and technologies.
+                    </Box>
+                  </Box>
+                </Box>
+              </Paper>
+              + Add work experience
+            </Stack>
+          </Box>
         </Grid>
       </Grid>
     </Box>

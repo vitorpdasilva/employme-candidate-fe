@@ -6,7 +6,7 @@ import {
   Overview,
   Preferences,
   Profile as TabProfile,
-  Resume
+  Resume,
 } from "./tabs"
 
 const placeHolder = "https://via.placeholder.com/150"
@@ -47,6 +47,8 @@ const Profile: FC = () => {
     console.log({ newValue })
     setTabValue(newValue)
   }
+
+  console.log("pages/profile", { userData })
 
   if (!userData) {
     return <>loading...</>

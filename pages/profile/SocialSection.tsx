@@ -1,30 +1,29 @@
-import React from "react";
-import { Icon, Input, SemanticICONS  } from "semantic-ui-react";
-import { ProfileSectionWrapper, InputRow } from "./style";
-import { useAuthStore } from "src/stores";
+import { Icon, Input, SemanticICONS } from "semantic-ui-react"
+import { useAuthStore } from "src/stores"
+import { InputRow, ProfileSectionWrapper } from "./style"
 
 type Social = {
-  name: SemanticICONS,
+  name: SemanticICONS
   url: string
 }
 const SocialSection = () => {
-  const userData = useAuthStore((state: any) => state.user);
-  if (!userData) return <>Loading</>;
-  
-  const { social } = userData;
+  const userData = useAuthStore((state: any) => state.user)
+  if (!userData) return <>Loading</>
+
+  const { social } = userData
   return (
     <ProfileSectionWrapper>
       <h1>Social Profile</h1>
-      {social.map(({ name, url }: Social) => ( // TODO: Fix type any
+      {social.map(({ name, url }: Social) => (
         <InputRow key={name}>
-          <Input iconPosition='left' defaultValue={url} placeholder={name}>
+          <Input iconPosition="left" defaultValue={url} placeholder={name}>
             <Icon name={name} />
             <input />
           </Input>
         </InputRow>
       ))}
     </ProfileSectionWrapper>
-  );
-};
+  )
+}
 
-export default SocialSection;
+export default SocialSection
