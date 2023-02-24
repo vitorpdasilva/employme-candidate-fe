@@ -1,26 +1,26 @@
-import { useEffect, useState } from 'react'
-import { JobList, SearchJobBar } from 'src/components'
-import { fetchApi } from 'client'
+import { fetchApi } from "client"
+import { useEffect, useState } from "react"
+import { JobList, SearchJobBar } from "src/components"
 
 const Dashboard = () => {
   const [jobList, setJobList] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
-      const { jobs } = await fetchApi({ url: '/jobs', method: 'GET' })
+      const { jobs } = await fetchApi({ url: "/jobs", method: "GET" })
       setJobList(jobs)
     }
     fetchData()
   }, [])
 
   return (
-    <div style={{ width: '100%' }}>
+    <div style={{ width: "100%" }}>
       <SearchJobBar />
       <div
         style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          width: '100%',
+          display: "flex",
+          justifyContent: "space-between",
+          width: "100%",
           maxWidth: 1280,
         }}
       >

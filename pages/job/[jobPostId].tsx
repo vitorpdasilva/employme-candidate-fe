@@ -1,78 +1,84 @@
-import 'react-toastify/dist/ReactToastify.css';
-import { useState, useEffect, useContext, useRef } from "react";
-import parse from "html-react-parser";
-import { Popup, Message } from 'semantic-ui-react'
-import Head from "next/head";
+import parse from "html-react-parser"
+import Head from "next/head"
+import { useContext, useEffect, useRef, useState } from "react"
+import "react-toastify/dist/ReactToastify.css"
+import { Message, Popup } from "semantic-ui-react"
 // react-country-flag doesnt exist in @types npm-registry
 // TODO: replace to a flag library that contain types
 //@ts-ignore
-import ReactCountryFlag from "react-country-flag";
-import { toast, ToastContainer } from "react-toastify";
-import { FaPlaneDeparture, FaDollarSign } from "react-icons/fa";
-import { useRouter } from "next/router";
-import { JobPoints } from "src/components/jobPoints";
-import { fetchApi } from "client";
-import { JobCardHeadline } from "src/components/JobCardHeadline";
-import Button from "src/components/Button";
-import { JobPageWrapper, JobCardMain } from "./style";
-import { countriesList } from "../../src/constants";
-import { AppContext } from "src/context";
+import { fetchApi } from "client"
+import { useRouter } from "next/router"
+import ReactCountryFlag from "react-country-flag"
+import { FaDollarSign, FaPlaneDeparture } from "react-icons/fa"
+import { toast, ToastContainer } from "react-toastify"
+import Button from "src/components/Button"
+import { JobCardHeadline } from "src/components/JobCardHeadline"
+import { JobPoints } from "src/components/jobPoints"
+import { AppContext } from "src/context"
+import { countriesList } from "../../src/constants"
+import { JobCardMain, JobPageWrapper } from "./style"
 
 type JobInfoType = {
-  id: number,
-  applicants: string[],
-  recent: boolean,
-  createdAt: Date,
-  title: string,
+  id: number
+  applicants: string[]
+  recent: boolean
+  createdAt: Date
+  title: string
   location: {
-    city: string,
-    country: string,
-    province: string,
-  },
-  locationType: string,
-  description: string,
-  tags: string[],
+    city: string
+    country: string
+    province: string
+  }
+  locationType: string
+  description: string
+  tags: string[]
   salary: {
-    from: number,
-    to: number,
-    currency: string,
-    period: string,
+    from: number
+    to: number
+    currency: string
+    period: string
   }
 }
 
 const JobPostPage = () => {
-  const router = useRouter();
-  const [jobPostId, setJobPostId] = useState("");
-  const [jobInfo, setJobInfo] = useState<JobInfoType | null>(null);
+  const router = useRouter()
+  const [jobPostId, setJobPostId] = useState("")
+  const [jobInfo, setJobInfo] = useState<JobInfoType | null>(null)
   const [applyJobStatus, setApplyJobStatus] = useState("")
-  const { userData, actions: { fetchUserData } } = useContext(AppContext);
-  const toastId = useRef<string | number>('');
-  
+  const {
+    userData,
+    actions: { fetchUserData },
+  } = useContext(AppContext)
+  const toastId = useRef<string | number>("")
+
   useEffect(() => {
     if (jobPostId) {
       const fetchData = async () => {
-        const response = await fetchApi({ url: `/job/${jobPostId}`});
-        setJobInfo(response); 
-      };
-      fetchData();
+        const response = await fetchApi({ url: `/job/${jobPostId}` })
+        setJobInfo(response)
+      }
+      fetchData()
     }
-  }, [jobPostId]);
+  }, [jobPostId])
 
   useEffect(() => {
     if (router?.query) {
-      setJobPostId(router?.query?.jobPostId?.[0] ?? '');
+      setJobPostId(router?.query?.jobPostId?.[0] ?? "")
     }
-  }, [router]);
+  }, [router])
 
   const applyToJob = async () => {
     if (userData) {
       const body = {
-        applicantId: userData.id
-      };
+        applicantId: userData.id,
+      }
       try {
-        const { status, message } = await fetchApi({ url: `/job/${jobPostId}/apply`, body });
+        const { status, message } = await fetchApi({
+          url: `/job/${jobPostId}/apply`,
+          body,
+        })
         toast(message, {
-          position: 'top-right',
+          position: "top-right",
           autoClose: 5000,
           type: status,
           hideProgressBar: false,
@@ -81,23 +87,33 @@ const JobPostPage = () => {
           draggable: true,
           progress: undefined,
         })
-        fetchUserData();
+        fetchUserData()
       } catch (err: any) {
         console.error(err.error)
       }
     } else {
-      console.error("no user data");
+      console.error("no user data")
     }
-  };
-
-  if (!jobInfo) return <span>Loading...</span>;
-  if (!userData) {
-    fetchUserData();
-    return <span>Loading...</span>;
   }
-  
-  const { title, location, locationType, salary, recent, tags, id: jobId, description, createdAt } = jobInfo;
-  
+
+  if (!jobInfo) return <span>Loading...</span>
+  if (!userData) {
+    fetchUserData()
+    return <span>Loading...</span>
+  }
+
+  const {
+    title,
+    location,
+    locationType,
+    salary,
+    recent,
+    tags,
+    id: jobId,
+    description,
+    createdAt,
+  } = jobInfo
+
   return (
     <>
       <Head>
@@ -109,22 +125,37 @@ const JobPostPage = () => {
         <JobCardMain>
           <JobCardHeadline recent={recent} createdAt={createdAt} />
           <h1>{title}</h1>
-          <JobPoints style={{ display: "flex", justifyContent: "space-between" }}>
+          <JobPoints
+            style={{ display: "flex", justifyContent: "space-between" }}
+          >
             <li>
-              <ReactCountryFlag 
-                countryCode={countriesList?.find(country => country?.name === location?.country)?.code ?? ''}
-                aria-label={countriesList?.find(country => country?.name === location?.country)?.code}
+              <ReactCountryFlag
+                countryCode={
+                  countriesList?.find(
+                    (country) => country?.name === location?.country
+                  )?.code ?? ""
+                }
+                aria-label={
+                  countriesList?.find(
+                    (country) => country?.name === location?.country
+                  )?.code
+                }
                 svg
                 style={{ marginRight: 10 }}
               />
               {location.city} - {location.country}
             </li>
-            <li><FaPlaneDeparture /> {locationType}</li>
-            <li><FaDollarSign /> ${salary.from} up to ${salary.to} {salary.currency}/{salary.period}</li>
+            <li>
+              <FaPlaneDeparture /> {locationType}
+            </li>
+            <li>
+              <FaDollarSign /> ${salary.from} up to ${salary.to}{" "}
+              {salary.currency}/{salary.period}
+            </li>
           </JobPoints>
           {parse(description)}
-          
-          <Popup 
+
+          <Popup
             content={
               <Message negative>
                 <Message.Header>Error</Message.Header>
@@ -133,22 +164,26 @@ const JobPostPage = () => {
             }
             closeOnEscape
             closeOnPortalMouseLeave
-            onClose={() => setApplyJobStatus('')}
+            onClose={() => setApplyJobStatus("")}
             open={!!applyJobStatus}
             trigger={
-            <Button 
-              primary 
-              disabled={userData?.jobsApplied?.includes(jobId)} 
-              onClick={() => applyToJob()}>
-                {userData?.jobsApplied?.includes(jobId) ? "Already applied for this position" : "Apply for this position" }
-              </Button>}
+              <Button
+                primary
+                disabled={userData?.jobsApplied?.includes(jobId)}
+                onClick={() => applyToJob()}
+              >
+                {userData?.jobsApplied?.includes(jobId)
+                  ? "Already applied for this position"
+                  : "Apply for this position"}
+              </Button>
+            }
           />
         </JobCardMain>
         <div>Right Column</div>
       </JobPageWrapper>
       <ToastContainer />
     </>
-  );
-};
+  )
+}
 
-export default JobPostPage;
+export default JobPostPage

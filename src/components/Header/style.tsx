@@ -1,13 +1,13 @@
-import styled from "styled-components";
-import { Dropdown } from "semantic-ui-react";
+import { Dropdown } from "semantic-ui-react"
+import styled from "styled-components"
 
-const StyledHeader = styled.header`
+const StyledHeader = styled.div`
   height: 60px;
-  border-bottom: 1px solid ${props => props.theme.colors.gray.default};
+  border-bottom: 1px solid ${(props) => props.theme.colors.gray.default};
   padding: 0 20px;
   display: flex;
   justify-content: center;
-  section {
+  div {
     width: 100%;
     display: flex;
     align-items: center;
@@ -30,30 +30,31 @@ const StyledHeader = styled.header`
           float: left;
           height: 100%;
           display: flex;
-          align-items: center;  
+          align-items: center;
         }
       }
-      li:hover, li.active {
+      li:hover,
+      li.active {
         a {
           font-weight: 600;
         }
         &:after {
           width: 100%;
           height: 4px;
-          background: ${props => props.theme.colors.blue.default};
+          background: ${(props) => props.theme.colors.blue.default};
           position: absolute;
           bottom: 0;
           left: 0;
           content: "";
         }
-        border-color: ${props => props.theme.colors.blue.default}
+        border-color: ${(props) => props.theme.colors.blue.default};
       }
     }
   }
   a {
     color: black;
   }
-`;
+`
 
 const StyledDropdown = styled(Dropdown)`
   .menu {
@@ -78,6 +79,6 @@ const StyledDropdown = styled(Dropdown)`
       }
     }
   }
-`;
-export { StyledDropdown };
-export default StyledHeader;
+`
+export { StyledDropdown }
+export default StyledHeader

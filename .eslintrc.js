@@ -19,7 +19,6 @@ module.exports = {
     "react/react-in-jsx-scope": "off",
     indent: ["error", 2],
     "max-len": ["error", { code: 80, ignoreUrls: true, ignoreComments: true }],
-    "no-extra-semi": ["error"],
     "eol-last": ["error", "always"],
     "object-curly-spacing": ["error", "always"],
     "react/no-unescaped-entities": 0

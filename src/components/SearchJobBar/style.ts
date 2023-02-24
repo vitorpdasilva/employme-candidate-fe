@@ -1,6 +1,6 @@
-import styled from 'styled-components'
+import styled from "styled-components"
 
-const SearchJobBarStyled = styled.section`
+const SearchJobBarStyled = styled.div`
   width: 100%;
   margin: 15px 0;
   border: 1px solid ${(props) => props.theme.colors.gray.default};

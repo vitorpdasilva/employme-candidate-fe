@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from "styled-components"
 
-const ProfileSectionWrapper = styled.section`
+const ProfileSectionWrapper = styled.div`
   width: 100%;
   max-width: 750px;
   border: 1px solid ${props => props.theme.colors.gray.default};
@@ -19,26 +19,27 @@ const ProfileSectionWrapper = styled.section`
   article {
     display: flex;
     flex-wrap: wrap;
-    section {
+    div {
       width: 100%;
       column-count: 2;
     }
   }
-`;
+`
 
-const InputRow = styled('div')<{labelWidth?: string}>`
+const InputRow = styled("div")<{labelWidth?: string}>`
   display: flex;
   align-items: center;
   margin: 16px 0;
   > div.input {
     width: 100%;
     .label {
-      min-width: ${({ labelWidth }) => labelWidth ?? 'auto'};
+      min-width: ${({ labelWidth }) => labelWidth ?? "auto"};
     }
   }
 `
-export default ProfileSectionWrapper;
+export default ProfileSectionWrapper
 export {
   InputRow,
   ProfileSectionWrapper
-};
+}
+
