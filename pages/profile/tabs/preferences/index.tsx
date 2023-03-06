@@ -1,5 +1,6 @@
 import {
   Box,
+  Chip,
   Divider,
   FormControl,
   FormControlLabel,
@@ -8,6 +9,7 @@ import {
   MenuItem,
   Radio,
   RadioGroup,
+  Stack,
   TextField,
   Typography,
 } from "@mui/material"
@@ -84,6 +86,31 @@ export const Preferences = () => {
               </RadioGroup>
             </FormControl>
           ))}
+        </Grid>
+      </Grid>
+      <Divider />
+      <Grid container spacing={2} sx={{ my: 3 }}>
+        <Grid item xs={3}>
+          <Typography variant="subtitle1">
+            Hide your profile from select companies
+          </Typography>
+          <Typography variant="subtitle2">
+            Recruiters from the companies you select won’t see your profile in a
+            candidate search. Your current and past employers are hidden by
+            default.
+          </Typography>
+        </Grid>
+        <Grid item xs={9}>
+          <Stack direction="row" spacing={2}>
+            <Chip
+              label="Company 1"
+              onDelete={() => console.log("deleting company 1")}
+            />
+            <Chip
+              label="Company 2"
+              onDelete={() => console.log("deleting company 2")}
+            />
+          </Stack>
         </Grid>
       </Grid>
     </Box>
