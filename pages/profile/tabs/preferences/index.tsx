@@ -5,6 +5,7 @@ import {
   FormControlLabel,
   FormLabel,
   Grid,
+  MenuItem,
   Radio,
   RadioGroup,
   TextField,
@@ -22,7 +23,26 @@ const radios = [
 export const Preferences = () => {
   return (
     <Box sx={{ flexGrow: 1, width: "100%" }}>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} sx={{ mb: 3 }}>
+        <Grid item xs={3}>
+          <Typography variant="subtitle1">
+            Where are you in your job search?
+          </Typography>
+          <Typography variant="subtitle2">
+            Your current company will never see that you are looking for a job,
+            no matter what you choose
+          </Typography>
+        </Grid>
+        <Grid item xs={6}>
+          <TextField defaultValue={0} select fullWidth>
+            <MenuItem value={0}>Ready to interview</MenuItem>
+            <MenuItem value={1}>Open to offers</MenuItem>
+            <MenuItem value={2}>Closed to offers</MenuItem>
+          </TextField>
+        </Grid>
+      </Grid>
+      <Divider />
+      <Grid container spacing={2} sx={{ my: 3 }}>
         <Grid item xs={3}>
           <Typography variant="subtitle1">
             What is your desired salary?
@@ -32,13 +52,7 @@ export const Preferences = () => {
           </Typography>
         </Grid>
         <Grid item xs={6}>
-          <TextField
-            fullWidth
-            margin="normal"
-            defaultValue={0}
-            variant="outlined"
-            label="70,000"
-          />
+          <TextField fullWidth defaultValue={0} variant="outlined" />
         </Grid>
       </Grid>
       <Divider />
