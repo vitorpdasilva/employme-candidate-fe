@@ -21,32 +21,34 @@ import { countriesList, professionList } from "src/constants"
 import { useAuthStore } from "src/stores"
 
 type Social = {
-  name: SemanticICONS
-  url: string
-}
+  name: SemanticICONS;
+  url: string;
+};
 
 export const Profile = () => {
   const userData = useAuthStore((state: any) => state.user)
 
   if (!userData) return <>Loading...</>
 
-  const { professionalOverview, general, social } = userData
+  const { professionalOverview, general, social, education } = userData
   const selectedRoles = professionList
     .filter((profession) => {
       return professionalOverview?.preferenceToWork?.includes(profession.value)
     })
     .map((role) => role.text)
 
+  console.log({ userData })
+
   return (
     <Box sx={{ flexGrow: 1, width: "100%" }}>
       <Grid container spacing={2}>
-        <Grid item xs={3}>
+        <Grid item xs={12} md={3}>
           <Typography variant="subtitle1">About</Typography>
           <Typography variant="subtitle2">
             Tell us about yourself so startups know who you are.
           </Typography>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={9} lg={9}>
           <TextField
             fullWidth
             margin="normal"
@@ -72,10 +74,7 @@ export const Profile = () => {
               label="Select your primary role"
             >
               {professionList.map((profession) => (
-                <MenuItem
-                  key={profession.text as string}
-                  value={profession?.value}
-                >
+                <MenuItem key={profession.text as string} value={profession?.value}>
                   {profession?.text}
                 </MenuItem>
               ))}
@@ -94,9 +93,7 @@ export const Profile = () => {
             </TextField>
           </Box>
           <FormControl sx={{ width: "100%" }}>
-            <InputLabel id="demo-multiple-checkbox-label">
-              Open for the following roles
-            </InputLabel>
+            <InputLabel id="demo-multiple-checkbox-label">Open for the following roles</InputLabel>
             <Select
               label="Open for the following roles"
               labelId="demo-multiple-checkbox-label"
@@ -105,9 +102,7 @@ export const Profile = () => {
               multiple
               value={selectedRoles}
               renderValue={(selected) => (
-                <Box
-                  sx={{ display: "flex", flexWrap: "wrap", gap: 0.5, mt: 1 }}
-                >
+                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5, mt: 1 }}>
                   {(selected as string[]).map((value) => (
                     <Chip key={value} label={value} />
                   ))}
@@ -130,7 +125,7 @@ export const Profile = () => {
             </Select>
           </FormControl>
           <Box sx={{ my: 3 }}>
-            <TextField fullWidth multiline rows={4} label="Your Bio" />
+            <TextField fullWidth multiline rows={4} label="Your Bio" defaultValue={general.bio} />
           </Box>
         </Grid>
       </Grid>
@@ -193,37 +188,24 @@ export const Profile = () => {
           <Box sx={{ width: "100%" }}>
             <Stack spacing={2}>
               <Paper sx={{ p: 2 }}>
-                <Box sx={{ display: "flex" }}>
-                  <Avatar
-                    variant="square"
-                    src="https://photos.angel.co/startups/i/4634051-16164880183cfb651e472aafce896328-medium_jpg.jpg?buster=1589648733"
-                    sx={{ mr: 1 }}
-                  >
-                    Rivian
-                  </Avatar>
-                  <Box>
-                    <Typography>Senior Front End Developer</Typography>
-                    <Link target="_blank" href="https://rivian.com">
-                      Rivian
-                    </Link>
-                    <Box sx={{ textAlign: "justify" }}>
-                      responsible for designing and developing the user
-                      interface of a website or web application. This involves
-                      using a combination of programming languages, such as
-                      HTML, CSS, and JavaScript, to create visually appealing
-                      and functional layouts that are responsive to different
-                      devices and screen sizes. The front-end developer works
-                      closely with the design team to ensure that the final
-                      product matches the intended look and feel, and may also
-                      collaborate with back-end developers to integrate the
-                      front-end components with server-side technologies. In
-                      addition to technical skills, a front-end developer must
-                      have an eye for design, be able to work under tight
-                      deadlines, and be comfortable with continuous learning and
-                      adaptation to new tools and technologies.
+                {professionalOverview?.workExperience?.map((experience: any) => (
+                  <Box key={experience.company} sx={{ display: "flex" }}>
+                    <Avatar
+                      variant="square"
+                      src="https://photos.angel.co/startups/i/4634051-16164880183cfb651e472aafce896328-medium_jpg.jpg?buster=1589648733"
+                      sx={{ mr: 1 }}
+                    >
+                      {experience.company}
+                    </Avatar>
+                    <Box>
+                      <Typography>{experience.title}</Typography>
+                      <Link target="_blank" href="https://rivian.com">
+                        {experience.company}
+                      </Link>
+                      <Box sx={{ textAlign: "justify" }}>{experience.description}</Box>
                     </Box>
                   </Box>
-                </Box>
+                ))}
               </Paper>
               <Button variant="text">+ Add work experience</Button>
             </Stack>
@@ -241,42 +223,24 @@ export const Profile = () => {
           <Box sx={{ width: "100%" }}>
             <Stack spacing={2}>
               <Paper sx={{ p: 2 }}>
-                <Box sx={{ display: "flex" }}>
-                  <Avatar
-                    variant="square"
-                    src="https://photos.angel.co/startups/i/4634051-16164880183cfb651e472aafce896328-medium_jpg.jpg?buster=1589648733"
-                    sx={{ mr: 1 }}
-                  >
-                    Senac
-                  </Avatar>
-                  <Box>
-                    <Typography>Centro Universitario Senac</Typography>
-                    <Link target="_blank" href="https://senac.com.br">
-                      Multimedia Designer (2011)
-                    </Link>
-                    <Box sx={{ textAlign: "justify" }}>
-                      Some of the key topics that are covered in a multimedia
-                      design course may include:
-                      <ol>
-                        <li>Graphic design principles and tools</li>
-                        <li>Video and audio production and editing</li>
-                        <li> Animation and motion graphics</li>
-                        <li>
-                          User experience design (UX) and user interface design
-                          (UI)
-                        </li>
-                        <li>
-                          Web design and development 3D modeling and
-                          visualization
-                        </li>
-                        <li>
-                          Game design and development Digital marketing and
-                          advertising
-                        </li>
-                      </ol>
+                {education.map((item: any) => (
+                  <Box key={item.degree} sx={{ display: "flex" }}>
+                    <Avatar
+                      variant="square"
+                      src="https://photos.angel.co/startups/i/4634051-16164880183cfb651e472aafce896328-medium_jpg.jpg?buster=1589648733"
+                      sx={{ mr: 1 }}
+                    >
+                      {item.school}
+                    </Avatar>
+                    <Box>
+                      <Typography>{item.school}</Typography>
+                      <Link target="_blank" href="https://senac.com.br">
+                        {item.fieldOfStudy}
+                      </Link>
+                      <Box sx={{ textAlign: "justify" }}>{item.description}</Box>
                     </Box>
                   </Box>
-                </Box>
+                ))}
               </Paper>
               <Button variant="text">+ Add Education</Button>
             </Stack>

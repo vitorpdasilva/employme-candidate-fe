@@ -1,32 +1,25 @@
 import { Box, Tab, Tabs, Typography } from "@mui/material"
 import React, { FC, ReactNode, useState } from "react"
 import { useAuthStore } from "src/stores"
-import {
-  Culture,
-  Overview,
-  Preferences,
-  Profile as TabProfile,
-  Resume,
-} from "./tabs"
+import { Culture, Preferences, Profile as TabProfile, Resume } from "./tabs"
 
 type TabItemsProps = {
-  label: string
-  index: number
-  component: ReactNode
-}
+  label: string;
+  index?: number;
+  component: ReactNode;
+};
 const tabItems: TabItemsProps[] = [
-  { label: "Overview", index: 0, component: <Overview /> },
-  { label: "Profile", index: 1, component: <TabProfile /> },
-  { label: "Resume/CV", index: 2, component: <Resume /> },
-  { label: "Preferences", index: 3, component: <Preferences /> },
-  { label: "Culture", index: 4, component: <Culture /> },
+  { label: "Profile", component: <TabProfile /> },
+  { label: "Resume/CV", component: <Resume /> },
+  { label: "Preferences", component: <Preferences /> },
+  { label: "Culture", component: <Culture /> },
 ]
 
 type TabPanelProps = {
-  children?: ReactNode
-  index: number
-  value: number
-}
+  children?: ReactNode;
+  index: number;
+  value: number;
+};
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props
@@ -47,8 +40,6 @@ const Profile: FC = () => {
     setTabValue(newValue)
   }
 
-  console.log("pages/profile", { userData })
-
   if (!userData) {
     return <>loading...</>
   }
@@ -59,12 +50,12 @@ const Profile: FC = () => {
         <Typography variant="h3">Edit your profile</Typography>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs value={tabValue} onChange={handleTabChange}>
-            {tabItems.map(({ label, index }) => (
+            {tabItems.map(({ label }, index) => (
               <Tab key={index} label={label} />
             ))}
           </Tabs>
         </Box>
-        {tabItems.map(({ index, component }) => (
+        {tabItems.map(({ component }, index) => (
           <TabPanel key={index} value={tabValue} index={index}>
             {component}
           </TabPanel>
