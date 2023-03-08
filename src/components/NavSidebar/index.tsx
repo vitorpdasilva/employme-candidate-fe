@@ -1,5 +1,3 @@
-import { FC, ReactNode } from "react"
-//eslint-disable-next-line max-len
 import BusinessCenterOutlinedIcon from "@mui/icons-material/BusinessCenterOutlined"
 import DoneAllOutlinedIcon from "@mui/icons-material/DoneAllOutlined"
 import ExploreOutlinedIcon from "@mui/icons-material/ExploreOutlined"
@@ -7,9 +5,9 @@ import Face5OutlinedIcon from "@mui/icons-material/Face5Outlined"
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined"
 import { Box, Link, styled } from "@mui/material"
 import { useRouter } from "next/router"
-import { useAuthStore } from "src/stores"
+import { FC, ReactNode } from "react"
 
-type MenuItems = Record<string, string | ReactNode>
+type MenuItems = Record<string, string | ReactNode>;
 
 const MenuItem = styled(Link)<{ selected: boolean }>(({ theme, selected }) => ({
   textDecoration: "none",
@@ -46,10 +44,8 @@ const menuItems: MenuItems[] = [
 ]
 
 export const NavSidebar: FC = () => {
-  const userData = useAuthStore((state: any) => state.user)
   const router = useRouter()
 
-  console.log({ userData })
   return (
     <Box
       sx={{

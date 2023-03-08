@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components"
 
 const JobCardMain = styled.div`
   flex-grow: 1;
@@ -6,7 +6,7 @@ const JobCardMain = styled.div`
     font-size: 34px;
     margin: 0;
   }
-`;
+`
 
 const HeadLine = styled.div`
   display: flex;
@@ -14,7 +14,7 @@ const HeadLine = styled.div`
   small {
     margin-left: 10px;
   }
-`;
+`
 
 const JobPageWrapper = styled.div`
   display: flex;
@@ -27,6 +27,7 @@ const JobPageWrapper = styled.div`
     max-width: 750px;
     min-width: 250px;
   }
-`;
+`
 export default JobCardMain
-export { JobCardMain, HeadLine, JobPageWrapper };
+export { JobCardMain, HeadLine, JobPageWrapper }
+

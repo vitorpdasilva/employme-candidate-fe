@@ -1,12 +1,4 @@
-import {
-  Alert,
-  Box,
-  Button,
-  Link,
-  styled,
-  TextField,
-  Typography,
-} from "@mui/material"
+import { Alert, Box, Button, Link, styled, TextField, Typography } from "@mui/material"
 import { ErrorResponse, fetchApi } from "client"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
@@ -18,9 +10,9 @@ import { useAuthStore } from "src/stores"
 // password: 'vitor123',
 
 type Credentials = {
-  username: string
-  password: string
-}
+  username: string;
+  password: string;
+};
 
 const FormWrapper = styled(Box)({
   border: "1px solid #c5c5c5",
@@ -77,21 +69,13 @@ const Login = () => {
   })
 
   return (
-    <FormWrapper
-      component="form"
-      onSubmit={onSubmit}
-      onChange={() => setErrorMessage(null)}
-    >
+    <FormWrapper component="form" onSubmit={onSubmit} onChange={() => setErrorMessage(null)}>
       {errorMessage && (
         <Alert sx={{ my: 2 }} severity="error">
           {errorMessage}
         </Alert>
       )}
-      <TextField
-        {...register("username")}
-        label="username"
-        variant="outlined"
-      />
+      <TextField {...register("username")} label="username" variant="outlined" />
       <TextField
         {...register("password")}
         type="password"

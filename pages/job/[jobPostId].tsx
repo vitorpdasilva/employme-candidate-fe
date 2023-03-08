@@ -1,6 +1,6 @@
 import parse from "html-react-parser"
 import Head from "next/head"
-import { useContext, useEffect, useRef, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import "react-toastify/dist/ReactToastify.css"
 import { Message, Popup } from "semantic-ui-react"
 // react-country-flag doesnt exist in @types npm-registry
@@ -15,41 +15,42 @@ import Button from "src/components/Button"
 import { JobCardHeadline } from "src/components/JobCardHeadline"
 import { JobPoints } from "src/components/jobPoints"
 import { AppContext } from "src/context"
+import { useAuthStore } from "src/stores"
 import { countriesList } from "../../src/constants"
 import { JobCardMain, JobPageWrapper } from "./style"
 
 type JobInfoType = {
-  id: number
-  applicants: string[]
-  recent: boolean
-  createdAt: Date
-  title: string
+  id: number;
+  applicants: string[];
+  recent: boolean;
+  createdAt: Date;
+  title: string;
   location: {
-    city: string
-    country: string
-    province: string
-  }
-  locationType: string
-  description: string
-  tags: string[]
+    city: string;
+    country: string;
+    province: string;
+  };
+  locationType: string;
+  description: string;
+  tags: string[];
   salary: {
-    from: number
-    to: number
-    currency: string
-    period: string
-  }
-}
+    from: number;
+    to: number;
+    currency: string;
+    period: string;
+  };
+};
 
 const JobPostPage = () => {
   const router = useRouter()
   const [jobPostId, setJobPostId] = useState("")
   const [jobInfo, setJobInfo] = useState<JobInfoType | null>(null)
   const [applyJobStatus, setApplyJobStatus] = useState("")
+  // todo: refactor this to not use appContext anymore.
   const {
-    userData,
     actions: { fetchUserData },
-  } = useContext(AppContext)
-  const toastId = useRef<string | number>("")
+  } = useContext<any>(AppContext)
+  const userData = useAuthStore((state: any) => state.user)
 
   useEffect(() => {
     if (jobPostId) {
@@ -108,7 +109,6 @@ const JobPostPage = () => {
     locationType,
     salary,
     recent,
-    tags,
     id: jobId,
     description,
     createdAt,
@@ -125,20 +125,14 @@ const JobPostPage = () => {
         <JobCardMain>
           <JobCardHeadline recent={recent} createdAt={createdAt} />
           <h1>{title}</h1>
-          <JobPoints
-            style={{ display: "flex", justifyContent: "space-between" }}
-          >
+          <JobPoints style={{ display: "flex", justifyContent: "space-between" }}>
             <li>
               <ReactCountryFlag
                 countryCode={
-                  countriesList?.find(
-                    (country) => country?.name === location?.country
-                  )?.code ?? ""
+                  countriesList?.find((country) => country?.name === location?.country)?.code ?? ""
                 }
                 aria-label={
-                  countriesList?.find(
-                    (country) => country?.name === location?.country
-                  )?.code
+                  countriesList?.find((country) => country?.name === location?.country)?.code
                 }
                 svg
                 style={{ marginRight: 10 }}
@@ -149,8 +143,7 @@ const JobPostPage = () => {
               <FaPlaneDeparture /> {locationType}
             </li>
             <li>
-              <FaDollarSign /> ${salary.from} up to ${salary.to}{" "}
-              {salary.currency}/{salary.period}
+              <FaDollarSign /> ${salary.from} up to ${salary.to} {salary.currency}/{salary.period}
             </li>
           </JobPoints>
           {parse(description)}

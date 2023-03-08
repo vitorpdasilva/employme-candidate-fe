@@ -37,8 +37,6 @@ const SearchJobBarStyled = styled.div`
         }
       }
     }
-    aside {
-    }
     button {
       background: transparent;
       border: 0;
