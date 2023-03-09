@@ -48,7 +48,7 @@ export const Profile = () => {
             Tell us about yourself so startups know who you are.
           </Typography>
         </Grid>
-        <Grid item xs={12} md={9} lg={9}>
+        <Grid item xs={12} md={9}>
           <TextField
             fullWidth
             margin="normal"
@@ -133,13 +133,14 @@ export const Profile = () => {
       <Divider />
 
       <Grid sx={{ my: 3 }} container spacing={0}>
-        <Grid item xs={3}>
+        <Grid item xs={12} md={3}>
           Locations
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={9}>
           <TextField
             defaultValue={general?.currentLocation}
             select
+            margin="normal"
             fullWidth
             label="Where are you currently located?"
           >
@@ -155,10 +156,10 @@ export const Profile = () => {
       <Divider />
 
       <Grid sx={{ my: 3 }} container spacing={0}>
-        <Grid item xs={3}>
+        <Grid item xs={12} md={3}>
           Social
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={9}>
           {social.map(({ name, url }: Social) => (
             <TextField
               margin="normal"
@@ -181,10 +182,10 @@ export const Profile = () => {
       <Divider />
 
       <Grid sx={{ my: 3 }} container spacing={0}>
-        <Grid item xs={3}>
+        <Grid item xs={12} md={3}>
           Your work experience
         </Grid>
-        <Grid item xs={9}>
+        <Grid item xs={12} md={9}>
           <Box sx={{ width: "100%" }}>
             <Stack spacing={2}>
               <Paper sx={{ p: 2 }}>
@@ -216,10 +217,10 @@ export const Profile = () => {
       <Divider />
 
       <Grid sx={{ my: 3 }} container spacing={0}>
-        <Grid item xs={3}>
+        <Grid item xs={12} md={3}>
           Education
         </Grid>
-        <Grid item xs={9}>
+        <Grid item xs={12} md={9}>
           <Box sx={{ width: "100%" }}>
             <Stack spacing={2}>
               <Paper sx={{ p: 2 }}>
