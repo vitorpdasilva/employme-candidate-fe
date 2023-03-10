@@ -13,6 +13,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material"
+import { useForm } from "react-hook-form"
 
 import { companySizes, CompanySizes } from "src/constants"
 
@@ -23,6 +24,13 @@ const radios = [
 ]
 
 export const Preferences = () => {
+  const {
+    register,
+    handleSubmit,
+    // Read the formState before render to subscribe the form state through the Proxy
+    formState: { errors, isDirty, isSubmitting, touchedFields, submitCount },
+  } = useForm()
+
   return (
     <Box sx={{ flexGrow: 1, width: "100%" }}>
       <Grid container spacing={2} sx={{ mb: 3 }}>
@@ -34,7 +42,7 @@ export const Preferences = () => {
           </Typography>
         </Grid>
         <Grid item xs={12} md={9}>
-          <TextField defaultValue={0} select fullWidth>
+          <TextField defaultValue={0} select fullWidth {...register("jobSearchStatus")}>
             <MenuItem value={0}>Ready to interview</MenuItem>
             <MenuItem value={1}>Open to offers</MenuItem>
             <MenuItem value={2}>Closed to offers</MenuItem>

@@ -16,6 +16,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material"
+import { useForm } from "react-hook-form"
 import { Icon, SemanticICONS } from "semantic-ui-react"
 import { countriesList, professionList } from "src/constants"
 import { useAuthStore } from "src/stores"
@@ -27,8 +28,36 @@ type Social = {
 
 export const Profile = () => {
   const userData = useAuthStore((state: any) => state.user)
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors, isDirty, isSubmitting, touchedFields, submitCount, dirtyFields },
+    setValue,
+    // refactor to break down in smaller components so we can have the correct type for the form.
+  } = useForm<any>({
+    defaultValues: {
+      name: userData?.name,
+      bio: userData?.general.bio,
+      currentLocation: userData?.general.currentLocation,
+      social: (() => {
+        const social: any = {}
+        //eslint-disable-next-line
+        for (const { name, url } of userData?.social) {
+          console.log({ name, url })
+          social[name] = url
+        }
+        console.log({ social })
+        return { ...social }
+      })(),
+    },
+  })
+
+  const fieldWatch = watch()
 
   if (!userData) return <>Loading...</>
+
+  console.log({ fieldWatch, userData })
 
   const { professionalOverview, general, social, education } = userData
   const selectedRoles = professionList
@@ -36,8 +65,6 @@ export const Profile = () => {
       return professionalOverview?.preferenceToWork?.includes(profession.value)
     })
     .map((role) => role.text)
-
-  console.log({ userData })
 
   return (
     <Box sx={{ flexGrow: 1, width: "100%" }}>
@@ -52,10 +79,19 @@ export const Profile = () => {
           <TextField
             fullWidth
             margin="normal"
-            value={userData?.name}
             variant="outlined"
             label="Your Name"
+            {...register("name")}
+            onChange={(e) => setValue("name", e.target.value)}
           />
+          {fieldWatch.name !== userData?.name && (
+            <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+              <Button variant="text" onClick={() => setValue("name", userData?.name)}>
+                Cancel
+              </Button>
+              <Button variant="contained">Save</Button>
+            </Box>
+          )}
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Avatar
               alt={`${userData?.name}'s picture`}
@@ -125,7 +161,15 @@ export const Profile = () => {
             </Select>
           </FormControl>
           <Box sx={{ my: 3 }}>
-            <TextField fullWidth multiline rows={4} label="Your Bio" defaultValue={general.bio} />
+            <TextField fullWidth multiline rows={4} label="Your Bio" {...register("bio")} />
+            {fieldWatch.bio !== userData?.bio && (
+              <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+                <Button variant="text" onClick={() => setValue("bio", userData?.bio)}>
+                  Cancel
+                </Button>
+                <Button variant="contained">Save</Button>
+              </Box>
+            )}
           </Box>
         </Grid>
       </Grid>
@@ -138,11 +182,11 @@ export const Profile = () => {
         </Grid>
         <Grid item xs={12} md={9}>
           <TextField
-            defaultValue={general?.currentLocation}
             select
             margin="normal"
             fullWidth
             label="Where are you currently located?"
+            {...register("currentLocation")}
           >
             {countriesList.map((country) => (
               <MenuItem key={country?.name} value={country?.code}>
@@ -166,7 +210,7 @@ export const Profile = () => {
               key={name}
               label={name}
               fullWidth
-              value={url}
+              {...register(`social.${name}`)}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -176,6 +220,14 @@ export const Profile = () => {
               }}
             />
           ))}
+          {fieldWatch.social !== userData?.social && (
+            <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+              <Button variant="text" onClick={() => setValue("name", userData?.name)}>
+                Cancel
+              </Button>
+              <Button variant="contained">Save</Button>
+            </Box>
+          )}
         </Grid>
       </Grid>
 
