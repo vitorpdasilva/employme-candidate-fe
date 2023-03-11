@@ -6,7 +6,6 @@ import {
   Divider,
   FormControl,
   Grid,
-  InputAdornment,
   InputLabel,
   Link,
   MenuItem,
@@ -17,39 +16,17 @@ import {
   Typography,
 } from "@mui/material"
 import { useForm } from "react-hook-form"
-import { Icon, SemanticICONS } from "semantic-ui-react"
 import { countriesList, professionList } from "src/constants"
 import { useAuthStore } from "src/stores"
-
-type Social = {
-  name: SemanticICONS;
-  url: string;
-};
+import { Social } from "./social"
 
 export const Profile = () => {
   const userData = useAuthStore((state: any) => state.user)
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors, isDirty, isSubmitting, touchedFields, submitCount, dirtyFields },
-    setValue,
-    // refactor to break down in smaller components so we can have the correct type for the form.
-  } = useForm<any>({
+  const { register, handleSubmit, watch, setValue } = useForm<any>({
     defaultValues: {
       name: userData?.name,
       bio: userData?.general.bio,
       currentLocation: userData?.general.currentLocation,
-      social: (() => {
-        const social: any = {}
-        //eslint-disable-next-line
-        for (const { name, url } of userData?.social) {
-          console.log({ name, url })
-          social[name] = url
-        }
-        console.log({ social })
-        return { ...social }
-      })(),
     },
   })
 
@@ -57,122 +34,134 @@ export const Profile = () => {
 
   if (!userData) return <>Loading...</>
 
-  console.log({ fieldWatch, userData })
-
-  const { professionalOverview, general, social, education } = userData
+  const { professionalOverview, education } = userData
   const selectedRoles = professionList
     .filter((profession) => {
       return professionalOverview?.preferenceToWork?.includes(profession.value)
     })
     .map((role) => role.text)
 
+  const handleChange = async (data: any) => {
+    console.log({ data })
+  }
+
+  console.log({ fieldWatch, userData })
   return (
     <Box sx={{ flexGrow: 1, width: "100%" }}>
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={3}>
-          <Typography variant="subtitle1">About</Typography>
-          <Typography variant="subtitle2">
-            Tell us about yourself so startups know who you are.
-          </Typography>
-        </Grid>
-        <Grid item xs={12} md={9}>
-          <TextField
-            fullWidth
-            margin="normal"
-            variant="outlined"
-            label="Your Name"
-            {...register("name")}
-            onChange={(e) => setValue("name", e.target.value)}
-          />
-          {fieldWatch.name !== userData?.name && (
-            <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-              <Button variant="text" onClick={() => setValue("name", userData?.name)}>
-                Cancel
-              </Button>
-              <Button variant="contained">Save</Button>
-            </Box>
-          )}
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Avatar
-              alt={`${userData?.name}'s picture`}
-              src={userData?.picture}
-              sx={{ width: 56, height: 56, mr: 3 }}
-            />
-            <Button sx={{ height: "fit-content" }} variant="outlined">
-              Upload a new photo
-            </Button>
-          </Box>
-          <Box sx={{ my: 3, display: "flex" }}>
+      <form onSubmit={handleSubmit(handleChange)}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={3}>
+            <Typography variant="subtitle1">About</Typography>
+            <Typography variant="subtitle2">
+              Tell us about yourself so startups know who you are.
+            </Typography>
+          </Grid>
+          <Grid item xs={12} md={9}>
             <TextField
-              sx={{ flexGrow: 1 }}
-              defaultValue={professionalOverview.profession}
-              select
-              label="Select your primary role"
-            >
-              {professionList.map((profession) => (
-                <MenuItem key={profession.text as string} value={profession?.value}>
-                  {profession?.text}
-                </MenuItem>
-              ))}
-            </TextField>
-            <TextField
-              defaultValue={professionalOverview.yearsOfExp}
-              select
-              sx={{ width: "35%", ml: 3 }}
-              label="Years of Experience"
-            >
-              {[...Array(10).keys()].map((year) => (
-                <MenuItem key={year} value={year}>
-                  {year} {year !== 1 ? "years" : "year"}
-                </MenuItem>
-              ))}
-            </TextField>
-          </Box>
-          <FormControl sx={{ width: "100%" }}>
-            <InputLabel id="demo-multiple-checkbox-label">Open for the following roles</InputLabel>
-            <Select
-              label="Open for the following roles"
-              labelId="demo-multiple-checkbox-label"
-              id="demo-multiple-chip"
               fullWidth
-              multiple
-              value={selectedRoles}
-              renderValue={(selected) => (
-                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5, mt: 1 }}>
-                  {(selected as string[]).map((value) => (
-                    <Chip key={value} label={value} />
-                  ))}
-                </Box>
-              )}
-              MenuProps={{
-                PaperProps: {
-                  style: {
-                    maxHeight: 48 * 4.5 + 8,
-                    width: 250,
-                  },
-                },
-              }}
-            >
-              {professionList.map((profession) => (
-                <MenuItem key={profession?.text} value={profession?.value}>
-                  {profession?.text}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <Box sx={{ my: 3 }}>
-            <TextField fullWidth multiline rows={4} label="Your Bio" {...register("bio")} />
-            {fieldWatch.bio !== userData?.bio && (
+              margin="normal"
+              variant="outlined"
+              label="Your Name"
+              {...register("name")}
+              onChange={(e) => setValue("name", e.target.value)}
+            />
+            {fieldWatch.name !== userData?.name && (
               <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-                <Button variant="text" onClick={() => setValue("bio", userData?.bio)}>
+                <Button variant="text" onClick={() => setValue("name", userData?.name)}>
                   Cancel
                 </Button>
-                <Button variant="contained">Save</Button>
+                <Button variant="contained" type="submit">
+                  Save
+                </Button>
               </Box>
             )}
-          </Box>
+
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Avatar
+                alt={`${userData?.name}'s picture`}
+                src={userData?.picture}
+                sx={{ width: 56, height: 56, mr: 3 }}
+              />
+              <Button sx={{ height: "fit-content" }} variant="outlined">
+                Upload a new photo
+              </Button>
+            </Box>
+            <Box sx={{ my: 3, display: "flex" }}>
+              <TextField
+                sx={{ flexGrow: 1 }}
+                defaultValue={professionalOverview.profession}
+                select
+                label="Select your primary role"
+              >
+                {professionList.map((profession) => (
+                  <MenuItem key={profession.text as string} value={profession?.value}>
+                    {profession?.text}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <TextField
+                defaultValue={professionalOverview.yearsOfExp}
+                select
+                sx={{ width: "35%", ml: 3 }}
+                label="Years of Experience"
+              >
+                {[...Array(10).keys()].map((year) => (
+                  <MenuItem key={year} value={year}>
+                    {year} {year !== 1 ? "years" : "year"}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Box>
+            <FormControl sx={{ width: "100%" }}>
+              <InputLabel id="demo-multiple-checkbox-label">
+                Open for the following roles
+              </InputLabel>
+              <Select
+                label="Open for the following roles"
+                labelId="demo-multiple-checkbox-label"
+                id="demo-multiple-chip"
+                fullWidth
+                multiple
+                value={selectedRoles}
+                renderValue={(selected) => (
+                  <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5, mt: 1 }}>
+                    {(selected as string[]).map((value) => (
+                      <Chip key={value} label={value} />
+                    ))}
+                  </Box>
+                )}
+                MenuProps={{
+                  PaperProps: {
+                    style: {
+                      maxHeight: 48 * 4.5 + 8,
+                      width: 250,
+                    },
+                  },
+                }}
+              >
+                {professionList.map((profession) => (
+                  <MenuItem key={profession?.text} value={profession?.value}>
+                    {profession?.text}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <Box sx={{ my: 3 }}>
+              <TextField fullWidth multiline rows={4} label="Your Bio" {...register("bio")} />
+              {fieldWatch.bio !== userData?.general.bio && (
+                <Box sx={{ display: "flex", justifyContent: "flex-end", my: 1 }}>
+                  <Button variant="text" onClick={() => setValue("bio", userData?.general.bio)}>
+                    Cancel
+                  </Button>
+                  <Button variant="contained" type="submit">
+                    Save
+                  </Button>
+                </Box>
+              )}
+            </Box>
+          </Grid>
         </Grid>
-      </Grid>
+      </form>
 
       <Divider />
 
@@ -199,37 +188,7 @@ export const Profile = () => {
 
       <Divider />
 
-      <Grid sx={{ my: 3 }} container spacing={0}>
-        <Grid item xs={12} md={3}>
-          Social
-        </Grid>
-        <Grid item xs={12} md={9}>
-          {social.map(({ name, url }: Social) => (
-            <TextField
-              margin="normal"
-              key={name}
-              label={name}
-              fullWidth
-              {...register(`social.${name}`)}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <Icon name={name} />
-                  </InputAdornment>
-                ),
-              }}
-            />
-          ))}
-          {fieldWatch.social !== userData?.social && (
-            <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-              <Button variant="text" onClick={() => setValue("name", userData?.name)}>
-                Cancel
-              </Button>
-              <Button variant="contained">Save</Button>
-            </Box>
-          )}
-        </Grid>
-      </Grid>
+      <Social />
 
       <Divider />
 
