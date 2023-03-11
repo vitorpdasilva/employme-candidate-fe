@@ -45,7 +45,6 @@ export const Profile = () => {
     console.log({ data })
   }
 
-  console.log({ fieldWatch, userData })
   return (
     <Box sx={{ flexGrow: 1, width: "100%" }}>
       <form onSubmit={handleSubmit(handleChange)}>
