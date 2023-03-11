@@ -38,7 +38,11 @@ export const Social = () => {
 
   const handleChange = () => {
     handleSubmit((data) => {
-      console.log(data)
+      const requestData = {
+        email: userData.email,
+        ...data,
+      }
+      console.log({ requestData })
     })
   }
 
