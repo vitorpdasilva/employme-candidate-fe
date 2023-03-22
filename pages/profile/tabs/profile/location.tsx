@@ -2,7 +2,6 @@ import { Grid, MenuItem, TextField } from "@mui/material"
 import { fetchApi } from "client"
 import { useForm } from "react-hook-form"
 import { countriesList } from "src/constants"
-import type { CountriesList } from "src/types"
 import { useAuthStore } from "stores/auth"
 
 type FormFields = {
@@ -24,7 +23,8 @@ export const Location = () => {
       id: userData.id,
       username: userData.username,
       general: {
-        currentLocation: data.general.currentLocation,
+        ...userData.general,
+        currentLocation: data.currentLocation,
       },
     }
     const { user: updatedUser, token } = await fetchApi({
@@ -36,7 +36,7 @@ export const Location = () => {
   }
 
   return (
-    <form onChange={handleSubmit(handleChange)}>
+    <form>
       <Grid sx={{ my: 3 }} container spacing={0}>
         <Grid item xs={12} md={3}>
           Locations
@@ -46,10 +46,12 @@ export const Location = () => {
             select
             margin="normal"
             fullWidth
+            defaultValue={userData?.general?.currentLocation}
             label="Where are you currently located?"
-            {...register("currentLocation")}
+            inputProps={register("currentLocation")}
+            onChange={handleSubmit(handleChange)}
           >
-            {countriesList.map((country: CountriesList) => (
+            {countriesList.map((country) => (
               <MenuItem key={country?.name} value={country.code}>
                 {country?.name}
               </MenuItem>
