@@ -15,19 +15,26 @@ import {
   TextField,
   Typography,
 } from "@mui/material"
+import { fetchApi } from "client"
 import { useForm } from "react-hook-form"
 import { professionList } from "src/constants"
 import { useAuthStore } from "src/stores"
 import { Location } from "./location"
 import { Social } from "./social"
 
+type FormFields = {
+  name: string;
+  bio: string;
+  currentLocation: string;
+};
 export const Profile = () => {
   const userData = useAuthStore((state: any) => state.user)
-  const { register, handleSubmit, watch, setValue } = useForm<any>({
+  const setUserStore = useAuthStore((state: any) => state.setUser)
+
+  const { register, handleSubmit, watch, setValue } = useForm<FormFields>({
     defaultValues: {
       name: userData?.name,
       bio: userData?.general.bio,
-      currentLocation: userData?.general.currentLocation,
     },
   })
 
@@ -42,8 +49,23 @@ export const Profile = () => {
     })
     .map((role) => role.text)
 
-  const handleChange = async (data: any) => {
+  const handleChange = async (data: FormFields) => {
     console.log({ data })
+    const requestData = {
+      id: userData.id,
+      username: userData.username,
+      name: data.name,
+      general: {
+        ...userData.general,
+        bio: data.bio,
+      },
+    }
+    const { user: updatedUser, token } = await fetchApi({
+      url: "/user",
+      method: "PATCH",
+      body: requestData,
+    })
+    setUserStore(updatedUser, token)
   }
 
   return (
