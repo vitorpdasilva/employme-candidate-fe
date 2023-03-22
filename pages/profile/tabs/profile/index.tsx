@@ -16,8 +16,9 @@ import {
   Typography,
 } from "@mui/material"
 import { useForm } from "react-hook-form"
-import { countriesList, professionList } from "src/constants"
+import { professionList } from "src/constants"
 import { useAuthStore } from "src/stores"
+import { Location } from "./location"
 import { Social } from "./social"
 
 export const Profile = () => {
@@ -164,26 +165,7 @@ export const Profile = () => {
 
       <Divider />
 
-      <Grid sx={{ my: 3 }} container spacing={0}>
-        <Grid item xs={12} md={3}>
-          Locations
-        </Grid>
-        <Grid item xs={12} md={9}>
-          <TextField
-            select
-            margin="normal"
-            fullWidth
-            label="Where are you currently located?"
-            {...register("currentLocation")}
-          >
-            {countriesList.map((country) => (
-              <MenuItem key={country?.name} value={country?.code}>
-                {country?.name}
-              </MenuItem>
-            ))}
-          </TextField>
-        </Grid>
-      </Grid>
+      <Location />
 
       <Divider />
 

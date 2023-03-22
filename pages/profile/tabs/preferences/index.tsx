@@ -24,12 +24,7 @@ const radios = [
 ]
 
 export const Preferences = () => {
-  const {
-    register,
-    handleSubmit,
-    // Read the formState before render to subscribe the form state through the Proxy
-    formState: { errors, isDirty, isSubmitting, touchedFields, submitCount },
-  } = useForm()
+  const { register } = useForm()
 
   return (
     <Box sx={{ flexGrow: 1, width: "100%" }}>

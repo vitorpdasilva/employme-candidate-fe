@@ -1,5 +1,5 @@
 
-import { SemanticICONS  } from "semantic-ui-react";
+import { SemanticICONS } from "semantic-ui-react"
 
 export type UserType = {
   name: string,
