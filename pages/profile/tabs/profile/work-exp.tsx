@@ -27,7 +27,7 @@ export const WorkExperience = () => {
                   </Avatar>
                   <Box>
                     <Typography>{experience.title}</Typography>
-                    <Link target="_blank" href="https://rivian.com">
+                    <Link target="_blank" href="#">
                       {experience.company}
                     </Link>
                     <Box sx={{ textAlign: "justify" }}>{experience.description}</Box>

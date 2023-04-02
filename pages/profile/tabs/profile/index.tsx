@@ -7,11 +7,8 @@ import {
   FormControl,
   Grid,
   InputLabel,
-  Link,
   MenuItem,
-  Paper,
   Select,
-  Stack,
   TextField,
   Typography,
 } from "@mui/material"
@@ -19,15 +16,16 @@ import { fetchApi } from "client"
 import { useForm } from "react-hook-form"
 import { professionList } from "src/constants"
 import { useAuthStore } from "src/stores"
+import { Education } from "./education"
 import { Location } from "./location"
 import { Social } from "./social"
 import { WorkExperience } from "./work-exp"
 
 type FormFields = {
-  name: string;
-  bio: string;
-  currentLocation: string;
-};
+  name: string
+  bio: string
+  currentLocation: string
+}
 export const Profile = () => {
   const userData = useAuthStore((state: any) => state.user)
   const setUserStore = useAuthStore((state: any) => state.setUser)
@@ -43,7 +41,7 @@ export const Profile = () => {
 
   if (!userData) return <>Loading...</>
 
-  const { professionalOverview, education } = userData
+  const { professionalOverview } = userData
   const selectedRoles = professionList
     .filter((profession) => {
       return professionalOverview?.preferenceToWork?.includes(profession.value)
@@ -200,38 +198,7 @@ export const Profile = () => {
 
       <Divider />
 
-      <Grid sx={{ my: 3 }} container spacing={0}>
-        <Grid item xs={12} md={3}>
-          Education
-        </Grid>
-        <Grid item xs={12} md={9}>
-          <Box sx={{ width: "100%" }}>
-            <Stack spacing={2}>
-              <Paper sx={{ p: 2 }}>
-                {education.map((item: any) => (
-                  <Box key={item.degree} sx={{ display: "flex" }}>
-                    <Avatar
-                      variant="square"
-                      src="https://photos.angel.co/startups/i/4634051-16164880183cfb651e472aafce896328-medium_jpg.jpg?buster=1589648733"
-                      sx={{ mr: 1 }}
-                    >
-                      {item.school}
-                    </Avatar>
-                    <Box>
-                      <Typography>{item.school}</Typography>
-                      <Link target="_blank" href="https://senac.com.br">
-                        {item.fieldOfStudy}
-                      </Link>
-                      <Box sx={{ textAlign: "justify" }}>{item.description}</Box>
-                    </Box>
-                  </Box>
-                ))}
-              </Paper>
-              <Button variant="text">+ Add Education</Button>
-            </Stack>
-          </Box>
-        </Grid>
-      </Grid>
+      <Education />
     </Box>
   )
 }

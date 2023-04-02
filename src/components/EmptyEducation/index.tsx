@@ -1,30 +1,30 @@
 import { Box, Button, Paper, TextField } from "@mui/material"
 import { fetchApi } from "client"
-
 import { useForm } from "react-hook-form"
-import { useAuthStore } from "src/stores"
-import { v4 as uuidv4 } from "uuid"
-
-type EmptyWorkExperienceProps = {
-  onFinish: () => void
-}
+import { useAuthStore } from "stores/auth"
 
 type FormFields = {
-  company: string
-  title: string
+  school: string
+  degree: string
+  fieldOfStudy: string
   startDate: Date
   endDate: Date
   description: string
 }
 
-export const EmptyWorkExperience = ({ onFinish }: EmptyWorkExperienceProps) => {
+type EmptyEducationProps = {
+  onFinish: () => void
+}
+
+export const EmptyEducation = ({ onFinish }: EmptyEducationProps) => {
   const userData = useAuthStore((state: any) => state.user)
   const setUserStore = useAuthStore((state: any) => state.setUser)
 
-  const { register, handleSubmit } = useForm<FormFields>({
+  const { handleSubmit, register } = useForm<FormFields>({
     defaultValues: {
-      company: "",
-      title: "",
+      school: "",
+      degree: "",
+      fieldOfStudy: "",
       startDate: new Date(),
       endDate: new Date(),
       description: "",
@@ -36,11 +36,7 @@ export const EmptyWorkExperience = ({ onFinish }: EmptyWorkExperienceProps) => {
       id: userData.id,
       username: userData.username,
       ...userData,
-      professionalOverview: {
-        id: uuidv4(),
-        ...userData.professionalOverview,
-        workExperience: [...userData.professionalOverview.workExperience, formFields],
-      },
+      education: [...userData.education, formFields],
     }
 
     const { user: updatedUser, token } = await fetchApi({
@@ -58,11 +54,18 @@ export const EmptyWorkExperience = ({ onFinish }: EmptyWorkExperienceProps) => {
         <TextField
           size="small"
           margin="dense"
-          label="Company Name *"
+          label="School Name *"
           fullWidth
-          {...register("company", { required: true })}
+          {...register("school", { required: true })}
         />
-        <TextField size="small" margin="dense" label="Title" fullWidth {...register("title")} />
+        <TextField size="small" margin="dense" label="Degree" fullWidth {...register("degree")} />
+        <TextField
+          size="small"
+          margin="dense"
+          label="Field of Study"
+          fullWidth
+          {...register("fieldOfStudy")}
+        />
 
         <TextField
           type="date"
