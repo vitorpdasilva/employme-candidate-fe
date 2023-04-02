@@ -21,6 +21,7 @@ import { professionList } from "src/constants"
 import { useAuthStore } from "src/stores"
 import { Location } from "./location"
 import { Social } from "./social"
+import { WorkExperience } from "./work-exp"
 
 type FormFields = {
   name: string;
@@ -195,38 +196,7 @@ export const Profile = () => {
 
       <Divider />
 
-      <Grid sx={{ my: 3 }} container spacing={0}>
-        <Grid item xs={12} md={3}>
-          Your work experience
-        </Grid>
-        <Grid item xs={12} md={9}>
-          <Box sx={{ width: "100%" }}>
-            <Stack spacing={2}>
-              <Paper sx={{ p: 2 }}>
-                {professionalOverview?.workExperience?.map((experience: any) => (
-                  <Box key={experience.company} sx={{ display: "flex" }}>
-                    <Avatar
-                      variant="square"
-                      src="https://photos.angel.co/startups/i/4634051-16164880183cfb651e472aafce896328-medium_jpg.jpg?buster=1589648733"
-                      sx={{ mr: 1 }}
-                    >
-                      {experience.company}
-                    </Avatar>
-                    <Box>
-                      <Typography>{experience.title}</Typography>
-                      <Link target="_blank" href="https://rivian.com">
-                        {experience.company}
-                      </Link>
-                      <Box sx={{ textAlign: "justify" }}>{experience.description}</Box>
-                    </Box>
-                  </Box>
-                ))}
-              </Paper>
-              <Button variant="text">+ Add work experience</Button>
-            </Stack>
-          </Box>
-        </Grid>
-      </Grid>
+      <WorkExperience />
 
       <Divider />
 

@@ -1,7 +1,6 @@
 {
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
-  "prettier.printWidth": 80,
   "typescript.format.enable": false,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true,

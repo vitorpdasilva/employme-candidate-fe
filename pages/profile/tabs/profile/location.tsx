@@ -5,8 +5,8 @@ import { countriesList } from "src/constants"
 import { useAuthStore } from "stores/auth"
 
 type FormFields = {
-  currentLocation: string;
-};
+  currentLocation: string
+}
 export const Location = () => {
   const userData = useAuthStore((state: any) => state.user)
   const setUserStore = useAuthStore((state: any) => state.setUser)
@@ -18,7 +18,6 @@ export const Location = () => {
   })
 
   const handleChange = async (data: any) => {
-    console.log({ data })
     const requestData = {
       id: userData.id,
       username: userData.username,
