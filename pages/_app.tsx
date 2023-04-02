@@ -9,13 +9,12 @@ import { useAuthStore } from "stores/auth"
 import { ThemeProvider } from "styled-components"
 import "../styles/globals.css"
 import { theme } from "../styles/theme"
-
 const routesToBeRedirected = ["/auth/login", "/auth/signup"]
 
 type MyAppProps = {
-  Component: ElementType;
-  pageProps: any;
-};
+  Component: ElementType
+  pageProps: any
+}
 
 const MainContentWrapper = styled(Box)({
   flexGrow: 1,

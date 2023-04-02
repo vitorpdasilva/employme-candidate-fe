@@ -15,9 +15,9 @@ export const WorkExperience = () => {
       <Grid item xs={12} md={9}>
         <Box sx={{ width: "100%" }}>
           <Stack spacing={2}>
-            <Paper sx={{ p: 2 }}>
-              {userData?.professionalOverview?.workExperience?.map((experience: any) => (
-                <Box key={experience.company} sx={{ display: "flex" }}>
+            {userData?.professionalOverview?.workExperience?.map((experience: any) => (
+              <Paper key={experience.company} sx={{ p: 2 }}>
+                <Box sx={{ display: "flex" }}>
                   <Avatar
                     variant="square"
                     src="https://photos.angel.co/startups/i/4634051-16164880183cfb651e472aafce896328-medium_jpg.jpg?buster=1589648733"
@@ -33,8 +33,8 @@ export const WorkExperience = () => {
                     <Box sx={{ textAlign: "justify" }}>{experience.description}</Box>
                   </Box>
                 </Box>
-              ))}
-            </Paper>
+              </Paper>
+            ))}
             {Array.from({ length: newWorkExperience })?.map(() => (
               <EmptyWorkExperience onFinish={() => setNewWorkExperience(0)} key={Math.random()} />
             ))}

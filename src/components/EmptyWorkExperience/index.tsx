@@ -1,11 +1,16 @@
 import { Box, Button, Paper, TextField } from "@mui/material"
+import { fetchApi } from "client"
+
 import { useForm } from "react-hook-form"
+import { useAuthStore } from "src/stores"
+import { v4 as uuidv4 } from "uuid"
+
 type EmptyWorkExperienceProps = {
   onFinish: () => void
 }
 
 type FormFields = {
-  companyName: string
+  company: string
   title: string
   startDate: string
   endDate: string
@@ -13,9 +18,12 @@ type FormFields = {
 }
 
 export const EmptyWorkExperience = ({ onFinish }: EmptyWorkExperienceProps) => {
+  const userData = useAuthStore((state: any) => state.user)
+  const setUserStore = useAuthStore((state: any) => state.setUser)
+
   const { register, handleSubmit } = useForm<FormFields>({
     defaultValues: {
-      companyName: "",
+      company: "",
       title: "",
       startDate: "",
       endDate: "",
@@ -23,8 +31,24 @@ export const EmptyWorkExperience = ({ onFinish }: EmptyWorkExperienceProps) => {
     },
   })
 
-  const onSubmit = (formFields: FormFields) => {
-    console.log({ formFields })
+  const onSubmit = async (formFields: FormFields) => {
+    const requestData = {
+      id: userData.id,
+      username: userData.username,
+      ...userData,
+      professionalOverview: {
+        id: uuidv4(),
+        ...userData.professionalOverview,
+        workExperience: [...userData.professionalOverview.workExperience, formFields],
+      },
+    }
+    console.log({ requestData })
+    const { user: updatedUser, token } = await fetchApi({
+      url: "/user",
+      method: "PATCH",
+      body: requestData,
+    })
+    setUserStore(updatedUser, token)
   }
 
   return (
@@ -35,23 +59,28 @@ export const EmptyWorkExperience = ({ onFinish }: EmptyWorkExperienceProps) => {
           margin="dense"
           label="Company Name *"
           fullWidth
-          {...register("companyName", { required: true })}
+          {...register("company", { required: true })}
         />
         <TextField size="small" margin="dense" label="Title" fullWidth {...register("title")} />
+
         <TextField
+          type="date"
           size="small"
           margin="dense"
-          label="Start Date *"
           fullWidth
-          {...register("startDate", { required: true })}
+          label="Start Date"
+          {...register("startDate")}
         />
+
         <TextField
+          type="date"
           size="small"
           margin="dense"
-          label="End Date *"
           fullWidth
-          {...register("endDate", { required: true })}
+          label="End Date"
+          {...register("endDate")}
         />
+
         <TextField
           size="small"
           margin="dense"

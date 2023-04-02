@@ -1,5 +1,4 @@
 {
-  "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
   "typescript.format.enable": false,
   "editor.codeActionsOnSave": {
