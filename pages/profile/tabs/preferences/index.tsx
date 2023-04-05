@@ -40,6 +40,7 @@ export const Preferences = () => {
       preferences: {
         ...userData.preferences,
         [data.name]: {
+          ...userData.preferences?.[data.name],
           ...data.values,
         },
       },
@@ -105,12 +106,19 @@ export const Preferences = () => {
         </Grid>
         <Grid item xs={12} md={9} spacing={2} sx={{ display: "flex", gap: "20px" }}>
           <TextField
-            name="Salary"
             select
             label="Currency"
-            defaultValue={0}
             variant="outlined"
             sx={{ flexGrow: 1 }}
+            defaultValue={userData.preferences?.salary?.currency ?? 0}
+            onChange={(e) =>
+              onSubmit({
+                name: "salary",
+                values: {
+                  currency: e.target.value,
+                },
+              })
+            }
           >
             {currencyList.map((currency: CurrencyList) => (
               <MenuItem key={currency.value} value={currency.value} aria-label={currency.name}>
@@ -126,11 +134,24 @@ export const Preferences = () => {
             variant="outlined"
           />
 
-          <TextField label="Periodicity" select defaultValue={0} variant="outlined">
-            <MenuItem value={0}>Per Year</MenuItem>
-            <MenuItem value={1}>Per Month</MenuItem>
-            <MenuItem value={2}>Per Week</MenuItem>
-            <MenuItem value={3}>Per Hour</MenuItem>
+          <TextField
+            label="Periodicity"
+            select
+            defaultValue={userData.preferences?.salary?.periodicity ?? 0}
+            variant="outlined"
+            onChange={(e) =>
+              onSubmit({
+                name: "salary",
+                values: {
+                  periodicity: e.target.value,
+                },
+              })
+            }
+          >
+            <MenuItem value={"Per Year"}>Per Year</MenuItem>
+            <MenuItem value={"Per Month"}>Per Month</MenuItem>
+            <MenuItem value={"Per Week"}>Per Week</MenuItem>
+            <MenuItem value={"Per Hour"}>Per Hour</MenuItem>
           </TextField>
         </Grid>
       </Grid>
