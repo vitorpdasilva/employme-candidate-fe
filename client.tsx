@@ -1,31 +1,35 @@
 const BASE_URL =
   process.env.NODE_ENV === "production" ? "prod-url/graphql" : "http://localhost:3001/api"
 
-type RequestMode = "navigate" | "same-origin" | "no-cors" | "cors";
+type RequestMode = "navigate" | "same-origin" | "no-cors" | "cors"
 type RequestCache =
   | "default"
   | "no-store"
   | "reload"
   | "no-cache"
   | "force-cache"
-  | "only-if-cached";
-type RequestCredentials = "omit" | "same-origin" | "include";
+  | "only-if-cached"
+type RequestCredentials = "omit" | "same-origin" | "include"
 export type ErrorResponse = {
-  message: string;
-  statusCode: number;
-};
+  message: string
+  statusCode: number
+}
 
 type FetchApiProps = {
-  url: string;
-  method?: "POST" | "GET" | "DELETE" | "PUT" | "PATCH";
-  mode?: RequestMode;
-  cache?: RequestCache;
-  credentials?: RequestCredentials;
-  body?: any;
+  url: string
+  method?: "POST" | "GET" | "DELETE" | "PUT" | "PATCH"
+  mode?: RequestMode
+  cache?: RequestCache
+  credentials?: RequestCredentials
+  body?: any
   headers?: {
-    [key: string]: string;
-  };
-};
+    [key: string]: string
+  }
+  signal?: AbortSignal
+}
+
+const controller = new AbortController()
+const signal = controller.signal
 
 const fetchApi = async ({
   url,
@@ -43,6 +47,7 @@ const fetchApi = async ({
     headers: {
       "Content-Type": "application/json",
     },
+    signal,
     body: JSON.stringify(body),
   }
 
