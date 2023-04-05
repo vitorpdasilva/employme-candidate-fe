@@ -1,6 +1,7 @@
 import { Box, styled } from "@mui/material"
 import Grid from "@mui/material/Unstable_Grid2"
 import { useRouter } from "next/router"
+import { SnackbarProvider } from "notistack"
 import { ElementType, useEffect } from "react"
 import "semantic-ui-css/semantic.min.css"
 import { Header, NavSidebar } from "src/components"
@@ -49,16 +50,18 @@ function MyApp({ Component, pageProps }: MyAppProps) {
       <ThemeProvider theme={theme}>
         <AppContextProvider>
           {isAuth && <Header />}
-          <MainContentWrapper>
-            <Box sx={{ flexGrow: 1, width: "100%" }}>
-              <Grid container spacing={6} sx={{ pt: 6 }}>
-                <Grid xs={2}>{isAuth && <NavSidebar />}</Grid>
-                <Grid xs={10}>
-                  <Component {...pageProps} />
+          <SnackbarProvider maxSnack={3} autoHideDuration={2000}>
+            <MainContentWrapper>
+              <Box sx={{ flexGrow: 1, width: "100%" }}>
+                <Grid container spacing={6} sx={{ pt: 6 }}>
+                  <Grid xs={2}>{isAuth && <NavSidebar />}</Grid>
+                  <Grid xs={10}>
+                    <Component {...pageProps} />
+                  </Grid>
                 </Grid>
-              </Grid>
-            </Box>
-          </MainContentWrapper>
+              </Box>
+            </MainContentWrapper>
+          </SnackbarProvider>
           {isAuth && <Box>Footer</Box>}
         </AppContextProvider>
       </ThemeProvider>

@@ -1,18 +1,42 @@
-import { Avatar, Box, Divider, MenuItem, Paper, Typography } from "@mui/material"
-import Select, { SelectChangeEvent } from "@mui/material/Select"
+import { Avatar, Box, Divider, MenuItem, Paper, TextField, Typography } from "@mui/material"
+import { fetchApi } from "client"
 import Link from "next/link"
 import { FC } from "react"
+import { countriesList, jobSearchStatus } from "src/constants"
 import { useAuthStore } from "src/stores"
-import { countriesList } from "../../constants"
+
+type FormFieldsValues = {
+  value: number
+  name: string
+}
 
 export const ProfileOverview: FC = () => {
   const userData = useAuthStore((state: any) => state.user)
+  const setUserStore = useAuthStore((state: any) => state.setUser)
 
   // todo add loading state with skeleton component
   if (!userData) return <>Loading...</>
 
-  const handleSelectChange = (event: SelectChangeEvent) => {
-    console.log(event.target.value)
+  const onSubmit = async (data: FormFieldsValues) => {
+    const requestData = {
+      id: userData.id,
+      username: userData.username,
+      ...userData,
+      preferences: {
+        ...userData.preferences,
+        [data.name]: {
+          id: data.value,
+          label: jobSearchStatus.filter((item) => item.value === data.value)[0].label,
+        },
+      },
+    }
+
+    const { user: updatedUser, token } = await fetchApi({
+      url: "/user",
+      method: "PATCH",
+      body: requestData,
+    })
+    setUserStore(updatedUser, token)
   }
 
   return (
@@ -33,15 +57,19 @@ export const ProfileOverview: FC = () => {
         <Typography variant="subtitle1">
           Keep your job status up-to-date to inform employers of your search.
         </Typography>
-        <Select
-          labelId="demo-select-small"
-          id="demo-select-small"
-          value={`${userData?.relocation?.activelyLooking}`}
-          onChange={handleSelectChange}
+        <TextField
+          name="jobSearchStatus"
+          select
+          fullWidth
+          defaultValue={userData.preferences?.jobSearchStatus?.id ?? 0}
+          onChange={(e) => onSubmit({ name: e.target.name, value: Number(e.target.value) })}
         >
-          <MenuItem value={"true"}>I am active looking and interviewing!</MenuItem>
-          <MenuItem value={"false"}>I am just browsing for now</MenuItem>
-        </Select>
+          {jobSearchStatus.map(({ value, label }) => (
+            <MenuItem key={value} value={value} aria-label={label}>
+              {label}
+            </MenuItem>
+          ))}
+        </TextField>
       </Box>
       <Box>
         <Link href="/profile">View your public profile</Link>

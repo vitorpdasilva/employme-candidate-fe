@@ -14,32 +14,29 @@ import {
   Typography,
 } from "@mui/material"
 import { fetchApi } from "client"
+import { useSnackbar } from "notistack"
 
-import { companySizes, CompanySizes } from "src/constants"
+import { companySizes, CompanySizes, jobSearchStatus } from "src/constants"
 import { useAuthStore } from "stores/auth"
 
 type FormFieldsValues = {
   value: number
   name: string
 }
+
 const radios = [
   { value: 1, label: "Ideal" },
   { value: 2, label: "Yes" },
   { value: 3, label: "No" },
 ]
 
-const jobSearchStatus = [
-  { value: 0, label: "Ready to interview" },
-  { value: 1, label: "Open to offers" },
-  { value: 2, label: "Closed to offers" },
-]
-
 export const Preferences = () => {
+  const { enqueueSnackbar } = useSnackbar()
+
   const userData = useAuthStore((state: any) => state.user)
   const setUserStore = useAuthStore((state: any) => state.setUser)
 
   const onSubmit = async (data: FormFieldsValues) => {
-    console.log({ data })
     const requestData = {
       id: userData.id,
       username: userData.username,
@@ -52,13 +49,20 @@ export const Preferences = () => {
         },
       },
     }
-    console.log({ requestData })
-    const { user: updatedUser, token } = await fetchApi({
-      url: "/user",
-      method: "PATCH",
-      body: requestData,
-    })
-    setUserStore(updatedUser, token)
+    try {
+      const { user: updatedUser, token } = await fetchApi({
+        url: "/user",
+        method: "PATCH",
+        body: requestData,
+      })
+      setUserStore(updatedUser, token)
+      enqueueSnackbar("Preferences updated", {
+        variant: "success",
+      })
+    } catch (err) {
+      enqueueSnackbar("Something went wrong", { variant: "error" })
+      console.error({ err })
+    }
   }
 
   return (
@@ -84,16 +88,6 @@ export const Preferences = () => {
                 {label}
               </MenuItem>
             ))}
-            {/* <MenuItem value={0} aria-label="Ready to interview">
-              Ready to interview
-            </MenuItem>
-            <MenuItem value={1} aria-label="Open to offers">
-              Open to offers
-            </MenuItem>
-            <MenuItem value={2} aria-label="Closed to offers">
-              Closed to offers
-            </MenuItem>
-          </TextField> */}
           </TextField>
         </Grid>
       </Grid>
