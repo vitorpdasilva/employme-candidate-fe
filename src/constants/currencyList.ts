@@ -1,4 +1,9 @@
-export const currencyList: Record<string, string>[] = [
+export type CurrencyList = {
+  name: string
+  value: string
+  symbol: string
+}
+export const currencyList: CurrencyList[] = [
   { name: "USD", value: "USD", symbol: "$USD" },
   { name: "EUR", value: "EUR", symbol: "€" },
   { name: "GBP", value: "GBP", symbol: "£" },

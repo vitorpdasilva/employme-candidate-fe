@@ -16,14 +16,9 @@ import {
 import { fetchApi } from "client"
 import { useSnackbar } from "notistack"
 import { NumericInput } from "src/components"
-import type { CompanySizes } from "src/constants"
+import type { CompanySizes, CurrencyList } from "src/constants"
 import { companySizes, currencyList, jobSearchStatus } from "src/constants"
 import { useAuthStore } from "stores/auth"
-
-type FormFieldsValues = {
-  value: number
-  name: string
-}
 
 const radios = [
   { value: 1, label: "Ideal" },
@@ -37,7 +32,7 @@ export const Preferences = () => {
   const userData = useAuthStore((state: any) => state.user)
   const setUserStore = useAuthStore((state: any) => state.setUser)
 
-  const onSubmit = async (data: FormFieldsValues) => {
+  const onSubmit = async (data: any) => {
     const requestData = {
       id: userData.id,
       username: userData.username,
@@ -45,11 +40,11 @@ export const Preferences = () => {
       preferences: {
         ...userData.preferences,
         [data.name]: {
-          id: data.value,
-          label: jobSearchStatus.filter((item) => item.value === data.value)[0].label,
+          ...data.values,
         },
       },
     }
+    console.log({ requestData })
     try {
       const { user: updatedUser, token } = await fetchApi({
         url: "/user",
@@ -78,11 +73,19 @@ export const Preferences = () => {
         </Grid>
         <Grid item xs={12} md={9}>
           <TextField
-            name="jobSearchStatus"
             select
             fullWidth
             defaultValue={userData.preferences?.jobSearchStatus?.id ?? 0}
-            onChange={(e) => onSubmit({ name: e.target.name, value: Number(e.target.value) })}
+            onChange={(e) =>
+              onSubmit({
+                name: "jobSearchStatus",
+                values: {
+                  id: e.target.value,
+                  label: jobSearchStatus.filter((item) => item.value === Number(e.target.value))[0]
+                    .label,
+                },
+              })
+            }
           >
             {jobSearchStatus.map(({ value, label }) => (
               <MenuItem key={value} value={value} aria-label={label}>
@@ -102,19 +105,19 @@ export const Preferences = () => {
         </Grid>
         <Grid item xs={12} md={9} spacing={2} sx={{ display: "flex", gap: "20px" }}>
           <TextField
+            name="Salary"
             select
             label="Currency"
             defaultValue={0}
             variant="outlined"
             sx={{ flexGrow: 1 }}
           >
-            {currencyList.map((currency: any) => (
+            {currencyList.map((currency: CurrencyList) => (
               <MenuItem key={currency.value} value={currency.value} aria-label={currency.name}>
                 {currency.name} - {currency.symbol}
               </MenuItem>
             ))}
           </TextField>
-          {/* <NumericInput onChange={(e) => console.log({ e: e.target })} /> */}
           <TextField
             label="Salary"
             InputProps={{

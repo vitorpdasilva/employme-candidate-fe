@@ -6,12 +6,12 @@ import { Message, Popup } from "semantic-ui-react"
 // react-country-flag doesnt exist in @types npm-registry
 // TODO: replace to a flag library that contain types
 //@ts-ignore
+import { Button } from "@mui/material"
 import { fetchApi } from "client"
 import { useRouter } from "next/router"
 import ReactCountryFlag from "react-country-flag"
 import { FaDollarSign, FaPlaneDeparture } from "react-icons/fa"
-import { toast, ToastContainer } from "react-toastify"
-import Button from "src/components/Button"
+import { ToastContainer, toast } from "react-toastify"
 import { JobCardHeadline } from "src/components/JobCardHeadline"
 import { JobPoints } from "src/components/jobPoints"
 import { AppContext } from "src/context"
@@ -20,26 +20,26 @@ import { countriesList } from "../../src/constants"
 import { JobCardMain, JobPageWrapper } from "./style"
 
 type JobInfoType = {
-  id: number;
-  applicants: string[];
-  recent: boolean;
-  createdAt: Date;
-  title: string;
+  id: number
+  applicants: string[]
+  recent: boolean
+  createdAt: Date
+  title: string
   location: {
-    city: string;
-    country: string;
-    province: string;
-  };
-  locationType: string;
-  description: string;
-  tags: string[];
+    city: string
+    country: string
+    province: string
+  }
+  locationType: string
+  description: string
+  tags: string[]
   salary: {
-    from: number;
-    to: number;
-    currency: string;
-    period: string;
-  };
-};
+    from: number
+    to: number
+    currency: string
+    period: string
+  }
+}
 
 const JobPostPage = () => {
   const router = useRouter()
@@ -161,7 +161,7 @@ const JobPostPage = () => {
             open={!!applyJobStatus}
             trigger={
               <Button
-                primary
+                variant="contained"
                 disabled={userData?.jobsApplied?.includes(jobId)}
                 onClick={() => applyToJob()}
               >
