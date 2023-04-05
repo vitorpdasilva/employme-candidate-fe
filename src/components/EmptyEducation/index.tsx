@@ -1,8 +1,8 @@
 import { Box, Button, Paper, TextField } from "@mui/material"
 import { fetchApi } from "client"
+import { useSnackbar } from "notistack"
 import { useForm } from "react-hook-form"
 import { useAuthStore } from "stores/auth"
-
 type FormFields = {
   school: string
   degree: string
@@ -17,6 +17,7 @@ type EmptyEducationProps = {
 }
 
 export const EmptyEducation = ({ onFinish }: EmptyEducationProps) => {
+  const { enqueueSnackbar } = useSnackbar()
   const userData = useAuthStore((state: any) => state.user)
   const setUserStore = useAuthStore((state: any) => state.setUser)
 
@@ -39,13 +40,19 @@ export const EmptyEducation = ({ onFinish }: EmptyEducationProps) => {
       education: [...userData.education, formFields],
     }
 
-    const { user: updatedUser, token } = await fetchApi({
-      url: "/user",
-      method: "PATCH",
-      body: requestData,
-    })
-    setUserStore(updatedUser, token)
-    onFinish()
+    try {
+      const { user: updatedUser, token } = await fetchApi({
+        url: "/user",
+        method: "PATCH",
+        body: requestData,
+      })
+      setUserStore(updatedUser, token)
+      onFinish()
+      enqueueSnackbar("Education added", { variant: "success" })
+    } catch (err) {
+      enqueueSnackbar("Something went wrong", { variant: "error" })
+      console.error({ err })
+    }
   }
 
   return (
