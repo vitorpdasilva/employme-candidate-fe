@@ -50,7 +50,7 @@ function MyApp({ Component, pageProps }: MyAppProps) {
       <ThemeProvider theme={theme}>
         <AppContextProvider>
           {isAuth && <Header />}
-          <SnackbarProvider maxSnack={3} autoHideDuration={2000}>
+          <SnackbarProvider maxSnack={3} autoHideDuration={2000} preventDuplicate>
             <MainContentWrapper>
               <Box sx={{ flexGrow: 1, width: "100%" }}>
                 <Grid container spacing={6} sx={{ pt: 6 }}>

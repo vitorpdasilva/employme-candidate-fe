@@ -15,8 +15,9 @@ import {
 } from "@mui/material"
 import { fetchApi } from "client"
 import { useSnackbar } from "notistack"
-
-import { companySizes, CompanySizes, jobSearchStatus } from "src/constants"
+import { NumericInput } from "src/components"
+import type { CompanySizes } from "src/constants"
+import { companySizes, currencyList, jobSearchStatus } from "src/constants"
 import { useAuthStore } from "stores/auth"
 
 type FormFieldsValues = {
@@ -99,8 +100,35 @@ export const Preferences = () => {
             Let companies know how much you would like to earn annually.
           </Typography>
         </Grid>
-        <Grid item xs={12} md={9}>
-          <TextField fullWidth defaultValue={0} variant="outlined" />
+        <Grid item xs={12} md={9} spacing={2} sx={{ display: "flex", gap: "20px" }}>
+          <TextField
+            select
+            label="Currency"
+            defaultValue={0}
+            variant="outlined"
+            sx={{ flexGrow: 1 }}
+          >
+            {currencyList.map((currency: any) => (
+              <MenuItem key={currency.value} value={currency.value} aria-label={currency.name}>
+                {currency.name} - {currency.symbol}
+              </MenuItem>
+            ))}
+          </TextField>
+          {/* <NumericInput onChange={(e) => console.log({ e: e.target })} /> */}
+          <TextField
+            label="Salary"
+            InputProps={{
+              inputComponent: NumericInput as any,
+            }}
+            variant="outlined"
+          />
+
+          <TextField label="Periodicity" select defaultValue={0} variant="outlined">
+            <MenuItem value={0}>Per Year</MenuItem>
+            <MenuItem value={1}>Per Month</MenuItem>
+            <MenuItem value={2}>Per Week</MenuItem>
+            <MenuItem value={3}>Per Hour</MenuItem>
+          </TextField>
         </Grid>
       </Grid>
       <Divider />

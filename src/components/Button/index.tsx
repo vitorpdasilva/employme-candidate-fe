@@ -1,14 +1,16 @@
-import { ReactNode } from 'react'
-import { ButtonStyle } from "./style";
-import { ButtonProps } from 'semantic-ui-react'
-
+import { ReactNode } from "react"
+import { ButtonProps } from "semantic-ui-react"
+import { ButtonStyle } from "./style"
+// todo: delete this component and use MUI Button
 type ButtonTypes = {
-  children: ReactNode,
+  children: ReactNode
   block?: boolean
-  disabled?: boolean,
+  disabled?: boolean
   onClick?: () => unknown
 } & ButtonProps
 
-const Button = ({ children, ...rest }: ButtonTypes) => <ButtonStyle {...rest}>{children}</ButtonStyle>;
+const Button = ({ children, ...rest }: ButtonTypes) => (
+  <ButtonStyle {...rest}>{children}</ButtonStyle>
+)
 
-export default Button;
+export default Button
