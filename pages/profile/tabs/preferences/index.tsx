@@ -15,9 +15,11 @@ import {
 } from "@mui/material"
 import { fetchApi } from "client"
 import { useSnackbar } from "notistack"
+import { useState } from "react"
 import { NumericInput } from "src/components"
 import type { CompanySizes, CurrencyList } from "src/constants"
 import { companySizes, currencyList, jobSearchStatus } from "src/constants"
+import { useDebounce } from "src/hooks"
 import { useAuthStore } from "stores/auth"
 
 const radios = [
@@ -27,10 +29,13 @@ const radios = [
 ]
 
 export const Preferences = () => {
+  const [salaryObj, setSalaryObj] = useState<any>(0)
   const { enqueueSnackbar } = useSnackbar()
 
   const userData = useAuthStore((state: any) => state.user)
   const setUserStore = useAuthStore((state: any) => state.setUser)
+
+  useDebounce(() => onSubmit(salaryObj), 1000, [salaryObj])
 
   const onSubmit = async (data: any) => {
     const requestData = {
@@ -131,7 +136,17 @@ export const Preferences = () => {
             InputProps={{
               inputComponent: NumericInput as any,
             }}
+            defaultValue={userData.preferences?.salary?.amount ?? ""}
             variant="outlined"
+            onChange={(e) => {
+              const value = e.target.value
+              setSalaryObj({
+                name: "salary",
+                values: {
+                  amount: value,
+                },
+              })
+            }}
           />
 
           <TextField
