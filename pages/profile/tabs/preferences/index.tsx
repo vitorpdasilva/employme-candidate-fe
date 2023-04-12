@@ -28,6 +28,11 @@ const radios: Record<string, string | number>[] = [
   { value: 3, label: "No" },
 ]
 
+type RequestData = {
+  name: string
+  values: {} | []
+}
+
 export const Preferences = () => {
   const [salaryObj, setSalaryObj] = useState<any>(0)
   const { enqueueSnackbar } = useSnackbar()
@@ -37,7 +42,7 @@ export const Preferences = () => {
 
   useDebounce(() => onSubmit(salaryObj), 1000, [salaryObj])
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: RequestData) => {
     const requestData = {
       id: userData.id,
       username: userData.username,
