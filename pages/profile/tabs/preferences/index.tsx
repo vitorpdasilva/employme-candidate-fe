@@ -1,6 +1,5 @@
 import {
   Box,
-  Chip,
   Divider,
   FormControl,
   FormControlLabel,
@@ -9,7 +8,6 @@ import {
   MenuItem,
   Radio,
   RadioGroup,
-  Stack,
   TextField,
   Typography,
 } from "@mui/material"
@@ -32,16 +30,22 @@ type RequestData = {
   name: string
   values: {} | []
 }
+type SalaryObj = {
+  name: string
+  values: {
+    amount: string
+  }
+}
 
 export const Preferences = () => {
-  const [salaryObj, setSalaryObj] = useState<any>(0)
+  const [salaryObj, setSalaryObj] = useState<SalaryObj>({ name: "salary", values: { amount: "0" } })
   const { enqueueSnackbar } = useSnackbar()
 
   const userData = useAuthStore((state: any) => state.user)
   const setUserStore = useAuthStore((state: any) => state.setUser)
 
-  useDebounce(() => onSubmit(salaryObj), 1000, [salaryObj])
-
+  useDebounce(() => onSubmit(salaryObj), 700, [salaryObj])
+  console.log({ salaryObj })
   const onSubmit = async (data: RequestData) => {
     const requestData = {
       id: userData.id,
@@ -237,12 +241,7 @@ export const Preferences = () => {
             Your current and past employers are hidden by default.
           </Typography>
         </Grid>
-        <Grid item xs={12} md={9}>
-          <Stack direction="row" spacing={2}>
-            <Chip label="Company 1" onDelete={() => console.log("deleting company 1")} />
-            <Chip label="Company 2" onDelete={() => console.log("deleting company 2")} />
-          </Stack>
-        </Grid>
+        <Grid item xs={12} md={9}></Grid>
       </Grid>
     </Box>
   )
