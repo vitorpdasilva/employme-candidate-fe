@@ -1,13 +1,13 @@
 import { Box, Tab, Tabs, Typography } from "@mui/material"
 import React, { FC, ReactNode, useState } from "react"
 import { useAuthStore } from "src/stores"
-import { Culture, Preferences, Profile as TabProfile, Resume } from "./tabs"
+import { Culture, Preferences, Resume, Profile as TabProfile } from "./tabs"
 
 type TabItemsProps = {
-  label: string;
-  index?: number;
-  component: ReactNode;
-};
+  label: string
+  index?: number
+  component: ReactNode
+}
 const tabItems: TabItemsProps[] = [
   { label: "Profile", component: <TabProfile /> },
   { label: "Resume/CV", component: <Resume /> },
@@ -16,10 +16,10 @@ const tabItems: TabItemsProps[] = [
 ]
 
 type TabPanelProps = {
-  children?: ReactNode;
-  index: number;
-  value: number;
-};
+  children?: ReactNode
+  index: number
+  value: number
+}
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props
@@ -35,10 +35,7 @@ const Profile: FC = () => {
   const userData = useAuthStore((state: any) => state.user)
   const [tabValue, setTabValue] = useState(0)
 
-  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
-    console.log({ newValue })
-    setTabValue(newValue)
-  }
+  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => setTabValue(newValue)
 
   if (!userData) {
     return <>loading...</>

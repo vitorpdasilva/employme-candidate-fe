@@ -22,7 +22,7 @@ import { companySizes, currencyList, jobSearchStatus } from "src/constants"
 import { useDebounce } from "src/hooks"
 import { useAuthStore } from "stores/auth"
 
-const radios = [
+const radios: Record<string, string | number>[] = [
   { value: 1, label: "Ideal" },
   { value: 2, label: "Yes" },
   { value: 3, label: "No" },
@@ -44,13 +44,15 @@ export const Preferences = () => {
       ...userData,
       preferences: {
         ...userData.preferences,
-        [data.name]: {
-          ...userData.preferences?.[data.name],
-          ...data.values,
-        },
+        [data.name]: Array.isArray(userData.preferences?.[data.name])
+          ? [...(userData.preferences?.[data.name] as any), data.values]
+          : {
+            ...userData.preferences?.[data.name],
+            ...data.values,
+          },
       },
     }
-    console.log({ requestData })
+
     try {
       const { user: updatedUser, token } = await fetchApi({
         url: "/user",
@@ -178,22 +180,42 @@ export const Preferences = () => {
           </Typography>
         </Grid>
         <Grid item xs={12} md={9}>
-          {companySizes.map(({ value, label }: CompanySizes) => (
+          {companySizes.map(({ label, name, id }: CompanySizes) => (
             <FormControl
-              key={value}
+              key={id}
               sx={{
                 display: "flex",
                 flexDirection: "row",
               }}
+              onChange={(e: any) =>
+                onSubmit({
+                  name: "companySize",
+                  values: { id, option: e.target.value, label },
+                })
+              }
             >
               <FormLabel sx={{ width: "30%" }}>{label}</FormLabel>
-              <RadioGroup row name={`companySizes-${value}`}>
+              <RadioGroup
+                row
+                name={name as string}
+                defaultValue={
+                  userData.preferences.companySize.find(
+                    (company: CompanySizes) => company.label === label
+                  )?.option
+                }
+              >
                 {radios.map((radio) => (
                   <FormControlLabel
                     key={radio.value}
                     value={radio.value}
                     control={<Radio />}
                     label={radio.label}
+                    checked={
+                      radio.value ===
+                      userData.preferences.companySize.find(
+                        (company: any) => company.label === label
+                      )?.option
+                    }
                   />
                 ))}
               </RadioGroup>
