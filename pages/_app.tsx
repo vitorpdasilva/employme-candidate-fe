@@ -1,9 +1,9 @@
 import { Box, styled } from "@mui/material"
+import ScopedCssBaseline from "@mui/material/ScopedCssBaseline"
 import Grid from "@mui/material/Unstable_Grid2"
 import { useRouter } from "next/router"
 import { SnackbarProvider } from "notistack"
 import { ElementType, useEffect } from "react"
-// import "semantic-ui-css/semantic.min.css"
 import { Header, NavSidebar } from "src/components"
 import { AppContextProvider } from "src/context"
 import { useAuthStore } from "stores/auth"
@@ -27,6 +27,8 @@ const MainContentWrapper = styled(Box)({
   alignItems: "center",
   margin: "0 auto",
   padding: "0 20px",
+  border: "1px solid red",
+  // height: "auto",
 })
 
 function MyApp({ Component, pageProps }: MyAppProps) {
@@ -47,24 +49,26 @@ function MyApp({ Component, pageProps }: MyAppProps) {
 
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <AppContextProvider>
-          {isAuth && <Header />}
-          <SnackbarProvider maxSnack={3} autoHideDuration={2000} preventDuplicate>
-            <MainContentWrapper>
-              <Box sx={{ flexGrow: 1, width: "100%" }}>
-                <Grid container spacing={6} sx={{ pt: 6 }}>
-                  <Grid xs={2}>{isAuth && <NavSidebar />}</Grid>
-                  <Grid xs={10}>
-                    <Component {...pageProps} />
+      <ScopedCssBaseline sx={{ height: "inherit", display: "flex", flexDirection: "column" }}>
+        <ThemeProvider theme={theme}>
+          <AppContextProvider>
+            {isAuth && <Header />}
+            <SnackbarProvider maxSnack={3} autoHideDuration={2000} preventDuplicate>
+              <MainContentWrapper>
+                <Box sx={{ flexGrow: 1, width: "100%" }}>
+                  <Grid container spacing={6} sx={{ pt: 6 }}>
+                    <Grid xs={2}>{isAuth && <NavSidebar />}</Grid>
+                    <Grid xs={10}>
+                      <Component {...pageProps} />
+                    </Grid>
                   </Grid>
-                </Grid>
-              </Box>
-            </MainContentWrapper>
-          </SnackbarProvider>
-          {isAuth && <Box>Footer</Box>}
-        </AppContextProvider>
-      </ThemeProvider>
+                </Box>
+              </MainContentWrapper>
+            </SnackbarProvider>
+            {isAuth && <Box>Footer</Box>}
+          </AppContextProvider>
+        </ThemeProvider>
+      </ScopedCssBaseline>
     </>
   )
 }
