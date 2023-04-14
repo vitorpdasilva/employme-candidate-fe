@@ -6,9 +6,9 @@ import { Logo } from "../Logo/index"
 import StyledHeader, { StyledDropdown } from "./style"
 
 type HeaderItemsProps = {
-  href: string;
-  text: string;
-};
+  href: string
+  text: string
+}
 const headerItems: HeaderItemsProps[] = [
   { href: "/jobs", text: "Find a job" },
   { href: "/my-jobs", text: "My jobs" },
@@ -25,10 +25,7 @@ export const Header = () => {
         </Link>
         <ul>
           {headerItems.map(({ href, text }) => (
-            <li
-              key={href}
-              className={router.pathname === href ? "active" : undefined}
-            >
+            <li key={href} className={router.pathname === href ? "active" : undefined}>
               <Link href={href}>{text}</Link>
             </li>
           ))}
@@ -40,8 +37,7 @@ export const Header = () => {
         >
           <Dropdown.Menu>
             <Dropdown.Header>
-              <FaUserCircle style={{ fontSize: 24, marginLeft: "auto" }} />{" "}
-              Vitor Boccio
+              <FaUserCircle style={{ fontSize: 24, marginLeft: "auto" }} /> Vitor Boccio
             </Dropdown.Header>
             <Dropdown.Item>
               <Link href="/profile">

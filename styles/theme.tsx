@@ -9,6 +9,6 @@ export const theme = {
     },
     gray: {
       default: "#ccc",
-    }
+    },
   },
 }

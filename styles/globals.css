@@ -1,3 +1,6 @@
+html {
+  height: auto;
+}
 html,
 body {
   padding: 0;
@@ -5,9 +8,11 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   background: rgba(0, 0, 0, .01)!important;
-  min-height: 100%;
-  height:auto;
-  
+  min-height: 100vh;
+}
+
+body {
+  min-height: 100vh;
 }
 
 ::-webkit-scrollbar {
