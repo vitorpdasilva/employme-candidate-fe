@@ -1,5 +1,6 @@
 import { Grid, MenuItem, TextField } from "@mui/material"
 import { fetchApi } from "client"
+import { useSnackbar } from "notistack"
 import { useForm } from "react-hook-form"
 import { countriesList } from "src/constants"
 import { useAuthStore } from "stores/auth"
@@ -10,7 +11,8 @@ type FormFields = {
 export const Location = () => {
   const userData = useAuthStore((state: any) => state.user)
   const setUserStore = useAuthStore((state: any) => state.setUser)
-  console.log({ userData })
+  const { enqueueSnackbar } = useSnackbar()
+
   const { register, handleSubmit } = useForm<FormFields>({
     defaultValues: {
       currentLocation: userData?.general?.currentLocation,
@@ -26,19 +28,25 @@ export const Location = () => {
         currentLocation: data.currentLocation,
       },
     }
-    const { user: updatedUser, token } = await fetchApi({
-      url: "/user",
-      method: "PATCH",
-      body: requestData,
-    })
-    setUserStore(updatedUser, token)
+    try {
+      const { user: updatedUser, token } = await fetchApi({
+        url: "/user",
+        method: "PATCH",
+        body: requestData,
+      })
+      setUserStore(updatedUser, token)
+      enqueueSnackbar("Location updated", { variant: "success" })
+    } catch (e) {
+      enqueueSnackbar("Something went wrong", { variant: "error" })
+      console.error({ e })
+    }
   }
 
   return (
     <form>
       <Grid sx={{ my: 3 }} container spacing={0}>
         <Grid item xs={12} md={3}>
-          Locations
+          Location
         </Grid>
         <Grid item xs={12} md={9}>
           <TextField

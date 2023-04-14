@@ -58,13 +58,6 @@ const Profile: FC = () => {
           </TabPanel>
         ))}
       </Box>
-      <div style={{ position: "relative" }}>
-        {/* <Icon size="big" style={{ position: "absolute", right: 0, bottom: 10 }} name="camera" /> */}
-      </div>
-      {/* <GeneralProfileSection />
-      <ProfessionalProfileSection />
-      <RelocationProfileSection />
-      <SocialSection /> */}
     </>
   )
 }

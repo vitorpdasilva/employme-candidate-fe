@@ -14,6 +14,7 @@ import { useDebounce } from "hooks/useDebounce"
 import { enqueueSnackbar } from "notistack"
 import { useState } from "react"
 import { useAuthStore } from "stores/auth"
+
 type LookingFor = {
   name: string
   values: {
@@ -37,8 +38,6 @@ export const Culture = () => {
   const userData = useAuthStore((state: any) => state.user)
   const setUserStore = useAuthStore((state: any) => state.setUser)
 
-  console.log({ userData })
-
   useDebounce(() => onSubmit(lookingFor), 700, [lookingFor])
   const onSubmit = async (data: RequestData) => {
     const requestData = {
@@ -48,7 +47,7 @@ export const Culture = () => {
         ...data.values,
       },
     }
-    console.log({ requestData })
+
     try {
       const { user: updatedUser, token } = await fetchApi({
         url: "/user",
@@ -98,22 +97,19 @@ export const Culture = () => {
         <Grid item xs={6}>
           <FormControl>
             <RadioGroup
-              aria-labelledby="demo-controlled-radio-buttons-group"
-              name="controlled-radio-buttons-group"
-              value={0}
-              onChange={() => console.log("changed")}
+              aria-labelledby="motivates-me-more"
+              name="motivates-me-more"
+              defaultValue={userData.culture.motivatesMeMore}
+              onChange={(e) => {
+                const { value } = e.target
+                onSubmit({
+                  name: "motivatesMeMore",
+                  values: { motivatesMeMore: Number(value) },
+                })
+              }}
             >
-              <FormControlLabel
-                value="Solving technical problems"
-                control={<Radio />}
-                label="Solving technical problems"
-                checked={true}
-              />
-              <FormControlLabel
-                value="Building products"
-                control={<Radio />}
-                label="Building products"
-              />
+              <FormControlLabel value={0} control={<Radio />} label="Solving technical problems" />
+              <FormControlLabel value={1} control={<Radio />} label="Building products" />
             </RadioGroup>
           </FormControl>
         </Grid>
@@ -128,18 +124,19 @@ export const Culture = () => {
         <Grid item xs={9}>
           <FormControl>
             <RadioGroup
-              aria-labelledby="demo-controlled-radio-buttons-group"
-              name="controlled-radio-buttons-group"
-              value={0}
-              onChange={() => console.log("changed")}
+              aria-labelledby="five-years-career-track"
+              name="five-years-career-track"
+              defaultValue={userData.culture.fiveYearsCareerTrack}
+              onChange={(e) => {
+                const { value } = e.target
+                onSubmit({
+                  name: "fiveYearsCareerTrack",
+                  values: { fiveYearsCareerTrack: Number(value) },
+                })
+              }}
             >
-              <FormControlLabel
-                value="Individual contributor"
-                control={<Radio />}
-                label="Individual contributor"
-                checked={true}
-              />
-              <FormControlLabel value="Manager" control={<Radio />} label="Manager" />
+              <FormControlLabel value={0} control={<Radio />} label="Individual contributor" />
+              <FormControlLabel value={1} control={<Radio />} label="Manager" />
             </RadioGroup>
           </FormControl>
         </Grid>
@@ -152,23 +149,27 @@ export const Culture = () => {
         <Grid item xs={9}>
           <FormControl>
             <RadioGroup
-              aria-labelledby="demo-controlled-radio-buttons-group"
-              name="controlled-radio-buttons-group"
-              value={0}
-              onChange={() => console.log("changed")}
+              aria-labelledby="work-better-in"
+              name="work-better-in"
+              value={userData.culture.workBetterIn}
+              onChange={(e) => {
+                const { value } = e.target
+                onSubmit({
+                  name: "workBetterIn",
+                  values: { workBetterIn: Number(value) },
+                })
+              }}
             >
               <FormControlLabel
-                value="Clear role and set of responsibilities. Consistent feedback from management."
+                value={0}
                 control={<Radio />}
                 label="Clear role and set of responsibilities. Consistent feedback from management."
               />
               <FormControlLabel
-                value={`Employees wear a lot of hats. Assignments often require employees 
-                to 'figure it out' on their own.`}
+                value={1}
                 control={<Radio />}
                 label={`Employees wear a lot of hats. Assignments often require employees 
                 to 'figure it out' on their own.`}
-                checked
               />
             </RadioGroup>
           </FormControl>

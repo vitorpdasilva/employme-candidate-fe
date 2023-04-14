@@ -45,7 +45,7 @@ export const Preferences = () => {
   const setUserStore = useAuthStore((state: any) => state.setUser)
 
   useDebounce(() => onSubmit(salaryObj), 700, [salaryObj])
-  console.log({ salaryObj })
+
   const onSubmit = async (data: RequestData) => {
     const requestData = {
       id: userData.id,
