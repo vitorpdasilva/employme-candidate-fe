@@ -13,7 +13,8 @@ import {
   Typography,
 } from "@mui/material"
 import { fetchApi } from "client"
-import { ChangeEvent } from "react"
+import { CompressedImage, compressImage } from "helpers/compressImage"
+import { ChangeEvent, useState } from "react"
 import { useForm } from "react-hook-form"
 import { professionList } from "src/constants"
 import { useAuthStore } from "src/stores"
@@ -28,13 +29,14 @@ type FormFields = {
   currentLocation: string
 }
 export const Profile = () => {
+  const [tempImage, setTempImage] = useState<string | null>(null)
   const userData = useAuthStore((state: any) => state.user)
   const setUserStore = useAuthStore((state: any) => state.setUser)
 
   const { register, handleSubmit, watch, setValue } = useForm<FormFields>({
     defaultValues: {
       name: userData?.name,
-      bio: userData?.general.bio,
+      bio: userData?.general?.bio,
     },
   })
 
@@ -69,37 +71,31 @@ export const Profile = () => {
 
   const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
+    const reader = new FileReader()
+    reader.readAsDataURL(file as Blob)
+    reader.onload = async () => {
+      setTempImage(reader.result as string)
+      const compressedImage: CompressedImage = await compressImage(file as File, 800, 600, 0.7)
 
-    if (!file) {
-      return
-    }
-
-    const formData = new FormData()
-    formData.append("picture", file)
-    formData.append("id", userData.id)
-    formData.append("username", userData.username)
-    formData.append("name", userData.name)
-
-    try {
-      const headers = new Headers()
-      const token = window.localStorage.getItem("token")
-      headers.append("Authorization", `Bearer ${token}`)
-
-      const response = await fetchApi({
-        url: "/user/image",
-        method: "POST",
-        headers,
-        body: formData,
-      })
-
-      if (response) {
-        const updatedUser = response.data
-        setUserStore(updatedUser)
-      } else {
-        console.error(`Failed to upload image. ${response.status}`)
+      const requestData = {
+        id: userData.id,
+        username: userData.username,
+        name: userData.name,
+        picture: {
+          data: compressedImage.dataUrl,
+          createdDate: new Date().toISOString(),
+          ...file,
+        },
       }
-    } catch (error) {
-      console.error(`Error uploading image. ${error}`)
+      const { user: updatedUser, token } = await fetchApi({
+        url: "/user",
+        method: "PATCH",
+        body: requestData,
+      })
+      setUserStore(updatedUser, token)
+    }
+    reader.onerror = (error) => {
+      console.log("error", error)
     }
   }
 
@@ -134,6 +130,9 @@ export const Profile = () => {
             )}
 
             <Box sx={{ display: "flex", alignItems: "center" }}>
+              {tempImage && (
+                <Avatar src={tempImage as string} sx={{ width: 56, height: 56, mr: 3 }} />
+              )}
               <Avatar
                 alt={`${userData?.name}'s picture`}
                 src={userData?.picture}
@@ -142,7 +141,7 @@ export const Profile = () => {
               <input
                 type="file"
                 onChange={handleFileChange}
-                name="picture"
+                name="file"
                 // sx={{ height: "fit-content" }}
                 // variant="outlined"
               />

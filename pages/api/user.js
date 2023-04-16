@@ -33,8 +33,8 @@ const userData = {
     { name: "facebook", url: "facebook.com/vitorboccio" },
     { name: "twitter", url: "twitter.com/vitorboccio" },
   ]
-};
+}
 
 export default function(req, res) {
-  res.status(200).json(userData);
+  res.status(200).json(userData)
 }
