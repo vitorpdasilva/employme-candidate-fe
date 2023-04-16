@@ -1,17 +1,10 @@
-import {
-  Alert,
-  Box,
-  Button,
-  Link,
-  styled,
-  TextField,
-  Typography,
-} from "@mui/material"
+import { Alert, Box, Button, Link, styled, TextField, Typography } from "@mui/material"
 import { ErrorResponse, fetchApi } from "client"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { Resolver, useForm } from "react-hook-form"
 import { useUserAuth } from "src/hooks"
+import { useAuthStore } from "stores/auth"
 
 type Credentials = {
   username: string
@@ -47,6 +40,8 @@ const SignUp = () => {
   const { register, handleSubmit } = useForm<Credentials>({ resolver })
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const { isAuthenticated } = useUserAuth()
+  const setUserToStore = useAuthStore((state: any) => state.setUser)
+
   const router = useRouter()
 
   useEffect(() => {
@@ -63,7 +58,9 @@ const SignUp = () => {
     }
 
     try {
-      await fetchApi({ url: "/register", body })
+      const { user, token } = await fetchApi({ url: "/register", body })
+      setUserToStore(user, token)
+      localStorage.setItem("isAuthenticated", `${!!token}`)
       router.push("/")
     } catch (error: any) {
       setErrorMessage(error?.message as ErrorResponse["message"])
@@ -71,22 +68,14 @@ const SignUp = () => {
   })
 
   return (
-    <FormWrapper
-      component="form"
-      onSubmit={onSubmit}
-      onChange={() => setErrorMessage(null)}
-    >
+    <FormWrapper component="form" onSubmit={onSubmit} onChange={() => setErrorMessage(null)}>
       {errorMessage && (
         <Alert sx={{ my: 2 }} severity="error">
           {errorMessage}
         </Alert>
       )}
       <TextField {...register("name")} label="Your Name" variant="outlined" />
-      <TextField
-        {...register("username")}
-        label="username"
-        variant="outlined"
-      />
+      <TextField {...register("username")} label="username" variant="outlined" />
       <TextField
         {...register("password")}
         type="password"

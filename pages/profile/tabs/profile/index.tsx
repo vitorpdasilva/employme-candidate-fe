@@ -14,7 +14,7 @@ import {
 } from "@mui/material"
 import { fetchApi } from "client"
 import { CompressedImage, compressImage } from "helpers/compressImage"
-import { ChangeEvent, useState } from "react"
+import { ChangeEvent } from "react"
 import { useForm } from "react-hook-form"
 import { professionList } from "src/constants"
 import { useAuthStore } from "src/stores"
@@ -29,7 +29,6 @@ type FormFields = {
   currentLocation: string
 }
 export const Profile = () => {
-  const [tempImage, setTempImage] = useState<string | null>(null)
   const userData = useAuthStore((state: any) => state.user)
   const setUserStore = useAuthStore((state: any) => state.setUser)
 
@@ -74,9 +73,7 @@ export const Profile = () => {
     const reader = new FileReader()
     reader.readAsDataURL(file as Blob)
     reader.onload = async () => {
-      setTempImage(reader.result as string)
       const compressedImage: CompressedImage = await compressImage(file as File, 800, 600, 0.7)
-
       const requestData = {
         id: userData.id,
         username: userData.username,
@@ -130,12 +127,9 @@ export const Profile = () => {
             )}
 
             <Box sx={{ display: "flex", alignItems: "center" }}>
-              {tempImage && (
-                <Avatar src={tempImage as string} sx={{ width: 56, height: 56, mr: 3 }} />
-              )}
               <Avatar
                 alt={`${userData?.name}'s picture`}
-                src={userData?.picture}
+                src={userData?.picture.data}
                 sx={{ width: 56, height: 56, mr: 3 }}
               />
               <input
@@ -208,9 +202,9 @@ export const Profile = () => {
             </FormControl>
             <Box sx={{ my: 3 }}>
               <TextField fullWidth multiline rows={4} label="Your Bio" {...register("bio")} />
-              {fieldWatch.bio !== userData?.general.bio && (
+              {fieldWatch.bio !== userData?.general?.bio && (
                 <Box sx={{ display: "flex", justifyContent: "flex-end", my: 1 }}>
-                  <Button variant="text" onClick={() => setValue("bio", userData?.general.bio)}>
+                  <Button variant="text" onClick={() => setValue("bio", userData?.general?.bio)}>
                     Cancel
                   </Button>
                   <Button variant="contained" type="submit">
