@@ -13,6 +13,7 @@ import {
   Typography,
 } from "@mui/material"
 import { fetchApi } from "client"
+import { ChangeEvent } from "react"
 import { useForm } from "react-hook-form"
 import { professionList } from "src/constants"
 import { useAuthStore } from "src/stores"
@@ -49,7 +50,6 @@ export const Profile = () => {
     .map((role) => role.text)
 
   const handleChange = async (data: FormFields) => {
-    console.log({ data })
     const requestData = {
       id: userData.id,
       username: userData.username,
@@ -65,6 +65,42 @@ export const Profile = () => {
       body: requestData,
     })
     setUserStore(updatedUser, token)
+  }
+
+  const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+
+    if (!file) {
+      return
+    }
+
+    const formData = new FormData()
+    formData.append("picture", file)
+    formData.append("id", userData.id)
+    formData.append("username", userData.username)
+    formData.append("name", userData.name)
+
+    try {
+      const headers = new Headers()
+      const token = window.localStorage.getItem("token")
+      headers.append("Authorization", `Bearer ${token}`)
+
+      const response = await fetchApi({
+        url: "/user/image",
+        method: "POST",
+        headers,
+        body: formData,
+      })
+
+      if (response) {
+        const updatedUser = response.data
+        setUserStore(updatedUser)
+      } else {
+        console.error(`Failed to upload image. ${response.status}`)
+      }
+    } catch (error) {
+      console.error(`Error uploading image. ${error}`)
+    }
   }
 
   return (
@@ -103,9 +139,13 @@ export const Profile = () => {
                 src={userData?.picture}
                 sx={{ width: 56, height: 56, mr: 3 }}
               />
-              <Button sx={{ height: "fit-content" }} variant="outlined">
-                Upload a new photo
-              </Button>
+              <input
+                type="file"
+                onChange={handleFileChange}
+                name="picture"
+                // sx={{ height: "fit-content" }}
+                // variant="outlined"
+              />
             </Box>
             <Box sx={{ my: 3, display: "flex" }}>
               <TextField

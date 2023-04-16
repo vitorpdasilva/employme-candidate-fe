@@ -22,9 +22,7 @@ type FetchApiProps = {
   cache?: RequestCache
   credentials?: RequestCredentials
   body?: any
-  headers?: {
-    [key: string]: string
-  }
+  headers?: any
   signal?: AbortSignal
 }
 
@@ -37,30 +35,43 @@ const fetchApi = async ({
   mode = "cors",
   cache = "no-cache",
   credentials = "same-origin",
-  body = {},
+  body,
+  headers = {
+    "Content-Type": "application/json",
+  },
 }: FetchApiProps) => {
+  const token = window.localStorage.getItem("token")
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`
+  }
+
   const requestBody: Omit<FetchApiProps, "url"> = {
     method,
     mode,
     cache,
     credentials,
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers,
     signal,
-    body: JSON.stringify(body),
   }
 
-  if (method === "GET") {
-    delete requestBody.body
+  if (method === "POST" || method === "PUT" || method === "PATCH") {
+    if (body instanceof FormData) {
+      requestBody.body = body
+      delete requestBody.headers["Content-Type"]
+    } else {
+      requestBody.body = JSON.stringify(body)
+    }
   }
 
-  const data = await fetch(`${BASE_URL}${url}`, requestBody)
-  if (!data.ok) {
-    const res: ErrorResponse = await data.clone().json()
-    throw new Error(res.message || "Something went wrong")
+  const response = await fetch(`${BASE_URL}${url}`, requestBody)
+
+  if (response.ok) {
+    const responseData = await response.json()
+    return responseData
   }
-  return data.json()
+
+  const errorResponseData = await response.json()
+  throw new Error(errorResponseData.message || "Something went wrong.")
 }
 
 export { fetchApi, BASE_URL }

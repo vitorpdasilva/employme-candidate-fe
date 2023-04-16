@@ -27,8 +27,6 @@ const MainContentWrapper = styled(Box)({
   alignItems: "center",
   margin: "0 auto",
   padding: "0 20px",
-  border: "1px solid red",
-  // height: "auto",
 })
 
 function MyApp({ Component, pageProps }: MyAppProps) {
