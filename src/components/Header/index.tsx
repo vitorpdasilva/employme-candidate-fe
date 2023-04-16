@@ -88,7 +88,7 @@ export const Header = () => {
           <Box sx={{ flexGrow: 0, ml: "auto" }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt={userData.name} src="/static/images/avatar/2.jpg" />
+                <Avatar alt={userData.name} src={userData.picture.data} />
               </IconButton>
             </Tooltip>
             <Menu
