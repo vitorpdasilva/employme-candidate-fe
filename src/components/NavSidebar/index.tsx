@@ -46,7 +46,7 @@ export const NavSidebar: FC = () => {
   const router = useRouter()
   const theme = useTheme()
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"))
-  console.log({ isDesktop })
+
   return (
     <Box
       sx={{

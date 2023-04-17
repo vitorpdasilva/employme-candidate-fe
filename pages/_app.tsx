@@ -1,6 +1,8 @@
 import { Box, styled } from "@mui/material"
 import ScopedCssBaseline from "@mui/material/ScopedCssBaseline"
 import Grid from "@mui/material/Unstable_Grid2"
+import { LocalizationProvider } from "@mui/x-date-pickers"
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns"
 import { useRouter } from "next/router"
 import { SnackbarProvider } from "notistack"
 import { ElementType, useEffect } from "react"
@@ -50,21 +52,23 @@ function MyApp({ Component, pageProps }: MyAppProps) {
       <ScopedCssBaseline sx={{ height: "inherit", display: "flex", flexDirection: "column" }}>
         <ThemeProvider theme={theme}>
           <AppContextProvider>
-            {isAuth && <Header />}
-            <SnackbarProvider maxSnack={3} autoHideDuration={2000} preventDuplicate>
-              <MainContentWrapper>
-                <Box sx={{ flexGrow: 1, width: "100%" }}>
-                  <Grid container spacing={6} sx={{ pt: 6 }}>
-                    <Grid md={2} xs={12}>
-                      {isAuth && <NavSidebar />}
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              {isAuth && <Header />}
+              <SnackbarProvider maxSnack={3} autoHideDuration={2000} preventDuplicate>
+                <MainContentWrapper>
+                  <Box sx={{ flexGrow: 1, width: "100%" }}>
+                    <Grid container spacing={6} sx={{ pt: 6 }}>
+                      <Grid md={2} xs={12}>
+                        {isAuth && <NavSidebar />}
+                      </Grid>
+                      <Grid md={10} xs={12}>
+                        <Component {...pageProps} />
+                      </Grid>
                     </Grid>
-                    <Grid md={10} xs={12}>
-                      <Component {...pageProps} />
-                    </Grid>
-                  </Grid>
-                </Box>
-              </MainContentWrapper>
-            </SnackbarProvider>
+                  </Box>
+                </MainContentWrapper>
+              </SnackbarProvider>
+            </LocalizationProvider>
           </AppContextProvider>
         </ThemeProvider>
       </ScopedCssBaseline>

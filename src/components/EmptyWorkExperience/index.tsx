@@ -1,8 +1,8 @@
 import { Box, Button, Paper, TextField } from "@mui/material"
+import { DatePicker } from "@mui/x-date-pickers/DatePicker"
 import { fetchApi } from "client"
-
 import { useSnackbar } from "notistack"
-import { useForm } from "react-hook-form"
+import { Controller, useForm } from "react-hook-form"
 import { useAuthStore } from "src/stores"
 import { v4 as uuidv4 } from "uuid"
 type EmptyWorkExperienceProps = {
@@ -12,8 +12,9 @@ type EmptyWorkExperienceProps = {
 type FormFields = {
   company: string
   title: string
-  startDate: Date
-  endDate: Date
+  location: string
+  startDate: Date | null
+  endDate: Date | null
   description: string
 }
 
@@ -22,15 +23,18 @@ export const EmptyWorkExperience = ({ onFinish }: EmptyWorkExperienceProps) => {
   const userData = useAuthStore((state: any) => state.user)
   const setUserStore = useAuthStore((state: any) => state.setUser)
 
-  const { register, handleSubmit } = useForm<FormFields>({
+  const { register, handleSubmit, control, formState, setValue } = useForm<FormFields>({
     defaultValues: {
       company: "",
       title: "",
-      startDate: new Date(),
-      endDate: new Date(),
+      location: "",
+      startDate: null,
+      endDate: null,
       description: "",
     },
   })
+
+  console.log({ formState })
 
   const onSubmit = async (formFields: FormFields) => {
     const requestData = {
@@ -43,6 +47,7 @@ export const EmptyWorkExperience = ({ onFinish }: EmptyWorkExperienceProps) => {
         workExperience: [...userData.professionalOverview.workExperience, formFields],
       },
     }
+    console.log({ formFields, requestData })
     try {
       const { user: updatedUser, token } = await fetchApi({
         url: "/user",
@@ -68,28 +73,66 @@ export const EmptyWorkExperience = ({ onFinish }: EmptyWorkExperienceProps) => {
           fullWidth
           {...register("company", { required: true })}
         />
-        <TextField size="small" margin="dense" label="Title" fullWidth {...register("title")} />
-
         <TextField
-          type="date"
           size="small"
           margin="dense"
+          label="Title"
           fullWidth
-          inputProps={{ shrink: true, inputMode: "numeric" }}
-          label="Start Date"
-          {...register("startDate")}
+          {...register("title", { required: true })}
         />
 
         <TextField
-          type="date"
           size="small"
           margin="dense"
+          label="Location"
           fullWidth
-          defaultValue={new Date()}
-          inputProps={{ shrink: true, inputMode: "numeric" }}
-          label="End Date"
-          {...register("endDate")}
+          {...register("location", { required: true })}
         />
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            gap: "20px",
+            mt: "10px",
+            mb: "5px",
+          }}
+        >
+          <Controller
+            control={control}
+            name="startDate"
+            rules={{ required: true }}
+            render={() => (
+              <DatePicker
+                sx={{ flexGrow: 1 }}
+                disableFuture
+                formatDensity="dense"
+                label="Start Date"
+                onChange={(date) => {
+                  console.log({ date })
+                  setValue("startDate", date as Date)
+                }}
+              />
+            )}
+          />
+
+          <Controller
+            control={control}
+            name="endDate"
+            rules={{ required: true }}
+            render={() => (
+              <DatePicker
+                sx={{ flexGrow: 1 }}
+                disableFuture
+                formatDensity="dense"
+                label="End Date"
+                onChange={(date) => {
+                  console.log({ date })
+                  setValue("endDate", date as Date)
+                }}
+              />
+            )}
+          />
+        </Box>
 
         <TextField
           size="small"

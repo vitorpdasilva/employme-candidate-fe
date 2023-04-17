@@ -29,7 +29,7 @@ export const Header = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null)
   }
-  console.log({ userData })
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">

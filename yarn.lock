@@ -1205,13 +1205,6 @@
   dependencies:
     "@date-io/core" "^2.16.0"
 
-"@date-io/dayjs@^2.16.0":
-  "integrity" "sha512-y5qKyX2j/HG3zMvIxTobYZRGnd1FUW2olZLS0vTj7bEkBQkjd2RO7/FEwDY03Z1geVGlXKnzIATEVBVaGzV4Iw=="
-  "resolved" "https://registry.npmjs.org/@date-io/dayjs/-/dayjs-2.16.0.tgz"
-  "version" "2.16.0"
-  dependencies:
-    "@date-io/core" "^2.16.0"
-
 "@date-io/hijri@^2.16.1":
   "integrity" "sha512-6BxY0mtnqj5cBiXluRs3uWN0mSJwGw0AB2ZxqtEHvBFoiSYEojW51AETnfPIWpdvDsBn+WAC7QrfBvQZnoyIkQ=="
   "resolved" "https://registry.npmjs.org/@date-io/hijri/-/hijri-2.16.1.tgz"
@@ -1751,7 +1744,7 @@
   "resolved" "https://registry.npmjs.org/@mapbox/whoots-js/-/whoots-js-3.1.0.tgz"
   "version" "3.1.0"
 
-"@mui/base@5.0.0-alpha.117":
+"@mui/base@^5.0.0-alpha.87", "@mui/base@5.0.0-alpha.117":
   "integrity" "sha512-3GlRSZdSrvDQ4k03dSV2rM+97JbNWimFOqGsE7n7Mi8WuBSYCgnPe56bQp3E5cShOrTn11dGH8FRCmVMcCEXqQ=="
   "resolved" "https://registry.npmjs.org/@mui/base/-/base-5.0.0-alpha.117.tgz"
   "version" "5.0.0-alpha.117"
@@ -1777,7 +1770,7 @@
   dependencies:
     "@babel/runtime" "^7.20.6"
 
-"@mui/material@^5.0.0", "@mui/material@^5.11.7", "@mui/material@^5.4.1":
+"@mui/material@^5.0.0", "@mui/material@^5.11.7", "@mui/material@^5.4.1", "@mui/material@^5.8.6":
   "integrity" "sha512-MpIVmtj9VJBhPHvPWoMkfCPpmVGXT4q43PtCJsdKIdc7W9/nG3Kpqw2oWyw+UxG5xG7eLhmfRFGPKvj4/WopEQ=="
   "resolved" "https://registry.npmjs.org/@mui/material/-/material-5.11.8.tgz"
   "version" "5.11.8"
@@ -1814,7 +1807,7 @@
     "csstype" "^3.1.1"
     "prop-types" "^15.8.1"
 
-"@mui/system@^5.11.8", "@mui/system@^5.4.1":
+"@mui/system@^5.11.8", "@mui/system@^5.4.1", "@mui/system@^5.8.0":
   "integrity" "sha512-vCatoWCTnAPquoNifHbqMCMnOElEbLosVUeW0FQDyjCq+8yMABD9E6iY0s14O7iq1wD+qqU7rFAuDIVvJ/AzzA=="
   "resolved" "https://registry.npmjs.org/@mui/system/-/system-5.11.15.tgz"
   "version" "5.11.15"
@@ -1855,16 +1848,15 @@
     "prop-types" "^15.8.1"
     "reselect" "^4.1.7"
 
-"@mui/x-date-pickers@^6.0.4":
-  "integrity" "sha512-blh91rqgnr8mdm+bn5vdde7fQII0gUDmeOMttKrMLv6P6OxkQXdz5aLSroXUpPTAAbX53zciFW/UG5Ynxqxtpw=="
-  "resolved" "https://registry.npmjs.org/@mui/x-date-pickers/-/x-date-pickers-6.0.4.tgz"
-  "version" "6.0.4"
+"@mui/x-date-pickers@^6.2.0":
+  "integrity" "sha512-/u2X2VVQ67wS6yJNrL1upUUwSSevH1HIkMZeAo/tyTHc3Ek4WlS+kbCWByjL9PT+Z2Dmck8+xSfXIe/F1rypng=="
+  "resolved" "https://registry.npmjs.org/@mui/x-date-pickers/-/x-date-pickers-6.2.0.tgz"
+  "version" "6.2.0"
   dependencies:
     "@babel/runtime" "^7.21.0"
     "@date-io/core" "^2.16.0"
     "@date-io/date-fns" "^2.16.0"
     "@date-io/date-fns-jalali" "^2.16.0"
-    "@date-io/dayjs" "^2.16.0"
     "@date-io/hijri" "^2.16.1"
     "@date-io/jalaali" "^2.16.1"
     "@date-io/luxon" "^2.16.1"
