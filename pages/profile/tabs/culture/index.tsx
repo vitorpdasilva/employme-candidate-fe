@@ -66,7 +66,7 @@ export const Culture = () => {
   return (
     <Box sx={{ flexGrow: 1, width: "100%" }}>
       <Grid container spacing={2} sx={{ mb: 3 }}>
-        <Grid item xs={3}>
+        <Grid item xs={12} md={3}>
           <Typography variant="subtitle1">
             Describe what you are looking for in your next job
           </Typography>
@@ -74,7 +74,7 @@ export const Culture = () => {
             Startups tell us this is one of the first things they look at in a profile.
           </Typography>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={9}>
           <TextField
             defaultValue={userData.culture?.lookingFor ?? "alow alow"}
             fullWidth
@@ -91,10 +91,10 @@ export const Culture = () => {
       </Grid>
       <Divider />
       <Grid container spacing={2} sx={{ my: 3 }}>
-        <Grid item xs={3}>
+        <Grid item xs={12} md={3}>
           <Typography variant="subtitle1">What motivates you more?</Typography>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={9}>
           <FormControl>
             <RadioGroup
               aria-labelledby="motivates-me-more"
@@ -116,12 +116,12 @@ export const Culture = () => {
       </Grid>
       <Divider />
       <Grid container spacing={2} sx={{ my: 3 }}>
-        <Grid item xs={3}>
+        <Grid item xs={12} md={3}>
           <Typography variant="subtitle1">
             Over the next five years, what career track do you want to follow?
           </Typography>
         </Grid>
-        <Grid item xs={9}>
+        <Grid item xs={12} md={3}>
           <FormControl>
             <RadioGroup
               aria-labelledby="five-years-career-track"
@@ -143,10 +143,10 @@ export const Culture = () => {
       </Grid>
       <Divider />
       <Grid container spacing={2} sx={{ my: 3 }}>
-        <Grid item xs={3}>
+        <Grid item xs={12} md={3}>
           <Typography variant="subtitle1">What environment do you work better in?</Typography>
         </Grid>
-        <Grid item xs={9}>
+        <Grid item xs={12} md={9}>
           <FormControl>
             <RadioGroup
               aria-labelledby="work-better-in"

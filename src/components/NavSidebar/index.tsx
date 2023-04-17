@@ -3,11 +3,10 @@ import DoneAllOutlinedIcon from "@mui/icons-material/DoneAllOutlined"
 import ExploreOutlinedIcon from "@mui/icons-material/ExploreOutlined"
 import Face5OutlinedIcon from "@mui/icons-material/Face5Outlined"
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined"
-import { Box, Link, styled } from "@mui/material"
+import { Box, Link, styled, useMediaQuery, useTheme } from "@mui/material"
 import { useRouter } from "next/router"
 import { FC, ReactNode } from "react"
-
-type MenuItems = Record<string, string | ReactNode>;
+type MenuItems = Record<string, string | ReactNode>
 
 const MenuItem = styled(Link)<{ selected: boolean }>(({ theme, selected }) => ({
   textDecoration: "none",
@@ -25,7 +24,7 @@ const MenuItem = styled(Link)<{ selected: boolean }>(({ theme, selected }) => ({
 
 const menuItems: MenuItems[] = [
   { name: "Home", icon: <HomeOutlinedIcon fontSize="large" />, href: "/" },
-  { name: "Profile", icon: <Face5OutlinedIcon />, href: "/profile" },
+  { name: "Profile", icon: <Face5OutlinedIcon fontSize="large" />, href: "/profile" },
   {
     name: "Jobs",
     icon: <BusinessCenterOutlinedIcon fontSize="large" />,
@@ -45,13 +44,15 @@ const menuItems: MenuItems[] = [
 
 export const NavSidebar: FC = () => {
   const router = useRouter()
-
+  const theme = useTheme()
+  const isDesktop = useMediaQuery(theme.breakpoints.up("md"))
+  console.log({ isDesktop })
   return (
     <Box
       sx={{
         display: "flex",
-        flexDirection: "column",
-        justifyContent: "flex-start",
+        flexDirection: isDesktop ? "column" : "row",
+        justifyContent: "space-evenly",
       }}
     >
       {menuItems.map((item) => (
@@ -60,7 +61,7 @@ export const NavSidebar: FC = () => {
           selected={item.href === router.pathname}
           href={item.href as string}
         >
-          {item.icon}
+          <Box>{item.icon}</Box>
           {item.name}
         </MenuItem>
       ))}

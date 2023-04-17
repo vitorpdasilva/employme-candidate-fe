@@ -172,7 +172,6 @@ const JobPostPage = () => {
             }
           />
         </JobCardMain>
-        <div>Right Column</div>
       </JobPageWrapper>
       <ToastContainer />
     </>

@@ -55,15 +55,16 @@ function MyApp({ Component, pageProps }: MyAppProps) {
               <MainContentWrapper>
                 <Box sx={{ flexGrow: 1, width: "100%" }}>
                   <Grid container spacing={6} sx={{ pt: 6 }}>
-                    <Grid xs={2}>{isAuth && <NavSidebar />}</Grid>
-                    <Grid xs={10}>
+                    <Grid md={2} xs={12}>
+                      {isAuth && <NavSidebar />}
+                    </Grid>
+                    <Grid md={10} xs={12}>
                       <Component {...pageProps} />
                     </Grid>
                   </Grid>
                 </Box>
               </MainContentWrapper>
             </SnackbarProvider>
-            {isAuth && <Box>Footer</Box>}
           </AppContextProvider>
         </ThemeProvider>
       </ScopedCssBaseline>

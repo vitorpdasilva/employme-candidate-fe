@@ -1,4 +1,5 @@
 import { fetchApi } from "client"
+import Head from "next/head"
 import { useEffect, useState } from "react"
 import { JobList, SearchJobBar } from "src/components"
 
@@ -14,20 +15,26 @@ const Dashboard = () => {
   }, [])
 
   return (
-    <div style={{ width: "100%" }}>
-      <SearchJobBar />
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          width: "100%",
-          maxWidth: 1280,
-        }}
-      >
-        <JobList jobList={jobList} />
-        <div>right column</div>
+    <>
+      <Head>
+        <title>Employ Me Overseas (EMO) - Jobs</title>
+        <meta name="description" content="Employ Me Overseas (EMO) - Jobs" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <div style={{ width: "100%" }}>
+        <SearchJobBar />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            width: "100%",
+            maxWidth: 1280,
+          }}
+        >
+          <JobList jobList={jobList} />
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 

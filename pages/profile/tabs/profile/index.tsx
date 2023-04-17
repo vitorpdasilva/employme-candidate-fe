@@ -14,6 +14,7 @@ import {
 } from "@mui/material"
 import { fetchApi } from "client"
 import { CompressedImage, compressImage } from "helpers/compressImage"
+import { useSnackbar } from "notistack"
 import { ChangeEvent } from "react"
 import { useForm } from "react-hook-form"
 import { professionList } from "src/constants"
@@ -29,6 +30,7 @@ type FormFields = {
   currentLocation: string
 }
 export const Profile = () => {
+  const { enqueueSnackbar } = useSnackbar()
   const userData = useAuthStore((state: any) => state.user)
   const setUserStore = useAuthStore((state: any) => state.setUser)
 
@@ -60,12 +62,18 @@ export const Profile = () => {
         bio: data.bio,
       },
     }
-    const { user: updatedUser, token } = await fetchApi({
-      url: "/user",
-      method: "PATCH",
-      body: requestData,
-    })
-    setUserStore(updatedUser, token)
+    try {
+      const { user: updatedUser, token } = await fetchApi({
+        url: "/user",
+        method: "PATCH",
+        body: requestData,
+      })
+      setUserStore(updatedUser, token)
+      enqueueSnackbar("Profile updated successfully", { variant: "success" })
+    } catch (error) {
+      console.log({ error })
+      enqueueSnackbar("Something went wrong", { variant: "error" })
+    }
   }
 
   const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -84,12 +92,18 @@ export const Profile = () => {
           ...file,
         },
       }
-      const { user: updatedUser, token } = await fetchApi({
-        url: "/user",
-        method: "PATCH",
-        body: requestData,
-      })
-      setUserStore(updatedUser, token)
+      try {
+        const { user: updatedUser, token } = await fetchApi({
+          url: "/user",
+          method: "PATCH",
+          body: requestData,
+        })
+        setUserStore(updatedUser, token)
+        enqueueSnackbar("Profile updated successfully", { variant: "success" })
+      } catch (error) {
+        console.log({ error })
+        enqueueSnackbar("Something went wrong", { variant: "error" })
+      }
     }
     reader.onerror = (error) => {
       console.log("error", error)

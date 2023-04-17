@@ -6,8 +6,8 @@ const Home: FC = () => {
   return (
     <>
       <Head>
-        <title>Employ Me Overseas (EMO) - Home Page</title>
-        <meta name="description" content="Employ Me Overseas (EMO) - Home Page" />
+        <title>Employ Me Overseas (EMO) - Home</title>
+        <meta name="description" content="Employ Me Overseas (EMO) - Home" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <ProfileOverview />
