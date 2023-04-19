@@ -7,7 +7,7 @@ import { useUserAuth } from "src/hooks"
 import { useAuthStore } from "stores/auth"
 
 type Credentials = {
-  username: string
+  email: string
   password: string
   name: string
 }
@@ -27,10 +27,10 @@ const FormWrapper = styled(Box)({
 
 const resolver: Resolver<Credentials> = async (values) => {
   return {
-    values: values.username ? values : {},
-    errors: !values.username
+    values: values.email ? values : {},
+    errors: !values.email
       ? {
-        username: { type: "required", message: "Username is required" },
+        email: { type: "required", message: "email is required" },
       }
       : {},
   }
@@ -53,8 +53,9 @@ const SignUp = () => {
   const onSubmit = handleSubmit(async (data) => {
     setErrorMessage(null)
     const body = {
-      email: data.username,
+      email: data.email,
       password: data.password,
+      name: data.name,
     }
 
     try {
@@ -75,15 +76,9 @@ const SignUp = () => {
         </Alert>
       )}
       <TextField {...register("name")} label="Your Name" variant="outlined" />
-      <TextField {...register("username")} label="username" variant="outlined" />
-      <TextField
-        {...register("password")}
-        type="password"
-        sx={{ my: 2 }}
-        label="password"
-        variant="outlined"
-      />
-      <Button type="submit" variant="contained">
+      <TextField sx={{ my: 2 }} {...register("email")} label="email" variant="outlined" />
+      <TextField {...register("password")} type="password" label="password" variant="outlined" />
+      <Button type="submit" variant="contained" sx={{ mt: 2 }}>
         Sign Up
       </Button>
       <Typography sx={{ mt: 2 }} variant="caption" color="text.secondary">
