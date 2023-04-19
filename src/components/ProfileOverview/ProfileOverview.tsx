@@ -43,7 +43,7 @@ export const ProfileOverview: FC = () => {
 
   return (
     <Paper elevation={2} sx={{ display: "flex", py: 5, px: 3 }}>
-      <Avatar alt={userData?.name} src={userData?.picture.data} sx={{ width: 56, height: 56 }} />
+      <Avatar alt={userData?.name} src={userData?.picture?.data} sx={{ width: 56, height: 56 }} />
       <Box sx={{ mx: 3, flexGrow: 1 }}>
         <Typography variant="h5">{userData?.name}</Typography>
         <Typography variant="subtitle1" fontWeight="bold">
