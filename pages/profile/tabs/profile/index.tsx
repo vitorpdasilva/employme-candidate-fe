@@ -143,7 +143,7 @@ export const Profile = () => {
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <Avatar
                 alt={`${userData?.name}'s picture`}
-                src={userData?.picture.data}
+                src={userData?.picture?.data}
                 sx={{ width: 56, height: 56, mr: 3 }}
               />
               <input

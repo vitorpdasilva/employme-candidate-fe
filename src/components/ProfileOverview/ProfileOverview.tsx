@@ -47,7 +47,12 @@ export const ProfileOverview: FC = () => {
       <Box sx={{ mx: 3, flexGrow: 1 }}>
         <Typography variant="h5">{userData?.name}</Typography>
         <Typography variant="subtitle1" fontWeight="bold">
-          Front-end Developer @ Rivian
+          {!!userData?.professionalOverview?.workExperience && (
+            <>{userData.professionalOverview.workExperience[0].title}</>
+          )}
+          {!userData?.professionalOverview?.workExperience[0].endDate && (
+            <> @ {userData.professionalOverview.workExperience[0].company}</>
+          )}
         </Typography>
         <Typography variant="subtitle1">
           {countriesList.find(({ code }) => code === userData?.general?.currentLocation)?.name}
