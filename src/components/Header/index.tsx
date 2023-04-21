@@ -1,24 +1,35 @@
 import AdbIcon from "@mui/icons-material/Adb"
 import MenuIcon from "@mui/icons-material/Menu"
-import AppBar from "@mui/material/AppBar"
-import Avatar from "@mui/material/Avatar"
-import Box from "@mui/material/Box"
-import Container from "@mui/material/Container"
-import IconButton from "@mui/material/IconButton"
-import Menu from "@mui/material/Menu"
-import MenuItem from "@mui/material/MenuItem"
-import Toolbar from "@mui/material/Toolbar"
-import Tooltip from "@mui/material/Tooltip"
-import Typography from "@mui/material/Typography"
+import {
+  AppBar,
+  Avatar,
+  Box,
+  Container,
+  IconButton,
+  Link,
+  Menu,
+  MenuItem,
+  Toolbar,
+  Tooltip,
+  Typography,
+} from "@mui/material"
+
+import { useLogout } from "helpers/handleLogout"
 import * as React from "react"
 import { useAuthStore } from "stores/auth"
 
-const settings = ["Profile", "Account", "Dashboard", "Logout"]
+type MenuItemType = {
+  item: string
+  link: string | null
+  fn: null | (() => void)
+}
 
 export const Header = () => {
   const [_, setAnchorElNav] = React.useState<null | HTMLElement>(null) // eslint-disable-line
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null)
   const userData = useAuthStore((state: any) => state.user)
+  const handleLogout = useLogout()
+
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget)
   }
@@ -29,6 +40,13 @@ export const Header = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null)
   }
+
+  const menuItem: MenuItemType[] = [
+    { item: "Profile", link: "/profile", fn: null },
+    { item: "Account", link: "/account", fn: null },
+    { item: "Dashboard", link: "/dashboard", fn: null },
+    { item: "Logout", link: null, fn: () => handleLogout() },
+  ]
 
   return (
     <AppBar position="static">
@@ -107,9 +125,13 @@ export const Header = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+              {menuItem.map(({ item, link, fn }) => (
+                <MenuItem key={item} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">
+                    <Link href={link as string} onClick={fn ?? (null as any)}>
+                      {item}
+                    </Link>
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>

@@ -10,6 +10,10 @@ export const useAuthStore = create(
         window.localStorage.setItem("token", token)
         set({ user })
       },
+      clearUser: () => {
+        window.localStorage.clear()
+        set({ user: null })
+      }
     }),
     {
       name: "user",
