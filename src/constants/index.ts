@@ -5,4 +5,5 @@ export * from "./currencyList"
 export * from "./jobSearchStatus"
 export * from "./professionList"
 export * from "./skillList"
+export * from "./socialMediasList"
 

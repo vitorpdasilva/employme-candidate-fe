@@ -48,10 +48,10 @@ export const ProfileOverview: FC = () => {
         <Typography variant="h5">{userData?.name}</Typography>
         <Typography variant="subtitle1" fontWeight="bold">
           {!!userData?.professionalOverview?.workExperience && (
-            <>{userData.professionalOverview.workExperience[0].title}</>
+            <>{userData.professionalOverview?.workExperience?.[0]?.title}</>
           )}
-          {!userData?.professionalOverview?.workExperience[0].endDate && (
-            <> @ {userData.professionalOverview.workExperience[0].company}</>
+          {!userData?.professionalOverview?.workExperience?.[0]?.endDate && (
+            <> @ {userData.professionalOverview?.workExperience?.[0]?.company}</>
           )}
         </Typography>
         <Typography variant="subtitle1">

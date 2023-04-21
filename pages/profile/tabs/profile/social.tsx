@@ -1,21 +1,16 @@
 import { Box, Button, Grid, InputAdornment, TextField } from "@mui/material"
 import { fetchApi } from "client"
 import { useForm } from "react-hook-form"
-import { Icon, SemanticICONS } from "semantic-ui-react"
+import { SocialMediasListType, socialMediasList } from "src/constants"
 import { useAuthStore } from "src/stores"
 
-type SocialProps = {
-  name: SemanticICONS;
-  url: string;
-};
-
-type SocialMedias = "linkedin" | "github" | "facebook" | "twitter";
+type SocialMedias = "linkedin" | "github" | "facebook" | "twitter"
 
 type FormFields = {
-  social: Partial<Record<SocialMedias, string>>;
-};
+  social: Partial<Record<SocialMedias, string>>
+}
 
-type GenericObj = Record<string, string>;
+type GenericObj = Record<string, string>
 
 export const Social = () => {
   const userData = useAuthStore((state: any) => state.user)
@@ -60,7 +55,7 @@ export const Social = () => {
           Social
         </Grid>
         <Grid item xs={12} md={9}>
-          {social.map(({ name }: SocialProps) => (
+          {socialMediasList.map(({ name, Icon }: SocialMediasListType) => (
             <TextField
               margin="normal"
               key={name}
@@ -70,7 +65,7 @@ export const Social = () => {
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <Icon name={name} />
+                    <Icon />
                   </InputAdornment>
                 ),
               }}
