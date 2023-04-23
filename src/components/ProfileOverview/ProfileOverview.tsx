@@ -17,13 +17,15 @@ export const ProfileOverview: FC = () => {
   // todo add loading state with skeleton component
   if (!userData) return <>Loading...</>
 
+  const { professionalOverview, preferences, id, username, name, general, picture } = userData
+
   const onSubmit = async (data: FormFieldsValues) => {
     const requestData = {
-      id: userData.id,
-      username: userData.username,
+      id,
+      username,
       ...userData,
       preferences: {
-        ...userData.preferences,
+        ...preferences,
         [data.name]: {
           id: data.value,
           label: jobSearchStatus.filter((item) => item.value === data.value)[0].label,
@@ -43,19 +45,19 @@ export const ProfileOverview: FC = () => {
 
   return (
     <Paper elevation={2} sx={{ display: "flex", py: 5, px: 3 }}>
-      <Avatar alt={userData?.name} src={userData?.picture?.data} sx={{ width: 56, height: 56 }} />
+      <Avatar alt={name} src={picture?.data} sx={{ width: 56, height: 56 }} />
       <Box sx={{ mx: 3, flexGrow: 1 }}>
-        <Typography variant="h5">{userData?.name}</Typography>
+        <Typography variant="h5">{name}</Typography>
         <Typography variant="subtitle1" fontWeight="bold">
-          {!!userData?.professionalOverview?.workExperience && (
+          {!!professionalOverview?.workExperience && (
             <>{userData.professionalOverview?.workExperience?.[0]?.title}</>
           )}
-          {!userData?.professionalOverview?.workExperience?.[0]?.endDate && (
-            <> @ {userData.professionalOverview?.workExperience?.[0]?.company}</>
+          {!professionalOverview?.workExperience?.[0]?.endDate && (
+            <> @ {professionalOverview?.workExperience?.[0]?.company}</>
           )}
         </Typography>
         <Typography variant="subtitle1">
-          {countriesList.find(({ code }) => code === userData?.general?.currentLocation)?.name}
+          {countriesList.find(({ code }) => code === general?.currentLocation)?.name}
         </Typography>
         <Divider sx={{ my: 2, visibility: "hidden" }} />
         <Typography variant="subtitle1" fontWeight="bold">

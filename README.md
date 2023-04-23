@@ -1,10 +1,10 @@
 
 ## Getting Started
 
-There's a mismatch between one of our dependencies, that requires React 17~. We currently are working with React 18~.
+We currently are working with React 18~.
 To install the dependencies you should run
-```
-npm i --legacy-peer-deps
+```bash
+npm i
 ```
 
 To run the development server:

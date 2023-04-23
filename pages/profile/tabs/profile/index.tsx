@@ -43,7 +43,7 @@ export const Profile = () => {
 
   const fieldWatch = watch()
 
-  if (!userData) return <>Loading.y..</>
+  if (!userData) return <>Loading...</>
 
   const { professionalOverview } = userData
   const selectedRoles = professionList

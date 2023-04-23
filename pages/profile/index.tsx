@@ -38,7 +38,7 @@ const Profile: FC = () => {
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => setTabValue(newValue)
 
   if (!userData) {
-    return <>loading.x..</>
+    return <>loading...</>
   }
 
   return (
@@ -47,7 +47,7 @@ const Profile: FC = () => {
         <Typography variant="h3">Edit your profile</Typography>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs value={tabValue} onChange={handleTabChange}>
-            {tabItems.map(({ label }, index) => (
+            {tabItems.map(({ label }: TabItemsProps, index) => (
               <Tab key={index} label={label} />
             ))}
           </Tabs>
