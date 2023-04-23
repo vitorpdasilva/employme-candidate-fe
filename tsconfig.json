@@ -24,31 +24,31 @@
     "baseUrl": "./", /* Specify the base directory to resolve non-relative module names. */ // "paths": {},                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
     "paths": {
       "components/*": [
-        "src/components/*"
+        "./src/components/*"
       ],
       "pages/*": [
-        "src/pages/*"
+        "./src/pages/*"
       ],
       "utils/*": [
-        "src/utils/*"
+        "./src/utils/*"
       ],
       "hooks/*": [
-        "src/hooks/*"
+        "./src/hooks/*"
       ],
       "context/*": [
-        "src/context/*"
+        "./src/context/*"
       ],
       "types/*": [
-        "src/types/*"
+        "./src/types/*"
       ],
       "constants/*": [
-        "src/constants/*"
+        "./src/constants/*"
       ],
       "stores/*": [
-        "src/stores/*"
+        "./src/stores/*"
       ],
       "helpers/*": [
-        "src/helpers/*"
+        "./src/helpers/*"
       ]
     },
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */

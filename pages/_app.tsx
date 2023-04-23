@@ -3,6 +3,7 @@ import ScopedCssBaseline from "@mui/material/ScopedCssBaseline"
 import Grid from "@mui/material/Unstable_Grid2"
 import { LocalizationProvider } from "@mui/x-date-pickers"
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns"
+import dynamic from "next/dynamic"
 import { useRouter } from "next/router"
 import { SnackbarProvider } from "notistack"
 import { ElementType, useEffect } from "react"
@@ -31,10 +32,13 @@ const MainContentWrapper = styled(Box)({
   padding: "0 20px",
 })
 
+const SharedButton = dynamic(async () => await import("main/button")) //eslint-disable-line
+const sharedData = dynamic(async () => await import("main/data")) //eslint-disable-line
+
 function MyApp({ Component, pageProps }: MyAppProps) {
   const router = useRouter()
   const isAuth = useAuthStore((state: any) => !!state.user)
-
+  console.log({ app: "_app", sharedData })
   useEffect(() => {
     const token = localStorage.getItem("token")
     if (token) {
@@ -56,6 +60,7 @@ function MyApp({ Component, pageProps }: MyAppProps) {
               {isAuth && <Header />}
               <SnackbarProvider maxSnack={3} autoHideDuration={2000} preventDuplicate>
                 <MainContentWrapper>
+                  <SharedButton />
                   <Box sx={{ flexGrow: 1, width: "100%" }}>
                     <Grid container spacing={6} sx={{ pt: 6 }}>
                       <Grid md={2} xs={12}>

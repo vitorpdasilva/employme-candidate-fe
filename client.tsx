@@ -1,5 +1,5 @@
 const BASE_URL =
-  process.env.NODE_ENV === "production" ? "prod-url/graphql" : "http://localhost:3001/api"
+  process.env.NODE_ENV === "production" ? "prod-url/graphql" : "http://localhost:3050/api"
 
 type RequestMode = "navigate" | "same-origin" | "no-cors" | "cors"
 type RequestCache =

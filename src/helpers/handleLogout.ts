@@ -8,7 +8,7 @@ export function useLogout() {
   const handleLogout = () => {
     clearUser()
     window.localStorage.clear()
-    push("/")
+    push("/login")
   }
   
   return handleLogout
