@@ -32,8 +32,8 @@ const MainContentWrapper = styled(Box)({
   padding: "0 20px",
 })
 
-const SharedButton = dynamic(async () => await import("main/button")) //eslint-disable-line
-const sharedData = dynamic(async () => await import("main/data")) //eslint-disable-line
+const SharedButton = dynamic(async () => await import("shell/button")) //eslint-disable-line
+const sharedData = dynamic(async () => await import("shell/data")) //eslint-disable-line
 
 function MyApp({ Component, pageProps }: MyAppProps) {
   const router = useRouter()

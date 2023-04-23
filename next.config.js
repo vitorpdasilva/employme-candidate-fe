@@ -10,9 +10,9 @@ const nextConfig = {
     //config.experiments = { topLevelAwait: true, layers: false };
     config.plugins.push(
       new NextFederationPlugin({
-        name: "shop",
+        name: "candidate",
         remotes: {
-          main: `main@http://localhost:3000/_next/static/${isServer ? "ssr" : "chunks"}/remoteEntry.js`,
+          shell: `shell@http://localhost:3000/_next/static/${isServer ? "ssr" : "chunks"}/remoteEntry.js`,
         },
         filename: "static/chunks/remoteEntry.js",
         exposes:{
