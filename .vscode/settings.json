@@ -8,6 +8,9 @@
     "source.fixAll": true,
     "source.fixAll.tslint": true,
   },
+  "eslint.options": {
+    "ignorePatterns": ["shell/*"]
+  },
   "eslint.validate": [
     "javascript",
     "javascriptreact",

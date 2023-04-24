@@ -133,5 +133,8 @@
     "pages/**/*",
     ".eslintrc.js",
     "next-env.d.ts"
-  ]
+  ],
+  "ignorePatterns": [
+    "shell/*",
+  ],
 }

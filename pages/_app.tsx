@@ -32,13 +32,18 @@ const MainContentWrapper = styled(Box)({
   padding: "0 20px",
 })
 
-const SharedButton = dynamic(async () => await import("shell/button")) //eslint-disable-line
-const sharedData = dynamic(async () => await import("shell/data")) //eslint-disable-line
+// module federation example
+const SharedButton = dynamic(async () => await import("shell/button"), {
+  ssr: false,
+}) //eslint-disable-line
+// const sharedData = dynamic(async () => await import("shell/data"), {
+//   ssr: false,
+// }) //eslint-disable-line
 
 function MyApp({ Component, pageProps }: MyAppProps) {
   const router = useRouter()
   const isAuth = useAuthStore((state: any) => !!state.user)
-  console.log({ app: "_app", sharedData })
+  
   useEffect(() => {
     const token = localStorage.getItem("token")
     if (token) {
