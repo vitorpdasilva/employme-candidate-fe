@@ -1,9 +1,8 @@
-import { Box, styled } from "@mui/material"
+import { Box, Container } from "@mui/material"
 import ScopedCssBaseline from "@mui/material/ScopedCssBaseline"
 import Grid from "@mui/material/Unstable_Grid2"
 import { LocalizationProvider } from "@mui/x-date-pickers"
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns"
-import dynamic from "next/dynamic"
 import { useRouter } from "next/router"
 import { SnackbarProvider } from "notistack"
 import { ElementType, useEffect } from "react"
@@ -20,29 +19,10 @@ type MyAppProps = {
   pageProps: any
 }
 
-const MainContentWrapper = styled(Box)({
-  flexGrow: 1,
-  display: "flex",
-  justifyContent: "center",
-  width: "100%",
-  maxWidth: 1280,
-  flexDirection: "column",
-  alignItems: "center",
-  margin: "0 auto",
-  padding: "0 20px",
-})
-
-// module federation example
-const SharedButton = dynamic(async () => await import("shell/button"), {
-  ssr: false,
-}) //eslint-disable-line
-// const sharedData = dynamic(async () => await import("shell/data"), {
-//   ssr: false,
-// }) //eslint-disable-line
-
 function MyApp({ Component, pageProps }: MyAppProps) {
   const router = useRouter()
   const isAuth = useAuthStore((state: any) => !!state.user)
+  
   
   useEffect(() => {
     const token = localStorage.getItem("token")
@@ -64,8 +44,7 @@ function MyApp({ Component, pageProps }: MyAppProps) {
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               {isAuth && <Header />}
               <SnackbarProvider maxSnack={3} autoHideDuration={2000} preventDuplicate>
-                <MainContentWrapper>
-                  <SharedButton />
+                <Container>
                   <Box sx={{ flexGrow: 1, width: "100%" }}>
                     <Grid container spacing={6} sx={{ pt: 6 }}>
                       <Grid md={2} xs={12}>
@@ -76,7 +55,7 @@ function MyApp({ Component, pageProps }: MyAppProps) {
                       </Grid>
                     </Grid>
                   </Box>
-                </MainContentWrapper>
+                </Container>
               </SnackbarProvider>
             </LocalizationProvider>
           </AppContextProvider>

@@ -16,12 +16,12 @@ export type UserType = {
     currentLocation: string,
     phone: string,
   },
-  professionalOverview: UserProfessionalOverview,
+  professional: Userprofessional,
   relocation: UserRelocation,
   social: UserSocial,
 }
 
-export type UserProfessionalOverview = {
+export type Userprofessional = {
   profession: number,
   yearsOfExp: number,
   openToDiffRole: Boolean,

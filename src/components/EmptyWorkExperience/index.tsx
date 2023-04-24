@@ -41,10 +41,10 @@ export const EmptyWorkExperience = ({ onFinish }: EmptyWorkExperienceProps) => {
       id: userData.id,
       username: userData.username,
       ...userData,
-      professionalOverview: {
+      professional: {
         id: uuidv4(),
-        ...userData.professionalOverview,
-        workExperience: [...userData.professionalOverview.workExperience, formFields],
+        ...userData.professional,
+        workExperience: [...userData.professional.workExperience, formFields],
       },
     }
     console.log({ formFields, requestData })

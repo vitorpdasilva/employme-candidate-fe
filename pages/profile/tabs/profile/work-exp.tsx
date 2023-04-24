@@ -15,7 +15,7 @@ export const WorkExperience = () => {
       <Grid item xs={12} md={9}>
         <Box sx={{ width: "100%" }}>
           <Stack spacing={2}>
-            {userData?.professionalOverview?.workExperience?.map((experience: any) => (
+            {userData?.professional?.workExperience?.map((experience: any) => (
               <Paper key={experience.company} sx={{ p: 2 }}>
                 <Box sx={{ display: "flex" }}>
                   <Avatar

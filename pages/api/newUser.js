@@ -16,7 +16,7 @@ export const user = {
     gender: "male",
     phone: "1234567890"
   },
-  professionalOverview: {
+  professional: {
     preferenceToWork: [
       2,
       5,

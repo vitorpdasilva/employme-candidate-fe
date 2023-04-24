@@ -17,7 +17,7 @@ export const ProfileOverview: FC = () => {
   // todo add loading state with skeleton component
   if (!userData) return <>Loading...</>
 
-  const { professionalOverview, preferences, id, username, name, general, picture } = userData
+  const { professional, preferences, id, username, name, general, picture } = userData
 
   const onSubmit = async (data: FormFieldsValues) => {
     const requestData = {
@@ -49,11 +49,11 @@ export const ProfileOverview: FC = () => {
       <Box sx={{ mx: 3, flexGrow: 1 }}>
         <Typography variant="h5">{name}</Typography>
         <Typography variant="subtitle1" fontWeight="bold">
-          {!!professionalOverview?.workExperience && (
-            <>{userData.professionalOverview?.workExperience?.[0]?.title}</>
+          {!!professional?.workExperience && (
+            <>{userData.professional?.workExperience?.[0]?.title}</>
           )}
-          {!professionalOverview?.workExperience?.[0]?.endDate && (
-            <> @ {professionalOverview?.workExperience?.[0]?.company}</>
+          {!professional?.workExperience?.[0]?.endDate && (
+            <> @ {professional?.workExperience?.[0]?.company}</>
           )}
         </Typography>
         <Typography variant="subtitle1">

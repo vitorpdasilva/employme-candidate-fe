@@ -5,7 +5,7 @@ const userData = {
     currentLocation: "BR",
     phone: "1234567890",
   },
-  professionalOverview: {
+  professional: {
     profession: 3,
     yearsOfExp: 5,
     openToDiffRole: true,

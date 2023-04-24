@@ -1,16 +1,16 @@
 import {
-  Avatar,
-  Box,
-  Button,
-  Chip,
-  Divider,
-  FormControl,
-  Grid,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-  Typography,
+    Avatar,
+    Box,
+    Button,
+    Chip,
+    Divider,
+    FormControl,
+    Grid,
+    InputLabel,
+    MenuItem,
+    Select,
+    TextField,
+    Typography,
 } from "@mui/material"
 import { fetchApi } from "client"
 import { CompressedImage, compressImage } from "helpers/compressImage"
@@ -45,10 +45,10 @@ export const Profile = () => {
 
   if (!userData) return <>Loading...</>
 
-  const { professionalOverview } = userData
+  const { professional } = userData
   const selectedRoles = professionList
     .filter((profession) => {
-      return professionalOverview?.preferenceToWork?.includes(profession.value)
+      return professional?.preferenceToWork?.includes(profession.value)
     })
     .map((role) => role.text)
 
@@ -157,7 +157,7 @@ export const Profile = () => {
             <Box sx={{ my: 3, display: "flex" }}>
               <TextField
                 sx={{ flexGrow: 1 }}
-                defaultValue={professionalOverview.profession}
+                defaultValue={professional.profession}
                 select
                 label="Select your primary role"
               >
@@ -168,7 +168,7 @@ export const Profile = () => {
                 ))}
               </TextField>
               <TextField
-                defaultValue={professionalOverview.yearsOfExp}
+                defaultValue={professional.yearsOfExp}
                 select
                 sx={{ width: "35%", ml: 3 }}
                 label="Years of Experience"
