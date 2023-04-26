@@ -1,4 +1,4 @@
-import { Alert, Box, Button, Link, styled, TextField, Typography } from "@mui/material"
+import { Alert, Avatar, Box, Button, Checkbox, FormControlLabel, Grid, Link, Paper, TextField, Typography } from "@mui/material"
 import { ErrorResponse, fetchApi } from "client"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
@@ -6,26 +6,10 @@ import { Resolver, useForm } from "react-hook-form"
 import { useUserAuth } from "src/hooks"
 import { useAuthStore } from "src/stores"
 
-// email: 'vitorboccio@gmail.com',
-// password: 'vitor123',
-
 type Credentials = {
   username: string;
   password: string;
 };
-
-const FormWrapper = styled(Box)({
-  border: "1px solid #c5c5c5",
-  display: "flex",
-  flexDirection: "column",
-  padding: "3em",
-  borderRadius: "10px",
-  justifyContent: "space-around",
-  background: "#f3f3f3",
-  "& input": {
-    background: "#fff",
-  },
-})
 
 const resolver: Resolver<Credentials> = async (values) => {
   return {
@@ -69,27 +53,91 @@ const Login = () => {
   })
 
   return (
-    <FormWrapper component="form" onSubmit={onSubmit} onChange={() => setErrorMessage(null)}>
-      {errorMessage && (
-        <Alert sx={{ my: 2 }} severity="error">
-          {errorMessage}
-        </Alert>
-      )}
-      <TextField {...register("username")} label="username" variant="outlined" />
-      <TextField
-        {...register("password")}
-        type="password"
-        sx={{ my: 2 }}
-        label="password"
-        variant="outlined"
-      />
-      <Button type="submit" variant="contained">
-        Login
-      </Button>
-      <Typography sx={{ mt: 2 }} variant="caption" color="text.secondary">
-        Don't have an account? <Link href="/auth/signup">Sign up</Link>
-      </Typography>
-    </FormWrapper>
+    <Grid container component="main" sx={{ height: '100vh', width: '100vw', position: 'absolute', left: 0, top: 0 }}>
+      <Grid
+          item
+          xs={false}
+          sm={4}
+          md={7}
+          sx={{
+            backgroundImage: 'url(https://source.unsplash.com/random)',
+            backgroundRepeat: 'no-repeat',
+            backgroundColor: (t) =>
+              t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          <Box
+            sx={{
+              my: 8,
+              mx: 4,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+              {/* <LockOutlinedIcon /> */}
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign in
+            </Typography>
+            <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 1 }}>
+              {errorMessage && (
+                <Alert sx={{ my: 2 }} severity="error">
+                  {errorMessage}
+                </Alert>
+              )}
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                {...register("username")}
+                autoComplete="email"
+                autoFocus
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                label="Password"
+                {...register("password")}
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Sign In
+              </Button>
+              <Grid container>
+                <Grid item xs>
+                  <Link href="#" variant="body2">
+                    Forgot password?
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Link href="/auth/signup" variant="body2">
+                    {"Don't have an account? Sign Up"}
+                  </Link>
+                </Grid>
+              </Grid>
+            </Box>
+          </Box>
+        </Grid>
+        </Grid>
   )
 }
 

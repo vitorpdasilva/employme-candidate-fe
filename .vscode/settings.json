@@ -1,16 +1,14 @@
 {
   "editor.formatOnSave": true,
-  "typescript.format.enable": false,
+  "typescript.format.enable": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true,
     "source.organizeImports": true,
     "source.fixAll.stylelint": true,
     "source.fixAll": true,
-    "source.fixAll.tslint": true,
+    "source.fixAll.tslint": true
   },
-  "eslint.options": {
-    "ignorePatterns": ["shell/*"]
-  },
+ 
   "eslint.validate": [
     "javascript",
     "javascriptreact",

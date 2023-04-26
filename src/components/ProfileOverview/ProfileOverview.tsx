@@ -53,7 +53,7 @@ export const ProfileOverview: FC = () => {
             <>{userData.professional?.workExperience?.[0]?.title}</>
           )}
           {!professional?.workExperience?.[0]?.endDate && (
-            <> @ {professional?.workExperience?.[0]?.company}</>
+            <> @ {professional?.workExperience.find((work: any) => !!work.current).company}</>
           )}
         </Typography>
         <Typography variant="subtitle1">
