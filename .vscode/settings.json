@@ -1,6 +1,6 @@
 {
   "editor.formatOnSave": true,
-  "typescript.format.enable": true,
+  "typescript.format.enable": false,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true,
     "source.organizeImports": true,
@@ -8,16 +8,14 @@
     "source.fixAll": true,
     "source.fixAll.tslint": true
   },
- 
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
-  ],
+
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
   "typescript.tsdk": "node_modules\\typescript\\lib",
   "editor.defaultFormatter": "dbaeumer.vscode-eslint",
   "[typescriptreact]": {
+    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+  },
+  "[jsonc]": {
     "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
   }
 }

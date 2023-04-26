@@ -1,6 +1,7 @@
 import { Box, Tab, Tabs, Typography } from "@mui/material"
 import React, { FC, ReactNode, useState } from "react"
-import { useAuthStore } from "src/stores"
+// import { useAuthStore } from "src/stores"
+import { useAuthStore } from '@/stores'
 import { Culture, Preferences, Resume, Profile as TabProfile } from "./tabs"
 
 type TabItemsProps = {
