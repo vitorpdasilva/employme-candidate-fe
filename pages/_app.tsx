@@ -1,3 +1,6 @@
+import { Header, NavSidebar } from "@/components"
+import { AppContextProvider } from "@/context"
+import { useAuthStore } from "@/stores"
 import { Box, Container } from "@mui/material"
 import ScopedCssBaseline from "@mui/material/ScopedCssBaseline"
 import Grid from "@mui/material/Unstable_Grid2"
@@ -6,9 +9,6 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns"
 import { useRouter } from "next/router"
 import { SnackbarProvider } from "notistack"
 import { ElementType, useEffect } from "react"
-import { Header, NavSidebar } from "src/components"
-import { AppContextProvider } from "src/context"
-import { useAuthStore } from "stores/auth"
 import { ThemeProvider } from "styled-components"
 import "../styles/globals.css"
 import { theme } from "../styles/theme"
@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps }: MyAppProps) {
   
   
   useEffect(() => {
-    const token = localStorage.getItem("token")
+    const token = localStorage.getItem("accessToken")
     if (token) {
       if (routesToBeRedirected.includes(router.pathname)) {
         router.push("/")

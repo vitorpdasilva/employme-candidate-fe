@@ -55,9 +55,10 @@ const Login = () => {
     }
 
     try {
-      const { user, token } = await fetchApi({ url: '/auth/login', body })
-      setUserToStore(user, token)
-      localStorage.setItem('isAuthenticated', `${!!token}`)
+      const { userData, tokens } = await fetchApi({ url: '/auth/login', body })
+      if (!userData || !tokens) throw new Error('Something went wrong')
+      setUserToStore(userData, tokens)
+      localStorage.setItem('isAuthenticated', `${!!tokens.accessToken}`)
       router.push('/')
     } catch (error: any) {
       setErrorMessage(error?.message as ErrorResponse['message'])

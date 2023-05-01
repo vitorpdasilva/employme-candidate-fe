@@ -1,8 +1,8 @@
+import { useAuthStore } from "@/stores"
 import { Box, Button, Paper, TextField } from "@mui/material"
 import { fetchApi } from "client"
 import { useSnackbar } from "notistack"
 import { useForm } from "react-hook-form"
-import { useAuthStore } from "stores/auth"
 type FormFields = {
   school: string
   degree: string

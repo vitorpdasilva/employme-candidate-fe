@@ -1,5 +1,6 @@
 export * from "./Card"
 export * from "./Divider"
+export * from './EmptyEducation'
 export * from "./EmptyWorkExperience"
 export * from "./Header"
 export * from "./JobList"

@@ -1,10 +1,10 @@
+import { useUserAuth } from "@/hooks"
+import { useAuthStore } from "@/stores"
 import { Alert, Box, Button, Link, styled, TextField, Typography } from "@mui/material"
 import { ErrorResponse, fetchApi } from "client"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { Resolver, useForm } from "react-hook-form"
-import { useUserAuth } from "src/hooks"
-import { useAuthStore } from "stores/auth"
 
 type Credentials = {
   email: string

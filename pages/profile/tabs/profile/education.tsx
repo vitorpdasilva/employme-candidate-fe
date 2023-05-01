@@ -1,8 +1,8 @@
+import { EmptyEducation } from "@/components"
+import { useAuthStore } from "@/stores"
 import { Avatar, Box, Button, Grid, Paper, Stack, Typography } from "@mui/material"
-import { EmptyEducation } from "components/EmptyEducation"
 import Link from "next/link"
 import { useState } from "react"
-import { useAuthStore } from "stores/auth"
 
 export const Education = () => {
   const userData = useAuthStore((state: any) => state.user)

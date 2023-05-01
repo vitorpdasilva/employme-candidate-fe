@@ -1,9 +1,9 @@
+import { useAuthStore } from "@/stores"
 import { Grid, MenuItem, TextField } from "@mui/material"
 import { fetchApi } from "client"
 import { useSnackbar } from "notistack"
 import { useForm } from "react-hook-form"
 import { countriesList } from "src/constants"
-import { useAuthStore } from "stores/auth"
 
 type FormFields = {
   currentLocation: string

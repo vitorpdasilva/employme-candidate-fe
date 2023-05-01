@@ -1,3 +1,5 @@
+import { useDebounce } from "@/hooks"
+import { useAuthStore } from "@/stores"
 import {
   Box,
   Divider,
@@ -10,10 +12,8 @@ import {
   Typography,
 } from "@mui/material"
 import { fetchApi } from "client"
-import { useDebounce } from "hooks/useDebounce"
 import { enqueueSnackbar } from "notistack"
 import { useState } from "react"
-import { useAuthStore } from "stores/auth"
 
 type LookingFor = {
   name: string

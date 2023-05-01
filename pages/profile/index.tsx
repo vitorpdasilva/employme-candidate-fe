@@ -32,7 +32,7 @@ const Profile: FC = () => {
   const [tabValue, setTabValue] = useState(0)
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => setTabValue(newValue)
-
+  console.log({ userData })
   if (!userData) {
     return <>loading...</>
   }
