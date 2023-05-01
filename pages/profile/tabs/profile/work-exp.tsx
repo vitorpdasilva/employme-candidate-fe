@@ -1,7 +1,7 @@
-import { Avatar, Box, Button, Grid, Link, Paper, Stack, Typography } from "@mui/material"
-import { EmptyWorkExperience } from "components/EmptyWorkExperience"
-import { useState } from "react"
-import { useAuthStore } from "stores/auth"
+import { EmptyWorkExperience } from '@/components'
+import { useAuthStore } from '@/stores'
+import { Avatar, Box, Button, Grid, Link, Paper, Stack, Typography } from '@mui/material'
+import { useState } from 'react'
 
 export const WorkExperience = () => {
   const userData = useAuthStore((state: any) => state.user)
@@ -13,11 +13,11 @@ export const WorkExperience = () => {
         Your work experience
       </Grid>
       <Grid item xs={12} md={9}>
-        <Box sx={{ width: "100%" }}>
+        <Box sx={{ width: '100%' }}>
           <Stack spacing={2}>
             {userData?.professional?.workExperience?.map((experience: any) => (
               <Paper key={experience.company} sx={{ p: 2 }}>
-                <Box sx={{ display: "flex" }}>
+                <Box sx={{ display: 'flex' }}>
                   <Avatar
                     variant="square"
                     src="https://photos.angel.co/startups/i/4634051-16164880183cfb651e472aafce896328-medium_jpg.jpg?buster=1589648733"
@@ -30,7 +30,7 @@ export const WorkExperience = () => {
                     <Link target="_blank" href="#">
                       {experience.company}
                     </Link>
-                    <Box sx={{ textAlign: "justify" }}>{experience.description}</Box>
+                    <Box sx={{ textAlign: 'justify' }}>{experience.description}</Box>
                   </Box>
                 </Box>
               </Paper>

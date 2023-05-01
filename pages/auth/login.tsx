@@ -55,7 +55,7 @@ const Login = () => {
     }
 
     try {
-      const { user, token } = await fetchApi({ url: '/login', body })
+      const { user, token } = await fetchApi({ url: '/auth/login', body })
       setUserToStore(user, token)
       localStorage.setItem('isAuthenticated', `${!!token}`)
       router.push('/')

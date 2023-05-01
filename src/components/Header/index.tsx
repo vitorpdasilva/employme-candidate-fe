@@ -14,9 +14,9 @@ import {
   Typography,
 } from "@mui/material"
 
-import { useLogout } from "helpers/handleLogout"
+import { useLogout } from "@/hooks"
+import { useAuthStore } from "@/stores"
 import * as React from "react"
-import { useAuthStore } from "stores/auth"
 
 type MenuItemType = {
   item: string

@@ -31,8 +31,6 @@ const Profile: FC = () => {
   const userData = useAuthStore((state: any) => state.user)
   const [tabValue, setTabValue] = useState(0)
 
-  console.log('something')
-
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => setTabValue(newValue)
 
   if (!userData) {

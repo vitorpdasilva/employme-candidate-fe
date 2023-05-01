@@ -1,28 +1,28 @@
+import { CompressedImage, compressImage } from '@/helpers'
 import {
-    Avatar,
-    Box,
-    Button,
-    Chip,
-    Divider,
-    FormControl,
-    Grid,
-    InputLabel,
-    MenuItem,
-    Select,
-    TextField,
-    Typography,
-} from "@mui/material"
-import { fetchApi } from "client"
-import { CompressedImage, compressImage } from "helpers/compressImage"
-import { useSnackbar } from "notistack"
-import { ChangeEvent } from "react"
-import { useForm } from "react-hook-form"
-import { professionList } from "src/constants"
-import { useAuthStore } from "src/stores"
-import { Education } from "./education"
-import { Location } from "./location"
-import { Social } from "./social"
-import { WorkExperience } from "./work-exp"
+  Avatar,
+  Box,
+  Button,
+  Chip,
+  Divider,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+} from '@mui/material'
+import { fetchApi } from 'client'
+import { useSnackbar } from 'notistack'
+import { ChangeEvent } from 'react'
+import { useForm } from 'react-hook-form'
+import { professionList } from 'src/constants'
+import { useAuthStore } from 'src/stores'
+import { Education } from './education'
+import { Location } from './location'
+import { Social } from './social'
+import { WorkExperience } from './work-exp'
 
 type FormFields = {
   name: string
@@ -64,15 +64,15 @@ export const Profile = () => {
     }
     try {
       const { user: updatedUser, token } = await fetchApi({
-        url: "/user",
-        method: "PATCH",
+        url: '/user',
+        method: 'PATCH',
         body: requestData,
       })
       setUserStore(updatedUser, token)
-      enqueueSnackbar("Profile updated successfully", { variant: "success" })
+      enqueueSnackbar('Profile updated successfully', { variant: 'success' })
     } catch (error) {
       console.log({ error })
-      enqueueSnackbar("Something went wrong", { variant: "error" })
+      enqueueSnackbar('Something went wrong', { variant: 'error' })
     }
   }
 
@@ -94,31 +94,29 @@ export const Profile = () => {
       }
       try {
         const { user: updatedUser, token } = await fetchApi({
-          url: "/user",
-          method: "PATCH",
+          url: '/user',
+          method: 'PATCH',
           body: requestData,
         })
         setUserStore(updatedUser, token)
-        enqueueSnackbar("Profile updated successfully", { variant: "success" })
+        enqueueSnackbar('Profile updated successfully', { variant: 'success' })
       } catch (error) {
         console.log({ error })
-        enqueueSnackbar("Something went wrong", { variant: "error" })
+        enqueueSnackbar('Something went wrong', { variant: 'error' })
       }
     }
     reader.onerror = (error) => {
-      console.log("error", error)
+      console.log('error', error)
     }
   }
 
   return (
-    <Box sx={{ flexGrow: 1, width: "100%" }}>
+    <Box sx={{ flexGrow: 1, width: '100%' }}>
       <form onSubmit={handleSubmit(handleChange)}>
         <Grid container spacing={2}>
           <Grid item xs={12} md={3}>
             <Typography variant="subtitle1">About</Typography>
-            <Typography variant="subtitle2">
-              Tell us about yourself so startups know who you are.
-            </Typography>
+            <Typography variant="subtitle2">Tell us about yourself so startups know who you are.</Typography>
           </Grid>
           <Grid item xs={12} md={9}>
             <TextField
@@ -126,12 +124,12 @@ export const Profile = () => {
               margin="normal"
               variant="outlined"
               label="Your Name"
-              {...register("name")}
-              onChange={(e) => setValue("name", e.target.value)}
+              {...register('name')}
+              onChange={(e) => setValue('name', e.target.value)}
             />
             {fieldWatch.name !== userData?.name && (
-              <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-                <Button variant="text" onClick={() => setValue("name", userData?.name)}>
+              <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <Button variant="text" onClick={() => setValue('name', userData?.name)}>
                   Cancel
                 </Button>
                 <Button variant="contained" type="submit">
@@ -140,7 +138,7 @@ export const Profile = () => {
               </Box>
             )}
 
-            <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Avatar
                 alt={`${userData?.name}'s picture`}
                 src={userData?.picture?.data}
@@ -154,7 +152,7 @@ export const Profile = () => {
                 // variant="outlined"
               />
             </Box>
-            <Box sx={{ my: 3, display: "flex" }}>
+            <Box sx={{ my: 3, display: 'flex' }}>
               <TextField
                 sx={{ flexGrow: 1 }}
                 defaultValue={professional.profession}
@@ -170,20 +168,18 @@ export const Profile = () => {
               <TextField
                 defaultValue={professional.yearsOfExp}
                 select
-                sx={{ width: "35%", ml: 3 }}
+                sx={{ width: '35%', ml: 3 }}
                 label="Years of Experience"
               >
                 {[...Array(10).keys()].map((year) => (
                   <MenuItem key={year} value={year}>
-                    {year} {year !== 1 ? "years" : "year"}
+                    {year} {year !== 1 ? 'years' : 'year'}
                   </MenuItem>
                 ))}
               </TextField>
             </Box>
-            <FormControl sx={{ width: "100%" }}>
-              <InputLabel id="demo-multiple-checkbox-label">
-                Open for the following roles
-              </InputLabel>
+            <FormControl sx={{ width: '100%' }}>
+              <InputLabel id="demo-multiple-checkbox-label">Open for the following roles</InputLabel>
               <Select
                 label="Open for the following roles"
                 labelId="demo-multiple-checkbox-label"
@@ -192,7 +188,7 @@ export const Profile = () => {
                 multiple
                 value={selectedRoles}
                 renderValue={(selected) => (
-                  <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5, mt: 1 }}>
+                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mt: 1 }}>
                     {(selected as string[]).map((value) => (
                       <Chip key={value} label={value} />
                     ))}
@@ -215,10 +211,10 @@ export const Profile = () => {
               </Select>
             </FormControl>
             <Box sx={{ my: 3 }}>
-              <TextField fullWidth multiline rows={4} label="Your Bio" {...register("bio")} />
+              <TextField fullWidth multiline rows={4} label="Your Bio" {...register('bio')} />
               {fieldWatch.bio !== userData?.general?.bio && (
-                <Box sx={{ display: "flex", justifyContent: "flex-end", my: 1 }}>
-                  <Button variant="text" onClick={() => setValue("bio", userData?.general?.bio)}>
+                <Box sx={{ display: 'flex', justifyContent: 'flex-end', my: 1 }}>
+                  <Button variant="text" onClick={() => setValue('bio', userData?.general?.bio)}>
                     Cancel
                   </Button>
                   <Button variant="contained" type="submit">

@@ -1,3 +1,3 @@
-export * from "./compressImage"
-export * from "./distanceFromNow"
+export * from './compressImage'
+export * from './distanceFromNow'
 

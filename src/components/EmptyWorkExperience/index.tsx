@@ -1,10 +1,10 @@
-import { Box, Button, Paper, TextField } from "@mui/material"
-import { DatePicker } from "@mui/x-date-pickers/DatePicker"
-import { fetchApi } from "client"
-import { useSnackbar } from "notistack"
-import { Controller, useForm } from "react-hook-form"
-import { useAuthStore } from "src/stores"
-import { v4 as uuidv4 } from "uuid"
+import { Box, Button, Paper, TextField } from '@mui/material'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import { fetchApi } from 'client'
+import { useSnackbar } from 'notistack'
+import { Controller, useForm } from 'react-hook-form'
+import { useAuthStore } from 'src/stores'
+import { v4 as uuidv4 } from 'uuid'
 type EmptyWorkExperienceProps = {
   onFinish: () => void
 }
@@ -25,12 +25,12 @@ export const EmptyWorkExperience = ({ onFinish }: EmptyWorkExperienceProps) => {
 
   const { register, handleSubmit, control, formState, setValue } = useForm<FormFields>({
     defaultValues: {
-      company: "",
-      title: "",
-      location: "",
+      company: '',
+      title: '',
+      location: '',
       startDate: null,
       endDate: null,
-      description: "",
+      description: '',
     },
   })
 
@@ -50,15 +50,15 @@ export const EmptyWorkExperience = ({ onFinish }: EmptyWorkExperienceProps) => {
     console.log({ formFields, requestData })
     try {
       const { user: updatedUser, token } = await fetchApi({
-        url: "/user",
-        method: "PATCH",
+        url: '/user',
+        method: 'PATCH',
         body: requestData,
       })
       setUserStore(updatedUser, token)
       onFinish()
-      enqueueSnackbar("Work Experience added", { variant: "success" })
+      enqueueSnackbar('Work Experience added', { variant: 'success' })
     } catch (err) {
-      enqueueSnackbar("Something went wrong", { variant: "error" })
+      enqueueSnackbar('Something went wrong', { variant: 'error' })
       console.error({ err })
     }
   }
@@ -71,30 +71,24 @@ export const EmptyWorkExperience = ({ onFinish }: EmptyWorkExperienceProps) => {
           margin="dense"
           label="Company Name *"
           fullWidth
-          {...register("company", { required: true })}
+          {...register('company', { required: true })}
         />
-        <TextField
-          size="small"
-          margin="dense"
-          label="Title"
-          fullWidth
-          {...register("title", { required: true })}
-        />
+        <TextField size="small" margin="dense" label="Title" fullWidth {...register('title', { required: true })} />
 
         <TextField
           size="small"
           margin="dense"
           label="Location"
           fullWidth
-          {...register("location", { required: true })}
+          {...register('location', { required: true })}
         />
         <Box
           sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            gap: "20px",
-            mt: "10px",
-            mb: "5px",
+            display: 'flex',
+            justifyContent: 'space-between',
+            gap: '20px',
+            mt: '10px',
+            mb: '5px',
           }}
         >
           <Controller
@@ -109,7 +103,7 @@ export const EmptyWorkExperience = ({ onFinish }: EmptyWorkExperienceProps) => {
                 label="Start Date"
                 onChange={(date) => {
                   console.log({ date })
-                  setValue("startDate", date as Date)
+                  setValue('startDate', date as Date)
                 }}
               />
             )}
@@ -127,7 +121,7 @@ export const EmptyWorkExperience = ({ onFinish }: EmptyWorkExperienceProps) => {
                 label="End Date"
                 onChange={(date) => {
                   console.log({ date })
-                  setValue("endDate", date as Date)
+                  setValue('endDate', date as Date)
                 }}
               />
             )}
@@ -141,9 +135,9 @@ export const EmptyWorkExperience = ({ onFinish }: EmptyWorkExperienceProps) => {
           fullWidth
           multiline
           rows={4}
-          {...register("description", { required: true })}
+          {...register('description', { required: true })}
         />
-        <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Button variant="text" onClick={onFinish}>
             Cancel
           </Button>
