@@ -1,6 +1,7 @@
 import { Header, NavSidebar } from "@/components"
 import { AppContextProvider } from "@/context"
 import { useAuthStore } from "@/stores"
+import { NoSsr } from '@mui/base'
 import { Box, Container } from "@mui/material"
 import ScopedCssBaseline from "@mui/material/ScopedCssBaseline"
 import Grid from "@mui/material/Unstable_Grid2"
@@ -39,27 +40,29 @@ function MyApp({ Component, pageProps }: MyAppProps) {
   return (
     <>
       <ScopedCssBaseline sx={{ height: "inherit", display: "flex", flexDirection: "column" }}>
-        <ThemeProvider theme={theme}>
-          <AppContextProvider>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              {isAuth && <Header />}
-              <SnackbarProvider maxSnack={3} autoHideDuration={2000} preventDuplicate>
-                <Container>
-                  <Box sx={{ flexGrow: 1, width: "100%" }}>
-                    <Grid container spacing={6} sx={{ pt: 6 }}>
-                      <Grid md={2} xs={12}>
-                        {isAuth && <NavSidebar />}
+        <NoSsr>
+          <ThemeProvider theme={theme}>
+            <AppContextProvider>
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                {isAuth && <Header />}
+                <SnackbarProvider maxSnack={3} autoHideDuration={2000} preventDuplicate>
+                  <Container>
+                    <Box sx={{ flexGrow: 1, width: "100%" }}>
+                      <Grid container spacing={6} sx={{ pt: 6 }}>
+                        <Grid md={2} xs={12}>
+                          {isAuth && <NavSidebar />}
+                        </Grid>
+                        <Grid md={10} xs={12}>
+                          <Component {...pageProps} />
+                        </Grid>
                       </Grid>
-                      <Grid md={10} xs={12}>
-                        <Component {...pageProps} />
-                      </Grid>
-                    </Grid>
-                  </Box>
-                </Container>
-              </SnackbarProvider>
-            </LocalizationProvider>
-          </AppContextProvider>
-        </ThemeProvider>
+                    </Box>
+                  </Container>
+                </SnackbarProvider>
+              </LocalizationProvider>
+            </AppContextProvider>
+          </ThemeProvider>
+        </NoSsr>
       </ScopedCssBaseline>
     </>
   )
