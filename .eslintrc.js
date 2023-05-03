@@ -1,31 +1,28 @@
 module.exports = {
+  env: {
+    browser: true,
+    es2021: true,
+    node: true,
+  },
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: 'tsconfig.json',
-    tsconfigRootDir: __dirname,
+    ecmaFeatures: {
+      jsx: true,
+    },
+    ecmaVersion: 13,
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint/eslint-plugin'],
-  extends: [
-    'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/prettier',
-  ],
-  root: true,
-  env: {
-    node: true,
-    jest: true,
-  },
-  ignorePatterns: ['.eslintrc.js'],
   rules: {
-    '@typescript-eslint/interface-name-prefix': 'off',
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/no-explicit-any': 'off',
-    'prettier/prettier': [
-      'error',
-      {
-        'endOfLine': 'auto',
-      }
-    ]
+    semi: ['error', 'never'],
+    quotes: ['error', 'single'],
+    'react/jsx-uses-react': 'off',
+    'react/react-in-jsx-scope': 'off',
+    indent: ['error', 2],
+    'max-len': ['error', { code: 120, ignoreUrls: true, ignoreComments: true }],
+    'eol-last': ['error', 'always'],
+    'object-curly-spacing': ['error', 'always'],
+    'react/no-unescaped-entities': 0
   },
-};
+  extends: ['eslint:recommended', 'plugin:react/recommended', 'prettier'],
+  plugins: ['react', '@typescript-eslint', 'prettier'],
+}

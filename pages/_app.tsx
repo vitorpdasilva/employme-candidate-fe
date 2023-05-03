@@ -1,19 +1,19 @@
-import { Header, NavSidebar } from "@/components"
-import { AppContextProvider } from "@/context"
-import { useAuthStore } from "@/stores"
+import { Header, NavSidebar } from '@/components'
+import { AppContextProvider } from '@/context'
+import { useAuthStore } from '@/stores'
 import { NoSsr } from '@mui/base'
-import { Box, Container } from "@mui/material"
-import ScopedCssBaseline from "@mui/material/ScopedCssBaseline"
-import Grid from "@mui/material/Unstable_Grid2"
-import { LocalizationProvider } from "@mui/x-date-pickers"
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns"
-import { useRouter } from "next/router"
-import { SnackbarProvider } from "notistack"
-import { ElementType, useEffect } from "react"
-import { ThemeProvider } from "styled-components"
-import "../styles/globals.css"
-import { theme } from "../styles/theme"
-const routesToBeRedirected = ["/auth/login", "/auth/signup"]
+import { Box, Container } from '@mui/material'
+import ScopedCssBaseline from '@mui/material/ScopedCssBaseline'
+import Grid from '@mui/material/Unstable_Grid2'
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import { useRouter } from 'next/router'
+import { SnackbarProvider } from 'notistack'
+import { ElementType, useEffect } from 'react'
+import { ThemeProvider } from 'styled-components'
+import '../styles/globals.css'
+import { theme } from '../styles/theme'
+const routesToBeRedirected = ['/auth/login', '/auth/signup']
 
 type MyAppProps = {
   Component: ElementType
@@ -23,23 +23,22 @@ type MyAppProps = {
 function MyApp({ Component, pageProps }: MyAppProps) {
   const router = useRouter()
   const isAuth = useAuthStore((state: any) => !!state.user)
-  
-  
+
   useEffect(() => {
-    const token = localStorage.getItem("accessToken")
+    const token = localStorage.getItem('accessToken')
     if (token) {
       if (routesToBeRedirected.includes(router.pathname)) {
-        router.push("/")
+        router.push('/')
       }
     }
     if (!token && !routesToBeRedirected.includes(router.pathname)) {
-      router.push("/auth/login")
+      router.push('/auth/login')
     }
   }, [])
 
   return (
     <>
-      <ScopedCssBaseline sx={{ height: "inherit", display: "flex", flexDirection: "column" }}>
+      <ScopedCssBaseline sx={{ height: 'inherit', display: 'flex', flexDirection: 'column' }}>
         <NoSsr>
           <ThemeProvider theme={theme}>
             <AppContextProvider>
@@ -47,7 +46,7 @@ function MyApp({ Component, pageProps }: MyAppProps) {
                 {isAuth && <Header />}
                 <SnackbarProvider maxSnack={3} autoHideDuration={2000} preventDuplicate>
                   <Container>
-                    <Box sx={{ flexGrow: 1, width: "100%" }}>
+                    <Box sx={{ flexGrow: 1, width: '100%' }}>
                       <Grid container spacing={6} sx={{ pt: 6 }}>
                         <Grid md={2} xs={12}>
                           {isAuth && <NavSidebar />}
