@@ -1,6 +1,6 @@
-import { UserType } from "src/types"
-import { create } from "zustand"
-import { persist } from "zustand/middleware"
+import { UserType } from 'src/types'
+import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 type Tokens = {
   accessToken: string
   refreshToken: string
@@ -10,8 +10,8 @@ export const useAuthStore = create(
     (set) => ({
       user: null,
       setUser: (user: UserType, tokens: Tokens) => {
-        window.localStorage.setItem("accessToken", tokens.accessToken)
-        window.localStorage.setItem("refreshToken", tokens.refreshToken)
+        window.localStorage.setItem('accessToken', tokens.accessToken)
+        window.localStorage.setItem('refreshToken', tokens.refreshToken)
         set({ user })
       },
       clearUser: () => {
@@ -23,7 +23,7 @@ export const useAuthStore = create(
       },
     }),
     {
-      name: "user",
+      name: 'user',
     }
   )
 )

@@ -28,8 +28,8 @@ const resolver: Resolver<Credentials> = async (values) => {
     values: values.username ? values : {},
     errors: !values.username
       ? {
-          username: { type: 'required', message: 'Username is required' },
-        }
+        username: { type: 'required', message: 'Username is required' },
+      }
       : {},
   }
 }
@@ -132,7 +132,7 @@ const Login = () => {
               </Grid>
               <Grid item>
                 <Link href="/auth/signup" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                  {'Don\'t have an account? Sign Up'}
                 </Link>
               </Grid>
             </Grid>

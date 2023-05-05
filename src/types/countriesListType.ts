@@ -1,2 +1,2 @@
-type CountryKeys = "name" | "code"
+type CountryKeys = 'name' | 'code'
 export type CountriesList = Record<CountryKeys, string>
