@@ -1,9 +1,9 @@
-import { useAuthStore } from "@/stores"
-import { Grid, MenuItem, TextField } from "@mui/material"
-import { fetchApi } from "client"
-import { useSnackbar } from "notistack"
-import { useForm } from "react-hook-form"
-import { countriesList } from "src/constants"
+import { useAuthStore } from '@/stores'
+import { Grid, MenuItem, TextField } from '@mui/material'
+import { fetchApi } from 'client'
+import { useSnackbar } from 'notistack'
+import { useForm } from 'react-hook-form'
+import { countriesList } from 'src/constants'
 
 type FormFields = {
   currentLocation: string
@@ -30,14 +30,14 @@ export const Location = () => {
     }
     try {
       const { user: updatedUser, token } = await fetchApi({
-        url: "/user",
-        method: "PATCH",
+        url: '/user',
+        method: 'PATCH',
         body: requestData,
       })
       setUserStore(updatedUser, token)
-      enqueueSnackbar("Location updated", { variant: "success" })
+      enqueueSnackbar('Location updated', { variant: 'success' })
     } catch (e) {
-      enqueueSnackbar("Something went wrong", { variant: "error" })
+      enqueueSnackbar('Something went wrong', { variant: 'error' })
       console.error({ e })
     }
   }
@@ -55,7 +55,7 @@ export const Location = () => {
             fullWidth
             defaultValue={userData?.general?.currentLocation}
             label="Where are you currently located?"
-            inputProps={register("currentLocation")}
+            inputProps={register('currentLocation')}
             onChange={handleSubmit(handleChange)}
           >
             {countriesList.map((country) => (
