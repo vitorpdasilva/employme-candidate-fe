@@ -12,7 +12,7 @@ import { countriesList } from '@/constants'
 import { authStore } from '@/stores'
 
 import { Button } from '@mui/material'
-import { fetchApi } from 'client'
+import { useFetchApi } from 'client'
 import { useRouter } from 'next/router'
 import ReactCountryFlag from 'react-country-flag'
 import { FaDollarSign, FaPlaneDeparture } from 'react-icons/fa'
@@ -42,6 +42,7 @@ type JobInfoType = {
 }
 
 const JobPostPage = () => {
+  const { fetchApi } = useFetchApi()
   const router = useRouter()
   const [jobPostId, setJobPostId] = useState('')
   const [jobInfo, setJobInfo] = useState<JobInfoType | null>(null)

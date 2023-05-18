@@ -1,7 +1,7 @@
 import { useIsAuthenticated } from '@/hooks'
 import { authStore } from '@/stores'
 import { Alert, Box, Button, Link, styled, TextField, Typography } from '@mui/material'
-import { ErrorResponse, fetchApi } from 'client'
+import { ErrorResponse, useFetchApi } from 'client'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { Resolver, useForm } from 'react-hook-form'
@@ -37,6 +37,7 @@ const resolver: Resolver<Credentials> = async (values) => {
 }
 
 const SignUp = () => {
+  const { fetchApi } = useFetchApi()
   const { register, handleSubmit } = useForm<Credentials>({ resolver })
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const { isAuthenticated } = useIsAuthenticated()

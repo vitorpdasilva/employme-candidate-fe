@@ -1,5 +1,5 @@
 import { Avatar, Box, Divider, MenuItem, Paper, TextField, Typography } from '@mui/material'
-import { fetchApi } from 'client'
+import { useFetchApi } from 'client'
 import Link from 'next/link'
 import { FC } from 'react'
 import { countriesList, jobSearchStatus } from 'src/constants'
@@ -11,6 +11,7 @@ type FormFieldsValues = {
 }
 
 export const ProfileOverview: FC = () => {
+  const { fetchApi } = useFetchApi()
   const userData = userStore((state: any) => state.user)
   const setUserStore = userStore((state: any) => state.setUser)
 

@@ -15,7 +15,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-import { fetchApi } from 'client'
+import { useFetchApi } from 'client'
 import { useSnackbar } from 'notistack'
 import { ChangeEvent } from 'react'
 import { useForm } from 'react-hook-form'
@@ -30,6 +30,7 @@ type FormFields = {
   currentLocation: string
 }
 export const Profile = () => {
+  const { fetchApi } = useFetchApi()
   const { enqueueSnackbar } = useSnackbar()
   const user = userStore((state: any) => state.user)
   const setUserStore = userStore((state: any) => state.setUser)

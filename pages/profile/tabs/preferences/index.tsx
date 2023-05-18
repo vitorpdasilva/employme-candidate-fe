@@ -16,7 +16,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-import { fetchApi } from 'client'
+import { useFetchApi } from 'client'
 import { useSnackbar } from 'notistack'
 import { useState } from 'react'
 
@@ -38,6 +38,7 @@ type SalaryObj = {
 }
 
 export const Preferences = () => {
+  const { fetchApi } = useFetchApi()
   const [salaryObj, setSalaryObj] = useState<SalaryObj>({ name: 'salary', values: { amount: '0' } })
   const { enqueueSnackbar } = useSnackbar()
 

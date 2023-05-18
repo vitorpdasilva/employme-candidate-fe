@@ -1,6 +1,6 @@
 import { userStore } from '@/stores'
 import { Grid, MenuItem, TextField } from '@mui/material'
-import { fetchApi } from 'client'
+import { useFetchApi } from 'client'
 import { useSnackbar } from 'notistack'
 import { useForm } from 'react-hook-form'
 import { countriesList } from 'src/constants'
@@ -9,6 +9,7 @@ type FormFields = {
   currentLocation: string
 }
 export const Location = () => {
+  const { fetchApi } = useFetchApi()
   const user = userStore((state: any) => state.user)
   const setUserStore = userStore((state: any) => state.setUser)
   const { enqueueSnackbar } = useSnackbar()

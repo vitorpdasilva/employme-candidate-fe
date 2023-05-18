@@ -11,7 +11,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-import { fetchApi } from 'client'
+import { useFetchApi } from 'client'
 import { enqueueSnackbar } from 'notistack'
 import { useState } from 'react'
 
@@ -28,6 +28,7 @@ type RequestData = {
 }
 
 export const Culture = () => {
+  const { fetchApi } = useFetchApi()
   const [lookingFor, setLookingFor] = useState<LookingFor>({
     name: 'culture',
     values: {

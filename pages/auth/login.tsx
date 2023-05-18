@@ -13,7 +13,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-import { ErrorResponse, fetchApi } from 'client'
+import { ErrorResponse, useFetchApi } from 'client'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { Resolver, useForm } from 'react-hook-form'
@@ -35,6 +35,7 @@ const resolver: Resolver<Credentials> = async (values) => {
 }
 
 const Login = () => {
+  const { fetchApi } = useFetchApi()
   const { register, handleSubmit } = useForm<Credentials>({ resolver })
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const setUser = userStore((state: any) => state.setUser)

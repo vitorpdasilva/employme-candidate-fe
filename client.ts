@@ -26,54 +26,59 @@ type FetchApiProps = {
 const controller = new AbortController()
 const signal = controller.signal
 
-const useFetchApi = async ({
-  url,
-  method = 'POST',
-  mode = 'cors',
-  cache = 'no-cache',
-  credentials = 'same-origin',
-  body,
-  headers = {
-    'Content-Type': 'application/json',
-  },
-}: FetchApiProps) => {
-  // get rid of localstore to deal with ssr
-  // ideally we gonna refactor this function into a hook
+const useFetchApi = () => {
+  
   const { accessToken } = authStore((state: any) => state.tokens)
-  if (accessToken) {
-    headers['Authorization'] = `Bearer ${accessToken}`
-  }
-
-  const requestBody: Omit<FetchApiProps, 'url'> = {
-    method,
-    mode,
-    cache,
-    credentials,
-    headers,
-    signal,
-    next: {
-      revalidate: 120, // revalidate cache every 2 minutes
+  
+  const fetchApi = async ({
+    url,
+    method = 'POST',
+    mode = 'cors',
+    cache = 'no-cache',
+    credentials = 'same-origin',
+    body,
+    headers = {
+      'Content-Type': 'application/json',
     },
-  }
-  console.log({ body })
-  if (method === 'POST' || method === 'PUT' || method === 'PATCH') {
-    if (body instanceof FormData) {
-      requestBody.body = body
-      delete requestBody.headers['Content-Type']
-    } else {
-      requestBody.body = JSON.stringify(body)
+  }: FetchApiProps) => {
+    if (accessToken) {
+      headers['Authorization'] = `Bearer ${accessToken}`
     }
+
+    const requestBody: Omit<FetchApiProps, 'url'> = {
+      method,
+      mode,
+      cache,
+      credentials,
+      headers,
+      signal,
+      next: {
+        revalidate: 120, // revalidate cache every 2 minutes
+      },
+    }
+    console.log({ body })
+    if (method === 'POST' || method === 'PUT' || method === 'PATCH') {
+      if (body instanceof FormData) {
+        requestBody.body = body
+        delete requestBody.headers['Content-Type']
+      } else {
+        requestBody.body = JSON.stringify(body)
+      }
+    }
+
+    const response = await fetch(`${BASE_URL}${url}`, requestBody)
+
+    if (response.ok) {
+      const responseData = await response.json()
+      return responseData
+    }
+
+    const errorResponseData = await response.json()
+    throw new Error(errorResponseData.message || 'Something went wrong.')
   }
-
-  const response = await fetch(`${BASE_URL}${url}`, requestBody)
-
-  if (response.ok) {
-    const responseData = await response.json()
-    return responseData
+  return {
+    fetchApi
   }
-
-  const errorResponseData = await response.json()
-  throw new Error(errorResponseData.message || 'Something went wrong.')
 }
-
 export { useFetchApi, BASE_URL }
+

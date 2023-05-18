@@ -1,7 +1,7 @@
 import { SocialMediasListType, socialMediasList } from '@/constants'
 import { userStore } from '@/stores'
 import { Box, Button, Grid, InputAdornment, TextField } from '@mui/material'
-import { fetchApi } from 'client'
+import { useFetchApi } from 'client'
 import { useForm } from 'react-hook-form'
 
 type SocialMedias = 'linkedin' | 'github' | 'facebook' | 'twitter'
@@ -13,6 +13,7 @@ type FormFields = {
 type GenericObj = Record<string, string>
 
 export const Social = () => {
+  const { fetchApi } = useFetchApi()
   const user = userStore((state: any) => state.user)
   const setUserStore = userStore((state: any) => state.setUser)
 
