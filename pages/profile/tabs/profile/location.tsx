@@ -1,4 +1,4 @@
-import { useAuthStore } from '@/stores'
+import { userStore } from '@/stores'
 import { Grid, MenuItem, TextField } from '@mui/material'
 import { fetchApi } from 'client'
 import { useSnackbar } from 'notistack'
@@ -9,22 +9,22 @@ type FormFields = {
   currentLocation: string
 }
 export const Location = () => {
-  const userData = useAuthStore((state: any) => state.user)
-  const setUserStore = useAuthStore((state: any) => state.setUser)
+  const user = userStore((state: any) => state.user)
+  const setUserStore = userStore((state: any) => state.setUser)
   const { enqueueSnackbar } = useSnackbar()
 
   const { register, handleSubmit } = useForm<FormFields>({
     defaultValues: {
-      currentLocation: userData?.general?.currentLocation,
+      currentLocation: user?.general?.currentLocation,
     },
   })
 
   const handleChange = async (data: any) => {
     const requestData = {
-      id: userData.id,
-      username: userData.username,
+      id: user.id,
+      username: user.username,
       general: {
-        ...userData.general,
+        ...user.general,
         currentLocation: data.currentLocation,
       },
     }
@@ -53,7 +53,7 @@ export const Location = () => {
             select
             margin="normal"
             fullWidth
-            defaultValue={userData?.general?.currentLocation}
+            defaultValue={user?.general?.currentLocation}
             label="Where are you currently located?"
             inputProps={register('currentLocation')}
             onChange={handleSubmit(handleChange)}

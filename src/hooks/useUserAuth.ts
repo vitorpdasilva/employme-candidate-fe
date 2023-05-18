@@ -1,14 +1,10 @@
-import { useEffect, useState } from 'react'
+import { authStore } from '@/stores'
 
-export const useUserAuth = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [authToken, setAuthToken] = useState<string | null>(null)
-
-  useEffect(() => {
-    const token = localStorage.getItem('token')
-    setIsAuthenticated(() => !!token)
-    setAuthToken(() => token)
-  }, [])
-
-  return { isAuthenticated, authToken }
+export const useIsAuthenticated = () => {
+  const tokens = authStore((state: any) => state.tokens)
+  console.log({ tokens })
+  return ({
+    isAuthenticated: !!tokens,
+    tokens
+  })
 }

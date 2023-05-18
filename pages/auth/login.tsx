@@ -1,3 +1,5 @@
+import { useIsAuthenticated } from '@/hooks'
+import { authStore, userStore } from '@/stores'
 import {
   Alert,
   Avatar,
@@ -15,8 +17,6 @@ import { ErrorResponse, fetchApi } from 'client'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { Resolver, useForm } from 'react-hook-form'
-import { useUserAuth } from 'src/hooks'
-import { useAuthStore } from 'src/stores'
 
 type Credentials = {
   username: string
@@ -37,8 +37,10 @@ const resolver: Resolver<Credentials> = async (values) => {
 const Login = () => {
   const { register, handleSubmit } = useForm<Credentials>({ resolver })
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
-  const setUserToStore = useAuthStore((state: any) => state.setUser)
-  const { isAuthenticated } = useUserAuth()
+  const setUser = userStore((state: any) => state.setUser)
+  const setTokens = authStore((state: any) => state.setTokens)
+
+  const { isAuthenticated } = useIsAuthenticated()
   const router = useRouter()
 
   useEffect(() => {
@@ -57,8 +59,9 @@ const Login = () => {
     try {
       const { userData, tokens } = await fetchApi({ url: '/auth/login', body })
       if (!userData || !tokens) throw new Error('Something went wrong')
-      setUserToStore(userData, tokens)
-      localStorage.setItem('isAuthenticated', `${!!tokens.accessToken}`)
+
+      setUser(userData)
+      setTokens(tokens)
       router.push('/')
     } catch (error: any) {
       setErrorMessage(error?.message as ErrorResponse['message'])

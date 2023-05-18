@@ -1,8 +1,6 @@
 import { Header, NavSidebar } from '@/components'
-import { AppContextProvider } from '@/context'
-import { useAuthStore } from '@/stores'
-import { NoSsr } from '@mui/base'
-import { Box, Container } from '@mui/material'
+import { useIsAuthenticated } from '@/hooks'
+import { Box, Container, NoSsr } from '@mui/material'
 import ScopedCssBaseline from '@mui/material/ScopedCssBaseline'
 import Grid from '@mui/material/Unstable_Grid2'
 import { LocalizationProvider } from '@mui/x-date-pickers'
@@ -22,16 +20,15 @@ type MyAppProps = {
 
 function MyApp({ Component, pageProps }: MyAppProps) {
   const router = useRouter()
-  const isAuth = useAuthStore((state: any) => !!state.user)
 
+  const { isAuthenticated } = useIsAuthenticated()
   useEffect(() => {
-    const token = localStorage.getItem('accessToken')
-    if (token) {
+    if (isAuthenticated) {
       if (routesToBeRedirected.includes(router.pathname)) {
         router.push('/')
       }
     }
-    if (!token && !routesToBeRedirected.includes(router.pathname)) {
+    if (!isAuthenticated && !routesToBeRedirected.includes(router.pathname)) {
       router.push('/auth/login')
     }
   }, [])
@@ -41,25 +38,23 @@ function MyApp({ Component, pageProps }: MyAppProps) {
       <ScopedCssBaseline sx={{ height: 'inherit', display: 'flex', flexDirection: 'column' }}>
         <NoSsr>
           <ThemeProvider theme={theme}>
-            <AppContextProvider>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                {isAuth && <Header />}
-                <SnackbarProvider maxSnack={3} autoHideDuration={2000} preventDuplicate>
-                  <Container>
-                    <Box sx={{ flexGrow: 1, width: '100%' }}>
-                      <Grid container spacing={6} sx={{ pt: 6 }}>
-                        <Grid md={2} xs={12}>
-                          {isAuth && <NavSidebar />}
-                        </Grid>
-                        <Grid md={10} xs={12}>
-                          <Component {...pageProps} />
-                        </Grid>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              {isAuthenticated && <Header />}
+              <SnackbarProvider maxSnack={3} autoHideDuration={2000} preventDuplicate>
+                <Container>
+                  <Box sx={{ flexGrow: 1, width: '100%' }}>
+                    <Grid container spacing={6} sx={{ pt: 6 }}>
+                      <Grid md={2} xs={12}>
+                        {isAuthenticated && <NavSidebar />}
                       </Grid>
-                    </Box>
-                  </Container>
-                </SnackbarProvider>
-              </LocalizationProvider>
-            </AppContextProvider>
+                      <Grid md={10} xs={12}>
+                        <Component {...pageProps} />
+                      </Grid>
+                    </Grid>
+                  </Box>
+                </Container>
+              </SnackbarProvider>
+            </LocalizationProvider>
           </ThemeProvider>
         </NoSsr>
       </ScopedCssBaseline>

@@ -1,4 +1,6 @@
+import { professionList } from '@/constants'
 import { CompressedImage, compressImage } from '@/helpers'
+import { userStore } from '@/stores'
 import {
   Avatar,
   Box,
@@ -17,8 +19,6 @@ import { fetchApi } from 'client'
 import { useSnackbar } from 'notistack'
 import { ChangeEvent } from 'react'
 import { useForm } from 'react-hook-form'
-import { professionList } from 'src/constants'
-import { useAuthStore } from 'src/stores'
 import { Education } from './education'
 import { Location } from './location'
 import { Social } from './social'
@@ -31,21 +31,21 @@ type FormFields = {
 }
 export const Profile = () => {
   const { enqueueSnackbar } = useSnackbar()
-  const userData = useAuthStore((state: any) => state.user)
-  const setUserStore = useAuthStore((state: any) => state.setUser)
+  const user = userStore((state: any) => state.user)
+  const setUserStore = userStore((state: any) => state.setUser)
 
   const { register, handleSubmit, watch, setValue } = useForm<FormFields>({
     defaultValues: {
-      name: userData?.name,
-      bio: userData?.general?.bio,
+      name: user?.name,
+      bio: user?.general?.bio,
     },
   })
 
   const fieldWatch = watch()
 
-  if (!userData) return <>Loading...</>
+  if (!user) return <>Loading...</>
 
-  const { professional } = userData
+  const { professional } = user
   const selectedRoles = professionList
     .filter((profession) => {
       return professional?.preferenceToWork?.includes(profession.value)
@@ -54,11 +54,11 @@ export const Profile = () => {
 
   const handleChange = async (data: FormFields) => {
     const requestData = {
-      id: userData.id,
-      username: userData.username,
+      id: user.id,
+      username: user.username,
       name: data.name,
       general: {
-        ...userData.general,
+        ...user.general,
         bio: data.bio,
       },
     }
@@ -83,9 +83,9 @@ export const Profile = () => {
     reader.onload = async () => {
       const compressedImage: CompressedImage = await compressImage(file as File, 800, 600, 0.7)
       const requestData = {
-        id: userData.id,
-        username: userData.username,
-        name: userData.name,
+        id: user.id,
+        username: user.username,
+        name: user.name,
         picture: {
           data: compressedImage.dataUrl,
           createdDate: new Date().toISOString(),
@@ -127,9 +127,9 @@ export const Profile = () => {
               {...register('name')}
               onChange={(e) => setValue('name', e.target.value)}
             />
-            {fieldWatch.name !== userData?.name && (
+            {fieldWatch.name !== user?.name && (
               <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                <Button variant="text" onClick={() => setValue('name', userData?.name)}>
+                <Button variant="text" onClick={() => setValue('name', user?.name)}>
                   Cancel
                 </Button>
                 <Button variant="contained" type="submit">
@@ -139,18 +139,8 @@ export const Profile = () => {
             )}
 
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Avatar
-                alt={`${userData?.name}'s picture`}
-                src={userData?.picture?.data}
-                sx={{ width: 56, height: 56, mr: 3 }}
-              />
-              <input
-                type="file"
-                onChange={handleFileChange}
-                name="file"
-                // sx={{ height: "fit-content" }}
-                // variant="outlined"
-              />
+              <Avatar alt={`${user?.name}'s picture`} src={user?.picture?.data} sx={{ width: 56, height: 56, mr: 3 }} />
+              <input type="file" onChange={handleFileChange} name="file" />
             </Box>
             <Box sx={{ my: 3, display: 'flex' }}>
               <TextField
@@ -212,9 +202,9 @@ export const Profile = () => {
             </FormControl>
             <Box sx={{ my: 3 }}>
               <TextField fullWidth multiline rows={4} label="Your Bio" {...register('bio')} />
-              {fieldWatch.bio !== userData?.general?.bio && (
+              {fieldWatch.bio !== user?.general?.bio && (
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end', my: 1 }}>
-                  <Button variant="text" onClick={() => setValue('bio', userData?.general?.bio)}>
+                  <Button variant="text" onClick={() => setValue('bio', user?.general?.bio)}>
                     Cancel
                   </Button>
                   <Button variant="contained" type="submit">

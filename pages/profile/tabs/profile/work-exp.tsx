@@ -1,10 +1,10 @@
 import { EmptyWorkExperience } from '@/components'
-import { useAuthStore } from '@/stores'
+import { userStore } from '@/stores'
 import { Avatar, Box, Button, Grid, Link, Paper, Stack, Typography } from '@mui/material'
 import { useState } from 'react'
 
 export const WorkExperience = () => {
-  const userData = useAuthStore((state: any) => state.user)
+  const user = userStore((state: any) => state.user)
   const [newWorkExperience, setNewWorkExperience] = useState<0 | 1>(0)
 
   return (
@@ -15,7 +15,7 @@ export const WorkExperience = () => {
       <Grid item xs={12} md={9}>
         <Box sx={{ width: '100%' }}>
           <Stack spacing={2}>
-            {userData?.professional?.workExperience?.map((experience: any) => (
+            {user?.professional?.workExperience?.map((experience: any) => (
               <Paper key={experience.company} sx={{ p: 2 }}>
                 <Box sx={{ display: 'flex' }}>
                   <Avatar

@@ -2,7 +2,7 @@ import { NumericInput } from '@/components'
 import type { CompanySizes, CurrencyList } from '@/constants'
 import { companySizes, currencyList, jobSearchStatus } from '@/constants'
 import { useDebounce } from '@/hooks'
-import { useAuthStore } from '@/stores'
+import { userStore } from '@/stores'
 import {
   Box,
   Divider,
@@ -41,24 +41,24 @@ export const Preferences = () => {
   const [salaryObj, setSalaryObj] = useState<SalaryObj>({ name: 'salary', values: { amount: '0' } })
   const { enqueueSnackbar } = useSnackbar()
 
-  const userData = useAuthStore((state: any) => state.user)
-  const setUserStore = useAuthStore((state: any) => state.setUser)
+  const user = userStore((state: any) => state.user)
+  const setUserStore = userStore((state: any) => state.setUser)
 
   useDebounce(() => onSubmit(salaryObj), 700, [salaryObj])
 
   const onSubmit = async (data: RequestData) => {
     const requestData = {
-      id: userData.id,
-      username: userData.username,
-      ...userData,
+      id: user.id,
+      username: user.username,
+      ...user,
       preferences: {
-        ...userData.preferences,
-        [data.name]: Array.isArray(userData.preferences?.[data.name])
-          ? [...(userData.preferences?.[data.name] as any), data.values]
+        ...user.preferences,
+        [data.name]: Array.isArray(user.preferences?.[data.name])
+          ? [...(user.preferences?.[data.name] as any), data.values]
           : {
-              ...userData.preferences?.[data.name],
-              ...data.values,
-            },
+            ...user.preferences?.[data.name],
+            ...data.values,
+          },
       },
     }
 
@@ -91,7 +91,7 @@ export const Preferences = () => {
           <TextField
             select
             fullWidth
-            defaultValue={userData.preferences?.jobSearchStatus?.id ?? 0}
+            defaultValue={user.preferences?.jobSearchStatus?.id ?? 0}
             onChange={(e) =>
               onSubmit({
                 name: 'jobSearchStatus',
@@ -122,7 +122,7 @@ export const Preferences = () => {
             label="Currency"
             variant="outlined"
             sx={{ flexGrow: 1 }}
-            defaultValue={userData.preferences?.salary?.currency ?? 0}
+            defaultValue={user.preferences?.salary?.currency ?? 0}
             onChange={(e) =>
               onSubmit({
                 name: 'salary',
@@ -143,7 +143,7 @@ export const Preferences = () => {
             InputProps={{
               inputComponent: NumericInput as any,
             }}
-            defaultValue={userData.preferences?.salary?.amount ?? ''}
+            defaultValue={user.preferences?.salary?.amount ?? ''}
             variant="outlined"
             onChange={(e) => {
               const value = e.target.value
@@ -159,7 +159,7 @@ export const Preferences = () => {
           <TextField
             label="Periodicity"
             select
-            defaultValue={userData.preferences?.salary?.periodicity ?? 0}
+            defaultValue={user.preferences?.salary?.periodicity ?? 0}
             variant="outlined"
             onChange={(e) =>
               onSubmit({
@@ -202,7 +202,7 @@ export const Preferences = () => {
                 row
                 name={name as string}
                 defaultValue={
-                  userData.preferences.companySize.find((company: CompanySizes) => company.label === label)?.option
+                  user.preferences.companySize.find((company: CompanySizes) => company.label === label)?.option
                 }
               >
                 {radios.map((radio) => (
@@ -213,7 +213,7 @@ export const Preferences = () => {
                     label={radio.label}
                     checked={
                       radio.value ===
-                      userData.preferences.companySize.find((company: any) => company.label === label)?.option
+                      user.preferences.companySize.find((company: any) => company.label === label)?.option
                     }
                   />
                 ))}

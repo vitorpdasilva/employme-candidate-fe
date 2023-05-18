@@ -1,5 +1,5 @@
-import React from "react"
-import { NumericFormat, NumericFormatProps } from "react-number-format"
+import React from 'react'
+import { NumericFormat, NumericFormatProps } from 'react-number-format'
 
 interface CustomProps {
   onChange: (event: { target: { name: string; value: string } }) => void //eslint-disable-line
@@ -7,10 +7,7 @@ interface CustomProps {
   prefix?: string
 }
 
-export const NumericInput = React.forwardRef<NumericFormatProps, CustomProps>(function NumericInput(
-  props,
-  ref
-) {
+export const NumericInput = React.forwardRef<NumericFormatProps, CustomProps>(function NumericInput(props, ref) {
   const { onChange, prefix, ...other } = props
 
   return (
@@ -27,7 +24,7 @@ export const NumericInput = React.forwardRef<NumericFormatProps, CustomProps>(fu
       }}
       thousandSeparator
       valueIsNumericString
-      prefix={prefix ?? "$"}
+      prefix={prefix ?? '$'}
       max={1_000_000}
     />
   )

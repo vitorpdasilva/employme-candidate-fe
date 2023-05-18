@@ -1,13 +1,14 @@
-import { useAuthStore } from '@/stores'
+import { authStore, userStore } from '@/stores'
 import { useRouter } from 'next/navigation'
 
 export function useLogout() {
-  const clearUser = useAuthStore((state: any) => state.clearUser)
+  const logoutAuth = authStore((state: any) => state.logout)
+  const logoutUser = userStore((state: any) => state.clearUser)
   const { push } = useRouter()
 
   const handleLogout = () => {
-    clearUser()
-    window.localStorage.clear()
+    logoutAuth()
+    logoutUser()
     push('/login')
   }
 

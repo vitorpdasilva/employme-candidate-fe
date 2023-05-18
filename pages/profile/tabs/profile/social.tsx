@@ -1,10 +1,10 @@
-import { Box, Button, Grid, InputAdornment, TextField } from "@mui/material"
-import { fetchApi } from "client"
-import { useForm } from "react-hook-form"
-import { SocialMediasListType, socialMediasList } from "src/constants"
-import { useAuthStore } from "src/stores"
+import { SocialMediasListType, socialMediasList } from '@/constants'
+import { userStore } from '@/stores'
+import { Box, Button, Grid, InputAdornment, TextField } from '@mui/material'
+import { fetchApi } from 'client'
+import { useForm } from 'react-hook-form'
 
-type SocialMedias = "linkedin" | "github" | "facebook" | "twitter"
+type SocialMedias = 'linkedin' | 'github' | 'facebook' | 'twitter'
 
 type FormFields = {
   social: Partial<Record<SocialMedias, string>>
@@ -13,10 +13,10 @@ type FormFields = {
 type GenericObj = Record<string, string>
 
 export const Social = () => {
-  const userData = useAuthStore((state: any) => state.user)
-  const setUserStore = useAuthStore((state: any) => state.setUser)
+  const user = userStore((state: any) => state.user)
+  const setUserStore = userStore((state: any) => state.setUser)
 
-  const { social } = userData
+  const { social } = user
   const mediasNormalized = social.reduce((obj: GenericObj, item: GenericObj) => {
     obj[item.name] = item.url
     return obj
@@ -36,13 +36,13 @@ export const Social = () => {
 
   const handleChange = async (data: any) => {
     const requestData = {
-      id: userData.id,
-      username: userData.username,
+      id: user.id,
+      username: user.username,
       social: Object.entries(data.social).map(([name, url]) => ({ name, url })),
     }
     const { user: updatedUser, token } = await fetchApi({
-      url: "/user",
-      method: "PATCH",
+      url: '/user',
+      method: 'PATCH',
       body: requestData,
     })
     setUserStore(updatedUser, token)
@@ -72,8 +72,8 @@ export const Social = () => {
             />
           ))}
           {JSON.stringify(fieldWatch.social) !== JSON.stringify(mediasNormalized) && (
-            <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-              <Button variant="text" onClick={() => setValue("social", userData?.social)}>
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+              <Button variant="text" onClick={() => setValue('social', user?.social)}>
                 Cancel
               </Button>
               <Button variant="contained" type="submit">

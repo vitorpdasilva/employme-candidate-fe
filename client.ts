@@ -1,3 +1,4 @@
+import { authStore } from '@/stores'
 const BASE_URL = process.env.NODE_ENV === 'production' ? 'prod-url/graphql' : 'http://localhost:3500/api'
 
 type RequestMode = 'navigate' | 'same-origin' | 'no-cors' | 'cors'
@@ -25,7 +26,7 @@ type FetchApiProps = {
 const controller = new AbortController()
 const signal = controller.signal
 
-const fetchApi = async ({
+const useFetchApi = async ({
   url,
   method = 'POST',
   mode = 'cors',
@@ -36,9 +37,11 @@ const fetchApi = async ({
     'Content-Type': 'application/json',
   },
 }: FetchApiProps) => {
-  const token = window.localStorage.getItem('token')
-  if (token) {
-    headers['Authorization'] = `Bearer ${token}`
+  // get rid of localstore to deal with ssr
+  // ideally we gonna refactor this function into a hook
+  const { accessToken } = authStore((state: any) => state.tokens)
+  if (accessToken) {
+    headers['Authorization'] = `Bearer ${accessToken}`
   }
 
   const requestBody: Omit<FetchApiProps, 'url'> = {
@@ -73,4 +76,4 @@ const fetchApi = async ({
   throw new Error(errorResponseData.message || 'Something went wrong.')
 }
 
-export { fetchApi, BASE_URL }
+export { useFetchApi, BASE_URL }

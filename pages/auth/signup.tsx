@@ -1,10 +1,10 @@
-import { useUserAuth } from "@/hooks"
-import { useAuthStore } from "@/stores"
-import { Alert, Box, Button, Link, styled, TextField, Typography } from "@mui/material"
-import { ErrorResponse, fetchApi } from "client"
-import { useRouter } from "next/router"
-import { useEffect, useState } from "react"
-import { Resolver, useForm } from "react-hook-form"
+import { useIsAuthenticated } from '@/hooks'
+import { authStore } from '@/stores'
+import { Alert, Box, Button, Link, styled, TextField, Typography } from '@mui/material'
+import { ErrorResponse, fetchApi } from 'client'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+import { Resolver, useForm } from 'react-hook-form'
 
 type Credentials = {
   email: string
@@ -13,15 +13,15 @@ type Credentials = {
 }
 
 const FormWrapper = styled(Box)({
-  border: "1px solid #c5c5c5",
-  display: "flex",
-  flexDirection: "column",
-  padding: "3em",
-  borderRadius: "10px",
-  justifyContent: "space-around",
-  background: "#f3f3f3",
-  "& input": {
-    background: "#fff",
+  border: '1px solid #c5c5c5',
+  display: 'flex',
+  flexDirection: 'column',
+  padding: '3em',
+  borderRadius: '10px',
+  justifyContent: 'space-around',
+  background: '#f3f3f3',
+  '& input': {
+    background: '#fff',
   },
 })
 
@@ -30,7 +30,7 @@ const resolver: Resolver<Credentials> = async (values) => {
     values: values.email ? values : {},
     errors: !values.email
       ? {
-        email: { type: "required", message: "email is required" },
+        email: { type: 'required', message: 'email is required' },
       }
       : {},
   }
@@ -39,14 +39,15 @@ const resolver: Resolver<Credentials> = async (values) => {
 const SignUp = () => {
   const { register, handleSubmit } = useForm<Credentials>({ resolver })
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
-  const { isAuthenticated } = useUserAuth()
-  const setUserToStore = useAuthStore((state: any) => state.setUser)
+  const { isAuthenticated } = useIsAuthenticated()
+  const setUser = authStore((state: any) => state.setUser)
+  const setTokens = authStore((state: any) => state.setTokens)
 
   const router = useRouter()
 
   useEffect(() => {
     if (isAuthenticated) {
-      router.push("/")
+      router.push('/')
     }
   }, [])
 
@@ -59,12 +60,12 @@ const SignUp = () => {
     }
 
     try {
-      const { user, token } = await fetchApi({ url: "/register", body })
-      setUserToStore(user, token)
-      localStorage.setItem("isAuthenticated", `${!!token}`)
-      router.push("/")
+      const { user, token } = await fetchApi({ url: '/register', body })
+      setUser(user)
+      setTokens(token)
+      router.push('/')
     } catch (error: any) {
-      setErrorMessage(error?.message as ErrorResponse["message"])
+      setErrorMessage(error?.message as ErrorResponse['message'])
     }
   })
 
@@ -75,9 +76,9 @@ const SignUp = () => {
           {errorMessage}
         </Alert>
       )}
-      <TextField {...register("name")} label="Your Name" variant="outlined" />
-      <TextField sx={{ my: 2 }} {...register("email")} label="email" variant="outlined" />
-      <TextField {...register("password")} type="password" label="password" variant="outlined" />
+      <TextField {...register('name')} label="Your Name" variant="outlined" />
+      <TextField sx={{ my: 2 }} {...register('email')} label="email" variant="outlined" />
+      <TextField {...register('password')} type="password" label="password" variant="outlined" />
       <Button type="submit" variant="contained" sx={{ mt: 2 }}>
         Sign Up
       </Button>

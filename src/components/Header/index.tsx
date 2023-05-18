@@ -1,5 +1,5 @@
-import AdbIcon from "@mui/icons-material/Adb"
-import MenuIcon from "@mui/icons-material/Menu"
+import AdbIcon from '@mui/icons-material/Adb'
+import MenuIcon from '@mui/icons-material/Menu'
 import {
   AppBar,
   Avatar,
@@ -12,11 +12,11 @@ import {
   Toolbar,
   Tooltip,
   Typography,
-} from "@mui/material"
+} from '@mui/material'
 
-import { useLogout } from "@/hooks"
-import { useAuthStore } from "@/stores"
-import * as React from "react"
+import { useLogout } from '@/hooks'
+import { userStore } from '@/stores'
+import * as React from 'react'
 
 type MenuItemType = {
   item: string
@@ -27,7 +27,7 @@ type MenuItemType = {
 export const Header = () => {
   const [_, setAnchorElNav] = React.useState<null | HTMLElement>(null) // eslint-disable-line
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null)
-  const userData = useAuthStore((state: any) => state.user)
+  const user = userStore((state: any) => state.user)
   const handleLogout = useLogout()
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -42,10 +42,10 @@ export const Header = () => {
   }
 
   const menuItem: MenuItemType[] = [
-    { item: "Profile", link: "/profile", fn: null },
-    { item: "Account", link: "/account", fn: null },
-    { item: "Dashboard", link: "/dashboard", fn: null },
-    { item: "Logout", link: null, fn: () => handleLogout() },
+    { item: 'Profile', link: '/profile', fn: null },
+    { item: 'Account', link: '/account', fn: null },
+    { item: 'Dashboard', link: '/dashboard', fn: null },
+    { item: 'Logout', link: null, fn: () => handleLogout() },
   ]
 
   return (
@@ -59,18 +59,18 @@ export const Header = () => {
             href="/"
             sx={{
               mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'monospace',
               fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
             }}
           >
             LOGOx
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -82,7 +82,7 @@ export const Header = () => {
               <MenuIcon />
             </IconButton>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -90,36 +90,36 @@ export const Header = () => {
             href=""
             sx={{
               mr: 2,
-              display: { xs: "flex", md: "none" },
+              display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
-              fontFamily: "monospace",
+              fontFamily: 'monospace',
               fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
             }}
           >
             LOGO
           </Typography>
 
-          <Box sx={{ flexGrow: 0, ml: "auto" }}>
+          <Box sx={{ flexGrow: 0, ml: 'auto' }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt={userData.name} src={userData.picture?.data} />
+                <Avatar alt={user.name} src={user.picture?.data} />
               </IconButton>
             </Tooltip>
             <Menu
-              sx={{ mt: "45px" }}
+              sx={{ mt: '45px' }}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
+                vertical: 'top',
+                horizontal: 'right',
               }}
               keepMounted
               transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
+                vertical: 'top',
+                horizontal: 'right',
               }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}

@@ -1,11 +1,11 @@
-import { EmptyEducation } from "@/components"
-import { useAuthStore } from "@/stores"
-import { Avatar, Box, Button, Grid, Paper, Stack, Typography } from "@mui/material"
-import Link from "next/link"
-import { useState } from "react"
+import { EmptyEducation } from '@/components'
+import { userStore } from '@/stores'
+import { Avatar, Box, Button, Grid, Paper, Stack, Typography } from '@mui/material'
+import Link from 'next/link'
+import { useState } from 'react'
 
 export const Education = () => {
-  const userData = useAuthStore((state: any) => state.user)
+  const user = userStore((state: any) => state.user)
   const [newEducation, setNewEducation] = useState<0 | 1>(0)
 
   return (
@@ -14,11 +14,11 @@ export const Education = () => {
         Education
       </Grid>
       <Grid item xs={12} md={9}>
-        <Box sx={{ width: "100%" }}>
+        <Box sx={{ width: '100%' }}>
           <Stack spacing={2}>
-            {userData.education.map((item: any) => (
+            {user.education.map((item: any) => (
               <Paper key={item.degree} sx={{ p: 2 }}>
-                <Box sx={{ display: "flex" }}>
+                <Box sx={{ display: 'flex' }}>
                   <Avatar
                     variant="square"
                     src="https://photos.angel.co/startups/i/4634051-16164880183cfb651e472aafce896328-medium_jpg.jpg?buster=1589648733"
@@ -31,7 +31,7 @@ export const Education = () => {
                     <Link target="_blank" href="https://senac.com.br">
                       {item.fieldOfStudy}
                     </Link>
-                    <Box sx={{ textAlign: "justify" }}>{item.description}</Box>
+                    <Box sx={{ textAlign: 'justify' }}>{item.description}</Box>
                   </Box>
                 </Box>
               </Paper>

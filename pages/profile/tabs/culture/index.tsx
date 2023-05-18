@@ -1,5 +1,5 @@
-import { useDebounce } from "@/hooks"
-import { useAuthStore } from "@/stores"
+import { useDebounce } from '@/hooks'
+import { userStore } from '@/stores'
 import {
   Box,
   Divider,
@@ -10,10 +10,10 @@ import {
   RadioGroup,
   TextField,
   Typography,
-} from "@mui/material"
-import { fetchApi } from "client"
-import { enqueueSnackbar } from "notistack"
-import { useState } from "react"
+} from '@mui/material'
+import { fetchApi } from 'client'
+import { enqueueSnackbar } from 'notistack'
+import { useState } from 'react'
 
 type LookingFor = {
   name: string
@@ -29,60 +29,58 @@ type RequestData = {
 
 export const Culture = () => {
   const [lookingFor, setLookingFor] = useState<LookingFor>({
-    name: "culture",
+    name: 'culture',
     values: {
-      lookingFor: "",
+      lookingFor: '',
     },
   })
 
-  const userData = useAuthStore((state: any) => state.user)
-  const setUserStore = useAuthStore((state: any) => state.setUser)
+  const user = userStore((state: any) => state.user)
+  const setUserStore = userStore((state: any) => state.setUser)
 
   useDebounce(() => onSubmit(lookingFor), 700, [lookingFor])
   const onSubmit = async (data: RequestData) => {
     const requestData = {
-      ...userData,
+      ...user,
       culture: {
-        ...userData.culture,
+        ...user.culture,
         ...data.values,
       },
     }
 
     try {
       const { user: updatedUser, token } = await fetchApi({
-        url: "/user",
-        method: "PATCH",
+        url: '/user',
+        method: 'PATCH',
         body: requestData,
       })
       setUserStore(updatedUser, token)
-      enqueueSnackbar("Culture preferences updated", {
-        variant: "success",
+      enqueueSnackbar('Culture preferences updated', {
+        variant: 'success',
       })
     } catch (err) {
-      enqueueSnackbar("Something went wrong", { variant: "error" })
+      enqueueSnackbar('Something went wrong', { variant: 'error' })
       console.error({ err })
     }
   }
   return (
-    <Box sx={{ flexGrow: 1, width: "100%" }}>
+    <Box sx={{ flexGrow: 1, width: '100%' }}>
       <Grid container spacing={2} sx={{ mb: 3 }}>
         <Grid item xs={12} md={3}>
-          <Typography variant="subtitle1">
-            Describe what you are looking for in your next job
-          </Typography>
+          <Typography variant="subtitle1">Describe what you are looking for in your next job</Typography>
           <Typography variant="subtitle2">
             Startups tell us this is one of the first things they look at in a profile.
           </Typography>
         </Grid>
         <Grid item xs={12} md={9}>
           <TextField
-            defaultValue={userData.culture?.lookingFor ?? "alow alow"}
+            defaultValue={user.culture?.lookingFor ?? 'alow alow'}
             fullWidth
             multiline
             onChange={(e) => {
               const { value } = e.target
               setLookingFor({
-                name: "lookingFor",
+                name: 'lookingFor',
                 values: { lookingFor: value },
               })
             }}
@@ -99,11 +97,11 @@ export const Culture = () => {
             <RadioGroup
               aria-labelledby="motivates-me-more"
               name="motivates-me-more"
-              defaultValue={userData.culture.motivatesMeMore}
+              defaultValue={user.culture.motivatesMeMore}
               onChange={(e) => {
                 const { value } = e.target
                 onSubmit({
-                  name: "motivatesMeMore",
+                  name: 'motivatesMeMore',
                   values: { motivatesMeMore: Number(value) },
                 })
               }}
@@ -126,11 +124,11 @@ export const Culture = () => {
             <RadioGroup
               aria-labelledby="five-years-career-track"
               name="five-years-career-track"
-              defaultValue={userData.culture.fiveYearsCareerTrack}
+              defaultValue={user.culture.fiveYearsCareerTrack}
               onChange={(e) => {
                 const { value } = e.target
                 onSubmit({
-                  name: "fiveYearsCareerTrack",
+                  name: 'fiveYearsCareerTrack',
                   values: { fiveYearsCareerTrack: Number(value) },
                 })
               }}
@@ -151,11 +149,11 @@ export const Culture = () => {
             <RadioGroup
               aria-labelledby="work-better-in"
               name="work-better-in"
-              value={userData.culture.workBetterIn}
+              value={user.culture.workBetterIn}
               onChange={(e) => {
                 const { value } = e.target
                 onSubmit({
-                  name: "workBetterIn",
+                  name: 'workBetterIn',
                   values: { workBetterIn: Number(value) },
                 })
               }}

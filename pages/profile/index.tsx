@@ -1,4 +1,4 @@
-import { useAuthStore } from '@/stores'
+import { userStore } from '@/stores'
 import { Box, Tab, Tabs, Typography } from '@mui/material'
 import { FC, ReactNode, SyntheticEvent, useState } from 'react'
 import { Culture, Preferences, Resume, Profile as TabProfile } from './tabs'
@@ -28,12 +28,12 @@ function TabPanel(props: TabPanelProps) {
 }
 
 const Profile: FC = () => {
-  const userData = useAuthStore((state: any) => state.user)
+  const user = userStore((state: any) => state.user)
   const [tabValue, setTabValue] = useState(0)
 
   const handleTabChange = (event: SyntheticEvent, newValue: number) => setTabValue(newValue)
 
-  if (!userData) {
+  if (!user) {
     return <>loading...</>
   }
 
