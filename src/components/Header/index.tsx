@@ -47,7 +47,7 @@ export const Header = () => {
     { item: 'Dashboard', link: '/dashboard', fn: null },
     { item: 'Logout', link: null, fn: () => handleLogout() },
   ]
-  console.log({ user })
+
   return (
     <AppBar position="static">
       <Container maxWidth="lg">

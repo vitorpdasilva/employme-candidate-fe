@@ -57,7 +57,7 @@ const useFetchApi = () => {
       },
     }
     console.log({ body })
-    if (['POST', 'PUT'].includes(method)) {
+    if (['POST', 'PUT', 'PATCH'].includes(method)) {
       if (body instanceof FormData) {
         requestBody.body = body
         delete requestBody.headers['Content-Type']

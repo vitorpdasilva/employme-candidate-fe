@@ -54,7 +54,7 @@ export const Profile = () => {
     .map((role) => role.text)
 
   const handleChange = async (data: FormFields) => {
-    const requestData: any = {
+    const requestData = {
       id: user.id,
       username: user.username,
       name: data.name,

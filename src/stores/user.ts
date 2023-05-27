@@ -7,7 +7,6 @@ export const userStore = create(
     (set) => ({
       user: null,
       setUser: (user: UserType) => {
-        console.log({ user, 'where:': 'userStore' })
         set({ user })
       },
       clearUser: () => {
