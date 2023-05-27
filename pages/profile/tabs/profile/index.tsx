@@ -54,7 +54,7 @@ export const Profile = () => {
     .map((role) => role.text)
 
   const handleChange = async (data: FormFields) => {
-    const requestData = {
+    const requestData: any = {
       id: user.id,
       username: user.username,
       name: data.name,
@@ -64,12 +64,12 @@ export const Profile = () => {
       },
     }
     try {
-      const { user: updatedUser, token } = await fetchApi({
-        url: '/user',
+      const { userData: updatedUser } = await fetchApi({
+        url: `/user/${user.id}`,
         method: 'PATCH',
         body: requestData,
       })
-      setUserStore(updatedUser, token)
+      setUserStore(updatedUser)
       enqueueSnackbar('Profile updated successfully', { variant: 'success' })
     } catch (error) {
       console.log({ error })
@@ -94,12 +94,12 @@ export const Profile = () => {
         },
       }
       try {
-        const { user: updatedUser, token } = await fetchApi({
+        const { user: updatedUser } = await fetchApi({
           url: '/user',
           method: 'PATCH',
           body: requestData,
         })
-        setUserStore(updatedUser, token)
+        setUserStore(updatedUser)
         enqueueSnackbar('Profile updated successfully', { variant: 'success' })
       } catch (error) {
         console.log({ error })

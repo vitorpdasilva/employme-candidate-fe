@@ -28,7 +28,7 @@ const signal = controller.signal
 
 const useFetchApi = () => {
   
-  const { accessToken } = authStore((state: any) => state.tokens)
+  const tokens = authStore((state: any) => state.tokens)
   
   const fetchApi = async ({
     url,
@@ -37,12 +37,12 @@ const useFetchApi = () => {
     cache = 'no-cache',
     credentials = 'same-origin',
     body,
-    headers = {
-      'Content-Type': 'application/json',
-    },
+    headers,
   }: FetchApiProps) => {
-    if (accessToken) {
-      headers['Authorization'] = `Bearer ${accessToken}`
+    const requestHeaders = {
+      'Content-Type': 'application/json',
+      ...(tokens?.accessToken && { Authorization: `Bearer ${tokens.accessToken}` }),
+      ...headers,
     }
 
     const requestBody: Omit<FetchApiProps, 'url'> = {
@@ -50,14 +50,14 @@ const useFetchApi = () => {
       mode,
       cache,
       credentials,
-      headers,
+      headers: requestHeaders,
       signal,
       next: {
         revalidate: 120, // revalidate cache every 2 minutes
       },
     }
     console.log({ body })
-    if (method === 'POST' || method === 'PUT' || method === 'PATCH') {
+    if (['POST', 'PUT'].includes(method)) {
       if (body instanceof FormData) {
         requestBody.body = body
         delete requestBody.headers['Content-Type']
@@ -65,9 +65,8 @@ const useFetchApi = () => {
         requestBody.body = JSON.stringify(body)
       }
     }
-
     const response = await fetch(`${BASE_URL}${url}`, requestBody)
-
+    
     if (response.ok) {
       const responseData = await response.json()
       return responseData
@@ -76,9 +75,8 @@ const useFetchApi = () => {
     const errorResponseData = await response.json()
     throw new Error(errorResponseData.message || 'Something went wrong.')
   }
-  return {
-    fetchApi
-  }
+  return { fetchApi }
+  
 }
 export { useFetchApi, BASE_URL }
 
