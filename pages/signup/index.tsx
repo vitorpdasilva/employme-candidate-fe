@@ -36,7 +36,7 @@ const resolver: Resolver<Credentials> = async (values) => {
   }
 }
 
-const SignUp = () => {
+const SignUp = (): JSX.Element => {
   const { fetchApi } = useFetchApi()
   const { register, handleSubmit } = useForm<Credentials>({ resolver })
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
@@ -71,7 +71,7 @@ const SignUp = () => {
   })
 
   return (
-    <FormWrapper component="form" onSubmit={onSubmit} onChange={() => setErrorMessage(null)}>
+    <FormWrapper component="form" onSubmit={onSubmit} onChange={(): void => setErrorMessage(null)}>
       {errorMessage && (
         <Alert sx={{ my: 2 }} severity="error">
           {errorMessage}

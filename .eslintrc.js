@@ -4,6 +4,9 @@ module.exports = {
     es2021: true,
     node: true,
   },
+  globals: {
+    JSX: true,
+  },
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
@@ -21,8 +24,18 @@ module.exports = {
     'max-len': ['error', { code: 120, ignoreUrls: true, ignoreComments: true }],
     'eol-last': ['error', 'always'],
     'object-curly-spacing': ['error', 'always'],
-    'react/no-unescaped-entities': 0
+    'react/no-unescaped-entities': 0,
+    '@typescript-eslint/explicit-function-return-type': 'off',
   },
+  overrides: [
+    {
+      // enable the rule specifically for TypeScript files
+      files: ['*.ts', '*.mts', '*.cts', '*.tsx'],
+      rules: {
+        '@typescript-eslint/explicit-function-return-type': 'error',
+      },
+    },
+  ],
   extends: ['eslint:recommended', 'plugin:react/recommended', 'prettier'],
   plugins: ['react', '@typescript-eslint', 'prettier'],
 }

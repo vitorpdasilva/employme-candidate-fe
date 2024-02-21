@@ -1,5 +1,5 @@
-import styled from "styled-components"
-
+import styled from 'styled-components'
+// todo: rewrite this
 const JobCardMain = styled.div`
   flex-grow: 1;
   h1 {
@@ -29,5 +29,4 @@ const JobPageWrapper = styled.div`
   }
 `
 export default JobCardMain
-export { JobCardMain, HeadLine, JobPageWrapper }
-
+export { HeadLine, JobCardMain, JobPageWrapper }

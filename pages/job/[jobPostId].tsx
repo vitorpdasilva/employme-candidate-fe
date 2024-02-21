@@ -3,9 +3,6 @@ import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import 'react-toastify/dist/ReactToastify.css'
 import { Message, Popup } from 'semantic-ui-react'
-// react-country-flag doesnt exist in @types npm-registry
-// TODO: replace to a flag library that contain types
-//@ts-ignore
 import { JobCardHeadline } from '~/components/JobCardHeadline'
 import { JobPoints } from '~/components/jobPoints'
 import { countriesList } from '~/constants'
@@ -41,7 +38,7 @@ type JobInfoType = {
   }
 }
 
-const JobPostPage = () => {
+const JobPostPage = (): JSX.Element => {
   const { fetchApi } = useFetchApi()
   const router = useRouter()
   const [jobPostId, setJobPostId] = useState('')
@@ -52,7 +49,7 @@ const JobPostPage = () => {
 
   useEffect(() => {
     if (jobPostId) {
-      const fetchData = async () => {
+      const fetchData = async (): Promise<any> => {
         const response = await fetchApi({ url: `/job/${jobPostId}` })
         setJobInfo(response)
       }
@@ -66,7 +63,7 @@ const JobPostPage = () => {
     }
   }, [router])
 
-  const applyToJob = async () => {
+  const applyToJob = async (): Promise<any> => {
     if (user) {
       const body = {
         applicantId: user.id,
@@ -137,10 +134,14 @@ const JobPostPage = () => {
             }
             closeOnEscape
             closeOnPortalMouseLeave
-            onClose={() => setApplyJobStatus('')}
+            onClose={(): void => setApplyJobStatus('')}
             open={!!applyJobStatus}
             trigger={
-              <Button variant="contained" disabled={user?.jobsApplied?.includes(jobId)} onClick={() => applyToJob()}>
+              <Button
+                variant="contained"
+                disabled={user?.jobsApplied?.includes(jobId)}
+                onClick={(): Promise<void> => applyToJob()}
+              >
                 {user?.jobsApplied?.includes(jobId) ? 'Already applied for this position' : 'Apply for this position'}
               </Button>
             }

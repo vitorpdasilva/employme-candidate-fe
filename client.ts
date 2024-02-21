@@ -26,7 +26,9 @@ type FetchApiProps = {
 const controller = new AbortController()
 const signal = controller.signal
 
-const useFetchApi = () => {
+// refactor this to use tanstack/react-query
+
+const useFetchApi = (): any => {
   const tokens = authStore((state: any) => state.tokens)
 
   const fetchApi = async ({
@@ -37,7 +39,7 @@ const useFetchApi = () => {
     credentials = 'same-origin',
     body,
     headers,
-  }: FetchApiProps) => {
+  }: FetchApiProps): Promise<any> => {
     const requestHeaders = {
       'Content-Type': 'application/json',
       ...(tokens?.accessToken && { Authorization: `Bearer ${tokens.accessToken}` }),

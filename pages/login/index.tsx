@@ -34,7 +34,7 @@ const resolver: Resolver<Credentials> = async (values) => {
   }
 }
 
-const Login = () => {
+const Login = (): JSX.Element => {
   const { fetchApi } = useFetchApi()
   const { register, handleSubmit } = useForm<Credentials>({ resolver })
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
@@ -72,7 +72,7 @@ const Login = () => {
 
   return (
     <Grid container component="main" sx={{ height: '100vh', width: '100vw', position: 'absolute', left: 0, top: 0 }}>
-      <button onClick={() => setNumber(number + 1)}>aidsjasid</button>
+      <button onClick={(): void => setNumber(number + 1)}>aidsjasid</button>
       <Grid
         item
         xs={false}

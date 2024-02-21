@@ -18,7 +18,7 @@ type MyAppProps = {
   pageProps: any
 }
 
-function MyApp({ Component, pageProps }: MyAppProps) {
+function MyApp({ Component, pageProps }: MyAppProps): JSX.Element {
   const router = useRouter()
 
   const { isAuthenticated } = useIsAuthenticated()

@@ -17,7 +17,7 @@ type TabPanelProps = {
   value: number
 }
 
-function TabPanel(props: TabPanelProps) {
+const TabPanel = (props: TabPanelProps): JSX.Element => {
   const { children, value, index, ...other } = props
 
   return (
@@ -31,7 +31,7 @@ const Profile: FC = () => {
   const user = userStore((state: any) => state.user)
   const [tabValue, setTabValue] = useState(0)
 
-  const handleTabChange = (event: SyntheticEvent, newValue: number) => setTabValue(newValue)
+  const handleTabChange = (event: SyntheticEvent, newValue: number): void => setTabValue(newValue)
 
   if (!user) {
     return <>loading...</>
