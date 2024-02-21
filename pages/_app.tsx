@@ -29,7 +29,7 @@ function MyApp({ Component, pageProps }: MyAppProps): JSX.Element {
       }
     }
     if (!isAuthenticated && !routesToBeRedirected.includes(router.pathname)) {
-      router.push('/auth/login')
+      router.push('/login')
     }
   }, [])
 

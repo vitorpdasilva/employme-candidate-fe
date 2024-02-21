@@ -28,11 +28,7 @@ const FormWrapper = styled(Box)({
 const resolver: Resolver<Credentials> = async (values) => {
   return {
     values: values.email ? values : {},
-    errors: !values.email
-      ? {
-        email: { type: 'required', message: 'email is required' },
-      }
-      : {},
+    errors: !values.email ? { email: { type: 'required', message: 'email is required' } } : {},
   }
 }
 
@@ -84,7 +80,7 @@ const SignUp = (): JSX.Element => {
         Sign Up
       </Button>
       <Typography sx={{ mt: 2 }} variant="caption" color="text.secondary">
-        Already have an account? <Link href="/auth/login">Sign in</Link>
+        Already have an account? <Link href="/login">Sign in</Link>
       </Typography>
     </FormWrapper>
   )

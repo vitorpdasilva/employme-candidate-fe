@@ -26,11 +26,7 @@ type Credentials = {
 const resolver: Resolver<Credentials> = async (values) => {
   return {
     values: values.username ? values : {},
-    errors: !values.username
-      ? {
-        username: { type: 'required', message: 'Username is required' },
-      }
-      : {},
+    errors: !values.username ? { username: { type: 'required', message: 'Username is required' } } : {},
   }
 }
 
@@ -137,8 +133,8 @@ const Login = (): JSX.Element => {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="/auth/signup" variant="body2">
-                  {'Don\'t have an account? Sign Up'}
+                <Link href="/signup" variant="body2">
+                  Don't have an account? Sign Up
                 </Link>
               </Grid>
             </Grid>
