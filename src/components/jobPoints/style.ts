@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 const JobPointsStyle = styled.ul`
   display: flex;
@@ -7,8 +7,8 @@ const JobPointsStyle = styled.ul`
   margin: 20px 0;
   padding: 0;
   padding-bottom: 20px;
-  border-bottom: 1px solid ${props => props.theme.colors.gray.default};
+  border-bottom: 1px solid ${(props) => props.theme.colors.gray.default};
   font-size: 15px;
-`;
+`
 
-export default JobPointsStyle;
+export default JobPointsStyle

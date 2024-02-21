@@ -1,7 +1,9 @@
-import StyledTitle from "./style";
 import { ReactElement } from 'react'
-type TypeProps =  {
+import StyledTitle from './style'
+type TypeProps = {
   children: ReactElement
-  level?: number,
+  level?: number
 }
-export const Title = ({ level = 1, children  }: TypeProps) => <StyledTitle level={level}>{children}</StyledTitle>;
+export const Title = ({ level = 1, children }: TypeProps): JSX.Element => (
+  <StyledTitle level={level}>{children}</StyledTitle>
+)

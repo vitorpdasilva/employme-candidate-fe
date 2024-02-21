@@ -1,9 +1,9 @@
 import { Box, Button, Paper, TextField } from '@mui/material'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
-import { fetchApi } from 'client'
+import { useFetchApi } from 'client'
 import { useSnackbar } from 'notistack'
 import { Controller, useForm } from 'react-hook-form'
-import { useAuthStore } from 'src/stores'
+import { userStore } from 'src/stores'
 import { v4 as uuidv4 } from 'uuid'
 type EmptyWorkExperienceProps = {
   onFinish: () => void
@@ -18,10 +18,11 @@ type FormFields = {
   description: string
 }
 
-export const EmptyWorkExperience = ({ onFinish }: EmptyWorkExperienceProps) => {
+export const EmptyWorkExperience = ({ onFinish }: EmptyWorkExperienceProps): JSX.Element => {
+  const { fetchApi } = useFetchApi()
   const { enqueueSnackbar } = useSnackbar()
-  const userData = useAuthStore((state: any) => state.user)
-  const setUserStore = useAuthStore((state: any) => state.setUser)
+  const userData = userStore((state: any) => state.user)
+  const setUserStore = userStore((state: any) => state.setUser)
 
   const { register, handleSubmit, control, formState, setValue } = useForm<FormFields>({
     defaultValues: {
@@ -36,7 +37,7 @@ export const EmptyWorkExperience = ({ onFinish }: EmptyWorkExperienceProps) => {
 
   console.log({ formState })
 
-  const onSubmit = async (formFields: FormFields) => {
+  const onSubmit = async (formFields: FormFields): Promise<void> => {
     const requestData = {
       id: userData.id,
       username: userData.username,
@@ -95,13 +96,13 @@ export const EmptyWorkExperience = ({ onFinish }: EmptyWorkExperienceProps) => {
             control={control}
             name="startDate"
             rules={{ required: true }}
-            render={() => (
+            render={(): JSX.Element => (
               <DatePicker
                 sx={{ flexGrow: 1 }}
                 disableFuture
                 formatDensity="dense"
                 label="Start Date"
-                onChange={(date) => {
+                onChange={(date): void => {
                   console.log({ date })
                   setValue('startDate', date as Date)
                 }}
@@ -113,13 +114,13 @@ export const EmptyWorkExperience = ({ onFinish }: EmptyWorkExperienceProps) => {
             control={control}
             name="endDate"
             rules={{ required: true }}
-            render={() => (
+            render={(): JSX.Element => (
               <DatePicker
                 sx={{ flexGrow: 1 }}
                 disableFuture
                 formatDensity="dense"
                 label="End Date"
-                onChange={(date) => {
+                onChange={(date): void => {
                   console.log({ date })
                   setValue('endDate', date as Date)
                 }}

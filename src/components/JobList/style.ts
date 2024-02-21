@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 const JobListGrid = styled.div`
   display: flex;
@@ -7,6 +7,6 @@ const JobListGrid = styled.div`
   flex-wrap: wrap;
   max-width: 800px;
   margin-top: 3rem;
-`;
+`
 
-export default JobListGrid;
+export default JobListGrid

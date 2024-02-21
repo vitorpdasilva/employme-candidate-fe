@@ -1,17 +1,17 @@
 import AdbIcon from '@mui/icons-material/Adb'
 import MenuIcon from '@mui/icons-material/Menu'
 import {
-    AppBar,
-    Avatar,
-    Box,
-    Container,
-    IconButton,
-    Link,
-    Menu,
-    MenuItem,
-    Toolbar,
-    Tooltip,
-    Typography,
+  AppBar,
+  Avatar,
+  Box,
+  Container,
+  IconButton,
+  Link,
+  Menu,
+  MenuItem,
+  Toolbar,
+  Tooltip,
+  Typography,
 } from '@mui/material'
 
 import * as React from 'react'
@@ -24,20 +24,20 @@ type MenuItemType = {
   fn: null | (() => void)
 }
 
-export const Header = () => {
+export const Header = (): JSX.Element => {
   const [_, setAnchorElNav] = React.useState<null | HTMLElement>(null) // eslint-disable-line
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null)
   const user = userStore((state: any) => state.user)
   const handleLogout = useLogout()
 
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>): void => {
     setAnchorElNav(event.currentTarget)
   }
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>): void => {
     setAnchorElUser(event.currentTarget)
   }
 
-  const handleCloseUserMenu = () => {
+  const handleCloseUserMenu = (): void => {
     setAnchorElUser(null)
   }
 

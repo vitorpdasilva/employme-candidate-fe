@@ -1,7 +1,5 @@
-import Tag from "./style";
+import Tag from './style'
 
-export const TagNew = () => {
-  return (
-    <Tag>New</Tag>
-  );
-};
+export const TagNew = (): JSX.Element => {
+  return <Tag>New</Tag>
+}

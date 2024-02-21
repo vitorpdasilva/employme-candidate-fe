@@ -1,13 +1,16 @@
 // utils.ts
 
 export interface CompressedImage {
-  dataUrl: string;
-  width: number;
-  height: number;
+  dataUrl: string
+  width: number
+  height: number
 }
 
 export const compressImage = async (
-  file: File, maxWidth: number, maxHeight: number, quality: number
+  file: File,
+  maxWidth: number,
+  maxHeight: number,
+  quality: number
 ): Promise<CompressedImage> => {
   return new Promise<CompressedImage>((resolve, reject) => {
     const reader = new FileReader()
@@ -16,7 +19,7 @@ export const compressImage = async (
       img.src = reader.result as string
 
       img.onload = () => {
-        const canvas = document.createElement("canvas")
+        const canvas = document.createElement('canvas')
         let width = img.width
         let height = img.height
 
@@ -36,11 +39,11 @@ export const compressImage = async (
         // Set the canvas dimensions and draw the image onto it
         canvas.width = width
         canvas.height = height
-        const ctx = canvas.getContext("2d")
+        const ctx = canvas.getContext('2d')
         ctx?.drawImage(img, 0, 0, width, height)
 
         // Get the base64-encoded JPEG data with reduced quality
-        const dataUrl = canvas.toDataURL("image/jpeg", quality)
+        const dataUrl = canvas.toDataURL('image/jpeg', quality)
 
         resolve({ dataUrl, width, height })
       }

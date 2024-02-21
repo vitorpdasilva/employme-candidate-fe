@@ -1,8 +1,8 @@
-import { FaSearch } from "react-icons/fa"
-import { countriesList } from "src/constants"
-import SearchJobBarStyled from "./style"
+import { FaSearch } from 'react-icons/fa'
+import { countriesList } from 'src/constants'
+import SearchJobBarStyled from './style'
 
-export const SearchJobBar = () => {
+export const SearchJobBar = (): JSX.Element => {
   return (
     <>
       <h1>Find your dream job abroad or remote</h1>

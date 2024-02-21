@@ -1,8 +1,8 @@
-import { Box, Button, Paper, TextField } from "@mui/material"
-import { fetchApi } from "client"
-import { useSnackbar } from "notistack"
-import { useForm } from "react-hook-form"
-import { useAuthStore } from "~/stores"
+import { Box, Button, Paper, TextField } from '@mui/material'
+import { useFetchApi } from 'client'
+import { useSnackbar } from 'notistack'
+import { useForm } from 'react-hook-form'
+import { userStore } from '~/stores'
 type FormFields = {
   school: string
   degree: string
@@ -16,23 +16,24 @@ type EmptyEducationProps = {
   onFinish: () => void
 }
 
-export const EmptyEducation = ({ onFinish }: EmptyEducationProps) => {
+export const EmptyEducation = ({ onFinish }: EmptyEducationProps): JSX.Element => {
+  const { fetchApi } = useFetchApi()
   const { enqueueSnackbar } = useSnackbar()
-  const userData = useAuthStore((state: any) => state.user)
-  const setUserStore = useAuthStore((state: any) => state.setUser)
+  const userData = userStore((state: any) => state.user)
+  const setUserStore = userStore((state: any) => state.setUser)
 
   const { handleSubmit, register } = useForm<FormFields>({
     defaultValues: {
-      school: "",
-      degree: "",
-      fieldOfStudy: "",
+      school: '',
+      degree: '',
+      fieldOfStudy: '',
       startDate: new Date(),
       endDate: new Date(),
-      description: "",
+      description: '',
     },
   })
 
-  const onSubmit = async (formFields: FormFields) => {
+  const onSubmit = async (formFields: FormFields): Promise<void> => {
     const requestData = {
       id: userData.id,
       username: userData.username,
@@ -42,15 +43,15 @@ export const EmptyEducation = ({ onFinish }: EmptyEducationProps) => {
 
     try {
       const { user: updatedUser, token } = await fetchApi({
-        url: "/user",
-        method: "PATCH",
+        url: '/user',
+        method: 'PATCH',
         body: requestData,
       })
       setUserStore(updatedUser, token)
       onFinish()
-      enqueueSnackbar("Education added", { variant: "success" })
+      enqueueSnackbar('Education added', { variant: 'success' })
     } catch (err) {
-      enqueueSnackbar("Something went wrong", { variant: "error" })
+      enqueueSnackbar('Something went wrong', { variant: 'error' })
       console.error({ err })
     }
   }
@@ -63,25 +64,19 @@ export const EmptyEducation = ({ onFinish }: EmptyEducationProps) => {
           margin="dense"
           label="School Name *"
           fullWidth
-          {...register("school", { required: true })}
+          {...register('school', { required: true })}
         />
-        <TextField size="small" margin="dense" label="Degree" fullWidth {...register("degree")} />
-        <TextField
-          size="small"
-          margin="dense"
-          label="Field of Study"
-          fullWidth
-          {...register("fieldOfStudy")}
-        />
+        <TextField size="small" margin="dense" label="Degree" fullWidth {...register('degree')} />
+        <TextField size="small" margin="dense" label="Field of Study" fullWidth {...register('fieldOfStudy')} />
 
         <TextField
           type="date"
           size="small"
           margin="dense"
           fullWidth
-          inputProps={{ shrink: true, inputMode: "numeric" }}
+          inputProps={{ shrink: true, inputMode: 'numeric' }}
           label="Start Date"
-          {...register("startDate")}
+          {...register('startDate')}
         />
 
         <TextField
@@ -90,9 +85,9 @@ export const EmptyEducation = ({ onFinish }: EmptyEducationProps) => {
           margin="dense"
           fullWidth
           defaultValue={new Date()}
-          inputProps={{ shrink: true, inputMode: "numeric" }}
+          inputProps={{ shrink: true, inputMode: 'numeric' }}
           label="End Date"
-          {...register("endDate")}
+          {...register('endDate')}
         />
 
         <TextField
@@ -102,9 +97,9 @@ export const EmptyEducation = ({ onFinish }: EmptyEducationProps) => {
           fullWidth
           multiline
           rows={4}
-          {...register("description", { required: true })}
+          {...register('description', { required: true })}
         />
-        <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Button variant="text" onClick={onFinish}>
             Cancel
           </Button>

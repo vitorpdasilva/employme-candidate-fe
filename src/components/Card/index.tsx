@@ -1,13 +1,13 @@
-import Link from "next/link"
-import { ReactNode } from "react"
-import StyledCard from "./style"
+import Link from 'next/link'
+import { ReactNode } from 'react'
+import StyledCard from './style'
 
 type CardProps = {
-  href: string;
-  children: ReactNode;
-};
+  href: string
+  children: ReactNode
+}
 
-const Card = ({ href, children }: CardProps) => {
+const Card = ({ href, children }: CardProps): JSX.Element => {
   return (
     <Link href={href}>
       <StyledCard>{children}</StyledCard>

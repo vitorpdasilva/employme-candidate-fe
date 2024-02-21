@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 const Headline = styled.div`
   display: flex;
@@ -6,6 +6,6 @@ const Headline = styled.div`
   span {
     margin-right: 10px;
   }
-`;
+`
 
-export default Headline;
+export default Headline

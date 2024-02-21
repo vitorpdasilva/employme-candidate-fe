@@ -1,20 +1,20 @@
 //@ts-ignore
-import ReactCountryFlag from "react-country-flag";
-import parse from "html-react-parser";
-import { FaPlaneDeparture, FaDollarSign } from "react-icons/fa";
-import JobListGrid from "./style";
-import Card from "../Card";
-import { JobPoints } from "../jobPoints";
-import { JobCardHeadline } from "../JobCardHeadline";
-import { SkillLabel } from "../SkillLabel";
-import { JobDescription } from "../JobDescription";
-import { countriesList } from "../../constants";
+import parse from 'html-react-parser'
+import ReactCountryFlag from 'react-country-flag'
+import { FaDollarSign, FaPlaneDeparture } from 'react-icons/fa'
+import { countriesList } from '../../constants'
+import Card from '../Card'
+import { JobCardHeadline } from '../JobCardHeadline'
+import { JobDescription } from '../JobDescription'
+import { SkillLabel } from '../SkillLabel'
+import { JobPoints } from '../jobPoints'
+import JobListGrid from './style'
 
 type IProps = {
   jobList: JobListProps[]
 }
 
-type JobListProps =  {
+type JobListProps = {
   description: string
   location: {
     city: string
@@ -33,7 +33,7 @@ type JobListProps =  {
   tags: string[]
   id: string
 }
-export const JobList = ({ jobList }: IProps) => (
+export const JobList = ({ jobList }: IProps): JSX.Element => (
   <JobListGrid>
     {jobList?.map(({ description, location, locationType, createdAt, recent, salary, title, tags, id }) => (
       <Card key={id} href={`/job/${id}`}>
@@ -41,7 +41,7 @@ export const JobList = ({ jobList }: IProps) => (
         <h2>{title} &rarr;</h2>
         <JobPoints>
           <li>
-            <ReactCountryFlag 
+            <ReactCountryFlag
               countryCode={countriesList?.find((country: any) => country?.name === location?.country)?.code ?? ''}
               aria-label={countriesList?.find((country: any) => country?.name === location?.country)?.code ?? ''}
               svg
@@ -49,14 +49,20 @@ export const JobList = ({ jobList }: IProps) => (
             />
             {location.city} - {location.country}
           </li>
-          <li><FaPlaneDeparture /> {locationType}</li>
-          <li><FaDollarSign /> ${salary.from} up to ${salary.to} {salary.currency}/{salary.period}</li>
+          <li>
+            <FaPlaneDeparture /> {locationType}
+          </li>
+          <li>
+            <FaDollarSign /> ${salary.from} up to ${salary.to} {salary.currency}/{salary.period}
+          </li>
         </JobPoints>
         <JobDescription>{parse(description)}</JobDescription>
         <div>
-          {tags.map((tag: string) => <SkillLabel key={tag}>{tag}</SkillLabel>)}
+          {tags.map((tag: string) => (
+            <SkillLabel key={tag}>{tag}</SkillLabel>
+          ))}
         </div>
       </Card>
     ))}
   </JobListGrid>
-);
+)

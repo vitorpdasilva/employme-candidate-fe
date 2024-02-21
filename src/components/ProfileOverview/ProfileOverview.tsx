@@ -20,7 +20,7 @@ export const ProfileOverview: FC = () => {
 
   const { professional, preferences, id, username, name, general, picture } = userData
 
-  const onSubmit = async (data: FormFieldsValues) => {
+  const onSubmit = async (data: FormFieldsValues): Promise<void> => {
     const requestData = {
       id,
       username,
@@ -68,7 +68,7 @@ export const ProfileOverview: FC = () => {
           select
           fullWidth
           defaultValue={userData.preferences?.jobSearchStatus?.id ?? 0}
-          onChange={(e) => onSubmit({ name: e.target.name, value: Number(e.target.value) })}
+          onChange={(e): Promise<void> => onSubmit({ name: e.target.name, value: Number(e.target.value) })}
         >
           {jobSearchStatus.map(({ value, label }) => (
             <MenuItem key={value} value={value} aria-label={label}>

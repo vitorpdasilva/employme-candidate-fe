@@ -1,8 +1,4 @@
-import { StyledLogo } from './style'
 import { FC } from 'react'
+import { StyledLogo } from './style'
 
-export const Logo: FC = () => (
-  <StyledLogo>
-    EM
-  </StyledLogo>
-);
+export const Logo: FC = () => <StyledLogo>EM</StyledLogo>

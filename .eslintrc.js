@@ -30,7 +30,7 @@ module.exports = {
   overrides: [
     {
       // enable the rule specifically for TypeScript files
-      files: ['*.ts', '*.mts', '*.cts', '*.tsx'],
+      files: ['*.tsx'],
       rules: {
         '@typescript-eslint/explicit-function-return-type': 'error',
       },

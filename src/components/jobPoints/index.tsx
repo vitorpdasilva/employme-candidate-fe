@@ -1,13 +1,11 @@
-import JobPointsStyle from "./style";
 import { ReactNode } from 'react'
+import JobPointsStyle from './style'
 
 type JobPointsProps = {
   children: ReactNode
-  style?: {},
+  style?: {}
 }
 
-export const JobPoints = ({ children, ...rest }: JobPointsProps) => (
-  <JobPointsStyle {...rest}>
-    {children}
-  </JobPointsStyle>
-);
+export const JobPoints = ({ children, ...rest }: JobPointsProps): JSX.Element => (
+  <JobPointsStyle {...rest}>{children}</JobPointsStyle>
+)
