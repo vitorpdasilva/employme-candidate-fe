@@ -40,8 +40,9 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const setUser = userStore((state: any) => state.setUser)
   const setTokens = authStore((state: any) => state.setTokens)
-
   const { isAuthenticated } = useIsAuthenticated()
+  const [number, setNumber] = useState(0)
+
   const router = useRouter()
 
   useEffect(() => {
@@ -71,6 +72,7 @@ const Login = () => {
 
   return (
     <Grid container component="main" sx={{ height: '100vh', width: '100vw', position: 'absolute', left: 0, top: 0 }}>
+      <button onClick={() => setNumber(number + 1)}>aidsjasid</button>
       <Grid
         item
         xs={false}

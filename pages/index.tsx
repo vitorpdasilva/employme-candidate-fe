@@ -1,6 +1,6 @@
-import Head from "next/head"
-import { FC } from "react"
-import { ProfileOverview } from "src/components"
+import Head from 'next/head'
+import { FC } from 'react'
+import { ProfileOverview } from 'src/components'
 
 const Home: FC = () => (
   <>
