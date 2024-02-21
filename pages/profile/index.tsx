@@ -1,6 +1,6 @@
-import { userStore } from '@/stores'
 import { Box, Tab, Tabs, Typography } from '@mui/material'
 import { FC, ReactNode, SyntheticEvent, useState } from 'react'
+import { userStore } from '~/stores'
 import { Culture, Preferences, Resume, Profile as TabProfile } from './tabs'
 
 type TabItemsProps = { label: string; index?: number; component: ReactNode }

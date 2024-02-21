@@ -1,5 +1,3 @@
-import { useIsAuthenticated } from '@/hooks'
-import { authStore, userStore } from '@/stores'
 import {
   Alert,
   Avatar,
@@ -17,6 +15,8 @@ import { ErrorResponse, useFetchApi } from 'client'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { Resolver, useForm } from 'react-hook-form'
+import { useIsAuthenticated } from '~/hooks'
+import { authStore, userStore } from '~/stores'
 
 type Credentials = {
   username: string

@@ -1,5 +1,5 @@
-import { authStore, userStore } from '@/stores'
 import { useRouter } from 'next/navigation'
+import { authStore, userStore } from '~/stores'
 
 export function useLogout() {
   const logoutAuth = authStore((state: any) => state.logout)

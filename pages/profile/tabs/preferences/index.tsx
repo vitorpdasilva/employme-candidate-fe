@@ -1,24 +1,24 @@
-import { NumericInput } from '@/components'
-import type { CompanySizes, CurrencyList } from '@/constants'
-import { companySizes, currencyList, jobSearchStatus } from '@/constants'
-import { useDebounce } from '@/hooks'
-import { userStore } from '@/stores'
 import {
-  Box,
-  Divider,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  Grid,
-  MenuItem,
-  Radio,
-  RadioGroup,
-  TextField,
-  Typography,
+    Box,
+    Divider,
+    FormControl,
+    FormControlLabel,
+    FormLabel,
+    Grid,
+    MenuItem,
+    Radio,
+    RadioGroup,
+    TextField,
+    Typography,
 } from '@mui/material'
 import { useFetchApi } from 'client'
 import { useSnackbar } from 'notistack'
 import { useState } from 'react'
+import { NumericInput } from '~/components'
+import type { CompanySizes, CurrencyList } from '~/constants'
+import { companySizes, currencyList, jobSearchStatus } from '~/constants'
+import { useDebounce } from '~/hooks'
+import { userStore } from '~/stores'
 
 const radios: Record<string, string | number>[] = [
   { value: 1, label: 'Ideal' },

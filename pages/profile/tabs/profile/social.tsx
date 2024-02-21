@@ -1,8 +1,8 @@
-import { SocialMediasListType, socialMediasList } from '@/constants'
-import { userStore } from '@/stores'
 import { Box, Button, Grid, InputAdornment, TextField } from '@mui/material'
 import { useFetchApi } from 'client'
 import { useForm } from 'react-hook-form'
+import { SocialMediasListType, socialMediasList } from '~/constants'
+import { userStore } from '~/stores'
 
 type SocialMedias = 'linkedin' | 'github' | 'facebook' | 'twitter'
 

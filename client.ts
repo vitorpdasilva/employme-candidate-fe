@@ -1,4 +1,4 @@
-import { authStore } from '@/stores'
+import { authStore } from '~/stores'
 const BASE_URL = process.env.NODE_ENV === 'production' ? 'prod-url/graphql' : 'http://localhost:3500/api'
 
 type RequestMode = 'navigate' | 'same-origin' | 'no-cors' | 'cors'
@@ -27,9 +27,8 @@ const controller = new AbortController()
 const signal = controller.signal
 
 const useFetchApi = () => {
-  
   const tokens = authStore((state: any) => state.tokens)
-  
+
   const fetchApi = async ({
     url,
     method = 'POST',
@@ -66,7 +65,7 @@ const useFetchApi = () => {
       }
     }
     const response = await fetch(`${BASE_URL}${url}`, requestBody)
-    
+
     if (response.ok) {
       const responseData = await response.json()
       return responseData
@@ -76,7 +75,5 @@ const useFetchApi = () => {
     throw new Error(errorResponseData.message || 'Something went wrong.')
   }
   return { fetchApi }
-  
 }
-export { useFetchApi, BASE_URL }
-
+export { BASE_URL, useFetchApi }

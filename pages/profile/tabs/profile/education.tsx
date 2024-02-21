@@ -1,8 +1,8 @@
-import { EmptyEducation } from '@/components'
-import { userStore } from '@/stores'
 import { Avatar, Box, Button, Grid, Paper, Stack, Typography } from '@mui/material'
 import Link from 'next/link'
 import { useState } from 'react'
+import { EmptyEducation } from '~/components'
+import { userStore } from '~/stores'
 
 export const Education = () => {
   const user = userStore((state: any) => state.user)

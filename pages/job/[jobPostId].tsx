@@ -6,10 +6,10 @@ import { Message, Popup } from 'semantic-ui-react'
 // react-country-flag doesnt exist in @types npm-registry
 // TODO: replace to a flag library that contain types
 //@ts-ignore
-import { JobCardHeadline } from '@/components/JobCardHeadline'
-import { JobPoints } from '@/components/jobPoints'
-import { countriesList } from '@/constants'
-import { authStore } from '@/stores'
+import { JobCardHeadline } from '~/components/JobCardHeadline'
+import { JobPoints } from '~/components/jobPoints'
+import { countriesList } from '~/constants'
+import { authStore } from '~/stores'
 
 import { Button } from '@mui/material'
 import { useFetchApi } from 'client'

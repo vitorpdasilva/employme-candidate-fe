@@ -1,24 +1,24 @@
-import { professionList } from '@/constants'
-import { CompressedImage, compressImage } from '@/helpers'
-import { userStore } from '@/stores'
 import {
-  Avatar,
-  Box,
-  Button,
-  Chip,
-  Divider,
-  FormControl,
-  Grid,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-  Typography,
+    Avatar,
+    Box,
+    Button,
+    Chip,
+    Divider,
+    FormControl,
+    Grid,
+    InputLabel,
+    MenuItem,
+    Select,
+    TextField,
+    Typography,
 } from '@mui/material'
 import { useFetchApi } from 'client'
 import { useSnackbar } from 'notistack'
 import { ChangeEvent } from 'react'
 import { useForm } from 'react-hook-form'
+import { professionList } from '~/constants'
+import { CompressedImage, compressImage } from '~/helpers'
+import { userStore } from '~/stores'
 import { Education } from './education'
 import { Location } from './location'
 import { Social } from './social'

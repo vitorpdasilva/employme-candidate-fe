@@ -1,7 +1,7 @@
-import { EmptyWorkExperience } from '@/components'
-import { userStore } from '@/stores'
 import { Avatar, Box, Button, Grid, Link, Paper, Stack, Typography } from '@mui/material'
 import { useState } from 'react'
+import { EmptyWorkExperience } from '~/components'
+import { userStore } from '~/stores'
 
 export const WorkExperience = () => {
   const user = userStore((state: any) => state.user)
