@@ -3,6 +3,8 @@ import ScopedCssBaseline from '@mui/material/ScopedCssBaseline'
 import Grid from '@mui/material/Unstable_Grid2'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { useRouter } from 'next/router'
 import { SnackbarProvider } from 'notistack'
 import { ElementType, useEffect } from 'react'
@@ -11,12 +13,15 @@ import { Header, NavSidebar } from '~/components'
 import { useIsAuthenticated } from '~/hooks'
 import '../styles/globals.css'
 import { theme } from '../styles/theme'
-const routesToBeRedirected = ['/auth/login', '/auth/signup']
+const routesToBeRedirected = ['/login', '/signup']
 
 type MyAppProps = {
   Component: ElementType
+  // eslint-disable-next-line
   pageProps: any
 }
+
+const queryClient = new QueryClient()
 
 function MyApp({ Component, pageProps }: MyAppProps): JSX.Element {
   const router = useRouter()
@@ -34,7 +39,8 @@ function MyApp({ Component, pageProps }: MyAppProps): JSX.Element {
   }, [])
 
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
       <ScopedCssBaseline sx={{ height: 'inherit', display: 'flex', flexDirection: 'column' }}>
         <NoSsr>
           <ThemeProvider theme={theme}>
@@ -58,7 +64,7 @@ function MyApp({ Component, pageProps }: MyAppProps): JSX.Element {
           </ThemeProvider>
         </NoSsr>
       </ScopedCssBaseline>
-    </>
+    </QueryClientProvider>
   )
 }
 

@@ -1,10 +1,13 @@
 import { Alert, Box, Button, Link, styled, TextField, Typography } from '@mui/material'
-import { ErrorResponse, useFetchApi } from 'client'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { ErrorResponse } from 'client'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { Resolver, useForm } from 'react-hook-form'
 import { useIsAuthenticated } from '~/hooks'
-import { authStore } from '~/stores'
+import { signup as onSignUp } from '~/queries'
+import { authStore, userStore } from '~/stores'
+import { components } from '~/types'
 
 type Credentials = {
   email: string
@@ -27,18 +30,30 @@ const FormWrapper = styled(Box)({
 
 const resolver: Resolver<Credentials> = async (values) => {
   return {
-    values: values.email ? values : {},
+    values: values.email && values.name && values.password ? values : {},
     errors: !values.email ? { email: { type: 'required', message: 'email is required' } } : {},
   }
 }
 
 const SignUp = (): JSX.Element => {
-  const { fetchApi } = useFetchApi()
   const { register, handleSubmit } = useForm<Credentials>({ resolver })
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const { isAuthenticated } = useIsAuthenticated()
-  const setUser = authStore((state: any) => state.setUser)
-  const setTokens = authStore((state: any) => state.setTokens)
+  const setUser = userStore((state) => state.setUser)
+  const setTokens = authStore((state) => state.setTokens)
+
+  const queryClient = useQueryClient()
+
+  const { isPending, mutate } = useMutation({
+    mutationFn: onSignUp,
+    mutationKey: ['/auth/signup'],
+    onSuccess: (success: components['schemas']['UserWithTokensOutputDto']) => {
+      queryClient.setQueryData(['signUp'], success)
+      setUser(success.userData)
+      setTokens(success.tokens)
+      router.push('/')
+    },
+  })
 
   const router = useRouter()
 
@@ -48,19 +63,12 @@ const SignUp = (): JSX.Element => {
     }
   }, [])
 
-  const onSubmit = handleSubmit(async (data) => {
+  const onSubmit = handleSubmit(async ({ email, password, name }) => {
     setErrorMessage(null)
-    const body = {
-      email: data.email,
-      password: data.password,
-      name: data.name,
-    }
 
     try {
-      const { user, token } = await fetchApi({ url: '/register', body })
-      setUser(user)
-      setTokens(token)
-      router.push('/')
+      mutate({ email, password, name })
+      // eslint-disable-next-line
     } catch (error: any) {
       setErrorMessage(error?.message as ErrorResponse['message'])
     }
@@ -77,7 +85,7 @@ const SignUp = (): JSX.Element => {
       <TextField sx={{ my: 2 }} {...register('email')} label="email" variant="outlined" />
       <TextField {...register('password')} type="password" label="password" variant="outlined" />
       <Button type="submit" variant="contained" sx={{ mt: 2 }}>
-        Sign Up
+        {isPending ? 'Signing up...' : 'Sign up'}
       </Button>
       <Typography sx={{ mt: 2 }} variant="caption" color="text.secondary">
         Already have an account? <Link href="/login">Sign in</Link>

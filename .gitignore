@@ -33,4 +33,4 @@ yarn-error.log*
 # vercel
 .vercel
 
-types.ts
+./src/types/types.ts

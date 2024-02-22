@@ -5,11 +5,17 @@ type Tokens = {
   refreshToken: string
 }
 
-export const authStore = create(
+export type AuthStore = {
+  tokens: Tokens | null
+  setTokens: (tokens: Tokens) => void
+  logout: () => void
+}
+
+export const authStore = create<AuthStore>()(
   persist(
     (set) => ({
       tokens: null,
-      setTokens: (tokens: Tokens) => {
+      setTokens: (tokens) => {
         set({ tokens })
       },
       logout: () => {

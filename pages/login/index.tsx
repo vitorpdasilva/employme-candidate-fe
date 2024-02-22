@@ -34,8 +34,8 @@ const Login = (): JSX.Element => {
   const { fetchApi } = useFetchApi()
   const { register, handleSubmit } = useForm<Credentials>({ resolver })
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
-  const setUser = userStore((state: any) => state.setUser)
-  const setTokens = authStore((state: any) => state.setTokens)
+  const setUser = userStore((state) => state.setUser)
+  const setTokens = authStore((state) => state.setTokens)
   const { isAuthenticated } = useIsAuthenticated()
   const [number, setNumber] = useState(0)
 
@@ -61,6 +61,7 @@ const Login = (): JSX.Element => {
       setUser(userData)
       setTokens(tokens)
       router.push('/')
+      // eslint-disable-next-line
     } catch (error: any) {
       setErrorMessage(error?.message as ErrorResponse['message'])
     }

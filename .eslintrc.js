@@ -15,6 +15,22 @@ module.exports = {
     ecmaVersion: 13,
     sourceType: 'module',
   },
+  overrides: [
+    {
+      files: ['*.tsx'],
+      rules: {
+        '@typescript-eslint/explicit-function-return-type': 'error',
+      },
+    },
+  ],
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'prettier',
+    'plugin:@tanstack/eslint-plugin-query/recommended',
+  ],
+  plugins: ['react', '@typescript-eslint', 'prettier'],
+  ignorePatterns: ['node_modules/', 'dist/', 'build/', 'public/', 'coverage/', '**/types.ts'],
   rules: {
     semi: ['error', 'never'],
     quotes: ['error', 'single'],
@@ -26,17 +42,21 @@ module.exports = {
     'object-curly-spacing': ['error', 'always'],
     'react/no-unescaped-entities': 0,
     '@typescript-eslint/explicit-function-return-type': 'off',
-  },
-  overrides: [
-    {
-      // enable the rule specifically for TypeScript files
-      files: ['*.tsx'],
-      rules: {
-        '@typescript-eslint/explicit-function-return-type': 'error',
+    '@typescript-eslint/no-explicit-any': 'error',
+    '@tanstack/query/exhaustive-deps': 'error',
+    '@tanstack/query/no-rest-destructuring': 'warn',
+    '@tanstack/query/stable-query-client': 'error',
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      {
+        args: 'all',
+        argsIgnorePattern: '^_',
+        caughtErrors: 'all',
+        caughtErrorsIgnorePattern: '^_',
+        destructuredArrayIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
+        ignoreRestSiblings: true,
       },
-    },
-  ],
-  extends: ['eslint:recommended', 'plugin:react/recommended', 'prettier'],
-  plugins: ['react', '@typescript-eslint', 'prettier'],
-  exclude: ['types.ts'],
+    ],
+  },
 }

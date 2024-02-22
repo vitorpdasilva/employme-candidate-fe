@@ -29,7 +29,7 @@ const signal = controller.signal
 // refactor this to use tanstack/react-query
 
 const useFetchApi = (): any => {
-  const tokens = authStore((state: any) => state.tokens)
+  const tokens = authStore((state) => state.tokens)
 
   const fetchApi = async ({
     url,
@@ -39,7 +39,7 @@ const useFetchApi = (): any => {
     credentials = 'same-origin',
     body,
     headers,
-  }: FetchApiProps): Promise<any> => {
+  }: FetchApiProps): Promise<unknown> => {
     const requestHeaders = {
       'Content-Type': 'application/json',
       ...(tokens?.accessToken && { Authorization: `Bearer ${tokens.accessToken}` }),

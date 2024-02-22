@@ -2,11 +2,17 @@ import { UserType } from 'src/types'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-export const userStore = create(
+type UserStore = {
+  user: Partial<UserType> | null
+  setUser: (user: Partial<UserType>) => void
+  clearUser: () => void
+}
+
+export const userStore = create<UserStore>()(
   persist(
     (set) => ({
       user: null,
-      setUser: (user: UserType) => set({ user }),
+      setUser: (user) => set({ user }),
       clearUser: () => set({ user: null }),
     }),
     {

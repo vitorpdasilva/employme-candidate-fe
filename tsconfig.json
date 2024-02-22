@@ -32,7 +32,8 @@
       "~types/*": ["./src/types/*"],
       "~constants/*": ["./src/constants/*"],
       "~stores/*": ["./src/stores/*"],
-      "~helpers/*": ["./src/helpers/*"]
+      "~helpers/*": ["./src/helpers/*"],
+      "~queries": ["./src/queries/*"]
     },
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
     // "typeRoots": [],                                  /* Specify multiple folders that act like './node_modules/@types'. */
@@ -101,13 +102,6 @@
     "incremental": true
   },
   "exclude": ["node_modules", "build/**/*", "src/constants.ts"],
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "src/**/*",
-    "pages/**/*",
-    ".eslintrc.js",
-    "next-env.d.ts"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "src/**/*", "pages/**/*", ".eslintrc.js", "next-env.d.ts"],
   "ignorePatterns": ["shell/*"]
 }
