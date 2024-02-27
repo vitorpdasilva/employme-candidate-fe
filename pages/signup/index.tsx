@@ -1,5 +1,5 @@
 import { Alert, Box, Button, Link, styled, TextField, Typography } from '@mui/material'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { ErrorResponse } from 'client'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
@@ -42,13 +42,13 @@ const SignUp = (): JSX.Element => {
   const setUser = userStore((state) => state.setUser)
   const setTokens = authStore((state) => state.setTokens)
 
-  const queryClient = useQueryClient()
-
   const { isPending, mutate } = useMutation({
     mutationFn: onSignUp,
     mutationKey: ['/auth/signup'],
     onSuccess: (success: components['schemas']['UserWithTokensOutputDto']) => {
-      queryClient.setQueryData(['signUp'], success)
+      console.log({ success })
+
+      if (!success?.userData) return
       setUser(success.userData)
       setTokens(success.tokens)
       router.push('/')

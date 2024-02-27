@@ -1,7 +1,13 @@
 import { useCallback, useEffect, useRef } from 'react'
 
-function useTimeout(callback: () => void, delay: number) {
+type UseTimeoutProps = {
+  reset: () => void
+  clear: () => void
+}
+
+function useTimeout(callback: () => void, delay: number): UseTimeoutProps {
   const callBackRef = useRef(callback)
+  // eslint-disable-next-line
   const timeoutRef = useRef<any>()
 
   useEffect(() => {
@@ -29,7 +35,4 @@ function useTimeout(callback: () => void, delay: number) {
   return { reset, clear }
 }
 
-export {
-  useTimeout
-}
-
+export { useTimeout }

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3001",
-    "build:api-types": "npx openapi-typescript http://localhost:3500/swagger-json --output ./src/types/types.ts",
+    "build:types": "npx openapi-typescript http://localhost:3500/swagger-json --output ./src/types/types.ts",
     "build": "next build",
     "start": "npx next start -p 3001",
     "lint": "eslint .",

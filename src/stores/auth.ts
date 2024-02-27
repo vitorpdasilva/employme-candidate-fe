@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-type Tokens = {
+
+export type Tokens = {
   accessToken: string
   refreshToken: string
 }
@@ -15,10 +16,10 @@ export const authStore = create<AuthStore>()(
   persist(
     (set) => ({
       tokens: null,
-      setTokens: (tokens) => {
+      setTokens: (tokens: Tokens): void => {
         set({ tokens })
       },
-      logout: () => {
+      logout: (): void => {
         set({ tokens: null })
       },
     }),

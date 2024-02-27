@@ -37,7 +37,6 @@ const Login = (): JSX.Element => {
   const setUser = userStore((state) => state.setUser)
   const setTokens = authStore((state) => state.setTokens)
   const { isAuthenticated } = useIsAuthenticated()
-  const [number, setNumber] = useState(0)
 
   const router = useRouter()
 
@@ -68,8 +67,7 @@ const Login = (): JSX.Element => {
   })
 
   return (
-    <Grid container component="main" sx={{ height: '100vh', width: '100vw', position: 'absolute', left: 0, top: 0 }}>
-      <button onClick={(): void => setNumber(number + 1)}>aidsjasid</button>
+    <Grid container component="main">
       <Grid
         item
         xs={false}

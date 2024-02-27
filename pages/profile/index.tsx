@@ -28,10 +28,10 @@ const TabPanel = (props: TabPanelProps): JSX.Element => {
 }
 
 const Profile: FC = () => {
-  const user = userStore((state: any) => state.user)
+  const user = userStore((state) => state.user)
   const [tabValue, setTabValue] = useState(0)
 
-  const handleTabChange = (event: SyntheticEvent, newValue: number): void => setTabValue(newValue)
+  const handleTabChange = (_: SyntheticEvent, newValue: number): void => setTabValue(newValue)
 
   if (!user) {
     return <>loading...</>

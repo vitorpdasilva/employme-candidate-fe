@@ -47,14 +47,102 @@ export interface components {
     SignInDto: {
       /** @description Email */
       email: string;
-      /** @description Pawwrod */
+      /** @description Password */
       password: string;
+    };
+    /** @enum {string} */
+    UserType: "Candidate" | "Company";
+    /** @enum {string} */
+    GenderTypeDto: "Male" | "Female" | "Other";
+    UserGeneralDto: {
+      citizenshipCode: string;
+      gender: components["schemas"]["GenderTypeDto"];
+      currentLocation: string;
+      phone: string;
+      bio: string;
+    };
+    UserSkillRankDto: {
+      skillId: number;
+      yearsOfExp: number;
+    };
+    /** @enum {string} */
+    LocationType: "Hybrid" | "Remote" | "Onsite";
+    UserWorkExperienceDto: {
+      id: string;
+      title: string;
+      company: string;
+      locationType: components["schemas"]["LocationType"];
+      location: string;
+      /** Format: date-time */
+      startDate: string;
+      current: boolean;
+      /** Format: date-time */
+      endDate: string;
+      description: string;
+    };
+    UserProfessionalDto: {
+      profession: string;
+      yearsOfExperience: number;
+      openToDiffRole: boolean;
+      preferencesToWork: number[];
+      skillsRank: components["schemas"]["UserSkillRankDto"][];
+      /** @description Work Experiences */
+      workExperiences: components["schemas"]["UserWorkExperienceDto"][];
+    };
+    UserRecolocationDto: {
+      openToRemote: string;
+      relocateOptions: string;
+      salaryExpected: string;
+      currency: string;
+      visa: string;
+      validPassport: boolean;
+      companySize: string;
+      activelyLooking: boolean;
+      noticePeriod: string;
+    };
+    UserPreferencesDto: {
+      jobSearchStatus: string;
+      salary: Record<string, never>;
+      companySize: Record<string, never>;
+      hideFromCompanies: string[];
+    };
+    UserCultureDto: {
+      lookingFor: string;
+      motivatesMeMore: string;
+      fiveYearsCareerTrack: string;
+      workBetterIn: string;
     };
     UserOutputDto: {
       /** @description ID */
       id: string;
       /** @description Email */
       email: string;
+      /** @description UserType */
+      type: components["schemas"]["UserType"];
+      /** @description Name */
+      name: string;
+      /** @description Access Count */
+      accessCount: number;
+      /** @description Username */
+      username: string;
+      /** @description Picture */
+      picture: string;
+      /** @description Jobs Applied */
+      jobsApplied: string[];
+      /** @description General User Info */
+      general: components["schemas"]["UserGeneralDto"];
+      /** @description Professional User Info */
+      professional: components["schemas"]["UserProfessionalDto"];
+      /** @description Relocation User Info */
+      relocation: components["schemas"]["UserRecolocationDto"];
+      /** @description Preferences User Info */
+      preferences: components["schemas"]["UserPreferencesDto"];
+      /** @description Culture User Info */
+      culture: components["schemas"]["UserCultureDto"];
+      /** @description Social User Info */
+      social: string[];
+      /** @description Education User Info */
+      education: string[];
     };
     TokenOutputDto: {
       /** @description Access Token */
@@ -79,10 +167,39 @@ export interface components {
     RegisterUserInputDto: {
       /** @description Email */
       email: string;
+      /** @description Name */
+      name: string;
       /** @description Password */
       password: string;
     };
-    UpdateUserInputDto: Record<string, never>;
+    UpdateUserInputDto: {
+      /** @description UserType */
+      type?: components["schemas"]["UserType"];
+      /** @description Name */
+      name?: string;
+      /** @description Access Count */
+      accessCount?: number;
+      /** @description Username */
+      username?: string;
+      /** @description Picture */
+      picture?: string;
+      /** @description Jobs Applied */
+      jobsApplied?: string[];
+      /** @description General User Info */
+      general?: components["schemas"]["UserGeneralDto"];
+      /** @description Professional User Info */
+      professional?: components["schemas"]["UserProfessionalDto"];
+      /** @description Relocation User Info */
+      relocation?: components["schemas"]["UserRecolocationDto"];
+      /** @description Preferences User Info */
+      preferences?: components["schemas"]["UserPreferencesDto"];
+      /** @description Culture User Info */
+      culture?: components["schemas"]["UserCultureDto"];
+      /** @description Social User Info */
+      social?: string[];
+      /** @description Education User Info */
+      education?: string[];
+    };
     LocationDto: {
       city: string;
       country: string;

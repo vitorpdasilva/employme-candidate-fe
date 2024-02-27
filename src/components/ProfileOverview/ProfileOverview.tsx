@@ -3,7 +3,7 @@ import { useFetchApi } from 'client'
 import Link from 'next/link'
 import { FC } from 'react'
 import { countriesList, jobSearchStatus } from 'src/constants'
-import { userStore } from 'src/stores'
+import { authStore, userStore } from 'src/stores'
 
 type FormFieldsValues = {
   value: number
@@ -12,8 +12,9 @@ type FormFieldsValues = {
 
 export const ProfileOverview: FC = () => {
   const { fetchApi } = useFetchApi()
-  const userData = userStore((state: any) => state.user)
-  const setUserStore = userStore((state: any) => state.setUser)
+  const userData = userStore((state) => state.user)
+  const setUserStore = userStore((state) => state.setUser)
+  const setTokens = authStore((state) => state.setTokens)
 
   // todo add loading state with skeleton component
   if (!userData) return <>Loading...</>
@@ -39,20 +40,19 @@ export const ProfileOverview: FC = () => {
       method: 'PATCH',
       body: requestData,
     })
-    setUserStore(updatedUser, token)
+    setUserStore(updatedUser)
+    setTokens(token)
   }
-
-  console.log({ userData })
 
   return (
     <Paper elevation={2} sx={{ display: 'flex', py: 5, px: 3 }}>
-      <Avatar alt={name} src={picture?.data} sx={{ width: 56, height: 56 }} />
+      <Avatar alt={name} src={picture} sx={{ width: 56, height: 56 }} />
       <Box sx={{ mx: 3, flexGrow: 1 }}>
         <Typography variant="h5">{name}</Typography>
         <Typography variant="subtitle1" fontWeight="bold">
-          {!!professional?.workExperience && <>{userData.professional?.workExperience?.[0]?.title}</>}
-          {!professional?.workExperience?.[0]?.endDate && (
-            <> @ {professional?.workExperience.find((work: any) => !!work.current).company}</>
+          {!!professional?.workExperiences && <>{userData.professional?.workExperiences?.[0]?.title}</>}
+          {!professional?.workExperiences?.[0]?.endDate && (
+            <> @ {professional?.workExperiences.find((work) => !!work.current)?.company}</>
           )}
         </Typography>
         <Typography variant="subtitle1">
@@ -67,7 +67,8 @@ export const ProfileOverview: FC = () => {
           name="jobSearchStatus"
           select
           fullWidth
-          defaultValue={userData.preferences?.jobSearchStatus?.id ?? 0}
+          // todo: fix type here when change to enum on the api
+          defaultValue={userData.preferences?.jobSearchStatus ?? 0}
           onChange={(e): Promise<void> => onSubmit({ name: e.target.name, value: Number(e.target.value) })}
         >
           {jobSearchStatus.map(({ value, label }) => (
