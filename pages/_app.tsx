@@ -26,7 +26,7 @@ const queryClient = new QueryClient()
 function MyApp({ Component, pageProps }: MyAppProps): JSX.Element {
   const router = useRouter()
 
-  const { isAuthenticated } = useIsAuthenticated()
+  const isAuthenticated = useIsAuthenticated()
   useEffect(() => {
     if (isAuthenticated) {
       if (routesToBeRedirected.includes(router.pathname)) {
@@ -47,13 +47,18 @@ function MyApp({ Component, pageProps }: MyAppProps): JSX.Element {
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               {isAuthenticated && <Header />}
               <SnackbarProvider maxSnack={3} autoHideDuration={2000} preventDuplicate>
-                <Container>
-                  <Box sx={{ flexGrow: 1, width: '100%' }}>
-                    <Grid container spacing={6} sx={{ pt: 6 }}>
+                <Container sx={{ height: '100%' }}>
+                  <Box sx={{ flexGrow: 1, width: '100%', height: '100%' }}>
+                    <Grid
+                      container
+                      spacing={6}
+                      sx={{ mt: 3, height: '100%' }}
+                      direction={{ xs: 'column-reverse', md: 'row' }}
+                    >
                       <Grid md={2} xs={12}>
                         {isAuthenticated && <NavSidebar />}
                       </Grid>
-                      <Grid md={10} xs={12}>
+                      <Grid md={10} xs={12} sx={{ mb: 'auto' }}>
                         <Component {...pageProps} />
                       </Grid>
                     </Grid>

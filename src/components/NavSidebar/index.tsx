@@ -3,7 +3,7 @@ import DoneAllOutlinedIcon from '@mui/icons-material/DoneAllOutlined'
 import ExploreOutlinedIcon from '@mui/icons-material/ExploreOutlined'
 import Face5OutlinedIcon from '@mui/icons-material/Face5Outlined'
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
-import { Box, Link, styled, useMediaQuery, useTheme } from '@mui/material'
+import { Box, Link, Paper, styled, useMediaQuery, useTheme } from '@mui/material'
 import { useRouter } from 'next/router'
 import { FC, ReactNode } from 'react'
 type MenuItems = Record<string, string | ReactNode>
@@ -48,7 +48,7 @@ export const NavSidebar: FC = () => {
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
 
   return (
-    <Box
+    <Paper
       sx={{
         display: 'flex',
         flexDirection: isDesktop ? 'column' : 'row',
@@ -61,6 +61,6 @@ export const NavSidebar: FC = () => {
           {item.name}
         </MenuItem>
       ))}
-    </Box>
+    </Paper>
   )
 }

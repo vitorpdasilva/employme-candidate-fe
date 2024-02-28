@@ -1,15 +1,15 @@
 import {
-    Box,
-    Divider,
-    FormControl,
-    FormControlLabel,
-    FormLabel,
-    Grid,
-    MenuItem,
-    Radio,
-    RadioGroup,
-    TextField,
-    Typography,
+  Box,
+  Divider,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Grid,
+  MenuItem,
+  Radio,
+  RadioGroup,
+  TextField,
+  Typography,
 } from '@mui/material'
 import { useFetchApi } from 'client'
 import { useSnackbar } from 'notistack'
@@ -37,29 +37,29 @@ type SalaryObj = {
   }
 }
 
-export const Preferences = () => {
+export const Preferences = (): JSX.Element => {
   const { fetchApi } = useFetchApi()
   const [salaryObj, setSalaryObj] = useState<SalaryObj>({ name: 'salary', values: { amount: '0' } })
   const { enqueueSnackbar } = useSnackbar()
 
-  const user = userStore((state: any) => state.user)
-  const setUserStore = userStore((state: any) => state.setUser)
+  const user = userStore((state) => state.user)
+  const setUserStore = userStore((state) => state.setUser)
 
   useDebounce(() => onSubmit(salaryObj), 700, [salaryObj])
 
-  const onSubmit = async (data: RequestData) => {
+  const onSubmit = async (data: RequestData): Promise<void> => {
     const requestData = {
-      id: user.id,
-      username: user.username,
+      id: user?.id,
+      username: user?.username,
       ...user,
       preferences: {
         ...user.preferences,
         [data.name]: Array.isArray(user.preferences?.[data.name])
           ? [...(user.preferences?.[data.name] as any), data.values]
           : {
-            ...user.preferences?.[data.name],
-            ...data.values,
-          },
+              ...user.preferences?.[data.name],
+              ...data.values,
+            },
       },
     }
 
@@ -93,7 +93,7 @@ export const Preferences = () => {
             select
             fullWidth
             defaultValue={user.preferences?.jobSearchStatus?.id ?? 0}
-            onChange={(e) =>
+            onChange={(e: ReactEventHandler) =>
               onSubmit({
                 name: 'jobSearchStatus',
                 values: {
@@ -124,7 +124,7 @@ export const Preferences = () => {
             variant="outlined"
             sx={{ flexGrow: 1 }}
             defaultValue={user.preferences?.salary?.currency ?? 0}
-            onChange={(e) =>
+            onChange={(e: any): void =>
               onSubmit({
                 name: 'salary',
                 values: {
@@ -191,7 +191,7 @@ export const Preferences = () => {
                 display: 'flex',
                 flexDirection: 'row',
               }}
-              onChange={(e: any) =>
+              onChange={(e: EventTarget): void =>
                 onSubmit({
                   name: 'companySize',
                   values: { id, option: e.target.value, label },

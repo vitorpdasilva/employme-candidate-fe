@@ -1,15 +1,7 @@
-import { authStore, Tokens } from '~/stores'
+import { authStore } from '~/stores'
 
-type UseIsAuthenticatedProps = {
-  isAuthenticated: boolean
-  tokens: Tokens | null
-}
-
-export const useIsAuthenticated = (): UseIsAuthenticatedProps => {
+export const useIsAuthenticated = (): boolean => {
   const tokens = authStore((state) => state.tokens)
 
-  return {
-    isAuthenticated: !!tokens,
-    tokens,
-  }
+  return !!tokens
 }
