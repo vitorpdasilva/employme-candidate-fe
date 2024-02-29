@@ -17,11 +17,31 @@ const MenuItem = styled(Link)<{ selected: boolean }>(({ theme, selected }) => ({
   alignItems: 'center',
   flexDirection: 'column',
   justifyContent: 'center',
-  background: selected ? theme.palette.primary.main : 'transparent',
-  color: selected ? theme.palette.primary.contrastText : theme.palette.common.black,
+  position: 'relative',
+  fontWeight: selected ? theme.typography.fontWeightBold : theme.typography.fontWeightRegular,
   '&:hover': {
-    backgroundColor: theme.palette.primary.main,
+    fontWeight: 600,
   },
+  ...(selected && {
+    '&:after': {
+      content: '""',
+      backgroundColor: theme.palette.primary.main,
+      transform: selected ? 'scaleX(1)' : 'scaleX(0)',
+      transition: 'transform 0.3s ease',
+      position: 'absolute',
+      top: 0,
+      [theme.breakpoints.down('md')]: {
+        left: 0,
+        width: '100%',
+        height: 2,
+      },
+      [theme.breakpoints.up('md')]: {
+        right: 0,
+        width: 2,
+        height: '100%',
+      },
+    },
+  }),
 }))
 
 const menuItems: MenuItems[] = [

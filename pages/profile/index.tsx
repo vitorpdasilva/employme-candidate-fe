@@ -42,8 +42,8 @@ const Profile = (): JSX.Element => {
     <>
       <Box sx={{ width: '100%' }}>
         <Typography variant="h3">Edit your profile</Typography>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs value={tabValue} onChange={handleTabChange}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider', position: 'relative' }}>
+          <Tabs sx={{ position: 'sticky', top: '300px' }} value={tabValue} onChange={handleTabChange}>
             {tabItems.map(({ label }: TabItemsProps, index) => (
               <Tab key={index} label={label} />
             ))}
