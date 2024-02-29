@@ -1,5 +1,4 @@
-import { Box, Container, NoSsr } from '@mui/material'
-import ScopedCssBaseline from '@mui/material/ScopedCssBaseline'
+import { Box, Container, NoSsr, ScopedCssBaseline, ThemeProvider } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
@@ -8,11 +7,11 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { useRouter } from 'next/router'
 import { SnackbarProvider } from 'notistack'
 import { ElementType, useEffect } from 'react'
-import { ThemeProvider } from 'styled-components'
 import { Header, NavSidebar } from '~/components'
 import { useIsAuthenticated } from '~/hooks'
 import '../styles/globals.css'
 import { theme } from '../styles/theme'
+
 const routesToBeRedirected = ['/login', '/signup']
 
 type MyAppProps = {
@@ -52,13 +51,23 @@ function MyApp({ Component, pageProps }: MyAppProps): JSX.Element {
                     <Grid
                       container
                       spacing={6}
-                      sx={{ mt: 3, height: '100%' }}
+                      sx={{ mt: 3, height: '100%', position: 'relative' }}
                       direction={{ xs: 'column-reverse', md: 'row' }}
                     >
-                      <Grid md={2} xs={12}>
+                      <Grid
+                        md={2}
+                        xs={12}
+                        sx={{
+                          p: { xs: 1, md: 3 },
+                          position: { xs: 'fixed', md: 'sticky' },
+                          bottom: 0,
+                          zIndex: 1,
+                          alignItems: { md: 'center' },
+                        }}
+                      >
                         {isAuthenticated && <NavSidebar />}
                       </Grid>
-                      <Grid md={10} xs={12} sx={{ mb: 'auto' }}>
+                      <Grid md={10} xs={12} sx={{ mb: 'auto', position: 'absolute', right: 0, top: 0, zIndex: 0 }}>
                         <Component {...pageProps} />
                       </Grid>
                     </Grid>

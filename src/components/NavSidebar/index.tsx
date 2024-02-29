@@ -1,43 +1,45 @@
 import BusinessCenterOutlinedIcon from '@mui/icons-material/BusinessCenterOutlined'
-import DoneAllOutlinedIcon from '@mui/icons-material/DoneAllOutlined'
+// import DoneAllOutlinedIcon from '@mui/icons-material/DoneAllOutlined'
 import ExploreOutlinedIcon from '@mui/icons-material/ExploreOutlined'
 import Face5OutlinedIcon from '@mui/icons-material/Face5Outlined'
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
-import { Box, Link, Paper, styled, useMediaQuery, useTheme } from '@mui/material'
+import { Box, Link, styled, useTheme } from '@mui/material'
+import Grid from '@mui/material/Unstable_Grid2'
 import { useRouter } from 'next/router'
 import { FC, ReactNode } from 'react'
 type MenuItems = Record<string, string | ReactNode>
 
 const MenuItem = styled(Link)<{ selected: boolean }>(({ theme, selected }) => ({
   textDecoration: 'none',
-  height: 65,
+  padding: 0,
+  height: theme.spacing(8),
   display: 'flex',
   alignItems: 'center',
   flexDirection: 'column',
   justifyContent: 'center',
-  background: selected ? theme.palette.primary.contrastText : 'transparent',
-  color: selected ? theme.palette.primary.main : theme.palette.common.black,
+  background: selected ? theme.palette.primary.main : 'transparent',
+  color: selected ? theme.palette.primary.contrastText : theme.palette.common.black,
   '&:hover': {
-    backgroundColor: theme.palette.primary.contrastText,
+    backgroundColor: theme.palette.primary.main,
   },
 }))
 
 const menuItems: MenuItems[] = [
-  { name: 'Home', icon: <HomeOutlinedIcon fontSize="large" />, href: '/' },
-  { name: 'Profile', icon: <Face5OutlinedIcon fontSize="large" />, href: '/profile' },
+  { name: 'Home', icon: <HomeOutlinedIcon sx={{ fontSize: { xs: 'medium', md: 'large' } }} />, href: '/' },
+  { name: 'Profile', icon: <Face5OutlinedIcon sx={{ fontSize: { xs: 'medium', md: 'large' } }} />, href: '/profile' },
   {
     name: 'Jobs',
-    icon: <BusinessCenterOutlinedIcon fontSize="large" />,
+    icon: <BusinessCenterOutlinedIcon sx={{ fontSize: { xs: 'medium', md: 'large' } }} />,
     href: '/jobs',
   },
-  {
-    name: 'Applied',
-    icon: <DoneAllOutlinedIcon fontSize="large" />,
-    href: '/my-jobs',
-  },
+  // {
+  //   name: 'Applied',
+  //   icon: <DoneAllOutlinedIcon sx={{ fontSize: { xs: 'medium', md: 'large' } }} />,
+  //   href: '/my-jobs',
+  // },
   {
     name: 'Discover',
-    icon: <ExploreOutlinedIcon fontSize="large" />,
+    icon: <ExploreOutlinedIcon sx={{ fontSize: { xs: 'medium', md: 'large' } }} />,
     href: '/discover',
   },
 ]
@@ -45,22 +47,26 @@ const menuItems: MenuItems[] = [
 export const NavSidebar: FC = () => {
   const router = useRouter()
   const theme = useTheme()
-  const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
 
   return (
-    <Paper
+    <Grid
+      container
       sx={{
-        display: 'flex',
-        flexDirection: isDesktop ? 'column' : 'row',
-        justifyContent: 'space-evenly',
+        boxShadow: { xs: theme.shadows['5'], md: 'none' },
+        background: 'white',
       }}
+      direction={{ xs: 'row', md: 'column' }}
+      spacing={2}
+      p={0}
     >
       {menuItems.map((item) => (
-        <MenuItem key={item.href as string} selected={item.href === router.pathname} href={item.href as string}>
-          <Box>{item.icon}</Box>
-          {item.name}
-        </MenuItem>
+        <Grid xs={3} md={12} key={item.href as string} p={0}>
+          <MenuItem selected={item.href === router.pathname} href={item.href as string}>
+            <Box>{item.icon}</Box>
+            {item.name}
+          </MenuItem>
+        </Grid>
       ))}
-    </Paper>
+    </Grid>
   )
 }

@@ -21,13 +21,13 @@ import { userStore } from '~/stores'
 type MenuItemType = {
   item: string
   link: string | null
-  fn: null | (() => void)
+  callback?: () => void
 }
 
 export const Header = (): JSX.Element => {
   const [_, setAnchorElNav] = React.useState<null | HTMLElement>(null) // eslint-disable-line
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null)
-  const user = userStore((state: any) => state.user)
+  const user = userStore((state) => state.user)
   const handleLogout = useLogout()
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>): void => {
@@ -42,31 +42,17 @@ export const Header = (): JSX.Element => {
   }
 
   const menuItem: MenuItemType[] = [
-    { item: 'Profile', link: '/profile', fn: null },
-    { item: 'Account', link: '/account', fn: null },
-    { item: 'Dashboard', link: '/dashboard', fn: null },
-    { item: 'Logout', link: null, fn: () => handleLogout() },
+    { item: 'Profile', link: '/profile' },
+    { item: 'Account', link: '/account' },
+    { item: 'Dashboard', link: '/dashboard' },
+    { item: 'Logout', link: null, callback: () => handleLogout() },
   ]
 
   return (
-    <AppBar position="static">
+    <AppBar position="sticky">
       <Container maxWidth="lg">
         <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
+          <Typography variant="h6" noWrap component="a" href="/" display={{ xs: 'none', md: 'flex' }}>
             LOGOx
           </Typography>
 
@@ -105,7 +91,7 @@ export const Header = (): JSX.Element => {
           <Box sx={{ flexGrow: 0, ml: 'auto' }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt={user.name} src={user.picture?.data} />
+                <Avatar alt={user?.name} src={user?.picture} />
               </IconButton>
             </Tooltip>
             <Menu
@@ -124,10 +110,10 @@ export const Header = (): JSX.Element => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {menuItem.map(({ item, link, fn }) => (
+              {menuItem.map(({ item, link, callback }) => (
                 <MenuItem key={item} onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">
-                    <Link href={link as string} onClick={fn ?? (null as any)}>
+                    <Link href={link as string} onClick={callback}>
                       {item}
                     </Link>
                   </Typography>

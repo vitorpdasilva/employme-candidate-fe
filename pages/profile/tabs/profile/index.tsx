@@ -1,16 +1,16 @@
 import {
-    Avatar,
-    Box,
-    Button,
-    Chip,
-    Divider,
-    FormControl,
-    Grid,
-    InputLabel,
-    MenuItem,
-    Select,
-    TextField,
-    Typography,
+  Avatar,
+  Box,
+  Button,
+  Chip,
+  Divider,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
 } from '@mui/material'
 import { useFetchApi } from 'client'
 import { useSnackbar } from 'notistack'
@@ -29,11 +29,11 @@ type FormFields = {
   bio: string
   currentLocation: string
 }
-export const Profile = () => {
+export const Profile = (): JSX.Element => {
   const { fetchApi } = useFetchApi()
   const { enqueueSnackbar } = useSnackbar()
-  const user = userStore((state: any) => state.user)
-  const setUserStore = userStore((state: any) => state.setUser)
+  const user = userStore((state) => state.user)
+  const setUserStore = userStore((state) => state.setUser)
 
   const { register, handleSubmit, watch, setValue } = useForm<FormFields>({
     defaultValues: {
@@ -42,6 +42,7 @@ export const Profile = () => {
     },
   })
 
+  console.log({ user })
   const fieldWatch = watch()
 
   if (!user) return <>Loading...</>
@@ -49,11 +50,11 @@ export const Profile = () => {
   const { professional } = user
   const selectedRoles = professionList
     .filter((profession) => {
-      return professional?.preferenceToWork?.includes(profession.value)
+      return professional?.preferencesToWork?.includes(profession.value)
     })
     .map((role) => role.text)
 
-  const handleChange = async (data: FormFields) => {
+  const handleChange = async (data: FormFields): Promise<void> => {
     const requestData = {
       id: user.id,
       username: user.username,
@@ -77,11 +78,11 @@ export const Profile = () => {
     }
   }
 
-  const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (event: ChangeEvent<HTMLInputElement>): Promise<void> => {
     const file = event.target.files?.[0]
     const reader = new FileReader()
     reader.readAsDataURL(file as Blob)
-    reader.onload = async () => {
+    reader.onload = async (): Promise<void> => {
       const compressedImage: CompressedImage = await compressImage(file as File, 800, 600, 0.7)
       const requestData = {
         id: user.id,
@@ -106,7 +107,7 @@ export const Profile = () => {
         enqueueSnackbar('Something went wrong', { variant: 'error' })
       }
     }
-    reader.onerror = (error) => {
+    reader.onerror = (error): void => {
       console.log('error', error)
     }
   }
@@ -126,11 +127,11 @@ export const Profile = () => {
               variant="outlined"
               label="Your Name"
               {...register('name')}
-              onChange={(e) => setValue('name', e.target.value)}
+              onChange={(e): void => setValue('name', e.target.value)}
             />
             {fieldWatch.name !== user?.name && (
               <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                <Button variant="text" onClick={() => setValue('name', user?.name)}>
+                <Button variant="text" onClick={(): void => setValue('name', '')}>
                   Cancel
                 </Button>
                 <Button variant="contained" type="submit">
@@ -140,13 +141,13 @@ export const Profile = () => {
             )}
 
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Avatar alt={`${user?.name}'s picture`} src={user?.picture?.data} sx={{ width: 56, height: 56, mr: 3 }} />
+              <Avatar alt={`${user?.name}'s picture`} src={user?.picture} sx={{ width: 56, height: 56, mr: 3 }} />
               <input type="file" onChange={handleFileChange} name="file" />
             </Box>
             <Box sx={{ my: 3, display: 'flex' }}>
               <TextField
                 sx={{ flexGrow: 1 }}
-                defaultValue={professional.profession}
+                defaultValue={professional?.profession}
                 select
                 label="Select your primary role"
               >
@@ -157,7 +158,7 @@ export const Profile = () => {
                 ))}
               </TextField>
               <TextField
-                defaultValue={professional.yearsOfExp}
+                defaultValue={professional?.yearsOfExperience}
                 select
                 sx={{ width: '35%', ml: 3 }}
                 label="Years of Experience"
@@ -178,7 +179,7 @@ export const Profile = () => {
                 fullWidth
                 multiple
                 value={selectedRoles}
-                renderValue={(selected) => (
+                renderValue={(selected): JSX.Element => (
                   <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mt: 1 }}>
                     {(selected as string[]).map((value) => (
                       <Chip key={value} label={value} />
@@ -205,7 +206,7 @@ export const Profile = () => {
               <TextField fullWidth multiline rows={4} label="Your Bio" {...register('bio')} />
               {fieldWatch.bio !== user?.general?.bio && (
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end', my: 1 }}>
-                  <Button variant="text" onClick={() => setValue('bio', user?.general?.bio)}>
+                  <Button variant="text" onClick={(): void => setValue('bio', user?.general?.bio as string)}>
                     Cancel
                   </Button>
                   <Button variant="contained" type="submit">
