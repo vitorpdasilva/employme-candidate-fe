@@ -1,13 +1,13 @@
 import {
-    Box,
-    Divider,
-    FormControl,
-    FormControlLabel,
-    Grid,
-    Radio,
-    RadioGroup,
-    TextField,
-    Typography,
+  Box,
+  Divider,
+  FormControl,
+  FormControlLabel,
+  Grid,
+  Radio,
+  RadioGroup,
+  TextField,
+  Typography,
 } from '@mui/material'
 import { useFetchApi } from 'client'
 import { enqueueSnackbar } from 'notistack'
@@ -27,7 +27,7 @@ type RequestData = {
   values: {} | []
 }
 
-export const Culture = () => {
+export const Culture = (): JSX.Element => {
   const { fetchApi } = useFetchApi()
   const [lookingFor, setLookingFor] = useState<LookingFor>({
     name: 'culture',
@@ -36,26 +36,26 @@ export const Culture = () => {
     },
   })
 
-  const user = userStore((state: any) => state.user)
-  const setUserStore = userStore((state: any) => state.setUser)
+  const user = userStore((state) => state.user)
+  const setUserStore = userStore((state) => state.setUser)
 
   useDebounce(() => onSubmit(lookingFor), 700, [lookingFor])
-  const onSubmit = async (data: RequestData) => {
+  const onSubmit = async (data: RequestData): Promise<void> => {
     const requestData = {
       ...user,
       culture: {
-        ...user.culture,
+        ...user?.culture,
         ...data.values,
       },
     }
 
     try {
-      const { user: updatedUser, token } = await fetchApi({
+      const { user: updatedUser } = await fetchApi({
         url: '/user',
         method: 'PATCH',
         body: requestData,
       })
-      setUserStore(updatedUser, token)
+      setUserStore(updatedUser)
       enqueueSnackbar('Culture preferences updated', {
         variant: 'success',
       })
@@ -75,10 +75,10 @@ export const Culture = () => {
         </Grid>
         <Grid item xs={12} md={9}>
           <TextField
-            defaultValue={user.culture?.lookingFor ?? 'alow alow'}
+            defaultValue={user?.culture?.lookingFor ?? 'alow alow'}
             fullWidth
             multiline
-            onChange={(e) => {
+            onChange={(e): void => {
               const { value } = e.target
               setLookingFor({
                 name: 'lookingFor',
@@ -98,8 +98,8 @@ export const Culture = () => {
             <RadioGroup
               aria-labelledby="motivates-me-more"
               name="motivates-me-more"
-              defaultValue={user.culture.motivatesMeMore}
-              onChange={(e) => {
+              defaultValue={user?.culture?.motivatesMeMore}
+              onChange={(e): void => {
                 const { value } = e.target
                 onSubmit({
                   name: 'motivatesMeMore',
@@ -125,8 +125,8 @@ export const Culture = () => {
             <RadioGroup
               aria-labelledby="five-years-career-track"
               name="five-years-career-track"
-              defaultValue={user.culture.fiveYearsCareerTrack}
-              onChange={(e) => {
+              defaultValue={user?.culture?.fiveYearsCareerTrack}
+              onChange={(e): void => {
                 const { value } = e.target
                 onSubmit({
                   name: 'fiveYearsCareerTrack',
@@ -150,8 +150,8 @@ export const Culture = () => {
             <RadioGroup
               aria-labelledby="work-better-in"
               name="work-better-in"
-              value={user.culture.workBetterIn}
-              onChange={(e) => {
+              value={user?.culture?.workBetterIn}
+              onChange={(e): void => {
                 const { value } = e.target
                 onSubmit({
                   name: 'workBetterIn',

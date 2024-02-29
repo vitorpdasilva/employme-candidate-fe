@@ -53,23 +53,27 @@ export const Preferences = (): JSX.Element => {
       username: user?.username,
       ...user,
       preferences: {
-        ...user.preferences,
-        [data.name]: Array.isArray(user.preferences?.[data.name])
-          ? [...(user.preferences?.[data.name] as any), data.values]
-          : {
-              ...user.preferences?.[data.name],
+        ...user?.preferences,
+        [data.name]: Array.isArray(user?.preferences?.[data.name])
+          ? [...(user?.preferences?.[data.name] as any), data.values]
+          : // eslint-disable-next-line
+            {
+              // eslint-disable-next-line
+              // eslint-disable-next-line
+              ...user?.preferences?.[data.name as any],
+              // eslint-disable-next-line
               ...data.values,
             },
       },
     }
 
     try {
-      const { user: updatedUser, token } = await fetchApi({
+      const { user: updatedUser } = await fetchApi({
         url: '/user',
         method: 'PATCH',
         body: requestData,
       })
-      setUserStore(updatedUser, token)
+      setUserStore(updatedUser)
       enqueueSnackbar('Preferences updated', {
         variant: 'success',
       })
@@ -92,8 +96,8 @@ export const Preferences = (): JSX.Element => {
           <TextField
             select
             fullWidth
-            defaultValue={user.preferences?.jobSearchStatus?.id ?? 0}
-            onChange={(e: ReactEventHandler) =>
+            defaultValue={user?.preferences?.jobSearchStatus ?? ''}
+            onChange={(e): Promise<void> =>
               onSubmit({
                 name: 'jobSearchStatus',
                 values: {
@@ -123,8 +127,8 @@ export const Preferences = (): JSX.Element => {
             label="Currency"
             variant="outlined"
             sx={{ flexGrow: 1 }}
-            defaultValue={user.preferences?.salary?.currency ?? 0}
-            onChange={(e: any): void =>
+            defaultValue={user?.preferences?.salary?.currency ?? 0}
+            onChange={(e): Promise<void> =>
               onSubmit({
                 name: 'salary',
                 values: {
@@ -144,9 +148,9 @@ export const Preferences = (): JSX.Element => {
             InputProps={{
               inputComponent: NumericInput as any,
             }}
-            defaultValue={user.preferences?.salary?.amount ?? ''}
+            defaultValue={user?.preferences?.salary?.amount ?? ''}
             variant="outlined"
-            onChange={(e) => {
+            onChange={(e): void => {
               const value = e.target.value
               setSalaryObj({
                 name: 'salary',
@@ -160,9 +164,9 @@ export const Preferences = (): JSX.Element => {
           <TextField
             label="Periodicity"
             select
-            defaultValue={user.preferences?.salary?.periodicity ?? 0}
+            defaultValue={user?.preferences?.salary?.periodicity ?? 0}
             variant="outlined"
-            onChange={(e) =>
+            onChange={(e): Promise<void> =>
               onSubmit({
                 name: 'salary',
                 values: {
@@ -187,11 +191,12 @@ export const Preferences = (): JSX.Element => {
           {companySizes.map(({ label, name, id }: CompanySizes) => (
             <FormControl
               key={id}
+              component={'div'}
               sx={{
                 display: 'flex',
                 flexDirection: 'row',
               }}
-              onChange={(e: EventTarget): void =>
+              onChange={(e: any): Promise<void> =>
                 onSubmit({
                   name: 'companySize',
                   values: { id, option: e.target.value, label },
@@ -199,11 +204,12 @@ export const Preferences = (): JSX.Element => {
               }
             >
               <FormLabel sx={{ width: '30%' }}>{label}</FormLabel>
-              <RadioGroup
+              {/* <RadioGroup
                 row
                 name={name as string}
                 defaultValue={
-                  user.preferences.companySize.find((company: CompanySizes) => company.label === label)?.option
+                  // todo: fix api swagger
+                  Object.user?.preferences?.companySize.find((company: CompanySizes) => company.label === label)?.option
                 }
               >
                 {radios.map((radio) => (
@@ -213,12 +219,13 @@ export const Preferences = (): JSX.Element => {
                     control={<Radio />}
                     label={radio.label}
                     checked={
+                      // todo: fix api swagger
                       radio.value ===
-                      user.preferences.companySize.find((company: any) => company.label === label)?.option
+                      user?.preferences?.companySize.find((company: CompanySizes) => company.label === label)?.option
                     }
                   />
                 ))}
-              </RadioGroup>
+              </RadioGroup> */}
             </FormControl>
           ))}
         </Grid>
