@@ -9,60 +9,45 @@ import { JobDescription } from '../JobDescription'
 import { SkillLabel } from '../SkillLabel'
 import { JobPoints } from '../jobPoints'
 import JobListGrid from './style'
+import { components } from '~/types'
 
-type IProps = {
-  jobList: JobListProps[]
-}
-
+type JobResponse = components['schemas']['JobDto']
 type JobListProps = {
-  description: string
-  location: {
-    city: string
-    country: string
-  }
-  locationType: string
-  createdAt: Date
-  recent: boolean
-  salary: {
-    from: string
-    to: string
-    currency: string
-    period: string
-  }
-  title: string
-  tags: string[]
-  id: string
+  jobList: JobResponse[] | undefined
 }
-export const JobList = ({ jobList }: IProps): JSX.Element => (
+
+export const JobList = ({ jobList }: JobListProps): JSX.Element => (
   <JobListGrid>
-    {jobList?.map(({ description, location, locationType, createdAt, recent, salary, title, tags, id }) => (
-      <Card key={id} href={`/job/${id}`}>
-        <JobCardHeadline recent={recent} createdAt={createdAt} />
-        <h2>{title} &rarr;</h2>
-        <JobPoints>
-          <li>
-            <ReactCountryFlag
-              countryCode={countriesList?.find((country: any) => country?.name === location?.country)?.code ?? ''}
-              aria-label={countriesList?.find((country: any) => country?.name === location?.country)?.code ?? ''}
-              svg
-              style={{ marginRight: 10 }}
-            />
-            {location.city} - {location.country}
-          </li>
-          <li>
-            <FaPlaneDeparture /> {locationType}
-          </li>
-          <li>
-            <FaDollarSign /> ${salary.from} up to ${salary.to} {salary.currency}/{salary.period}
-          </li>
-        </JobPoints>
-        <JobDescription>{parse(description)}</JobDescription>
-        <div>
-          {tags.map((tag: string) => (
-            <SkillLabel key={tag}>{tag}</SkillLabel>
-          ))}
-        </div>
-      </Card>
-    ))}
+    {jobList?.map(
+      ({ description, location, locationType, createdAt, recent, salary, title, tags, id }: JobResponse) => (
+        <Card key={id} href={`/job/${id}`}>
+          <JobCardHeadline recent={recent} createdAt={createdAt as unknown as Date} />
+          <h2>{title} &rarr;</h2>
+          <JobPoints>
+            <li>
+              <ReactCountryFlag
+                countryCode={countriesList?.find((country) => country?.name === location?.country)?.code ?? ''}
+                aria-label={countriesList?.find((country) => country?.name === location?.country)?.code ?? ''}
+                svg
+                style={{ marginRight: 10 }}
+              />
+              {location.city} - {location.country}
+            </li>
+            <li>
+              <FaPlaneDeparture /> {locationType}
+            </li>
+            <li>
+              <FaDollarSign /> ${salary.from} up to ${salary.to} {salary.currency}/{salary.period}
+            </li>
+          </JobPoints>
+          <JobDescription>{parse(description)}</JobDescription>
+          <div>
+            {tags.map((tag: string) => (
+              <SkillLabel key={tag}>{tag}</SkillLabel>
+            ))}
+          </div>
+        </Card>
+      )
+    )}
   </JobListGrid>
 )

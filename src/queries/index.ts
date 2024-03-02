@@ -1,1 +1,1 @@
-export * from './signup'
+export const queries = {}

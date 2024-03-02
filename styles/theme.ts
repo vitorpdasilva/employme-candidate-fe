@@ -23,4 +23,7 @@ export const theme = createTheme({
       secondary: '#30505B',
     },
   },
+  typography: {
+    fontFamily: ['Oswald', 'sans-serif'].join(','),
+  },
 })

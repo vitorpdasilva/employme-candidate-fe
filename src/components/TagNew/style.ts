@@ -1,14 +1,14 @@
-import styled from 'styled-components'
+import { styled, Box } from '@mui/material'
 
-const Tag = styled.div`
-  width: 65px;
-  height: 25px;
-  border-radius: 65px;
-  background: ${(props) => props.theme.colors.blue.default};
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
+const Tag = styled(Box)(({ theme }) => ({
+  width: theme.spacing(8),
+  height: theme.spacing(3),
+  borderRadius: theme.spacing(8),
+  background: theme.palette.primary.main,
+  color: theme.palette.common.white,
+  display: 'flex',
+  justifyContent: ' center',
+  alignItems: 'center',
+}))
 
 export default Tag

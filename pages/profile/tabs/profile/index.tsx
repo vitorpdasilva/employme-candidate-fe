@@ -42,7 +42,6 @@ export const Profile = (): JSX.Element => {
     },
   })
 
-  console.log({ user })
   const fieldWatch = watch()
 
   if (!user) return <>Loading...</>

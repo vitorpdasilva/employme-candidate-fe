@@ -13,7 +13,7 @@ import {
 } from '@mui/material'
 import { useFetchApi } from 'client'
 import { useSnackbar } from 'notistack'
-import { useState } from 'react'
+import { useState, ChangeEvent } from 'react'
 import { NumericInput } from '~/components'
 import type { CompanySizes, CurrencyList } from '~/constants'
 import { companySizes, currencyList, jobSearchStatus } from '~/constants'
@@ -54,16 +54,7 @@ export const Preferences = (): JSX.Element => {
       ...user,
       preferences: {
         ...user?.preferences,
-        [data.name]: Array.isArray(user?.preferences?.[data.name])
-          ? [...(user?.preferences?.[data.name] as any), data.values]
-          : // eslint-disable-next-line
-            {
-              // eslint-disable-next-line
-              // eslint-disable-next-line
-              ...user?.preferences?.[data.name as any],
-              // eslint-disable-next-line
-              ...data.values,
-            },
+        ...data.values,
       },
     }
 
@@ -146,7 +137,7 @@ export const Preferences = (): JSX.Element => {
           <TextField
             label="Salary"
             InputProps={{
-              inputComponent: NumericInput as any,
+              inputComponent: NumericInput as unknown as undefined,
             }}
             defaultValue={user?.preferences?.salary?.amount ?? ''}
             variant="outlined"
@@ -196,7 +187,7 @@ export const Preferences = (): JSX.Element => {
                 display: 'flex',
                 flexDirection: 'row',
               }}
-              onChange={(e: any): Promise<void> =>
+              onChange={(e: ChangeEvent<HTMLInputElement>): Promise<void> =>
                 onSubmit({
                   name: 'companySize',
                   values: { id, option: e.target.value, label },
@@ -204,28 +195,17 @@ export const Preferences = (): JSX.Element => {
               }
             >
               <FormLabel sx={{ width: '30%' }}>{label}</FormLabel>
-              {/* <RadioGroup
-                row
-                name={name as string}
-                defaultValue={
-                  // todo: fix api swagger
-                  Object.user?.preferences?.companySize.find((company: CompanySizes) => company.label === label)?.option
-                }
-              >
+              <RadioGroup row name={name as string} defaultValue={false}>
                 {radios.map((radio) => (
                   <FormControlLabel
                     key={radio.value}
                     value={radio.value}
                     control={<Radio />}
                     label={radio.label}
-                    checked={
-                      // todo: fix api swagger
-                      radio.value ===
-                      user?.preferences?.companySize.find((company: CompanySizes) => company.label === label)?.option
-                    }
+                    checked={false}
                   />
                 ))}
-              </RadioGroup> */}
+              </RadioGroup>
             </FormControl>
           ))}
         </Grid>

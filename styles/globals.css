@@ -1,3 +1,28 @@
+@font-face {
+  font-family: 'Oswald';
+  src: url('./fonts/Oswald-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'OswaldMedium';
+  src: url('./fonts/Oswald-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'OswaldLight';
+  src: url('./fonts/Oswald-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'OswaldBold';
+  src: url('./fonts/Oswald-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 html {
   height: auto;
 }
@@ -5,9 +30,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  background: rgba(0, 0, 0, .01)!important;
+  background: rgba(0, 0, 0, 0.01) !important;
   min-height: 100vh;
 }
 

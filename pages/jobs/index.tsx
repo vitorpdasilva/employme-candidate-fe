@@ -1,19 +1,13 @@
-import { useFetchApi } from 'client'
 import Head from 'next/head'
-import { useEffect, useState } from 'react'
 import { JobList, SearchJobBar } from 'src/components'
+import { jobListQuery } from './jobs.query'
+import { useQuery } from '@tanstack/react-query'
 
 const Dashboard = (): JSX.Element => {
-  const { fetchApi } = useFetchApi()
-  const [jobList, setJobList] = useState([])
+  const { data, isLoading } = useQuery({ queryKey: ['/job/list'], queryFn: jobListQuery })
 
-  useEffect(() => {
-    const fetchData = async (): Promise<void> => {
-      const { jobs } = await fetchApi({ url: '/jobs', method: 'GET' })
-      setJobList(jobs)
-    }
-    fetchData()
-  }, [])
+  console.log({ data })
+  if (isLoading) return <>Loading...</>
 
   return (
     <>
@@ -32,7 +26,7 @@ const Dashboard = (): JSX.Element => {
             maxWidth: 1280,
           }}
         >
-          <JobList jobList={jobList} />
+          <JobList jobList={data ?? []} />
         </div>
       </div>
     </>

@@ -25,8 +25,10 @@ export interface paths {
     /** @description Update a user */
     patch: operations["UserController_update"];
   };
-  "/job": {
+  "/job/list": {
     get: operations["JobController_list"];
+  };
+  "/job/create": {
     post: operations["JobController_create"];
   };
   "/job/{id}": {
@@ -61,8 +63,12 @@ export interface components {
       phone: string;
       bio: string;
     };
+    /** @enum {string} */
+    ProfessionType: "Backend Engineer" | "Frontend Engineer" | "Full Stack Engineer" | "Web Developer" | "Game Developer" | "Mobile Developer" | "UI/UX Designer" | "DevOps Engineer" | "Site Reliability Engineer" | "Security Engineer" | "QA Engineer" | "Data Analyst" | "Data Scientist" | "Data Engineer" | "Machine Learning Engineer" | "Blockchain Engineer" | "Embedded Engineer" | "Mainframe Engineer" | "Hardware Engineer" | "Middleware Engineer" | "Firmware Engineer" | "Systems Administrator" | "Database Administrator" | "Network Administrator" | "Telecommunications Engineer" | "Salesforce Developer" | "Business Analyst" | "SAP Consultant" | "Software Architect" | "Scrum Master" | "Agile Coach" | "Product Manager" | "Project Manager" | "IT Manager" | "IT Director" | "Chief Technology Officer (CTO)" | "Other" | "Solutions Architect";
+    /** @enum {string} */
+    TechAndLanguagesAndTools: "javascript" | "html" | "sql" | "java" | "css" | "python" | "git" | "react.js" | "node.js" | "c#" | "ruby" | "angular" | "webpack" | "GoLang";
     UserSkillRankDto: {
-      skillId: number;
+      skill: components["schemas"]["TechAndLanguagesAndTools"];
       yearsOfExp: number;
     };
     /** @enum {string} */
@@ -81,36 +87,48 @@ export interface components {
       description: string;
     };
     UserProfessionalDto: {
-      profession: string;
+      profession: components["schemas"]["ProfessionType"];
       yearsOfExperience: number;
       openToDiffRole: boolean;
-      preferencesToWork: number[];
+      preferencesToWork: components["schemas"]["ProfessionType"][];
       skillsRank: components["schemas"]["UserSkillRankDto"][];
       /** @description Work Experiences */
       workExperiences: components["schemas"]["UserWorkExperienceDto"][];
     };
+    /** @enum {string} */
+    CurrencyType: "USD" | "EUR" | "GBP" | "JPY" | "AUD" | "CAD" | "BRL";
+    /** @enum {string} */
+    CompanySize: {"SEED":"Seed","EARLY":"Early","MID_SIZE":"Mid-size","LARGE":"Large","VERY_LARGE":"Very Large","MASSIVE":"Massive"};
     UserRecolocationDto: {
       openToRemote: string;
       relocateOptions: string;
       salaryExpected: string;
-      currency: string;
+      currency: components["schemas"]["CurrencyType"];
       visa: string;
       validPassport: boolean;
-      companySize: string;
+      companySize: components["schemas"]["CompanySize"];
       activelyLooking: boolean;
       noticePeriod: string;
     };
+    /** @enum {string} */
+    JobSearchStatus: "Active" | "Open" | "Closed";
     UserPreferencesDto: {
-      jobSearchStatus: string;
+      jobSearchStatus: components["schemas"]["JobSearchStatus"];
       salary: Record<string, never>;
-      companySize: Record<string, never>;
+      companySize: components["schemas"]["CompanySize"];
       hideFromCompanies: string[];
     };
+    /** @enum {string} */
+    MotivationType: "Solving Technical problems" | "Building something from scratch";
+    /** @enum {string} */
+    FiveYearsTrack: "Individual Contributor" | "Manager";
+    /** @enum {string} */
+    WorkEnvironmentType: "Clear role and set of responsibilities. Consistent feedback from management" | "Employees wear a lot of hats. Assignment often require employees to figure it out on their own";
     UserCultureDto: {
       lookingFor: string;
-      motivatesMeMore: string;
-      fiveYearsCareerTrack: string;
-      workBetterIn: string;
+      motivatesMeMore: components["schemas"]["MotivationType"];
+      fiveYearsCareerTrack: components["schemas"]["FiveYearsTrack"];
+      workBetterIn: components["schemas"]["WorkEnvironmentType"];
     };
     UserOutputDto: {
       /** @description ID */
@@ -216,6 +234,8 @@ export interface components {
       title: string;
       recent: boolean;
       applicants: string[];
+      /** Format: date-time */
+      createdAt: string;
       description: string;
       tags: string[];
       locationType: string;
@@ -226,6 +246,8 @@ export interface components {
       title: string;
       recent: boolean;
       applicants: string[];
+      /** Format: date-time */
+      createdAt: string;
       description: string;
       tags: string[];
       locationType: string;

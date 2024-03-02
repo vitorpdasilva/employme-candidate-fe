@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { Resolver, useForm } from 'react-hook-form'
 import { useIsAuthenticated } from '~/hooks'
-import { signup as onSignUp } from '~/queries'
+import { signup as onSignUp } from './signup.query'
 import { authStore, userStore } from '~/stores'
 import { components } from '~/types'
 
@@ -38,7 +38,7 @@ const resolver: Resolver<Credentials> = async (values) => {
 const SignUp = (): JSX.Element => {
   const { register, handleSubmit } = useForm<Credentials>({ resolver })
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
-  const { isAuthenticated } = useIsAuthenticated()
+  const isAuthenticated = useIsAuthenticated()
   const setUser = userStore((state) => state.setUser)
   const setTokens = authStore((state) => state.setTokens)
 
