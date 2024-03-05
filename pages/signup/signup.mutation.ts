@@ -4,6 +4,6 @@ import { components } from '~/types'
 
 type SignUpResponse = components['schemas']['UserWithTokensOutputDto']
 
-export const signup = ({ name, email, password }: components['schemas']['SignUpDto']): Promise<SignUpResponse> => {
+export const onSignUp = ({ name, email, password }: components['schemas']['SignUpDto']): Promise<SignUpResponse> => {
   return axios.post(`${BASE_URL}/auth/signup`, { name, email, password }).then((res) => res.data)
 }

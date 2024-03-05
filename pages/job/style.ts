@@ -1,32 +1,29 @@
-import styled from 'styled-components'
-// todo: rewrite this
-const JobCardMain = styled.div`
-  flex-grow: 1;
-  h1 {
-    font-size: 34px;
-    margin: 0;
-  }
-`
+import { Box, styled } from '@mui/material'
 
-const HeadLine = styled.div`
-  display: flex;
-  align-items: center;
-  small {
-    margin-left: 10px;
-  }
-`
+export const JobCardMain = styled(Box)({
+  flexGrow: 1,
+  h1: {
+    fontSize: '34px',
+    margin: 0,
+  },
+})
 
-const JobPageWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  max-width: 1280px;
-  margin: 30px auto;
-  justify-content: space-between;
-  padding: 0 20px;
-  > div {
-    max-width: 750px;
-    min-width: 250px;
-  }
-`
-export default JobCardMain
-export { HeadLine, JobCardMain, JobPageWrapper }
+export const HeadLine = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  small: {
+    marginLeft: theme.spacing(1.25),
+  },
+}))
+
+export const JobPageWrapper = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  width: '100%',
+  margin: '30px auto',
+  justifyContent: 'space-between',
+  padding: theme.spacing(0, 2.5),
+  '> div': {
+    maxWidth: '750px',
+    minWidth: '250px',
+  },
+}))

@@ -1,14 +1,13 @@
 import Head from 'next/head'
 import { SearchJobBar } from 'src/components'
-import { jobListQuery } from './jobs.query'
+import { getJobList } from './jobs.query'
 import { useQuery } from '@tanstack/react-query'
 import { Container } from '@mui/material'
 import { JobList } from './JobList'
 
 const Dashboard = (): JSX.Element => {
-  const { data, isLoading } = useQuery({ queryKey: ['/job/list'], queryFn: jobListQuery })
+  const { data, isLoading } = useQuery({ queryKey: ['/job/list'], queryFn: getJobList })
 
-  console.log({ data })
   if (isLoading) return <>Loading...</>
 
   return (

@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { Resolver, useForm } from 'react-hook-form'
 import { useIsAuthenticated } from '~/hooks'
-import { signup as onSignUp } from './signup.query'
+import { onSignUp } from './signup.mutation'
 import { authStore, userStore } from '~/stores'
 import { components } from '~/types'
 

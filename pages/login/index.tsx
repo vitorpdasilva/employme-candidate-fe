@@ -11,32 +11,45 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-import { ErrorResponse, useFetchApi } from 'client'
+import { ErrorResponse } from 'client'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { Resolver, useForm } from 'react-hook-form'
 import { useIsAuthenticated } from '~/hooks'
 import { authStore, userStore } from '~/stores'
+import { useMutation } from '@tanstack/react-query'
+import { onSignIn, SignInResponse } from './onLogin.mutation'
 
 type Credentials = {
-  username: string
+  email: string
   password: string
 }
 
 const resolver: Resolver<Credentials> = async (values) => {
   return {
-    values: values.username ? values : {},
-    errors: !values.username ? { username: { type: 'required', message: 'Username is required' } } : {},
+    values: values.email ? values : {},
+    errors: !values.email ? { email: { type: 'required', message: 'email is required' } } : {},
   }
 }
 
 const Login = (): JSX.Element => {
-  const { fetchApi } = useFetchApi()
   const { register, handleSubmit } = useForm<Credentials>({ resolver })
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const setUser = userStore((state) => state.setUser)
   const setTokens = authStore((state) => state.setTokens)
-  const { isAuthenticated } = useIsAuthenticated()
+  const isAuthenticated = useIsAuthenticated()
+  const { isPending, mutate } = useMutation({
+    mutationFn: onSignIn,
+    mutationKey: ['/auth/login'],
+    onSuccess: (success: SignInResponse) => {
+      console.log({ success })
+
+      if (!success?.userData) return
+      setUser(success.userData)
+      setTokens(success.tokens)
+      router.push('/')
+    },
+  })
 
   const router = useRouter()
 
@@ -47,24 +60,15 @@ const Login = (): JSX.Element => {
   }, [])
 
   const onSubmit = handleSubmit(async (data) => {
-    setErrorMessage(null)
-    const body = {
-      email: data.username,
-      password: data.password,
-    }
-
     try {
-      const { userData, tokens } = await fetchApi({ url: '/auth/login', body })
-      if (!userData || !tokens) throw new Error('Something went wrong')
-
-      setUser(userData)
-      setTokens(tokens)
-      router.push('/')
-      // eslint-disable-next-line
-    } catch (error: any) {
-      setErrorMessage(error?.message as ErrorResponse['message'])
+      mutate(data)
+    } catch (error) {
+      const errorResponse = error as ErrorResponse
+      setErrorMessage(errorResponse.message)
     }
   })
+
+  if (isPending) return <div>Loading...</div>
 
   return (
     <Grid container component="main">
@@ -107,7 +111,7 @@ const Login = (): JSX.Element => {
               fullWidth
               id="email"
               label="Email Address"
-              {...register('username')}
+              {...register('email')}
               autoComplete="email"
               autoFocus
             />

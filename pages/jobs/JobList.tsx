@@ -46,7 +46,7 @@ export const JobList = ({ jobList }: JobListProps): JSX.Element => (
             </li>
           </JobPoints>
           <JobDescription>{parse(description)}</JobDescription>
-          <Stack direction={'row'} spacing={2}>
+          <Stack direction={'row'} spacing={2} mt={2}>
             {tags.map((tag: string) => (
               <Chip key={tag} label={tag} size="small" variant="outlined" color="primary" />
             ))}
