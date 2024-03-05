@@ -2,19 +2,24 @@
 import parse from 'html-react-parser'
 import ReactCountryFlag from 'react-country-flag'
 import { FaDollarSign, FaPlaneDeparture } from 'react-icons/fa'
-import { countriesList } from '../../constants'
-import Card from '../Card'
-import { JobCardHeadline } from '../JobCardHeadline'
-import { JobDescription } from '../JobDescription'
-import { SkillLabel } from '../SkillLabel'
-import { JobPoints } from '../jobPoints'
-import JobListGrid from './style'
+import { countriesList } from '../../src/constants'
+import { Card, JobCardHeadline, JobDescription, JobPoints } from '~/components'
+
 import { components } from '~/types'
+import { Box, Chip, Stack, styled } from '@mui/material'
 
 type JobResponse = components['schemas']['JobDto']
 type JobListProps = {
   jobList: JobResponse[] | undefined
 }
+
+const JobListGrid = styled(Box)({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexWrap: 'wrap',
+  marginTop: '3rem',
+})
 
 export const JobList = ({ jobList }: JobListProps): JSX.Element => (
   <JobListGrid>
@@ -41,11 +46,11 @@ export const JobList = ({ jobList }: JobListProps): JSX.Element => (
             </li>
           </JobPoints>
           <JobDescription>{parse(description)}</JobDescription>
-          <div>
+          <Stack direction={'row'} spacing={2}>
             {tags.map((tag: string) => (
-              <SkillLabel key={tag}>{tag}</SkillLabel>
+              <Chip key={tag} label={tag} size="small" variant="outlined" color="primary" />
             ))}
-          </div>
+          </Stack>
         </Card>
       )
     )}

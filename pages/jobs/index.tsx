@@ -1,7 +1,9 @@
 import Head from 'next/head'
-import { JobList, SearchJobBar } from 'src/components'
+import { SearchJobBar } from 'src/components'
 import { jobListQuery } from './jobs.query'
 import { useQuery } from '@tanstack/react-query'
+import { Container } from '@mui/material'
+import { JobList } from './JobList'
 
 const Dashboard = (): JSX.Element => {
   const { data, isLoading } = useQuery({ queryKey: ['/job/list'], queryFn: jobListQuery })
@@ -16,19 +18,10 @@ const Dashboard = (): JSX.Element => {
         <meta name="description" content="Employ Me Overseas (EMO) - Jobs" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div style={{ width: '100%' }}>
+      <Container>
         <SearchJobBar />
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            width: '100%',
-            maxWidth: 1280,
-          }}
-        >
-          <JobList jobList={data ?? []} />
-        </div>
-      </div>
+        <JobList jobList={data ?? []} />
+      </Container>
     </>
   )
 }

@@ -44,8 +44,6 @@ export const ProfileOverview: FC = () => {
     setTokens(token)
   }
 
-  console.log({ userData })
-
   return (
     <Paper elevation={2} sx={{ p: 2 }}>
       <Grid container direction={{ xs: 'column-reverse', md: 'row' }} spacing={2}>

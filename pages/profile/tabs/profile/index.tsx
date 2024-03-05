@@ -49,7 +49,7 @@ export const Profile = (): JSX.Element => {
   const { professional } = user
   const selectedRoles = professionList
     .filter((profession) => {
-      return professional?.preferencesToWork?.includes(profession.value)
+      return professional?.preferencesToWork?.includes(profession?.value)
     })
     .map((role) => role.text)
 

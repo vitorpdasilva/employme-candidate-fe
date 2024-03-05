@@ -19,8 +19,8 @@ type EmptyEducationProps = {
 export const EmptyEducation = ({ onFinish }: EmptyEducationProps): JSX.Element => {
   const { fetchApi } = useFetchApi()
   const { enqueueSnackbar } = useSnackbar()
-  const userData = userStore((state: any) => state.user)
-  const setUserStore = userStore((state: any) => state.setUser)
+  const userData = userStore((state) => state.user)
+  const setUserStore = userStore((state) => state.setUser)
 
   const { handleSubmit, register } = useForm<FormFields>({
     defaultValues: {
@@ -35,19 +35,19 @@ export const EmptyEducation = ({ onFinish }: EmptyEducationProps): JSX.Element =
 
   const onSubmit = async (formFields: FormFields): Promise<void> => {
     const requestData = {
-      id: userData.id,
-      username: userData.username,
+      id: userData?.id,
+      username: userData?.username,
       ...userData,
-      education: [...userData.education, formFields],
+      education: [...(userData?.education ?? ''), formFields],
     }
 
     try {
-      const { user: updatedUser, token } = await fetchApi({
+      const { user: updatedUser } = await fetchApi({
         url: '/user',
         method: 'PATCH',
         body: requestData,
       })
-      setUserStore(updatedUser, token)
+      setUserStore(updatedUser)
       onFinish()
       enqueueSnackbar('Education added', { variant: 'success' })
     } catch (err) {
