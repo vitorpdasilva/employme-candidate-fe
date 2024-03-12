@@ -18,7 +18,7 @@ import { Resolver, useForm } from 'react-hook-form'
 import { useIsAuthenticated } from '~/hooks'
 import { authStore, userStore } from '~/stores'
 import { useMutation } from '@tanstack/react-query'
-import { onSignIn, SignInResponse } from './onLogin.mutation'
+import { onSignIn } from './onLogin.mutation'
 
 type Credentials = {
   email: string
@@ -41,9 +41,7 @@ const Login = (): JSX.Element => {
   const { isPending, mutate } = useMutation({
     mutationFn: onSignIn,
     mutationKey: ['/auth/login'],
-    onSuccess: (success: SignInResponse) => {
-      console.log({ success })
-
+    onSuccess: (success) => {
       if (!success?.userData) return
       setUser(success.userData)
       setTokens(success.tokens)

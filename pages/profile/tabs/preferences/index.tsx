@@ -3,22 +3,23 @@ import {
   Divider,
   FormControl,
   FormControlLabel,
-  FormLabel,
   Grid,
+  InputBaseComponentProps,
   MenuItem,
   Radio,
   RadioGroup,
   TextField,
   Typography,
 } from '@mui/material'
-import { useFetchApi } from 'client'
 import { useSnackbar } from 'notistack'
-import { useState, ChangeEvent } from 'react'
+import { ChangeEvent, ElementType } from 'react'
 import { NumericInput } from '~/components'
 import type { CompanySizes, CurrencyList } from '~/constants'
 import { companySizes, currencyList, jobSearchStatus } from '~/constants'
 import { useDebounce } from '~/hooks'
 import { userStore } from '~/stores'
+import { onUpdateUser } from '~/queries'
+import { useMutation } from '@tanstack/react-query'
 
 const radios: Record<string, string | number>[] = [
   { value: 1, label: 'Ideal' },
@@ -26,53 +27,40 @@ const radios: Record<string, string | number>[] = [
   { value: 3, label: 'No' },
 ]
 
-type RequestData = {
-  name: string
-  values: object | []
-}
-type SalaryObj = {
-  name: string
-  values: {
-    amount: string
-  }
-}
-
 export const Preferences = (): JSX.Element => {
-  const { fetchApi } = useFetchApi()
-  const [salaryObj, setSalaryObj] = useState<SalaryObj>({ name: 'salary', values: { amount: '0' } })
   const { enqueueSnackbar } = useSnackbar()
 
   const user = userStore((state) => state.user)
-  const setUserStore = userStore((state) => state.setUser)
+  const setUser = userStore((state) => state.setUser)
 
-  useDebounce(() => onSubmit(salaryObj), 700, [salaryObj])
+  const { mutate } = useMutation({
+    mutationKey: ['updateUser'],
+    mutationFn: onUpdateUser,
+    onSuccess: (success) => {
+      console.log({ success })
+      setUser(success.userData)
+      enqueueSnackbar('Preferences updated', { variant: 'success' })
+    },
+  })
 
-  const onSubmit = async (data: RequestData): Promise<void> => {
+  console.log({ user })
+
+  const onSubmit = async (data: object): Promise<void> => {
     const requestData = {
-      id: user?.id,
-      username: user?.username,
-      ...user,
       preferences: {
         ...user?.preferences,
-        ...data.values,
+        ...data,
       },
     }
-
-    try {
-      const { user: updatedUser } = await fetchApi({
-        url: '/user',
-        method: 'PATCH',
-        body: requestData,
-      })
-      setUserStore(updatedUser)
-      enqueueSnackbar('Preferences updated', {
-        variant: 'success',
-      })
-    } catch (err) {
-      enqueueSnackbar('Something went wrong', { variant: 'error' })
-      console.error({ err })
-    }
+    console.log({ data, requestData, user })
+    // todo: figure out how to bypass optional/mandatory fields on the api
+    // eslint-disable-next-line
+    mutate({ userId: user?.id ?? '', data: requestData as any })
   }
+
+  const debouncedSubmit = useDebounce(onSubmit, 800)
+
+  if (!user) return <Typography variant="h6">Loading...</Typography>
 
   return (
     <Box sx={{ flexGrow: 1, width: '100%' }}>
@@ -90,11 +78,7 @@ export const Preferences = (): JSX.Element => {
             defaultValue={user?.preferences?.jobSearchStatus ?? ''}
             onChange={(e): Promise<void> =>
               onSubmit({
-                name: 'jobSearchStatus',
-                values: {
-                  id: e.target.value,
-                  label: jobSearchStatus.filter((item) => item.value === Number(e.target.value))[0].label,
-                },
+                jobSearchStatus: e.target.value,
               })
             }
           >
@@ -112,65 +96,74 @@ export const Preferences = (): JSX.Element => {
           <Typography variant="subtitle1">What is your desired salary?</Typography>
           <Typography variant="subtitle2">Let companies know how much you would like to earn annually.</Typography>
         </Grid>
-        <Grid item xs={12} md={9} spacing={2} sx={{ display: 'flex', gap: '20px' }}>
-          <TextField
-            select
-            label="Currency"
-            variant="outlined"
-            sx={{ flexGrow: 1 }}
-            defaultValue={user?.preferences?.salary?.currency ?? 0}
-            onChange={(e): Promise<void> =>
-              onSubmit({
-                name: 'salary',
-                values: {
-                  currency: e.target.value,
-                },
-              })
-            }
-          >
-            {currencyList.map((currency: CurrencyList) => (
-              <MenuItem key={currency.value} value={currency.value} aria-label={currency.name}>
-                {currency.name} - {currency.symbol}
-              </MenuItem>
-            ))}
-          </TextField>
-          <TextField
-            label="Salary"
-            InputProps={{
-              inputComponent: NumericInput as unknown as undefined,
-            }}
-            defaultValue={user?.preferences?.salary?.amount ?? ''}
-            variant="outlined"
-            onChange={(e): void => {
-              const value = e.target.value
-              setSalaryObj({
-                name: 'salary',
-                values: {
-                  amount: value,
-                },
-              })
-            }}
-          />
-
-          <TextField
-            label="Periodicity"
-            select
-            defaultValue={user?.preferences?.salary?.periodicity ?? 0}
-            variant="outlined"
-            onChange={(e): Promise<void> =>
-              onSubmit({
-                name: 'salary',
-                values: {
-                  periodicity: e.target.value,
-                },
-              })
-            }
-          >
-            <MenuItem value={'Per Year'}>Per Year</MenuItem>
-            <MenuItem value={'Per Month'}>Per Month</MenuItem>
-            <MenuItem value={'Per Week'}>Per Week</MenuItem>
-            <MenuItem value={'Per Hour'}>Per Hour</MenuItem>
-          </TextField>
+        <Grid item xs={12} md={9} sx={{ display: 'flex', gap: '20px' }}>
+          <Grid container spacing={1}>
+            <Grid item xs={5} md={5}>
+              <TextField
+                select
+                label="Currency"
+                variant="outlined"
+                sx={{ width: '100%' }}
+                defaultValue={user?.preferences?.salary?.currency ?? 0}
+                onChange={(e): Promise<void> =>
+                  onSubmit({
+                    salary: {
+                      ...user?.preferences?.salary,
+                      currency: e.target.value,
+                    },
+                  })
+                }
+              >
+                {currencyList.map((currency: CurrencyList) => (
+                  <MenuItem key={currency.value} value={currency.value} aria-label={currency.name}>
+                    {currency.name} - {currency.symbol}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Grid>
+            <Grid item xs={4} md={5}>
+              <TextField
+                label="Salary"
+                InputProps={{
+                  inputComponent: NumericInput as unknown as ElementType<InputBaseComponentProps>,
+                  defaultValue: user?.preferences?.salary?.amount ?? '99999999999',
+                }}
+                sx={{ width: '100%' }}
+                variant="outlined"
+                onChange={(e): void => {
+                  const value = e.target.value
+                  debouncedSubmit({
+                    salary: {
+                      ...user?.preferences?.salary,
+                      amount: value,
+                    },
+                  })
+                }}
+              />
+            </Grid>
+            <Grid item xs={3} md={2}>
+              <TextField
+                label="Periodicity"
+                select
+                defaultValue={user?.preferences?.salary?.periodicity ?? 0}
+                variant="outlined"
+                sx={{ width: '100%' }}
+                onChange={(e): Promise<void> =>
+                  onSubmit({
+                    salary: {
+                      ...user?.preferences?.salary,
+                      periodicity: e.target.value,
+                    },
+                  })
+                }
+              >
+                <MenuItem value={'Per Year'}>Per Year</MenuItem>
+                <MenuItem value={'Per Month'}>Per Month</MenuItem>
+                <MenuItem value={'Per Week'}>Per Week</MenuItem>
+                <MenuItem value={'Per Hour'}>Per Hour</MenuItem>
+              </TextField>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
       <Divider />
@@ -182,30 +175,39 @@ export const Preferences = (): JSX.Element => {
           {companySizes.map(({ label, name, id }: CompanySizes) => (
             <FormControl
               key={id}
-              component={'div'}
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-              }}
+              sx={{ width: '100%' }}
               onChange={(e: ChangeEvent<HTMLInputElement>): Promise<void> =>
                 onSubmit({
-                  name: 'companySize',
-                  values: { id, option: e.target.value, label },
+                  companySize: e.target.value,
                 })
               }
             >
-              <FormLabel sx={{ width: '30%' }}>{label}</FormLabel>
-              <RadioGroup row name={name as string} defaultValue={false}>
-                {radios.map((radio) => (
-                  <FormControlLabel
-                    key={radio.value}
-                    value={radio.value}
-                    control={<Radio />}
-                    label={radio.label}
-                    checked={false}
-                  />
-                ))}
-              </RadioGroup>
+              <Grid container>
+                <Grid item xs={12} md={5}>
+                  <Typography
+                    sx={{
+                      height: '100%',
+                      display: 'flex',
+                      alignItems: 'center',
+                    }}
+                  >
+                    {label}
+                  </Typography>
+                </Grid>
+                <Grid item xs={12} md={7}>
+                  <RadioGroup row name={name as string} defaultValue={false}>
+                    {radios.map((radio) => (
+                      <FormControlLabel
+                        key={radio.value}
+                        value={radio.value}
+                        control={<Radio />}
+                        label={radio.label}
+                        checked={false}
+                      />
+                    ))}
+                  </RadioGroup>
+                </Grid>
+              </Grid>
             </FormControl>
           ))}
         </Grid>

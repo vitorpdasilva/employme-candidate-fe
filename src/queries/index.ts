@@ -1,1 +1,1 @@
-export const queries = {}
+export * from './updateUser.mutation'

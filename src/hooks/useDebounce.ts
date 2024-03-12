@@ -1,10 +1,28 @@
-import { useEffect } from 'react'
-import { useTimeout } from './useTimeout'
+import { useCallback, useEffect, useRef } from 'react'
 
-const useDebounce = (callback: () => void, delay: number, dependencies: unknown[]): void => {
-  const { reset, clear } = useTimeout(callback, delay)
-  useEffect(reset, [...dependencies, reset])
-  useEffect(clear, [])
+// eslint-disable-next-line
+export function useDebounce<T extends any[]>(callback: (...args: T) => void, delay: number): (...args: T) => void {
+  const timeoutRef = useRef<number | null>(null)
+
+  const debouncedFunction = useCallback(
+    (...args: T) => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+      timeoutRef.current = window.setTimeout(() => {
+        callback(...args)
+      }, delay)
+    },
+    [callback, delay]
+  )
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+    }
+  }, [])
+
+  return debouncedFunction
 }
-
-export { useDebounce }

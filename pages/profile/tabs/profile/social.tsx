@@ -12,13 +12,12 @@ type FormFields = {
 
 type GenericObj = Record<string, string>
 
-export const Social = () => {
+export const Social = (): JSX.Element => {
   const { fetchApi } = useFetchApi()
-  const user = userStore((state: any) => state.user)
-  const setUserStore = userStore((state: any) => state.setUser)
+  const user = userStore((state) => state.user)
+  const setUserStore = userStore((state) => state.setUser)
 
-  const { social } = user
-  const mediasNormalized = social.reduce((obj: GenericObj, item: GenericObj) => {
+  const mediasNormalized = user?.social?.reduce((obj: GenericObj, item: GenericObj): GenericObj => {
     obj[item.name] = item.url
     return obj
   }, {})
@@ -26,10 +25,10 @@ export const Social = () => {
   const { register, handleSubmit, watch, setValue } = useForm<FormFields>({
     defaultValues: {
       social: {
-        linkedin: mediasNormalized.linkedin,
-        github: mediasNormalized.github,
-        facebook: mediasNormalized.facebook,
-        twitter: mediasNormalized.twitter,
+        linkedin: mediasNormalized?.linkedin ?? '',
+        github: mediasNormalized?.github ?? '',
+        facebook: mediasNormalized?.facebook ?? '',
+        twitter: mediasNormalized?.twitter ?? '',
       },
     },
   })

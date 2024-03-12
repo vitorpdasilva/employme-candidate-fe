@@ -111,7 +111,7 @@ export interface components {
       noticePeriod: string;
     };
     /** @enum {string} */
-    JobSearchStatus: "Active" | "Open" | "Closed";
+    JobSearchStatus: "ACTIVE" | "OPEN" | "CLOSED";
     UserPreferencesDto: {
       jobSearchStatus: components["schemas"]["JobSearchStatus"];
       salary: Record<string, never>;
@@ -140,7 +140,7 @@ export interface components {
       /** @description Name */
       name: string;
       /** @description Access Count */
-      accessCount: number;
+      accessCount: Record<string, never>;
       /** @description Username */
       username: string;
       /** @description Picture */
@@ -196,7 +196,7 @@ export interface components {
       /** @description Name */
       name?: string;
       /** @description Access Count */
-      accessCount?: number;
+      accessCount?: Record<string, never>;
       /** @description Username */
       username?: string;
       /** @description Picture */

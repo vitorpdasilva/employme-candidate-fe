@@ -30,7 +30,7 @@ module.exports = {
     'plugin:@tanstack/eslint-plugin-query/recommended',
   ],
   plugins: ['react', '@typescript-eslint', 'prettier'],
-  ignorePatterns: ['node_modules/', 'dist/', 'build/', 'public/', 'coverage/', '**/types.ts'],
+  ignorePatterns: ['node_modules/', 'dist/', 'build/', 'public/', 'coverage/', '**/api-types.ts'],
   rules: {
     semi: ['error', 'never'],
     quotes: ['error', 'single'],

@@ -1,9 +1,14 @@
+// import { components } from '~/types'
+
+// type JobSearchStatus = components['schemas']['JobSearchStatus']
+
 export type JobKeys = {
-  value: number
+  value: 'ACTIVE' | 'OPEN' | 'CLOSED'
   label: string
 }
+
 export const jobSearchStatus: JobKeys[] = [
-  { value: 0, label: 'Ready to interview' },
-  { value: 1, label: 'Open to offers' },
-  { value: 2, label: 'Closed to offers' },
+  { value: 'ACTIVE', label: 'Ready to interview' },
+  { value: 'OPEN', label: 'Open to offers' },
+  { value: 'CLOSED', label: 'Closed to offers' },
 ]

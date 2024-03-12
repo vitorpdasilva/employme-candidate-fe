@@ -23,19 +23,12 @@
   font-style: normal;
 }
 
-html {
-  height: auto;
-}
 html,
 body {
   padding: 0;
   margin: 0;
   background: rgba(0, 0, 0, 0.01) !important;
-  min-height: 100vh;
-}
-
-body {
-  min-height: 100vh;
+  height: auto;
 }
 
 ::-webkit-scrollbar {
@@ -52,7 +45,6 @@ a {
 }
 
 #__next {
-  height: 100vh;
   display: flex;
   flex-direction: column;
 }

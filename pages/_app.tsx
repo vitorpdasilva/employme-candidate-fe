@@ -40,7 +40,7 @@ function MyApp({ Component, pageProps }: MyAppProps): JSX.Element {
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
-      <ScopedCssBaseline sx={{ height: 'inherit', display: 'flex', flexDirection: 'column' }}>
+      <ScopedCssBaseline>
         <NoSsr>
           <ThemeProvider theme={theme}>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
