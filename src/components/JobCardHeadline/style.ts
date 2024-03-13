@@ -1,11 +1,11 @@
-import styled from 'styled-components'
+import { styled } from '@mui/material'
 
-const Headline = styled.div`
-  display: flex;
-  align-items: center;
-  span {
-    margin-right: 10px;
-  }
-`
+const Headline = styled('div')({
+  display: 'flex',
+  alignItems: 'center',
+  span: {
+    marginRight: '10px',
+  },
+})
 
 export default Headline
