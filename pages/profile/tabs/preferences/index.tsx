@@ -1,49 +1,28 @@
 import {
   Box,
   Divider,
-  FormControl,
-  FormControlLabel,
   Grid,
   InputBaseComponentProps,
   MenuItem,
-  Radio,
-  RadioGroup,
+  Stack,
   TextField,
   Typography,
+  Chip,
 } from '@mui/material'
-import { useSnackbar } from 'notistack'
-import { ChangeEvent, ElementType } from 'react'
+import { ElementType } from 'react'
 import { NumericInput } from '~/components'
-import type { CompanySizes, CurrencyList } from '~/constants'
-import { companySizes, currencyList, jobSearchStatus } from '~/constants'
+import type { CurrencyList } from '~/constants'
+import { currencyList, jobSearchStatus } from '~/constants'
 import { useDebounce } from '~/hooks'
 import { userStore } from '~/stores'
-import { onUpdateUser } from '~/queries'
-import { useMutation } from '@tanstack/react-query'
+import { useOnUpdateUser } from '~/queries'
+import { components } from '~/types'
 
-const radios: Record<string, string | number>[] = [
-  { value: 1, label: 'Ideal' },
-  { value: 2, label: 'Yes' },
-  { value: 3, label: 'No' },
-]
+type UpdateUserInputDto = components['schemas']['UpdateUserInputDto']
 
 export const Preferences = (): JSX.Element => {
-  const { enqueueSnackbar } = useSnackbar()
-
+  const { onUpdateUser } = useOnUpdateUser()
   const user = userStore((state) => state.user)
-  const setUser = userStore((state) => state.setUser)
-
-  const { mutate } = useMutation({
-    mutationKey: ['updateUser'],
-    mutationFn: onUpdateUser,
-    onSuccess: (success) => {
-      console.log({ success })
-      setUser(success.userData)
-      enqueueSnackbar('Preferences updated', { variant: 'success' })
-    },
-  })
-
-  console.log({ user })
 
   const onSubmit = async (data: object): Promise<void> => {
     const requestData = {
@@ -52,16 +31,12 @@ export const Preferences = (): JSX.Element => {
         ...data,
       },
     }
-    console.log({ data, requestData, user })
-    // todo: figure out how to bypass optional/mandatory fields on the api
-    // eslint-disable-next-line
-    mutate({ userId: user?.id ?? '', data: requestData as any })
+
+    onUpdateUser({ userId: user?.id ?? '', data: requestData as Partial<UpdateUserInputDto> })
   }
 
   const debouncedSubmit = useDebounce(onSubmit, 800)
-
   if (!user) return <Typography variant="h6">Loading...</Typography>
-
   return (
     <Box sx={{ flexGrow: 1, width: '100%' }}>
       <Grid container spacing={2} sx={{ mb: 3 }}>
@@ -167,51 +142,7 @@ export const Preferences = (): JSX.Element => {
         </Grid>
       </Grid>
       <Divider />
-      <Grid container spacing={2} sx={{ my: 3 }}>
-        <Grid item xs={12} md={3}>
-          <Typography variant="subtitle1">Would you like to work at companies of these sizes?</Typography>
-        </Grid>
-        <Grid item xs={12} md={9}>
-          {companySizes.map(({ label, name, id }: CompanySizes) => (
-            <FormControl
-              key={id}
-              sx={{ width: '100%' }}
-              onChange={(e: ChangeEvent<HTMLInputElement>): Promise<void> =>
-                onSubmit({
-                  companySize: e.target.value,
-                })
-              }
-            >
-              <Grid container>
-                <Grid item xs={12} md={5}>
-                  <Typography
-                    sx={{
-                      height: '100%',
-                      display: 'flex',
-                      alignItems: 'center',
-                    }}
-                  >
-                    {label}
-                  </Typography>
-                </Grid>
-                <Grid item xs={12} md={7}>
-                  <RadioGroup row name={name as string} defaultValue={false}>
-                    {radios.map((radio) => (
-                      <FormControlLabel
-                        key={radio.value}
-                        value={radio.value}
-                        control={<Radio />}
-                        label={radio.label}
-                        checked={false}
-                      />
-                    ))}
-                  </RadioGroup>
-                </Grid>
-              </Grid>
-            </FormControl>
-          ))}
-        </Grid>
-      </Grid>
+
       <Divider />
       <Grid container spacing={2} sx={{ my: 3 }}>
         <Grid item xs={12} md={3}>
@@ -221,7 +152,33 @@ export const Preferences = (): JSX.Element => {
             employers are hidden by default.
           </Typography>
         </Grid>
-        <Grid item xs={12} md={9}></Grid>
+        <Grid item xs={12} md={9}>
+          <Stack spacing={2}>
+            <Stack direction={'row'} spacing={2}>
+              {user?.preferences?.hideFromCompanies.map((company) => (
+                <Chip
+                  key={company}
+                  label={company}
+                  onClick={(): void => console.log('redirect to company page')}
+                  onDelete={(): void => console.log('delete company from hideFromCompanies field')}
+                />
+              ))}
+            </Stack>
+            <TextField
+              select
+              fullWidth
+              onChange={(e): Promise<void> =>
+                onSubmit({
+                  hideFromCompanies: [...(user?.preferences?.hideFromCompanies ?? ''), e.target.value],
+                })
+              }
+            >
+              <MenuItem value={'Google'}>Google</MenuItem>
+              <MenuItem value={'Facebook'}>Facebook</MenuItem>
+              <MenuItem value={'Amazon'}>Amazon</MenuItem>
+            </TextField>
+          </Stack>
+        </Grid>
       </Grid>
     </Box>
   )
