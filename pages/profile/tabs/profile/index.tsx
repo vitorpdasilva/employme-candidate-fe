@@ -33,7 +33,7 @@ export const Profile = (): JSX.Element => {
   const { fetchApi } = useFetchApi()
   const { enqueueSnackbar } = useSnackbar()
   const user = userStore((state) => state.user)
-  const setUserStore = userStore((state) => state.setUser)
+  const setUser = userStore((state) => state.setUser)
 
   const { register, handleSubmit, watch, setValue } = useForm<FormFields>({
     defaultValues: {
@@ -69,7 +69,7 @@ export const Profile = (): JSX.Element => {
         method: 'PATCH',
         body: requestData,
       })
-      setUserStore(updatedUser)
+      setUser(updatedUser)
       enqueueSnackbar('Profile updated successfully', { variant: 'success' })
     } catch (error) {
       console.log({ error })

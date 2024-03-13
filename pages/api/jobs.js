@@ -94,6 +94,6 @@ export const jobList = [
   },
 ]
 
-export default function (req, res) {
+export default function (_, res) {
   res.status(200).json(jobList)
 }
