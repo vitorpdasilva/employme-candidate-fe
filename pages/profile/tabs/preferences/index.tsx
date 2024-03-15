@@ -7,9 +7,9 @@ import {
   Stack,
   TextField,
   Typography,
-  Chip,
+  Autocomplete,
 } from '@mui/material'
-import { ElementType } from 'react'
+import { ChangeEvent, ElementType, useState } from 'react'
 import { NumericInput } from '~/components'
 import type { CurrencyList } from '~/constants'
 import { currencyList, jobSearchStatus } from '~/constants'
@@ -17,12 +17,27 @@ import { useDebounce } from '~/hooks'
 import { userStore } from '~/stores'
 import { useOnUpdateUser } from '~/queries'
 import { components } from '~/types'
+import { faker } from '@faker-js/faker'
+import { v4 as uuidv4 } from 'uuid'
 
 type UpdateUserInputDto = components['schemas']['UpdateUserInputDto']
+type TemporaryFakeCompany = {
+  id: string
+  name: string
+}
+
+const fakeCompaniesList: TemporaryFakeCompany[] = Array.from({ length: 50 }, () => ({
+  id: uuidv4(),
+  name: faker.company.name(),
+}))
 
 export const Preferences = (): JSX.Element => {
   const { onUpdateUser, loading } = useOnUpdateUser()
+  const [companiesMatchingHideInput, setCompaniesMatchingHideInput] = useState<TemporaryFakeCompany[]>([])
+
   const user = userStore((state) => state.user)
+
+  console.log({ fakeCompaniesList })
 
   const onSubmit = async (data: object): Promise<void> => {
     const requestData = {
@@ -35,7 +50,16 @@ export const Preferences = (): JSX.Element => {
     onUpdateUser({ userId: user?.id ?? '', data: requestData as Partial<UpdateUserInputDto> })
   }
 
+  const findCompany = (input: string): void => {
+    const matchingCompanies = fakeCompaniesList.filter((company) =>
+      company.name.toLowerCase().includes(input.toLowerCase())
+    )
+    setCompaniesMatchingHideInput(matchingCompanies)
+  }
+
   const debouncedSubmit = useDebounce(onSubmit, 800)
+  const debouncedCompanyFind = useDebounce(findCompany, 800)
+
   if (!user) return <Typography variant="h6">Loading...</Typography>
   return (
     <Box sx={{ flexGrow: 1, width: '100%' }}>
@@ -154,32 +178,25 @@ export const Preferences = (): JSX.Element => {
         </Grid>
         <Grid item xs={12} md={9}>
           <Stack spacing={2}>
-            <Stack direction={'row'} spacing={2}>
-              {user?.preferences?.hideFromCompanies.map((company) => (
-                <Chip
-                  key={company}
-                  label={company}
-                  onClick={(): void => console.log('redirect to company page')}
-                  onDelete={(): Promise<void> =>
-                    onSubmit({ hideFromCompanies: user?.preferences?.hideFromCompanies?.filter((c) => c !== company) })
-                  }
-                />
-              ))}
-            </Stack>
-            <TextField
-              select
-              disabled={loading}
-              fullWidth
-              onChange={(e): Promise<void> =>
+            <Autocomplete
+              multiple
+              limitTags={2}
+              options={companiesMatchingHideInput.map((company) => company.name)}
+              getOptionLabel={(option): string => option}
+              defaultValue={user?.preferences?.hideFromCompanies ?? []}
+              onInput={(e: ChangeEvent<HTMLInputElement>): void => debouncedCompanyFind(e.target.value)}
+              onChange={(_: unknown, values: string[]): void => {
                 onSubmit({
-                  hideFromCompanies: [...(user?.preferences?.hideFromCompanies ?? ''), e.target.value],
+                  hideFromCompanies: [...values],
                 })
-              }
-            >
-              <MenuItem value={'Google'}>Google</MenuItem>
-              <MenuItem value={'Facebook'}>Facebook</MenuItem>
-              <MenuItem value={'Amazon'}>Amazon</MenuItem>
-            </TextField>
+                setCompaniesMatchingHideInput([])
+              }}
+              disabled={loading}
+              renderInput={(params): JSX.Element => (
+                <TextField {...params} placeholder="Your company will be hidden for employees of these companies" />
+              )}
+              sx={{ width: '500px' }}
+            />
           </Stack>
         </Grid>
       </Grid>
