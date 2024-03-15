@@ -21,7 +21,7 @@ import { components } from '~/types'
 type UpdateUserInputDto = components['schemas']['UpdateUserInputDto']
 
 export const Preferences = (): JSX.Element => {
-  const { onUpdateUser } = useOnUpdateUser()
+  const { onUpdateUser, loading } = useOnUpdateUser()
   const user = userStore((state) => state.user)
 
   const onSubmit = async (data: object): Promise<void> => {
@@ -160,12 +160,15 @@ export const Preferences = (): JSX.Element => {
                   key={company}
                   label={company}
                   onClick={(): void => console.log('redirect to company page')}
-                  onDelete={(): void => console.log('delete company from hideFromCompanies field')}
+                  onDelete={(): Promise<void> =>
+                    onSubmit({ hideFromCompanies: user?.preferences?.hideFromCompanies?.filter((c) => c !== company) })
+                  }
                 />
               ))}
             </Stack>
             <TextField
               select
+              disabled={loading}
               fullWidth
               onChange={(e): Promise<void> =>
                 onSubmit({
