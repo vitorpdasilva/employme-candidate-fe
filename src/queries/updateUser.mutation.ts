@@ -11,6 +11,7 @@ export type UpdateUserInput = {
 }
 export type UpdateUserResponse = components['schemas']['UserOutputDto']
 export type UserWithTokensOutputDto = components['schemas']['UserWithTokensOutputDto']
+export type UpdateUserInputDto = components['schemas']['UpdateUserInputDto']
 
 type OnUpdateUserReturn = {
   onUpdateUser: UseMutateFunction<UserWithTokensOutputDto, Error, UpdateUserInput, unknown>
@@ -23,7 +24,7 @@ export const useOnUpdateUser = (): OnUpdateUserReturn => {
   const onUpdateUser = async ({ userId, data }: UpdateUserInput): Promise<UserWithTokensOutputDto> => {
     try {
       const response = await axios.patch<UserWithTokensOutputDto>(`${BASE_URL}/user/${userId}`, data)
-      return response.data // Assuming the response data has the structure { userData: ..., tokens: ... }
+      return response.data
     } catch (error) {
       console.error({ error })
       throw new Error('Something went wrong')
@@ -35,7 +36,7 @@ export const useOnUpdateUser = (): OnUpdateUserReturn => {
     mutationFn: onUpdateUser,
     onSuccess: (success) => {
       setUser(success.userData)
-      enqueueSnackbar('Preferences updated', { variant: 'success' })
+      enqueueSnackbar('User Update', { variant: 'success' })
     },
   })
 

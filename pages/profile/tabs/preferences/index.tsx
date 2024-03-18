@@ -15,12 +15,10 @@ import type { CurrencyList } from '~/constants'
 import { currencyList, jobSearchStatus } from '~/constants'
 import { useDebounce } from '~/hooks'
 import { userStore } from '~/stores'
-import { useOnUpdateUser } from '~/queries'
-import { components } from '~/types'
+import { useOnUpdateUser, UpdateUserInputDto } from '~/queries'
 import { faker } from '@faker-js/faker'
 import { v4 as uuidv4 } from 'uuid'
 
-type UpdateUserInputDto = components['schemas']['UpdateUserInputDto']
 type TemporaryFakeCompany = {
   id: string
   name: string
@@ -58,7 +56,7 @@ export const Preferences = (): JSX.Element => {
   }
 
   const debouncedSubmit = useDebounce(onSubmit, 800)
-  const debouncedCompanyFind = useDebounce(findCompany, 800)
+  const debouncedCompanyFind = useDebounce(findCompany, 500)
 
   if (!user) return <Typography variant="h6">Loading...</Typography>
   return (
