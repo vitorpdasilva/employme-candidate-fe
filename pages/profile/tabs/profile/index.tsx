@@ -17,7 +17,6 @@ type Professional = components['schemas']['UserProfessionalDto']
 export const Profile = (): JSX.Element => {
   const user = userStore((state) => state.user)
   const { onUpdateUser: onUpdateUserGeneral } = useOnUpdateUser()
-  const { onUpdateUser: onUpdateUserProfessional } = useOnUpdateUser()
 
   if (!user) return <>Loading...</>
 
@@ -30,16 +29,6 @@ export const Profile = (): JSX.Element => {
     }
 
     onUpdateUserGeneral({ userId: user.id ?? '', data: requestData })
-  }
-
-  const onSubmitProfessional = async (data: object): Promise<void> => {
-    const requestData = {
-      professional: {
-        ...user?.professional,
-        ...data,
-      },
-    }
-    onUpdateUserProfessional({ userId: user.id ?? '', data: requestData as Partial<UpdateUserInputDto> })
   }
 
   const handleFileChange = async (event: ChangeEvent<HTMLInputElement>): Promise<void> => {
@@ -104,8 +93,8 @@ export const Profile = (): JSX.Element => {
               }
             >
               {professionList.map((profession) => (
-                <MenuItem key={profession.text as string} value={profession?.value}>
-                  {profession?.text}
+                <MenuItem key={profession.value} value={profession?.value}>
+                  {profession?.value}
                 </MenuItem>
               ))}
             </TextField>
@@ -114,7 +103,14 @@ export const Profile = (): JSX.Element => {
               select
               sx={{ width: '35%', ml: 3 }}
               label="Years of Experience"
-              onChange={(e): Promise<void> => onSubmitProfessional({ yearsOfExperience: e.target.value })}
+              onChange={(e): Promise<void> =>
+                onSubmit({
+                  professional: {
+                    ...user?.professional,
+                    yearsOfExperience: Number(e.target.value),
+                  } as Professional,
+                })
+              }
             >
               {[...Array(10).keys()].map((year) => (
                 <MenuItem key={year} value={year}>
