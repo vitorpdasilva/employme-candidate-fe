@@ -1,4 +1,3 @@
-export type ProfessionList = {
-  text: string
-  value: number
-}
+import { components } from '~/types'
+
+export type Professions = components['schemas']['ProfessionType']

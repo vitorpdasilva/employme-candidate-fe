@@ -1,46 +1,22 @@
 import { Grid, MenuItem, TextField } from '@mui/material'
-import { useFetchApi } from 'client'
-import { useSnackbar } from 'notistack'
-import { useForm } from 'react-hook-form'
 import { countriesList } from 'src/constants'
 import { userStore } from '~/stores'
+import { UpdateUserInputDto, useOnUpdateUser } from '~/queries'
 
-type FormFields = {
-  currentLocation: string
-}
-export const Location = () => {
-  const { fetchApi } = useFetchApi()
-  const user = userStore((state: any) => state.user)
-  const setUserStore = userStore((state: any) => state.setUser)
-  const { enqueueSnackbar } = useSnackbar()
+export const Location = (): JSX.Element => {
+  const { onUpdateUser } = useOnUpdateUser()
 
-  const { register, handleSubmit } = useForm<FormFields>({
-    defaultValues: {
-      currentLocation: user?.general?.currentLocation,
-    },
-  })
+  const user = userStore((state) => state.user)
 
-  const handleChange = async (data: any) => {
+  const handleChange = async (data: string): Promise<void> => {
     const requestData = {
-      id: user.id,
-      username: user.username,
       general: {
-        ...user.general,
-        currentLocation: data.currentLocation,
+        ...user?.general,
+        currentLocation: data,
       },
     }
-    try {
-      const { user: updatedUser, token } = await fetchApi({
-        url: '/user',
-        method: 'PATCH',
-        body: requestData,
-      })
-      setUserStore(updatedUser, token)
-      enqueueSnackbar('Location updated', { variant: 'success' })
-    } catch (e) {
-      enqueueSnackbar('Something went wrong', { variant: 'error' })
-      console.error({ e })
-    }
+    console.log({ requestData })
+    onUpdateUser({ userId: user?.id ?? '', data: requestData as Partial<UpdateUserInputDto> })
   }
 
   return (
@@ -56,8 +32,7 @@ export const Location = () => {
             fullWidth
             defaultValue={user?.general?.currentLocation}
             label="Where are you currently located?"
-            inputProps={register('currentLocation')}
-            onChange={handleSubmit(handleChange)}
+            onChange={(e): Promise<void> => handleChange(e.target.value)}
           >
             {countriesList.map((country) => (
               <MenuItem key={country?.name} value={country.code}>

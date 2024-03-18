@@ -19,15 +19,12 @@ export const Profile = (): JSX.Element => {
   const { onUpdateUser: onUpdateUserGeneral } = useOnUpdateUser()
 
   if (!user) return <>Loading...</>
-
   const { professional } = user
 
   const onSubmit = async (data: Partial<UpdateUserInputDto>): Promise<void> => {
     const requestData = {
-      ...user,
       ...data,
     }
-
     onUpdateUserGeneral({ userId: user.id ?? '', data: requestData })
   }
 
@@ -99,7 +96,7 @@ export const Profile = (): JSX.Element => {
               ))}
             </TextField>
             <TextField
-              defaultValue={professional?.yearsOfExperience}
+              defaultValue={String(professional?.yearsOfExperience)}
               select
               sx={{ width: '35%', ml: 3 }}
               label="Years of Experience"
@@ -112,8 +109,8 @@ export const Profile = (): JSX.Element => {
                 })
               }
             >
-              {[...Array(10).keys()].map((year) => (
-                <MenuItem key={year} value={year}>
+              {[...Array(30).keys()].map((year) => (
+                <MenuItem key={year} value={String(year)}>
                   {year} {year !== 1 ? 'years' : 'year'}
                 </MenuItem>
               ))}

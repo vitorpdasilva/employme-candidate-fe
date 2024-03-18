@@ -20,10 +20,16 @@ type OnUpdateUserReturn = {
 }
 
 export const useOnUpdateUser = (): OnUpdateUserReturn => {
+  const user = userStore((state) => state.user)
   const setUser = userStore((state) => state.setUser)
+
   const onUpdateUser = async ({ userId, data }: UpdateUserInput): Promise<UserWithTokensOutputDto> => {
+    const requestData = {
+      ...user,
+      ...data,
+    }
     try {
-      const response = await axios.patch<UserWithTokensOutputDto>(`${BASE_URL}/user/${userId}`, data)
+      const response = await axios.patch<UserWithTokensOutputDto>(`${BASE_URL}/user/${userId}`, requestData)
       return response.data
     } catch (error) {
       console.error({ error })

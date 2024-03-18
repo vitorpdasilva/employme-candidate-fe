@@ -1,6 +1,4 @@
-import { components } from '~/types'
-
-type Professions = components['schemas']['ProfessionType']
+import { Professions } from '~/types'
 
 type ProfessionList = {
   value: Professions
