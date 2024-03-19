@@ -1,9 +1,9 @@
-// import { components } from '~/types'
+import { components } from '~/types'
 
-// type JobSearchStatus = components['schemas']['JobSearchStatus']
+type JobSearchStatus = components['schemas']['JobSearchStatus']
 
 export type JobKeys = {
-  value: 'ACTIVE' | 'OPEN' | 'CLOSED'
+  value: JobSearchStatus
   label: string
 }
 

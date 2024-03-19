@@ -91,7 +91,7 @@ export const Header = (): JSX.Element => {
           <Box sx={{ flexGrow: 0, ml: 'auto' }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt={user?.name} src={user?.picture} />
+                <Avatar alt={user?.name} src={user?.picture?.data} />
               </IconButton>
             </Tooltip>
             <Menu

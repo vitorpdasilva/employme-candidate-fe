@@ -1,12 +1,11 @@
 import BusinessCenterOutlinedIcon from '@mui/icons-material/BusinessCenterOutlined'
-// import DoneAllOutlinedIcon from '@mui/icons-material/DoneAllOutlined'
 import ExploreOutlinedIcon from '@mui/icons-material/ExploreOutlined'
 import Face5OutlinedIcon from '@mui/icons-material/Face5Outlined'
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
 import { Box, Link, styled, useTheme } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
 import { useRouter } from 'next/router'
-import { FC, ReactNode } from 'react'
+import { ReactNode } from 'react'
 type MenuItems = Record<string, string | ReactNode>
 
 const MenuItem = styled(Link)<{ selected: boolean }>(({ theme, selected }) => ({
@@ -52,11 +51,6 @@ const menuItems: MenuItems[] = [
     icon: <BusinessCenterOutlinedIcon sx={{ fontSize: { xs: 'medium', md: 'large' } }} />,
     href: '/jobs',
   },
-  // {
-  //   name: 'Applied',
-  //   icon: <DoneAllOutlinedIcon sx={{ fontSize: { xs: 'medium', md: 'large' } }} />,
-  //   href: '/my-jobs',
-  // },
   {
     name: 'Discover',
     icon: <ExploreOutlinedIcon sx={{ fontSize: { xs: 'medium', md: 'large' } }} />,
@@ -64,7 +58,7 @@ const menuItems: MenuItems[] = [
   },
 ]
 
-export const NavSidebar: FC = () => {
+export const NavSidebar = (): JSX.Element => {
   const router = useRouter()
   const theme = useTheme()
 

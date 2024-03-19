@@ -44,6 +44,9 @@ export const useOnUpdateUser = (): OnUpdateUserReturn => {
       setUser(success.userData)
       enqueueSnackbar('User Update', { variant: 'success' })
     },
+    onError: (error) => {
+      enqueueSnackbar(error.message, { variant: 'error' })
+    },
   })
 
   return { onUpdateUser: mutate, loading: isPending, error }

@@ -1,8 +1,7 @@
-import { Avatar, Box, Divider, Grid, MenuItem, TextField, Typography } from '@mui/material'
+import { Box, Divider, Grid, MenuItem, TextField, Typography } from '@mui/material'
 import { useOnUpdateUser, UpdateUserInputDto } from '~/queries'
-import { ChangeEvent } from 'react'
+import { ProfilePicture } from '~/components'
 import { professionList } from '~/constants'
-import { CompressedImage, compressImage } from '~/helpers'
 import { userStore } from '~/stores'
 import { Education } from './education'
 import { Location } from './location'
@@ -28,29 +27,6 @@ export const Profile = (): JSX.Element => {
     onUpdateUserGeneral({ userId: user.id ?? '', data: requestData })
   }
 
-  const handleFileChange = async (event: ChangeEvent<HTMLInputElement>): Promise<void> => {
-    const file = event.target.files?.[0]
-    const reader = new FileReader()
-    reader.readAsDataURL(file as Blob)
-    reader.onload = async (): Promise<void> => {
-      const compressedImage: CompressedImage = await compressImage(file as File, 800, 600, 0.7)
-      const requestData = {
-        id: user.id,
-        username: user.username,
-        name: user.name,
-        picture: {
-          data: compressedImage.dataUrl,
-          createdDate: new Date().toISOString(),
-          ...file,
-        },
-      }
-      console.log({ requestData })
-    }
-    reader.onerror = (error): void => {
-      console.log('error', error)
-    }
-  }
-
   const debouncedSubmit = useDebounce(onSubmit, 800)
 
   return (
@@ -70,10 +46,8 @@ export const Profile = (): JSX.Element => {
             onChange={(e): void => debouncedSubmit({ name: e.target.value })}
           />
 
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Avatar alt={`${user?.name}'s picture`} src={user?.picture} sx={{ width: 56, height: 56, mr: 3 }} />
-            <input type="file" onChange={handleFileChange} name="file" />
-          </Box>
+          <ProfilePicture />
+
           <Box sx={{ my: 3, display: 'flex' }}>
             <TextField
               sx={{ flexGrow: 1 }}
