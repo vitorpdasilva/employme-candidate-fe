@@ -5,22 +5,27 @@ import { socialMediasList } from '~/constants'
 import { UpdateUserInputDto, useOnUpdateUser } from '~/queries'
 import { useForm } from 'react-hook-form'
 import { components } from '~/types'
+
 export const Social = (): JSX.Element => {
   const user = userStore((state) => state.user)
   const { onUpdateUser, loading } = useOnUpdateUser()
 
-  type socialMedias = components['schemas']['SocialMedia']
-  type FormFields = Record<socialMedias, string>
+  type SocialMedias = components['schemas']['SocialMedia']
+  type FormFields = Record<SocialMedias, string>
 
-  const { register, handleSubmit, reset } = useForm<FormFields>({
+  const { register, handleSubmit, reset, formState } = useForm<FormFields>({
+    mode: 'onChange',
     defaultValues: {
-      Facebook: '',
-      Github: '',
-      Linkedin: '',
-      Twitter: '',
-      Instagram: '',
+      Facebook: user?.social?.find((social) => social.name === 'Facebook')?.url || '',
+      Github: user?.social?.find((social) => social.name === 'Github')?.url || '',
+      Linkedin: user?.social?.find((social) => social.name === 'Linkedin')?.url || '',
+      Twitter: user?.social?.find((social) => social.name === 'Twitter')?.url || '',
+      Instagram: user?.social?.find((social) => social.name === 'Instagram')?.url || '',
     },
   })
+
+  const isDirty = formState.isDirty
+  console.log({ isDirty })
 
   const handleSave = async (data: FormFields): Promise<void> => {
     const social = Object.entries(data).map(([name, value]) => ({
@@ -42,7 +47,7 @@ export const Social = (): JSX.Element => {
               <TextField
                 key={name}
                 label={name}
-                value={user?.social?.find((social) => social.name === name)?.url}
+                defaultValue={user?.social?.find((social) => social.name === name)?.url || ''}
                 InputProps={{
                   startAdornment: <InputAdornment position="start">{<Icon />}</InputAdornment>,
                 }}

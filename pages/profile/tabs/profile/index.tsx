@@ -70,7 +70,7 @@ export const Profile = (): JSX.Element => {
               ))}
             </TextField>
             <TextField
-              defaultValue={String(professional?.yearsOfExperience)}
+              defaultValue={String(professional?.yearsOfExperience) ?? 0}
               select
               sx={{ width: '35%', ml: 3 }}
               label="Years of Experience"
