@@ -24,7 +24,7 @@ export const Profile = (): JSX.Element => {
     const requestData = {
       ...data,
     }
-    onUpdateUserGeneral({ userId: user.id ?? '', data: requestData })
+    onUpdateUserGeneral({ data: requestData })
   }
 
   const debouncedSubmit = useDebounce(onSubmit, 800)

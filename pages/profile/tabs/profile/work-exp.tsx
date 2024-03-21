@@ -3,8 +3,8 @@ import { useState } from 'react'
 import { EmptyWorkExperience } from '~/components'
 import { userStore } from '~/stores'
 
-export const WorkExperience = () => {
-  const user = userStore((state: any) => state.user)
+export const WorkExperience = (): JSX.Element => {
+  const user = userStore((state) => state.user)
   const [newWorkExperience, setNewWorkExperience] = useState<0 | 1>(0)
 
   return (
@@ -15,7 +15,7 @@ export const WorkExperience = () => {
       <Grid item xs={12} md={9}>
         <Box sx={{ width: '100%' }}>
           <Stack spacing={2}>
-            {user?.professional?.workExperience?.map((experience: any) => (
+            {user?.professional?.workExperiences?.map((experience) => (
               <Paper key={experience.company} sx={{ p: 2 }}>
                 <Box sx={{ display: 'flex' }}>
                   <Avatar
@@ -36,9 +36,9 @@ export const WorkExperience = () => {
               </Paper>
             ))}
             {Array.from({ length: newWorkExperience })?.map(() => (
-              <EmptyWorkExperience onFinish={() => setNewWorkExperience(0)} key={Math.random()} />
+              <EmptyWorkExperience onFinish={(): void => setNewWorkExperience(0)} key={Math.random()} />
             ))}
-            <Button variant="text" onClick={() => setNewWorkExperience(1)}>
+            <Button variant="text" onClick={(): void => setNewWorkExperience(1)}>
               + Add work experience
             </Button>
           </Stack>

@@ -6,7 +6,6 @@ import { userStore } from '~/stores'
 import { components } from '~/types'
 
 export type UpdateUserInput = {
-  userId: string
   data: Partial<components['schemas']['UpdateUserInputDto']>
 }
 export type UpdateUserResponse = components['schemas']['UserOutputDto']
@@ -22,8 +21,9 @@ type OnUpdateUserReturn = {
 export const useOnUpdateUser = (): OnUpdateUserReturn => {
   const user = userStore((state) => state.user)
   const setUser = userStore((state) => state.setUser)
+  const userId = user?.id
 
-  const onUpdateUser = async ({ userId, data }: UpdateUserInput): Promise<UserWithTokensOutputDto> => {
+  const onUpdateUser = async ({ data }: UpdateUserInput): Promise<UserWithTokensOutputDto> => {
     const requestData = {
       ...user,
       ...data,

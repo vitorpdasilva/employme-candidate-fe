@@ -16,7 +16,7 @@ export const Location = (): JSX.Element => {
       },
     }
     console.log({ requestData })
-    onUpdateUser({ userId: user?.id ?? '', data: requestData as Partial<UpdateUserInputDto> })
+    onUpdateUser({ data: requestData as Partial<UpdateUserInputDto> })
   }
 
   return (

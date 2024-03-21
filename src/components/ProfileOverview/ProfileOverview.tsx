@@ -49,10 +49,10 @@ export const ProfileOverview: FC = () => {
       <Grid container direction={{ xs: 'column-reverse', md: 'row' }} spacing={2}>
         <Grid xs={12}>
           <Stack direction="row" spacing={2} justifyItems={'center'}>
-            <Avatar alt={name} src={picture} sx={{ width: 56, height: 56 }} />
+            <Avatar alt={name} src={picture?.data} sx={{ width: 56, height: 56 }} />
             <Stack direction={'column'} justifyContent={'center'}>
               <Typography variant="h5">{name}</Typography>
-              {!professional?.workExperiences.find((workItem) => !!workItem.current) ? (
+              {professional?.workExperiences?.find((workItem) => !!workItem.current) ? (
                 <Typography variant="subtitle1">@ {'company name'}</Typography>
               ) : null}
             </Stack>

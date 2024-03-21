@@ -133,6 +133,22 @@ export interface components {
       fiveYearsCareerTrack: components["schemas"]["FiveYearsTrack"];
       workBetterIn: components["schemas"]["WorkEnvironmentType"];
     };
+    /** @enum {string} */
+    SocialMedia: "Facebook" | "Twitter" | "Linkedin" | "Github" | "Instagram" | "Tiktok";
+    UserSocialDto: {
+      name: components["schemas"]["SocialMedia"];
+      url: string;
+    };
+    UserEducationDto: {
+      school: string;
+      degree: string;
+      fieldOfStudy: string;
+      /** Format: date-time */
+      startDate: string;
+      /** Format: date-time */
+      endDate: string;
+      description: string;
+    };
     UserOutputDto: {
       /** @description ID */
       id: string;
@@ -160,10 +176,10 @@ export interface components {
       preferences: components["schemas"]["UserPreferencesDto"];
       /** @description Culture User Info */
       culture: components["schemas"]["UserCultureDto"];
-      /** @description Social User Info */
-      social: string[];
+      /** @description Social Media User Info */
+      social: components["schemas"]["UserSocialDto"][];
       /** @description Education User Info */
-      education: string[];
+      education: components["schemas"]["UserEducationDto"][];
     };
     TokenOutputDto: {
       /** @description Access Token */
@@ -216,10 +232,10 @@ export interface components {
       preferences?: components["schemas"]["UserPreferencesDto"];
       /** @description Culture User Info */
       culture?: components["schemas"]["UserCultureDto"];
-      /** @description Social User Info */
-      social?: string[];
+      /** @description Social Media User Info */
+      social?: components["schemas"]["UserSocialDto"][];
       /** @description Education User Info */
-      education?: string[];
+      education?: components["schemas"]["UserEducationDto"][];
     };
     LocationDto: {
       city: string;

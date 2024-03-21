@@ -45,7 +45,7 @@ export const Preferences = (): JSX.Element => {
       },
     }
 
-    onUpdateUser({ userId: user?.id ?? '', data: requestData as Partial<UpdateUserInputDto> })
+    onUpdateUser({ data: requestData as Partial<UpdateUserInputDto> })
   }
 
   const findCompany = (input: string): void => {
