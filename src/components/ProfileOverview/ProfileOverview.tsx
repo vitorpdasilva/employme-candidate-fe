@@ -52,7 +52,7 @@ export const ProfileOverview: FC = () => {
             <Avatar alt={name} src={picture?.data} sx={{ width: 56, height: 56 }} />
             <Stack direction={'column'} justifyContent={'center'}>
               <Typography variant="h5">{name}</Typography>
-              {professional?.workExperiences?.find((workItem) => !!workItem.current) ? (
+              {professional?.workExperience?.find((workItem) => !!workItem.current) ? (
                 <Typography variant="subtitle1">@ {'company name'}</Typography>
               ) : null}
             </Stack>

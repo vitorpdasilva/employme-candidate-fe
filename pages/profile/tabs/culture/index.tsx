@@ -40,6 +40,7 @@ export const Culture = (): JSX.Element => {
   const setUserStore = userStore((state) => state.setUser)
 
   useDebounce(() => onSubmit(lookingFor), 700, [lookingFor])
+
   const onSubmit = async (data: RequestData): Promise<void> => {
     const requestData = {
       ...user,
