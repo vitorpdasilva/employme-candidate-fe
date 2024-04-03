@@ -35,8 +35,6 @@ export const Preferences = (): JSX.Element => {
 
   const user = userStore((state) => state.user)
 
-  console.log({ fakeCompaniesList })
-
   const onSubmit = async (data: object): Promise<void> => {
     const requestData = {
       preferences: {

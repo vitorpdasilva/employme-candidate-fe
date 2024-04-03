@@ -8,7 +8,6 @@ export const ProfilePicture = (): JSX.Element => {
   const user = userStore((state) => state.user)
   const { onUpdateUser } = useOnUpdateUser()
   const handleFileChange = async (event: ChangeEvent<HTMLInputElement>): Promise<void> => {
-    console.log('here1?')
     const file = event.target.files?.[0]
     const reader = new FileReader()
     reader.readAsDataURL(file as Blob)
@@ -20,11 +19,10 @@ export const ProfilePicture = (): JSX.Element => {
           createdAt: new Date().toISOString(),
         },
       }
-      console.log('here2?')
-      onUpdateUser({ userId: user?.id ?? '', data: requestData as Partial<UpdateUserInputDto> })
+      onUpdateUser({ data: requestData as Partial<UpdateUserInputDto> })
     }
     reader.onerror = (error): void => {
-      console.log('error', error)
+      console.error('error', error)
     }
   }
   return (

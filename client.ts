@@ -15,8 +15,8 @@ type FetchApiProps = {
   mode?: RequestMode
   cache?: RequestCache
   credentials?: RequestCredentials
-  body?: any
-  headers?: any
+  body?: unknown
+  headers?: unknown
   signal?: AbortSignal
   next?: {
     revalidate?: number
@@ -28,7 +28,7 @@ const signal = controller.signal
 
 // refactor this to use tanstack/react-query
 
-const useFetchApi = (): any => {
+const useFetchApi = (): void => {
   const tokens = authStore((state) => state.tokens)
 
   const fetchApi = async ({
@@ -57,7 +57,7 @@ const useFetchApi = (): any => {
         revalidate: 120, // revalidate cache every 2 minutes
       },
     }
-    console.log({ body })
+
     if (['POST', 'PUT', 'PATCH'].includes(method)) {
       if (body instanceof FormData) {
         requestBody.body = body

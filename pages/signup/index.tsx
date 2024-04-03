@@ -46,8 +46,6 @@ const SignUp = (): JSX.Element => {
     mutationFn: onSignUp,
     mutationKey: ['/auth/signup'],
     onSuccess: (success: components['schemas']['UserWithTokensOutputDto']) => {
-      console.log({ success })
-
       if (!success?.userData) return
       setUser(success.userData)
       setTokens(success.tokens)

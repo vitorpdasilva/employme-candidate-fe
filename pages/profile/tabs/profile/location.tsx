@@ -15,7 +15,6 @@ export const Location = (): JSX.Element => {
         currentLocation: data,
       },
     }
-    console.log({ requestData })
     onUpdateUser({ data: requestData as Partial<UpdateUserInputDto> })
   }
 
