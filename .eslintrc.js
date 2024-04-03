@@ -32,7 +32,7 @@ module.exports = {
   plugins: ['react', '@typescript-eslint', 'prettier'],
   ignorePatterns: ['node_modules/', 'dist/', 'build/', 'public/', 'coverage/', '**/api-types.ts'],
   rules: {
-    'no-console': 'error',
+    'no-console': ['error', { allow: ['warn', 'error'] }],
     semi: ['error', 'never'],
     quotes: ['error', 'single'],
     'react/jsx-uses-react': 'off',
