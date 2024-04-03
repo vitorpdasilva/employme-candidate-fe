@@ -15,7 +15,7 @@ export const WorkExperience = (): JSX.Element => {
       <Grid item xs={12} md={9}>
         <Box sx={{ width: '100%' }}>
           <Stack spacing={2}>
-            {user?.professional?.workExperiences?.map((experience) => (
+            {user?.professional?.workExperience?.map((experience) => (
               <Paper key={experience.company} sx={{ p: 2 }}>
                 <Box sx={{ display: 'flex' }}>
                   <Avatar
@@ -26,11 +26,13 @@ export const WorkExperience = (): JSX.Element => {
                     {experience.company}
                   </Avatar>
                   <Box>
-                    <Typography>{experience.title}</Typography>
-                    <Link target="_blank" href="#">
+                    <Typography variant="body1">{experience.title}</Typography>
+                    <Typography component={Link} variant="body2" target="_blank" href="#">
                       {experience.company}
-                    </Link>
-                    <Box sx={{ textAlign: 'justify' }}>{experience.description}</Box>
+                    </Typography>
+                    <Typography variant="body2" sx={{ textAlign: 'justify' }}>
+                      {experience.description}
+                    </Typography>
                   </Box>
                 </Box>
               </Paper>

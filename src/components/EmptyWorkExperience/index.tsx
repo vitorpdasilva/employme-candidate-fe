@@ -1,15 +1,14 @@
 import { Box, Button, Paper, TextField } from '@mui/material'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
-import { useFetchApi } from 'client'
-import { useSnackbar } from 'notistack'
 import { Controller, useForm } from 'react-hook-form'
-import { userStore } from 'src/stores'
+import { userStore } from '~/stores'
+import { useOnUpdateUser, UpdateUserInput } from '~/queries'
 import { v4 as uuidv4 } from 'uuid'
 type EmptyWorkExperienceProps = {
   onFinish: () => void
 }
 
-type FormFields = {
+type WorkExperienceFieldsType = {
   company: string
   title: string
   location: string
@@ -19,12 +18,9 @@ type FormFields = {
 }
 
 export const EmptyWorkExperience = ({ onFinish }: EmptyWorkExperienceProps): JSX.Element => {
-  const { fetchApi } = useFetchApi()
-  const { enqueueSnackbar } = useSnackbar()
-  const userData = userStore((state: any) => state.user)
-  const setUserStore = userStore((state: any) => state.setUser)
-
-  const { register, handleSubmit, control, formState, setValue } = useForm<FormFields>({
+  const { onUpdateUser, loading } = useOnUpdateUser()
+  const user = userStore((state) => state.user)
+  const { register, handleSubmit, control, setValue } = useForm<WorkExperienceFieldsType>({
     defaultValues: {
       company: '',
       title: '',
@@ -35,33 +31,25 @@ export const EmptyWorkExperience = ({ onFinish }: EmptyWorkExperienceProps): JSX
     },
   })
 
-  console.log({ formState })
-
-  const onSubmit = async (formFields: FormFields): Promise<void> => {
+  const onSubmit = async (data: Partial<WorkExperienceFieldsType>): Promise<void> => {
     const requestData = {
-      id: userData.id,
-      username: userData.username,
-      ...userData,
       professional: {
-        id: uuidv4(),
-        ...userData.professional,
-        workExperience: [...userData.professional.workExperience, formFields],
+        ...user?.professional,
+        workExperience: [
+          {
+            id: uuidv4(),
+            company: data.company,
+            title: data.title,
+            location: data.location,
+            startDate: data.startDate,
+            endDate: data.endDate,
+            description: data.description,
+          },
+        ],
       },
     }
-    console.log({ formFields, requestData })
-    try {
-      const { user: updatedUser, token } = await fetchApi({
-        url: '/user',
-        method: 'PATCH',
-        body: requestData,
-      })
-      setUserStore(updatedUser, token)
-      onFinish()
-      enqueueSnackbar('Work Experience added', { variant: 'success' })
-    } catch (err) {
-      enqueueSnackbar('Something went wrong', { variant: 'error' })
-      console.error({ err })
-    }
+    onUpdateUser({ data: requestData as unknown as Partial<UpdateUserInput['data']> })
+    onFinish()
   }
 
   return (
@@ -79,7 +67,7 @@ export const EmptyWorkExperience = ({ onFinish }: EmptyWorkExperienceProps): JSX
         <TextField
           size="small"
           margin="dense"
-          label="Location"
+          label="Location *"
           fullWidth
           {...register('location', { required: true })}
         />
@@ -101,9 +89,8 @@ export const EmptyWorkExperience = ({ onFinish }: EmptyWorkExperienceProps): JSX
                 sx={{ flexGrow: 1 }}
                 disableFuture
                 formatDensity="dense"
-                label="Start Date"
+                label="Start Date *"
                 onChange={(date): void => {
-                  console.log({ date })
                   setValue('startDate', date as Date)
                 }}
               />
@@ -119,9 +106,8 @@ export const EmptyWorkExperience = ({ onFinish }: EmptyWorkExperienceProps): JSX
                 sx={{ flexGrow: 1 }}
                 disableFuture
                 formatDensity="dense"
-                label="End Date"
+                label="End Date *"
                 onChange={(date): void => {
-                  console.log({ date })
                   setValue('endDate', date as Date)
                 }}
               />
@@ -139,10 +125,10 @@ export const EmptyWorkExperience = ({ onFinish }: EmptyWorkExperienceProps): JSX
           {...register('description', { required: true })}
         />
         <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <Button variant="text" onClick={onFinish}>
+          <Button disabled={loading} variant="text" onClick={onFinish}>
             Cancel
           </Button>
-          <Button variant="contained" type="submit">
+          <Button disabled={loading} variant="contained" type="submit">
             Save
           </Button>
         </Box>

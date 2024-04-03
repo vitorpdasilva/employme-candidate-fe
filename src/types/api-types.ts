@@ -96,7 +96,7 @@ export interface components {
       preferencesToWork: components["schemas"]["ProfessionType"][];
       skillsRank: components["schemas"]["UserSkillRankDto"][];
       /** @description Work Experiences */
-      workExperiences: components["schemas"]["UserWorkExperienceDto"][];
+      workExperience: components["schemas"]["UserWorkExperienceDto"][];
     };
     /** @enum {string} */
     CurrencyType: "USD" | "EUR" | "GBP" | "JPY" | "AUD" | "CAD" | "BRL";

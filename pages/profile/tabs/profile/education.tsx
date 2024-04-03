@@ -1,5 +1,4 @@
-import { Avatar, Box, Button, Grid, Paper, Stack, Typography } from '@mui/material'
-import Link from 'next/link'
+import { Avatar, Box, Button, Grid, Paper, Stack, Typography, Link } from '@mui/material'
 import { useState } from 'react'
 import { EmptyEducation } from '~/components'
 import { userStore } from '~/stores'
@@ -14,36 +13,36 @@ export const Education = (): JSX.Element => {
         Education
       </Grid>
       <Grid item xs={12} md={9}>
-        <Box sx={{ width: '100%' }}>
-          <Stack spacing={2}>
-            {user?.education?.map((item) => (
-              <Paper key={item?.degree} sx={{ p: 2 }}>
-                <Box sx={{ display: 'flex' }}>
-                  <Avatar
-                    variant="square"
-                    src="https://photos.angel.co/startups/i/4634051-16164880183cfb651e472aafce896328-medium_jpg.jpg?buster=1589648733"
-                    sx={{ mr: 1 }}
-                  >
+        <Stack spacing={2}>
+          {user?.education?.map((item) => (
+            <Paper key={item?.degree} sx={{ p: 2 }}>
+              <Stack direction={'row'}>
+                <Avatar
+                  variant="square"
+                  src="https://photos.angel.co/startups/i/4634051-16164880183cfb651e472aafce896328-medium_jpg.jpg?buster=1589648733"
+                  sx={{ mr: 1 }}
+                >
+                  {item?.school}
+                </Avatar>
+                <Box>
+                  <Typography variant="body1">{item?.degree}</Typography>
+                  <Typography component={Link} variant="body2" target="_blank" href="#">
                     {item?.school}
-                  </Avatar>
-                  <Box>
-                    <Typography>{item?.school}</Typography>
-                    <Link target="_blank" href="https://senac.com.br">
-                      {item?.fieldOfStudy}
-                    </Link>
-                    <Box sx={{ textAlign: 'justify' }}>{item?.description}</Box>
-                  </Box>
+                  </Typography>
+                  <Typography variant="body2" fontWeight="500" sx={{ textAlign: 'justify' }}>
+                    {item?.description}
+                  </Typography>
                 </Box>
-              </Paper>
-            ))}
-            {Array.from({ length: newEducation })?.map(() => (
-              <EmptyEducation onFinish={(): void => setNewEducation(0)} key={Math.random()} />
-            ))}
-            <Button variant="text" onClick={(): void => setNewEducation(1)}>
-              + Add Education
-            </Button>
-          </Stack>
-        </Box>
+              </Stack>
+            </Paper>
+          ))}
+          {Array.from({ length: newEducation })?.map(() => (
+            <EmptyEducation onFinish={(): void => setNewEducation(0)} key={Math.random()} />
+          ))}
+          <Button variant="text" onClick={(): void => setNewEducation(1)}>
+            + Add Education
+          </Button>
+        </Stack>
       </Grid>
     </Grid>
   )

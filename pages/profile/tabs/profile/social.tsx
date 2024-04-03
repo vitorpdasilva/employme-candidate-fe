@@ -24,8 +24,7 @@ export const Social = (): JSX.Element => {
     },
   })
 
-  const isDirty = formState.isDirty
-  console.log({ isDirty })
+  const didChange = formState.isDirty
 
   const handleSave = async (data: FormFields): Promise<void> => {
     const social = Object.entries(data).map(([name, value]) => ({
@@ -36,7 +35,7 @@ export const Social = (): JSX.Element => {
   }
 
   return (
-    <Grid sx={{ my: 1 }} container spacing={2}>
+    <Grid sx={{ my: 1, pb: 2 }} container spacing={2}>
       <Grid item xs={12} md={3}>
         Social
       </Grid>
@@ -54,14 +53,16 @@ export const Social = (): JSX.Element => {
                 {...register(name)}
               />
             ))}
-            <Stack spacing={2} direction={'row'} justifyContent={'flex-end'}>
-              <LoadingButton loading={loading} size="small" variant="contained" type="submit">
-                Save
-              </LoadingButton>
-              <LoadingButton loading={loading} size="small" variant="outlined" onClick={(): void => reset()}>
-                Cancel
-              </LoadingButton>
-            </Stack>
+            {didChange ? (
+              <Stack spacing={2} direction={'row'} justifyContent={'flex-end'}>
+                <LoadingButton loading={loading} size="small" variant="contained" type="submit">
+                  Save
+                </LoadingButton>
+                <LoadingButton loading={loading} size="small" variant="outlined" onClick={(): void => reset()}>
+                  Cancel
+                </LoadingButton>
+              </Stack>
+            ) : null}
           </Stack>
         </form>
       </Grid>

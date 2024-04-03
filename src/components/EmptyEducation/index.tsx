@@ -1,14 +1,14 @@
 import { Box, Button, Paper, TextField } from '@mui/material'
-import { useFetchApi } from 'client'
-import { useSnackbar } from 'notistack'
-import { useForm } from 'react-hook-form'
+import { DatePicker } from '@mui/x-date-pickers'
+import { Controller, useForm } from 'react-hook-form'
+import { UpdateUserInput, useOnUpdateUser } from '~/queries'
 import { userStore } from '~/stores'
 type FormFields = {
   school: string
   degree: string
   fieldOfStudy: string
-  startDate: Date
-  endDate: Date
+  startDate: Date | null
+  endDate: Date | null
   description: string
 }
 
@@ -17,43 +17,26 @@ type EmptyEducationProps = {
 }
 
 export const EmptyEducation = ({ onFinish }: EmptyEducationProps): JSX.Element => {
-  const { fetchApi } = useFetchApi()
-  const { enqueueSnackbar } = useSnackbar()
   const userData = userStore((state) => state.user)
-  const setUserStore = userStore((state) => state.setUser)
+  const { onUpdateUser, loading } = useOnUpdateUser()
 
-  const { handleSubmit, register } = useForm<FormFields>({
+  const { handleSubmit, register, control, setValue } = useForm<FormFields>({
     defaultValues: {
       school: '',
       degree: '',
       fieldOfStudy: '',
-      startDate: new Date(),
-      endDate: new Date(),
+      startDate: null,
+      endDate: null,
       description: '',
     },
   })
 
   const onSubmit = async (formFields: FormFields): Promise<void> => {
     const requestData = {
-      id: userData?.id,
-      username: userData?.username,
-      ...userData,
       education: [...(userData?.education ?? ''), formFields],
     }
-
-    try {
-      const { user: updatedUser } = await fetchApi({
-        url: '/user',
-        method: 'PATCH',
-        body: requestData,
-      })
-      setUserStore(updatedUser)
-      onFinish()
-      enqueueSnackbar('Education added', { variant: 'success' })
-    } catch (err) {
-      enqueueSnackbar('Something went wrong', { variant: 'error' })
-      console.error({ err })
-    }
+    onUpdateUser({ data: requestData as unknown as Partial<UpdateUserInput['data']> })
+    onFinish()
   }
 
   return (
@@ -66,29 +49,52 @@ export const EmptyEducation = ({ onFinish }: EmptyEducationProps): JSX.Element =
           fullWidth
           {...register('school', { required: true })}
         />
-        <TextField size="small" margin="dense" label="Degree" fullWidth {...register('degree')} />
+        <TextField size="small" margin="dense" label="Degree *" fullWidth {...register('degree', { required: true })} />
         <TextField size="small" margin="dense" label="Field of Study" fullWidth {...register('fieldOfStudy')} />
 
-        <TextField
-          type="date"
-          size="small"
-          margin="dense"
-          fullWidth
-          inputProps={{ shrink: true, inputMode: 'numeric' }}
-          label="Start Date"
-          {...register('startDate')}
-        />
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            gap: '20px',
+            mt: '10px',
+            mb: '5px',
+          }}
+        >
+          <Controller
+            control={control}
+            name="startDate"
+            rules={{ required: true }}
+            render={(): JSX.Element => (
+              <DatePicker
+                sx={{ flexGrow: 1 }}
+                disableFuture
+                formatDensity="dense"
+                label="Start Date *"
+                onChange={(date): void => {
+                  setValue('startDate', date as Date)
+                }}
+              />
+            )}
+          />
 
-        <TextField
-          type="date"
-          size="small"
-          margin="dense"
-          fullWidth
-          defaultValue={new Date()}
-          inputProps={{ shrink: true, inputMode: 'numeric' }}
-          label="End Date"
-          {...register('endDate')}
-        />
+          <Controller
+            control={control}
+            name="endDate"
+            rules={{ required: true }}
+            render={(): JSX.Element => (
+              <DatePicker
+                sx={{ flexGrow: 1 }}
+                disableFuture
+                formatDensity="dense"
+                label="End Date *"
+                onChange={(date): void => {
+                  setValue('endDate', date as Date)
+                }}
+              />
+            )}
+          />
+        </Box>
 
         <TextField
           size="small"
@@ -100,10 +106,10 @@ export const EmptyEducation = ({ onFinish }: EmptyEducationProps): JSX.Element =
           {...register('description', { required: true })}
         />
         <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <Button variant="text" onClick={onFinish}>
+          <Button disabled={loading} variant="text" onClick={onFinish}>
             Cancel
           </Button>
-          <Button variant="contained" type="submit">
+          <Button disabled={loading} variant="contained" type="submit">
             Save
           </Button>
         </Box>
