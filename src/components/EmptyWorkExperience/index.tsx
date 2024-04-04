@@ -2,7 +2,7 @@ import { Box, Button, Paper, TextField } from '@mui/material'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { Controller, useForm } from 'react-hook-form'
 import { userStore } from '~/stores'
-import { useOnUpdateUser, UpdateUserInput } from '~/queries'
+import { useOnUpdateUser, UpdateUserInputDto } from '~/queries'
 import { v4 as uuidv4 } from 'uuid'
 type EmptyWorkExperienceProps = {
   onFinish: () => void
@@ -48,7 +48,7 @@ export const EmptyWorkExperience = ({ onFinish }: EmptyWorkExperienceProps): JSX
         ],
       },
     }
-    onUpdateUser({ data: requestData as unknown as Partial<UpdateUserInput['data']> })
+    onUpdateUser({ data: requestData as unknown as Partial<UpdateUserInputDto> })
     onFinish()
   }
 

@@ -11,7 +11,6 @@ type FormFieldsValues = {
 }
 
 export const ProfileOverview: FC = () => {
-  console.log('asdjiasjda')
   const { fetchApi } = useFetchApi()
   const userData = userStore((state) => state.user)
   const setUserStore = userStore((state) => state.setUser)

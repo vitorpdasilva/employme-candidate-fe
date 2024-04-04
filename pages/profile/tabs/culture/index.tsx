@@ -9,62 +9,40 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-import { useFetchApi } from 'client'
-import { enqueueSnackbar } from 'notistack'
-import { useState } from 'react'
 import { useDebounce } from '~/hooks'
 import { userStore } from '~/stores'
+import { useOnUpdateUser, UpdateUserInputDto } from '~/queries'
+import { components } from '~/types'
 
-type LookingFor = {
-  name: string
-  values: {
-    lookingFor: string
-  }
-}
+type UpdateCulture = UpdateUserInputDto['culture']
+type MotivationType = components['schemas']['MotivationType']
+type FiveYearsTrack = components['schemas']['FiveYearsTrack']
+type WorkEnvironmentType = components['schemas']['WorkEnvironmentType']
 
-type RequestData = {
-  name: string
-  values: {} | []
-}
+const motivations: MotivationType[] = ['Solving Technical problems', 'Building something from scratch']
+const fiveYearsTracks: FiveYearsTrack[] = ['Individual Contributor', 'Manager']
+const workEnvironments: WorkEnvironmentType[] = [
+  'Clear role and set of responsibilities. Consistent feedback from management',
+  'Employees wear a lot of hats. Assignment often require employees to figure it out on their own',
+]
 
 export const Culture = (): JSX.Element => {
-  const { fetchApi } = useFetchApi()
-  const [lookingFor, setLookingFor] = useState<LookingFor>({
-    name: 'culture',
-    values: {
-      lookingFor: '',
-    },
-  })
-
   const user = userStore((state) => state.user)
-  const setUserStore = userStore((state) => state.setUser)
+  const { onUpdateUser } = useOnUpdateUser()
 
-  useDebounce(() => onSubmit(lookingFor), 700, [lookingFor])
-
-  const onSubmit = async (data: RequestData): Promise<void> => {
+  const onSubmit = async (data: Partial<UpdateCulture>): Promise<void> => {
     const requestData = {
-      ...user,
       culture: {
         ...user?.culture,
-        ...data.values,
+        ...data,
       },
     }
 
-    try {
-      const { user: updatedUser } = await fetchApi({
-        url: '/user',
-        method: 'PATCH',
-        body: requestData,
-      })
-      setUserStore(updatedUser)
-      enqueueSnackbar('Culture preferences updated', {
-        variant: 'success',
-      })
-    } catch (err) {
-      enqueueSnackbar('Something went wrong', { variant: 'error' })
-      console.error({ err })
-    }
+    onUpdateUser({ data: requestData as Partial<UpdateUserInputDto> })
   }
+
+  const debouncedSubmit = useDebounce(onSubmit, 800)
+
   return (
     <Box sx={{ flexGrow: 1, width: '100%' }}>
       <Grid container spacing={2} sx={{ mb: 3 }}>
@@ -81,10 +59,7 @@ export const Culture = (): JSX.Element => {
             multiline
             onChange={(e): void => {
               const { value } = e.target
-              setLookingFor({
-                name: 'lookingFor',
-                values: { lookingFor: value },
-              })
+              debouncedSubmit({ lookingFor: value })
             }}
           />
         </Grid>
@@ -103,13 +78,13 @@ export const Culture = (): JSX.Element => {
               onChange={(e): void => {
                 const { value } = e.target
                 onSubmit({
-                  name: 'motivatesMeMore',
-                  values: { motivatesMeMore: Number(value) },
+                  motivatesMeMore: value as MotivationType,
                 })
               }}
             >
-              <FormControlLabel value={0} control={<Radio />} label="Solving technical problems" />
-              <FormControlLabel value={1} control={<Radio />} label="Building products" />
+              {motivations.map((motivation) => (
+                <FormControlLabel key={motivation} value={motivation} control={<Radio />} label={motivation} />
+              ))}
             </RadioGroup>
           </FormControl>
         </Grid>
@@ -130,13 +105,13 @@ export const Culture = (): JSX.Element => {
               onChange={(e): void => {
                 const { value } = e.target
                 onSubmit({
-                  name: 'fiveYearsCareerTrack',
-                  values: { fiveYearsCareerTrack: Number(value) },
+                  fiveYearsCareerTrack: value as FiveYearsTrack,
                 })
               }}
             >
-              <FormControlLabel value={0} control={<Radio />} label="Individual contributor" />
-              <FormControlLabel value={1} control={<Radio />} label="Manager" />
+              {fiveYearsTracks.map((track) => (
+                <FormControlLabel key={track} value={track} control={<Radio />} label={track} />
+              ))}
             </RadioGroup>
           </FormControl>
         </Grid>
@@ -155,22 +130,13 @@ export const Culture = (): JSX.Element => {
               onChange={(e): void => {
                 const { value } = e.target
                 onSubmit({
-                  name: 'workBetterIn',
-                  values: { workBetterIn: Number(value) },
+                  workBetterIn: value as WorkEnvironmentType,
                 })
               }}
             >
-              <FormControlLabel
-                value={0}
-                control={<Radio />}
-                label="Clear role and set of responsibilities. Consistent feedback from management."
-              />
-              <FormControlLabel
-                value={1}
-                control={<Radio />}
-                label={`Employees wear a lot of hats. Assignments often require employees 
-                to 'figure it out' on their own.`}
-              />
+              {workEnvironments.map((environment) => (
+                <FormControlLabel key={environment} value={environment} control={<Radio />} label={environment} />
+              ))}
             </RadioGroup>
           </FormControl>
         </Grid>

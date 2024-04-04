@@ -1,7 +1,7 @@
 import { Box, Button, Paper, TextField } from '@mui/material'
 import { DatePicker } from '@mui/x-date-pickers'
 import { Controller, useForm } from 'react-hook-form'
-import { UpdateUserInput, useOnUpdateUser } from '~/queries'
+import { UpdateUserInputDto, useOnUpdateUser } from '~/queries'
 import { userStore } from '~/stores'
 type FormFields = {
   school: string
@@ -35,7 +35,7 @@ export const EmptyEducation = ({ onFinish }: EmptyEducationProps): JSX.Element =
     const requestData = {
       education: [...(userData?.education ?? ''), formFields],
     }
-    onUpdateUser({ data: requestData as unknown as Partial<UpdateUserInput['data']> })
+    onUpdateUser({ data: requestData as Partial<UpdateUserInputDto> })
     onFinish()
   }
 
