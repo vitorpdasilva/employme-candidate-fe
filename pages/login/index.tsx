@@ -14,14 +14,9 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { Resolver, useForm } from 'react-hook-form'
 import { useIsAuthenticated } from '~/hooks'
-import { useOnSignIn } from '~/queries'
+import { useOnSignIn, SignInInput } from '~/queries'
 
-type Credentials = {
-  email: string
-  password: string
-}
-
-const resolver: Resolver<Credentials> = async (values) => {
+const resolver: Resolver<SignInInput> = async (values) => {
   return {
     values: values.email ? values : {},
     errors: !values.email ? { email: { type: 'required', message: 'email is required' } } : {},
@@ -30,7 +25,7 @@ const resolver: Resolver<Credentials> = async (values) => {
 
 const Login = (): JSX.Element => {
   const { onCall, loading } = useOnSignIn()
-  const { register, handleSubmit } = useForm<Credentials>({ resolver })
+  const { register, handleSubmit } = useForm<SignInInput>({ resolver })
   const isAuthenticated = useIsAuthenticated()
 
   const router = useRouter()
@@ -46,7 +41,7 @@ const Login = (): JSX.Element => {
   })
 
   return (
-    <Grid container component="main" sx={{ border: '1px solid red' }}>
+    <Grid container component="main">
       <Grid
         item
         xs={false}

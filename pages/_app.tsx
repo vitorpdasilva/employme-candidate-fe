@@ -46,7 +46,7 @@ function MyApp({ Component, pageProps }: MyAppProps): JSX.Element {
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               {isAuthenticated && <Header />}
               <SnackbarProvider maxSnack={3} autoHideDuration={2000} preventDuplicate>
-                <Container sx={{ minHeight: '100vh', border: '1px solid green', height: 'auto', mt: 2 }}>
+                <Container sx={{ minHeight: '100vh', height: 'auto', mt: 2 }}>
                   <Grid
                     container
                     spacing={6}
@@ -66,7 +66,11 @@ function MyApp({ Component, pageProps }: MyAppProps): JSX.Element {
                     >
                       {isAuthenticated && <NavSidebar />}
                     </Grid>
-                    <Grid md={10} xs={12} sx={{ mb: 'auto', position: 'absolute', right: 0, top: 0, zIndex: 0 }}>
+                    <Grid
+                      md={isAuthenticated ? 10 : 12}
+                      xs={12}
+                      sx={{ mb: 'auto', position: 'absolute', right: 0, top: 0, zIndex: 0 }}
+                    >
                       <Component {...pageProps} />
                     </Grid>
                   </Grid>

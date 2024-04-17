@@ -17,9 +17,11 @@ export const useOnSignIn = (): GenericMutationHookResponse<SignInResponse, SignI
   const onSignIn = async ({ email, password }: SignInInput): Promise<SignInResponse> => {
     try {
       return await axios.post(`${BASE_URL}/auth/login`, { email, password }).then((res) => res.data)
-    } catch (err) {
+      // typescript cant infer a type on a catch block
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
       console.error({ err })
-      throw new Error('Something went wrong')
+      throw new Error(err?.response?.data?.message ?? 'Something went wrong')
     }
   }
 
