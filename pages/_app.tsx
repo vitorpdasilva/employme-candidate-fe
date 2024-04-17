@@ -1,4 +1,4 @@
-import { Box, Container, NoSsr, ScopedCssBaseline, ThemeProvider } from '@mui/material'
+import { Container, NoSsr, ScopedCssBaseline, ThemeProvider } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
@@ -46,32 +46,30 @@ function MyApp({ Component, pageProps }: MyAppProps): JSX.Element {
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               {isAuthenticated && <Header />}
               <SnackbarProvider maxSnack={3} autoHideDuration={2000} preventDuplicate>
-                <Container sx={{ height: '100%' }}>
-                  <Box sx={{ flexGrow: 1, width: '100%', height: '100%' }}>
+                <Container sx={{ minHeight: '100vh', border: '1px solid green', height: 'auto', mt: 2 }}>
+                  <Grid
+                    container
+                    spacing={6}
+                    sx={{ mt: 3, height: '100%', position: 'relative' }}
+                    direction={{ xs: 'column-reverse', md: 'row' }}
+                  >
                     <Grid
-                      container
-                      spacing={6}
-                      sx={{ mt: 3, height: '100%', position: 'relative' }}
-                      direction={{ xs: 'column-reverse', md: 'row' }}
+                      md={2}
+                      xs={12}
+                      sx={{
+                        p: { xs: 1, md: 3 },
+                        position: { xs: 'fixed', md: 'sticky' },
+                        bottom: 0,
+                        zIndex: 1,
+                        alignItems: { md: 'center' },
+                      }}
                     >
-                      <Grid
-                        md={2}
-                        xs={12}
-                        sx={{
-                          p: { xs: 1, md: 3 },
-                          position: { xs: 'fixed', md: 'sticky' },
-                          bottom: 0,
-                          zIndex: 1,
-                          alignItems: { md: 'center' },
-                        }}
-                      >
-                        {isAuthenticated && <NavSidebar />}
-                      </Grid>
-                      <Grid md={10} xs={12} sx={{ mb: 'auto', position: 'absolute', right: 0, top: 0, zIndex: 0 }}>
-                        <Component {...pageProps} />
-                      </Grid>
+                      {isAuthenticated && <NavSidebar />}
                     </Grid>
-                  </Box>
+                    <Grid md={10} xs={12} sx={{ mb: 'auto', position: 'absolute', right: 0, top: 0, zIndex: 0 }}>
+                      <Component {...pageProps} />
+                    </Grid>
+                  </Grid>
                 </Container>
               </SnackbarProvider>
             </LocalizationProvider>

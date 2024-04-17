@@ -1,5 +1,4 @@
 import {
-  Alert,
   Avatar,
   Box,
   Button,
@@ -11,14 +10,11 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-import { ErrorResponse } from 'client'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Resolver, useForm } from 'react-hook-form'
 import { useIsAuthenticated } from '~/hooks'
-import { authStore, userStore } from '~/stores'
-import { useMutation } from '@tanstack/react-query'
-import { onSignIn } from './onLogin.mutation'
+import { useOnSignIn } from '~/queries'
 
 type Credentials = {
   email: string
@@ -33,21 +29,9 @@ const resolver: Resolver<Credentials> = async (values) => {
 }
 
 const Login = (): JSX.Element => {
+  const { onCall, loading } = useOnSignIn()
   const { register, handleSubmit } = useForm<Credentials>({ resolver })
-  const [errorMessage, setErrorMessage] = useState<string | null>(null)
-  const setUser = userStore((state) => state.setUser)
-  const setTokens = authStore((state) => state.setTokens)
   const isAuthenticated = useIsAuthenticated()
-  const { isPending, mutate } = useMutation({
-    mutationFn: onSignIn,
-    mutationKey: ['/auth/login'],
-    onSuccess: (success) => {
-      if (!success?.userData) return
-      setUser(success.userData)
-      setTokens(success.tokens)
-      router.push('/')
-    },
-  })
 
   const router = useRouter()
 
@@ -58,18 +42,11 @@ const Login = (): JSX.Element => {
   }, [])
 
   const onSubmit = handleSubmit(async (data) => {
-    try {
-      mutate(data)
-    } catch (error) {
-      const errorResponse = error as ErrorResponse
-      setErrorMessage(errorResponse.message)
-    }
+    onCall(data)
   })
 
-  if (isPending) return <div>Loading...</div>
-
   return (
-    <Grid container component="main">
+    <Grid container component="main" sx={{ border: '1px solid red' }}>
       <Grid
         item
         xs={false}
@@ -98,11 +75,6 @@ const Login = (): JSX.Element => {
             Sign in
           </Typography>
           <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 1 }}>
-            {errorMessage && (
-              <Alert sx={{ my: 2 }} severity="error">
-                {errorMessage}
-              </Alert>
-            )}
             <TextField
               margin="normal"
               required
@@ -124,8 +96,8 @@ const Login = (): JSX.Element => {
               autoComplete="current-password"
             />
             <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-              Sign In
+            <Button type="submit" fullWidth disabled={loading} variant="contained" sx={{ mt: 3, mb: 2 }}>
+              {loading ? 'loading...' : 'Sign In'}
             </Button>
             <Grid container>
               <Grid item xs>

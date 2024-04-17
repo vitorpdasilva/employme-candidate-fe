@@ -25,6 +25,12 @@ export interface paths {
     /** @description Update a user */
     patch: operations["UserController_update"];
   };
+  "/user/{id}/resume": {
+    /** @description Get User Resume */
+    get: operations["UserController_getFile"];
+    /** @description Upload user resume */
+    post: operations["UserController_uploadResume"];
+  };
   "/job/list": {
     get: operations["JobController_list"];
   };
@@ -102,7 +108,7 @@ export interface components {
     CurrencyType: "USD" | "EUR" | "GBP" | "JPY" | "AUD" | "CAD" | "BRL";
     /** @enum {string} */
     CompanySize: {"SEED":"Seed","EARLY":"Early","MID_SIZE":"Mid-size","LARGE":"Large","VERY_LARGE":"Very Large","MASSIVE":"Massive"};
-    UserRecolocationDto: {
+    UserRelocationDto: {
       openToRemote: string;
       relocateOptions: string;
       salaryExpected: string;
@@ -171,7 +177,7 @@ export interface components {
       /** @description Professional User Info */
       professional: components["schemas"]["UserProfessionalDto"];
       /** @description Relocation User Info */
-      relocation: components["schemas"]["UserRecolocationDto"];
+      relocation: components["schemas"]["UserRelocationDto"];
       /** @description Preferences User Info */
       preferences: components["schemas"]["UserPreferencesDto"];
       /** @description Culture User Info */
@@ -227,7 +233,7 @@ export interface components {
       /** @description Professional User Info */
       professional?: components["schemas"]["UserProfessionalDto"];
       /** @description Relocation User Info */
-      relocation?: components["schemas"]["UserRecolocationDto"];
+      relocation?: components["schemas"]["UserRelocationDto"];
       /** @description Preferences User Info */
       preferences?: components["schemas"]["UserPreferencesDto"];
       /** @description Culture User Info */
@@ -388,6 +394,31 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": components["schemas"]["UpdateUserInputDto"];
+      };
+    };
+    responses: {
+      201: {
+        content: {
+          "application/json": components["schemas"]["UserWithTokensOutputDto"];
+        };
+      };
+    };
+  };
+  /** @description Get User Resume */
+  UserController_getFile: {
+    responses: {
+      201: {
+        content: {
+          "application/json": string;
+        };
+      };
+    };
+  };
+  /** @description Upload user resume */
+  UserController_uploadResume: {
+    parameters: {
+      path: {
+        id: string;
       };
     };
     responses: {
