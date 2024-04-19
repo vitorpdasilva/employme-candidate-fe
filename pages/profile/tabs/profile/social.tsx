@@ -8,7 +8,7 @@ import { components } from '~/types'
 
 export const Social = (): JSX.Element => {
   const user = userStore((state) => state.user)
-  const { onUpdateUser, loading } = useOnUpdateUser()
+  const { onCall, loading } = useOnUpdateUser()
 
   type SocialMedias = components['schemas']['SocialMedia']
   type FormFields = Record<SocialMedias, string>
@@ -31,7 +31,7 @@ export const Social = (): JSX.Element => {
       name,
       url: value,
     }))
-    onUpdateUser({ data: { social } as Partial<UpdateUserInputDto> })
+    onCall({ data: { social } as Partial<UpdateUserInputDto> })
   }
 
   return (

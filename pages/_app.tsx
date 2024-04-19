@@ -9,6 +9,7 @@ import { SnackbarProvider } from 'notistack'
 import { ElementType, useEffect } from 'react'
 import { Header, NavSidebar } from '~/components'
 import { useIsAuthenticated } from '~/hooks'
+import { useOnSignIn } from '~/queries'
 import '../styles/globals.css'
 import { theme } from '../styles/theme'
 
@@ -24,6 +25,7 @@ const queryClient = new QueryClient()
 
 function MyApp({ Component, pageProps }: MyAppProps): JSX.Element {
   const router = useRouter()
+  const { loading } = useOnSignIn()
 
   const isAuthenticated = useIsAuthenticated()
   useEffect(() => {
@@ -67,7 +69,7 @@ function MyApp({ Component, pageProps }: MyAppProps): JSX.Element {
                       {isAuthenticated && <NavSidebar />}
                     </Grid>
                     <Grid
-                      md={isAuthenticated ? 10 : 12}
+                      md={isAuthenticated && !loading ? 10 : 12}
                       xs={12}
                       sx={{ mb: 'auto', position: 'absolute', right: 0, top: 0, zIndex: 0 }}
                     >

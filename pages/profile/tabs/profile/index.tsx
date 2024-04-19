@@ -15,7 +15,7 @@ type Professional = components['schemas']['UserProfessionalDto']
 
 export const Profile = (): JSX.Element => {
   const user = userStore((state) => state.user)
-  const { onUpdateUser } = useOnUpdateUser()
+  const { onCall } = useOnUpdateUser()
 
   if (!user) return <>Loading...</>
   const { professional } = user
@@ -24,7 +24,7 @@ export const Profile = (): JSX.Element => {
     const requestData = {
       ...data,
     }
-    onUpdateUser({ data: requestData })
+    onCall({ data: requestData })
   }
 
   const debouncedSubmit = useDebounce(onSubmit, 800)

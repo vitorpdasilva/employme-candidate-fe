@@ -4,7 +4,7 @@ import { userStore } from '~/stores'
 import { UpdateUserInputDto, useOnUpdateUser } from '~/queries'
 
 export const Location = (): JSX.Element => {
-  const { onUpdateUser } = useOnUpdateUser()
+  const { onCall } = useOnUpdateUser()
 
   const user = userStore((state) => state.user)
 
@@ -15,7 +15,7 @@ export const Location = (): JSX.Element => {
         currentLocation: data,
       },
     }
-    onUpdateUser({ data: requestData as Partial<UpdateUserInputDto> })
+    onCall({ data: requestData as Partial<UpdateUserInputDto> })
   }
 
   return (

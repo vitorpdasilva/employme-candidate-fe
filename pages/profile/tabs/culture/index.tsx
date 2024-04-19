@@ -28,7 +28,7 @@ const workEnvironments: WorkEnvironmentType[] = [
 
 export const Culture = (): JSX.Element => {
   const user = userStore((state) => state.user)
-  const { onUpdateUser } = useOnUpdateUser()
+  const { onCall } = useOnUpdateUser()
 
   const onSubmit = async (data: Partial<UpdateCulture>): Promise<void> => {
     const requestData = {
@@ -38,7 +38,7 @@ export const Culture = (): JSX.Element => {
       },
     }
 
-    onUpdateUser({ data: requestData as Partial<UpdateUserInputDto> })
+    onCall({ data: requestData as Partial<UpdateUserInputDto> })
   }
 
   const debouncedSubmit = useDebounce(onSubmit, 800)

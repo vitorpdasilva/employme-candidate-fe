@@ -6,7 +6,7 @@ import { UpdateUserInputDto, useOnUpdateUser } from '~/queries'
 
 export const ProfilePicture = (): JSX.Element => {
   const user = userStore((state) => state.user)
-  const { onUpdateUser } = useOnUpdateUser()
+  const { onCall } = useOnUpdateUser()
   const handleFileChange = async (event: ChangeEvent<HTMLInputElement>): Promise<void> => {
     const file = event.target.files?.[0]
     const reader = new FileReader()
@@ -19,7 +19,7 @@ export const ProfilePicture = (): JSX.Element => {
           createdAt: new Date().toISOString(),
         },
       }
-      onUpdateUser({ data: requestData as Partial<UpdateUserInputDto> })
+      onCall({ data: requestData as Partial<UpdateUserInputDto> })
     }
     reader.onerror = (error): void => {
       console.error('error', error)

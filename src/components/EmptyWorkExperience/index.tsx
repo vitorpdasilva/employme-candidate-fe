@@ -18,7 +18,7 @@ type WorkExperienceFieldsType = {
 }
 
 export const EmptyWorkExperience = ({ onFinish }: EmptyWorkExperienceProps): JSX.Element => {
-  const { onUpdateUser, loading } = useOnUpdateUser()
+  const { onCall, loading } = useOnUpdateUser()
   const user = userStore((state) => state.user)
   const { register, handleSubmit, control, setValue } = useForm<WorkExperienceFieldsType>({
     defaultValues: {
@@ -48,7 +48,7 @@ export const EmptyWorkExperience = ({ onFinish }: EmptyWorkExperienceProps): JSX
         ],
       },
     }
-    onUpdateUser({ data: requestData as unknown as Partial<UpdateUserInputDto> })
+    onCall({ data: requestData as unknown as Partial<UpdateUserInputDto> })
     onFinish()
   }
 

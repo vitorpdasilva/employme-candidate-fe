@@ -30,7 +30,7 @@ const fakeCompaniesList: TemporaryFakeCompany[] = Array.from({ length: 50 }, () 
 }))
 
 export const Preferences = (): JSX.Element => {
-  const { onUpdateUser, loading } = useOnUpdateUser()
+  const { onCall, loading } = useOnUpdateUser()
   const [companiesMatchingHideInput, setCompaniesMatchingHideInput] = useState<TemporaryFakeCompany[]>([])
 
   const user = userStore((state) => state.user)
@@ -43,7 +43,7 @@ export const Preferences = (): JSX.Element => {
       },
     }
 
-    onUpdateUser({ data: requestData as Partial<UpdateUserInputDto> })
+    onCall({ data: requestData as Partial<UpdateUserInputDto> })
   }
 
   const findCompany = (input: string): void => {

@@ -18,7 +18,7 @@ type EmptyEducationProps = {
 
 export const EmptyEducation = ({ onFinish }: EmptyEducationProps): JSX.Element => {
   const userData = userStore((state) => state.user)
-  const { onUpdateUser, loading } = useOnUpdateUser()
+  const { onCall, loading } = useOnUpdateUser()
 
   const { handleSubmit, register, control, setValue } = useForm<FormFields>({
     defaultValues: {
@@ -35,7 +35,7 @@ export const EmptyEducation = ({ onFinish }: EmptyEducationProps): JSX.Element =
     const requestData = {
       education: [...(userData?.education ?? ''), formFields],
     }
-    onUpdateUser({ data: requestData as Partial<UpdateUserInputDto> })
+    onCall({ data: requestData as Partial<UpdateUserInputDto> })
     onFinish()
   }
 
