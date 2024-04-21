@@ -279,6 +279,9 @@ export interface components {
       location: components["schemas"]["LocationDto"];
       salary: components["schemas"]["SalaryDto"];
     };
+    ApplyToJobDto: {
+      applicantId: string;
+    };
     SkillListOutputDto: {
       /** @description Skill List */
       skillList: string[];
@@ -470,6 +473,11 @@ export interface operations {
     parameters: {
       path: {
         id: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["ApplyToJobDto"];
       };
     };
     responses: {
