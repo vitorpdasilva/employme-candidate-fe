@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "lint-staged": "npx lint-staged",
-    "prepare": "husky"
+    "prepare": "npx husky"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -21,7 +21,6 @@
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
-    "@module-federation/nextjs-mf": "^6.4.0",
     "@mui/lab": "^5.0.0-alpha.169",
     "@mui/x-data-grid": "^6.0.4",
     "@mui/x-date-pickers": "^6.2.0",
