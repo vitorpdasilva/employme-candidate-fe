@@ -1,47 +1,35 @@
 import { Avatar, Box, Divider, MenuItem, Paper, Stack, TextField, Typography } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
-import { useFetchApi } from 'client'
+import { useOnUpdateUser, UpdateUserInputDto } from '~/queries'
 import { FC } from 'react'
-import { jobSearchStatus } from 'src/constants'
-import { authStore, userStore } from 'src/stores'
+import { jobSearchStatus } from '~/constants'
+import { userStore } from '~/stores'
+import { components } from '~/types'
+
+type JobSearchStatus = components['schemas']['JobSearchStatus']
 
 type FormFieldsValues = {
-  value: number
-  name: string
+  value: JobSearchStatus
 }
 
 export const ProfileOverview: FC = () => {
-  const { fetchApi } = useFetchApi()
+  const { onCall, loading } = useOnUpdateUser()
   const userData = userStore((state) => state.user)
-  const setUserStore = userStore((state) => state.setUser)
-  const setTokens = authStore((state) => state.setTokens)
 
   // todo add loading state with skeleton component
   if (!userData) return <>Loading...</>
 
-  const { professional, preferences, id, username, name, picture } = userData
+  const { professional, name, picture } = userData
 
   const onSubmit = async (data: FormFieldsValues): Promise<void> => {
-    const requestData = {
-      id,
-      username,
-      ...userData,
-      preferences: {
-        ...preferences,
-        [data.name]: {
-          id: data.value,
-          label: jobSearchStatus.filter((item) => item.value === data.value)[0].label,
+    onCall({
+      data: {
+        preferences: {
+          ...userData.preferences,
+          jobSearchStatus: data.value,
         },
-      },
-    }
-
-    const { user: updatedUser, token } = await fetchApi({
-      url: '/user',
-      method: 'PATCH',
-      body: requestData,
+      } as Partial<UpdateUserInputDto>,
     })
-    setUserStore(updatedUser)
-    setTokens(token)
   }
 
   return (
@@ -70,9 +58,9 @@ export const ProfileOverview: FC = () => {
               name="jobSearchStatus"
               select
               fullWidth
-              // todo: fix type here when change to enum on the api
+              disabled={loading}
               defaultValue={userData.preferences?.jobSearchStatus ?? 0}
-              onChange={(e): Promise<void> => onSubmit({ name: e.target.name, value: Number(e.target.value) })}
+              onChange={(e): Promise<void> => onSubmit({ value: e.target.value as JobSearchStatus })}
             >
               {jobSearchStatus.map(({ value, label }) => (
                 <MenuItem key={value} value={value} aria-label={label}>
