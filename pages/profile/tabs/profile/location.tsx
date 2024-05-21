@@ -1,5 +1,5 @@
 import { Grid, MenuItem, TextField } from '@mui/material'
-import { countriesList } from 'src/constants'
+import { countriesList } from '~/constants'
 import { userStore } from '~/stores'
 import { UpdateUserInputDto, useOnUpdateUser } from '~/queries'
 

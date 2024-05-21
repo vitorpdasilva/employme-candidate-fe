@@ -28,6 +28,7 @@
     "@types/jest": "^28.1.6",
     "@types/node": "^18.0.6",
     "@types/react-dom": "^18.0.6",
+    "@vitorboccio/eslint-config-emo": "^1.0.0",
     "axios": "^1.6.7",
     "date-fns": "^2.29.3",
     "html-react-parser": "3.0.4",
