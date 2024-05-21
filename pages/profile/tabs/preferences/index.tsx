@@ -191,7 +191,6 @@ export const Preferences = (): JSX.Element => {
               renderInput={(params): JSX.Element => (
                 <TextField {...params} placeholder="Your company will be hidden for employees of these companies" />
               )}
-              sx={{ width: '500px' }}
             />
           </Stack>
         </Grid>
