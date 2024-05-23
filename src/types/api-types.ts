@@ -161,7 +161,7 @@ export interface components {
       /** @description Email */
       email: string;
       /** @description UserType */
-      type: components["schemas"]["UserType"];
+      userType: components["schemas"]["UserType"];
       /** @description Name */
       name: string;
       /** @description Access Count */
@@ -210,14 +210,14 @@ export interface components {
     RegisterUserInputDto: {
       /** @description Email */
       email: string;
+      /** @description UserType */
+      userType: components["schemas"]["UserType"];
       /** @description Name */
       name: string;
       /** @description Password */
       password: string;
     };
     UpdateUserInputDto: {
-      /** @description UserType */
-      type?: components["schemas"]["UserType"];
       /** @description Name */
       name?: string;
       /** @description Access Count */
