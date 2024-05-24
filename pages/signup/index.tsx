@@ -1,6 +1,6 @@
-import { Alert, Box, Button, Link, styled, TextField, Typography } from '@mui/material'
+import { Box, Button, Link, styled, TextField, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Resolver, useForm } from 'react-hook-form'
 import { useIsAuthenticated } from '~/hooks'
 import { useOnSignUp, SignUpInput } from '../../src/queries/onSignUp.mutation'
@@ -28,7 +28,6 @@ const resolver: Resolver<SignUpInput> = async (values) => {
 const SignUp = (): JSX.Element => {
   const { onCall, loading } = useOnSignUp()
   const { register, handleSubmit } = useForm<SignUpInput>({ resolver })
-  const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const isAuthenticated = useIsAuthenticated()
 
   const router = useRouter()
@@ -44,12 +43,7 @@ const SignUp = (): JSX.Element => {
   })
 
   return (
-    <FormWrapper component="form" onSubmit={onSubmit} onChange={(): void => setErrorMessage(null)}>
-      {errorMessage && (
-        <Alert sx={{ my: 2 }} severity="error">
-          {errorMessage}
-        </Alert>
-      )}
+    <FormWrapper component="form" onSubmit={onSubmit}>
       <TextField {...register('name')} label="Your Name" variant="outlined" />
       <TextField sx={{ my: 2 }} {...register('email')} label="email" variant="outlined" />
       <TextField {...register('password')} type="password" label="password" variant="outlined" />
