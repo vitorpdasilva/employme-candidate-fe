@@ -5,7 +5,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { useRouter } from 'next/router'
-import { SnackbarProvider } from 'notistack'
+import { enqueueSnackbar, SnackbarProvider } from 'notistack'
 import { ElementType, useEffect } from 'react'
 import { Header, NavSidebar } from '~/components'
 import { useIsAuthenticated } from '~/hooks'
@@ -20,7 +20,15 @@ type MyAppProps = {
   pageProps: any
 }
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    mutations: {
+      onError: (error): void => {
+        enqueueSnackbar(error.message ?? 'Something went wrong. Sorry for the inconvenience.', { variant: 'error' })
+      },
+    },
+  },
+})
 
 function MyApp({ Component, pageProps }: MyAppProps): JSX.Element {
   const router = useRouter()

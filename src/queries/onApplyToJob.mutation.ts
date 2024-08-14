@@ -28,9 +28,6 @@ export const useOnApplyToJob = (): GenericMutationHookResponse<ApplyToJobRespons
     onSuccess: () => {
       enqueueSnackbar('Applied', { variant: 'success' })
     },
-    onError: (error) => {
-      enqueueSnackbar(error.message, { variant: 'error' })
-    },
   })
   return { onCall: mutate, loading: isPending, error }
 }

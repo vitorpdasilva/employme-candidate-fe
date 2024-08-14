@@ -38,9 +38,6 @@ export const useOnUpdateUser = (): GenericMutationHookResponse<UserWithTokensOut
       setUser(success.userData)
       enqueueSnackbar('User Update', { variant: 'success' })
     },
-    onError: (error) => {
-      enqueueSnackbar(error.message, { variant: 'error' })
-    },
   })
 
   return { onCall: mutate, loading: isPending, error }

@@ -33,9 +33,6 @@ export const useOnResumeUpload = (): GenericMutationHookResponse<UserWithTokensO
       // console.log({ success })
       enqueueSnackbar('Resume Uploaded', { variant: 'success' })
     },
-    onError: (error) => {
-      enqueueSnackbar(error.message, { variant: 'error' })
-    },
   })
   return { onCall: mutate, loading: isPending, error }
 }

@@ -4,7 +4,6 @@ import { GenericMutationHookResponse, components } from '~/types'
 import { useMutation } from '@tanstack/react-query'
 import { userStore, authStore } from '~/stores'
 import { useRouter } from 'next/router'
-import { enqueueSnackbar } from 'notistack'
 
 export type SignInInput = components['schemas']['SignInDto']
 export type SignInResponse = components['schemas']['UserWithTokensOutputDto']
@@ -33,10 +32,6 @@ export const useOnSignIn = (): GenericMutationHookResponse<SignInResponse, SignI
       setUser(success.userData)
       setTokens(success.tokens)
       router.push('/')
-    },
-    onError: (error) => {
-      console.error({ error })
-      enqueueSnackbar(error.message, { variant: 'error' })
     },
   })
 
