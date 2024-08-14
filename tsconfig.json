@@ -99,7 +99,9 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "incremental": true
+    "incremental": true,
+    "ignoreDeprecations": "5.0",
+    "suppressImplicitAnyIndexErrors": true
   },
   "exclude": ["node_modules", "build/**/*", "src/constants.ts"],
   "include": ["next-env.d.ts", "**/*.ts", "src/**/*", "pages/**/*", ".eslintrc.js", "next-env.d.ts"],

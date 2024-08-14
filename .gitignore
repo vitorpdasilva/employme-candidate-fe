@@ -34,3 +34,5 @@ yarn-error.log*
 .vercel
 
 ./src/types/api-types.ts
+./src/types/generated.ts
+./src/types/generate.schemas.ts
