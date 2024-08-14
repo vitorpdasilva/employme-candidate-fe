@@ -2,10 +2,10 @@ import { Container, NoSsr, ScopedCssBaseline, ThemeProvider } from '@mui/materia
 import Grid from '@mui/material/Unstable_Grid2'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { useRouter } from 'next/router'
-import { enqueueSnackbar, SnackbarProvider } from 'notistack'
+import { enqueueSnackbar, SnackbarProvider, SnackbarKey } from 'notistack'
 import { ElementType, useEffect } from 'react'
 import { Header, NavSidebar } from '~/components'
 import { useIsAuthenticated } from '~/hooks'
@@ -21,13 +21,12 @@ type MyAppProps = {
 }
 
 const queryClient = new QueryClient({
-  defaultOptions: {
-    mutations: {
-      onError: (error): void => {
-        enqueueSnackbar(error.message ?? 'Something went wrong. Sorry for the inconvenience.', { variant: 'error' })
-      },
-    },
-  },
+  mutationCache: new MutationCache({
+    onError: (error): SnackbarKey => enqueueSnackbar(error.message ?? 'Something went wrong.', { variant: 'error' }),
+  }),
+  queryCache: new QueryCache({
+    onError: (error): SnackbarKey => enqueueSnackbar(error.message ?? 'Something went wrong.', { variant: 'error' }),
+  }),
 })
 
 function MyApp({ Component, pageProps }: MyAppProps): JSX.Element {
